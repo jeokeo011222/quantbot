@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <linearGradient id="line" x1="10" y1="44" x2="54" y2="18" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- 上升趋势线 -->
+  <polyline points="12,44 24,36 32,40 42,24 52,20" stroke="url(#line)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 节点圆点 -->
+  <circle cx="24" cy="36" r="3" fill="#FFFFFF"/>
+  <circle cx="32" cy="40" r="3" fill="#FFFFFF"/>
+  <circle cx="42" cy="24" r="3" fill="#FFFFFF"/>
+  <circle cx="52" cy="20" r="4" fill="#FFFFFF"/>
+  <!-- 小箭头 -->
+  <polyline points="48,14 52,20 56,14" stroke="#FFFFFF" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 简化的K线柱 -->
+  <rect x="18" y="46" width="2" height="8" fill="#FFFFFF" opacity="0.6"/>
+  <rect x="22" y="48" width="2" height="6" fill="#FFFFFF" opacity="0.6"/>
+  <rect x="38" y="44" width="2" height="10" fill="#FFFFFF" opacity="0.6"/>
+  <rect x="46" y="42" width="2" height="12" fill="#FFFFFF" opacity="0.6"/>
+</svg>
