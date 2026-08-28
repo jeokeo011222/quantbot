@@ -11,6 +11,12 @@ interface SystemStatus {
   config_ready: boolean
   sqlite_ready: boolean
   duckdb_ready: boolean
+  conn_db_ok: boolean
+  conn_db_detail: string
+  conn_ds_ok: boolean
+  conn_ds_detail: string
+  conn_ai_ready: boolean
+  conn_ai_error: string
   portfolio_ready: boolean
   portfolio_warm: boolean
   portfolio_warm_error: string
@@ -27,6 +33,12 @@ export default function InitialLoading({ onReady }: Props) {
     config_ready: false,
     sqlite_ready: false,
     duckdb_ready: false,
+    conn_db_ok: false,
+    conn_db_detail: '',
+    conn_ds_ok: false,
+    conn_ds_detail: '',
+    conn_ai_ready: false,
+    conn_ai_error: '',
     portfolio_ready: false,
     portfolio_warm: false,
     portfolio_warm_error: '',
@@ -50,6 +62,12 @@ export default function InitialLoading({ onReady }: Props) {
           config_ready: result.config_ready || false,
           sqlite_ready: result.sqlite_ready || false,
           duckdb_ready: result.duckdb_ready || false,
+          conn_db_ok: result.conn_db_ok || false,
+          conn_db_detail: result.conn_db_detail || '',
+          conn_ds_ok: result.conn_ds_ok || false,
+          conn_ds_detail: result.conn_ds_detail || '',
+          conn_ai_ready: result.conn_ai_ready || false,
+          conn_ai_error: result.conn_ai_error || '',
           portfolio_ready: result.portfolio_ready || false,
           portfolio_warm: result.portfolio_warm || false,
           portfolio_warm_error: result.portfolio_warm_error || '',
@@ -125,11 +143,11 @@ export default function InitialLoading({ onReady }: Props) {
 
   const componentStatus = [
     { key: 'config', name: '配置管理器', ready: status.config_ready, critical: true },
-    { key: 'sqlite', name: 'SQLite 数据库', ready: status.sqlite_ready, critical: true },
-    { key: 'duckdb', name: '股票时序数据库', ready: status.duckdb_ready, critical: false },
+    { key: 'sqlite', name: 'SQLite 数据库', ready: status.conn_db_ok, critical: true },
+    { key: 'duckdb', name: '股票行情数据', ready: status.conn_ds_ok, critical: true },
+    { key: 'llm', name: 'LLM 大模型服务', ready: status.conn_ai_ready, critical: true },
     { key: 'portfolio', name: '投资组合引擎', ready: status.portfolio_ready, critical: false },
     { key: 'portfolio_warm', name: '组合数据预热', ready: status.portfolio_warm, critical: true },
-    { key: 'llm', name: 'LLM 大模型服务', ready: status.llm_ready, critical: false },
     { key: 'executor', name: '智能体执行器', ready: status.agent_executor_ready, critical: false },
   ]
 
