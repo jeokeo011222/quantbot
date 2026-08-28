@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
-import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Brain, Globe } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Brain, Globe, Rocket, Loader2 } from 'lucide-react'
+import { EventsOn, EventsOff } from '../../wailsjs/runtime/runtime'
 import { useI18nStore } from '../store/i18nStore'
 import type { Language } from '../store/i18nStore'
 import { useThemeStore } from '../store/themeStore'
@@ -87,6 +88,12 @@ export default function Settings() {
 
   // 系统信息状态
   const [systemInfo, setSystemInfo] = useState<any>(null)
+
+  // 软件更新状态
+  const [updateInfo, setUpdateInfo] = useState<any>(null)
+  const [updateState, setUpdateState] = useState<'idle' | 'checking' | 'available' | 'downloading' | 'ready' | 'error'>('idle')
+  const [updateProgress, setUpdateProgress] = useState(0)
+  const [updateError, setUpdateError] = useState<string>('')
 
   // 数据维护状态
   const [syncStatus, setSyncStatus] = useState<any>(null)
@@ -176,6 +183,83 @@ export default function Settings() {
       setQmtTestResult({ success: false, message: e?.message || '测试失败' })
     }
     setQmtTesting(false)
+  }
+
+  // ==================== 软件更新 ====================
+
+  // 监听下载进度与后台静默检查发现的更新
+  useEffect(() => {
+    const offProgress = EventsOn('update:progress', (p: { percent?: number }) => {
+      if (typeof p?.percent === 'number') setUpdateProgress(p.percent)
+    })
+    const offAvailable = EventsOn('update:available', (info: any) => {
+      if (!info?.latest_version) return
+      setUpdateInfo(info)
+      setUpdateState('available')
+      setUpdateError('')
+    })
+    // 启动静默检查可能早于本页加载：加载一次后端缓存状态
+    callApp<any>('GetUpdateStatus')
+      .then((st: any) => {
+        if (st?.has_update && st?.latest_version) {
+          setUpdateInfo({
+            current_version: st.current_version,
+            latest_version: st.latest_version,
+            changelog: st.changelog,
+            size: st.size,
+          })
+          setUpdateState('available')
+        }
+      })
+      .catch(() => {})
+    return () => {
+      offProgress()
+      offAvailable()
+      EventsOff('update:progress')
+      EventsOff('update:available')
+    }
+  }, [])
+
+  const handleCheckUpdate = async () => {
+    setUpdateState('checking')
+    setUpdateError('')
+    try {
+      const info = await callApp<any>('CheckForUpdate')
+      if (info?.has_update) {
+        setUpdateInfo(info)
+        setUpdateState('available')
+      } else {
+        setUpdateInfo({ current_version: info?.current_version })
+        setUpdateState('idle')
+      }
+    } catch (e: any) {
+      setUpdateError(e?.message || '检查更新失败')
+      setUpdateState('error')
+    }
+  }
+
+  const handleDownloadUpdate = async () => {
+    setUpdateState('downloading')
+    setUpdateProgress(0)
+    setUpdateError('')
+    try {
+      await callApp<void>('DownloadUpdate')
+      setUpdateState('ready')
+    } catch (e: any) {
+      setUpdateError(e?.message || '下载升级包失败')
+      setUpdateState('error')
+    }
+  }
+
+  const handleApplyUpdate = async () => {
+    setUpdateError('')
+    try {
+      await callApp<void>('ApplyUpdate')
+      // 主进程随即退出，由升级子进程完成替换并重启
+    } catch (e: any) {
+      setUpdateError(e?.message || '应用更新失败')
+      setUpdateState('error')
+    }
   }
 
   const handleSave = async () => {
@@ -1411,6 +1495,117 @@ export default function Settings() {
                 </div>
               )}
 
+              {/* 软件更新 */}
+              <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div className="flex items-center gap-2 mb-3">
+                  <Rocket className="w-4 h-4 text-blue-500" />
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t('settings.updateSection')}</h3>
+                </div>
+
+                {updateState === 'idle' && (
+                  <div className="space-y-3">
+                    {updateInfo?.current_version && (
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
+                        {t('settings.upToDate').replace('{version}', updateInfo.current_version)}
+                      </p>
+                    )}
+                    <button
+                      onClick={handleCheckUpdate}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5" />
+                      {t('settings.checkUpdate')}
+                    </button>
+                  </div>
+                )}
+
+                {updateState === 'checking' && (
+                  <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    {t('settings.checkingUpdate')}
+                  </div>
+                )}
+
+                {updateState === 'available' && (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div className="text-slate-500 dark:text-slate-400">
+                        {t('settings.currentVersion')}：
+                        <span className="text-slate-700 dark:text-slate-200">{updateInfo?.current_version}</span>
+                      </div>
+                      <div className="text-slate-500 dark:text-slate-400">
+                        {t('settings.latestVersion')}：
+                        <span className="text-green-600 dark:text-green-400 font-medium">{updateInfo?.latest_version}</span>
+                      </div>
+                      <div className="col-span-2 text-slate-500 dark:text-slate-400">
+                        {t('settings.packageSize')}：
+                        <span className="text-slate-700 dark:text-slate-200">{formatBytes(updateInfo?.size)}</span>
+                      </div>
+                    </div>
+                    {updateInfo?.changelog && (
+                      <div>
+                        <p className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">{t('settings.updateChangelog')}</p>
+                        <pre className="whitespace-pre-wrap text-[11px] text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 rounded p-2 max-h-32 overflow-y-auto">{updateInfo.changelog}</pre>
+                      </div>
+                    )}
+                    <button
+                      onClick={handleDownloadUpdate}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      {t('settings.downloadUpdate')}
+                    </button>
+                  </div>
+                )}
+
+                {updateState === 'downloading' && (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        {t('settings.downloadingUpdate')}
+                      </span>
+                      <span>{updateProgress}%</span>
+                    </div>
+                    <div className="h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                      <div
+                        className="h-full bg-blue-500 transition-all duration-300"
+                        style={{ width: `${updateProgress}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {updateState === 'ready' && (
+                  <div className="space-y-3">
+                    <p className="text-xs text-green-600 dark:text-green-400">{t('settings.updateReady')}</p>
+                    <button
+                      onClick={handleApplyUpdate}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
+                    >
+                      <Rocket className="w-3.5 h-3.5" />
+                      {t('settings.restartUpdate')}
+                    </button>
+                  </div>
+                )}
+
+                {updateState === 'error' && (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-1.5 text-xs text-red-500">
+                      <AlertTriangle className="w-3.5 h-3.5" />
+                      <span>{t('settings.updateFailed')}：{updateError}</span>
+                    </div>
+                    <button
+                      onClick={handleCheckUpdate}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+                    >
+                      <RefreshCw className="w-3.5 h-3.5" />
+                      {t('settings.checkUpdate')}
+                    </button>
+                  </div>
+                )}
+              </div>
+
               {/* 功能列表 */}
               {systemInfo?.features?.length > 0 && (
                 <div>
@@ -1441,4 +1636,17 @@ export default function Settings() {
       </div>
     </div>
   )
+}
+
+// 字节数格式化为可读文本
+function formatBytes(bytes: number): string {
+  if (!bytes || bytes <= 0) return '0 B'
+  const units = ['B', 'KB', 'MB', 'GB']
+  let i = 0
+  let val = bytes
+  while (val >= 1024 && i < units.length - 1) {
+    val /= 1024
+    i++
+  }
+  return `${val.toFixed(1)} ${units[i]}`
 }

@@ -3,6 +3,8 @@
 import {llmstore} from '../models';
 import {context} from '../models';
 
+export function ApplyUpdate():Promise<void>;
+
 export function ApproveDecisionByCIO(arg1:string):Promise<any>;
 
 export function ApprovePlan(arg1:string,arg2:boolean):Promise<void>;
@@ -23,6 +25,8 @@ export function CIOReviewPlan(arg1:string):Promise<any>;
 
 export function CalculateStructureRisk(arg1:Array<string>):Promise<any>;
 
+export function CheckForUpdate():Promise<Record<string, any>>;
+
 export function CheckLLMConnectivity():Promise<boolean>;
 
 export function CleanupOldData():Promise<any>;
@@ -42,6 +46,8 @@ export function DeleteBacktestResult(arg1:number):Promise<any>;
 export function DeleteStrategy(arg1:number):Promise<any>;
 
 export function DeleteTradeableStock(arg1:string):Promise<any>;
+
+export function DownloadUpdate():Promise<void>;
 
 export function EmergencyStop():Promise<void>;
 
@@ -236,6 +242,8 @@ export function GetTradingMode():Promise<any>;
 export function GetTransparencyData(arg1:string):Promise<any>;
 
 export function GetTransparencyStats():Promise<any>;
+
+export function GetUpdateStatus():Promise<Record<string, any>>;
 
 export function GetUpgradePath():Promise<any>;
 

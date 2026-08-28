@@ -206,6 +206,22 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.brokerAccount': 'Broker Account',
     'settings.paperBrokerHint': 'Paper trading mode enabled. No real orders will be placed. Configure a broker for live trading.',
 
+    // Software Update
+    'settings.updateSection': 'Software Update',
+    'settings.checkUpdate': 'Check for Updates',
+    'settings.checkingUpdate': 'Checking...',
+    'settings.upToDate': 'You are up to date (v{version})',
+    'settings.updateAvailable': 'New version available',
+    'settings.currentVersion': 'Current Version',
+    'settings.latestVersion': 'Latest Version',
+    'settings.packageSize': 'Package Size',
+    'settings.downloadUpdate': 'Download & Install',
+    'settings.downloadingUpdate': 'Downloading...',
+    'settings.restartUpdate': 'Restart & Upgrade',
+    'settings.updateReady': 'Update ready. Restart to apply.',
+    'settings.updateChangelog': 'Update Log',
+    'settings.updateFailed': 'Update failed',
+
     // Welcome Wizard
     'welcome.title': 'Welcome to QuantBot',
     'welcome.step1Desc': 'Let us get your trading environment set up',
@@ -497,6 +513,22 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.brokerBaseURL': '券商 API 地址',
     'settings.brokerAccount': '券商账号',
     'settings.paperBrokerHint': '当前为模拟交易模式，不会发送真实订单。请配置交易接口以启用实盘交易。',
+
+    // Software Update
+    'settings.updateSection': '软件更新',
+    'settings.checkUpdate': '检查更新',
+    'settings.checkingUpdate': '检查中...',
+    'settings.upToDate': '已是最新版本（v{version}）',
+    'settings.updateAvailable': '发现新版本',
+    'settings.currentVersion': '当前版本',
+    'settings.latestVersion': '最新版本',
+    'settings.packageSize': '包大小',
+    'settings.downloadUpdate': '下载并安装',
+    'settings.downloadingUpdate': '下载中...',
+    'settings.restartUpdate': '重启并升级',
+    'settings.updateReady': '升级包已就绪，重启后生效',
+    'settings.updateChangelog': '更新日志',
+    'settings.updateFailed': '升级失败',
 
     // Welcome Wizard
     'welcome.title': '欢迎使用 QuantBot',
