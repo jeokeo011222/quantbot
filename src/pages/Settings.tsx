@@ -1321,8 +1321,8 @@ export default function Settings() {
                   <h3 className="text-sm font-semibold text-red-700 dark:text-red-400">系统初始化</h3>
                 </div>
                 <p className="text-xs text-red-600/90 dark:text-red-400/90">
-                  <strong>危险操作：</strong>将清空所有用户数据（交易记录、持仓、策略、回测结果、投资计划、智能体记录等），
-                  仅保留系统基本信息、表结构与审计日志。此操作不可恢复！
+                  <strong>危险操作：</strong>将清空所有用户过程数据（交易记录、持仓、策略、回测结果、投资计划、智能体记录、每日复盘、因子质量、仓位配置等），
+                  <strong>仅保留字典数据</strong>（股票标的、市场指数、自选股、系统设置、审计日志）与表结构。此操作不可恢复，建议先备份！
                 </p>
                 <div className="flex gap-2 items-center">
                   <input
@@ -1347,7 +1347,7 @@ export default function Settings() {
                       ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
                       : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400'
                   }`}>
-                    {resetResult.error || '系统初始化完成，用户数据已全部清空。'}
+                    {resetResult.error || '系统初始化完成，用户数据已全部清空。请重启应用使设置生效。'}
                   </div>
                 )}
               </div>
