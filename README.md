@@ -5,17 +5,11 @@
     **不是聊天机器人。不是简单选股器。**
     
     **而是一支由 5 个 AI Agent 协作完成投资工作的量化团队。**
-    
-    <br>
-    ![AI 团队](image/AI团队.png)
-    
-    
-    <br>
+
     
     ⭐ **Star this project if you think AI + Quantitative Investing is interesting.**
     
-    
-    ---
+    ./image/驾驶舱2.png
     
     # 🧠 What if your investment account had an AI team?
     
