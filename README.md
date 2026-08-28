@@ -5,8 +5,6 @@
   <sub><i>AI × Quant × Risk × Portfolio × Trading</i></sub>
 </p>
 
-下载地址：[QuantBot v1.1.0 Release](https://github.com/jeokeo011222/quantbot/releases/tag/v1.1.0-build.2)，在 Assets 中下载 `QuantBot-v1.1.0-full.zip`
-
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white" alt="Windows">
   <img src="https://img.shields.io/badge/Stack-Go%20%2B%20React%20%2B%20SQLite%20%2B%20DuckDB-4FC08D" alt="Stack">
@@ -27,6 +25,8 @@
   <a href="#community">🤝 加入社区</a>
 </p>
 
+---
+下载地址：[QuantBot v1.1.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.1.0-build.2/QuantBot-v1.1.0-full.zip)
 ---
 
 <h2 align="center">⭐ 如果你觉得 AI + 量化投资很酷，请给这个项目一个 Star</h2>
