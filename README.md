@@ -27,7 +27,7 @@
 
 ---
 
-<p align="center">下载地址：[QuantBot v1.1.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.1.0-build.2/QuantBot-v1.1.0-full.zip)</p>
+          下载地址：[QuantBot v1.1.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.1.0-build.2/QuantBot-v1.1.0-full.zip)
 
 ---
 
