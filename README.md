@@ -1,13 +1,11 @@
-<p align="center">
-  <img src="image/驾驶舱1.png" alt="QuantBot 驾驶舱" width="100%">
-</p>
-
 <h1 align="center">🤖 QuantBot</h1>
 
 <p align="center">
   <b>一个真正会每天工作的 AI 投资团队</b><br>
   <sub><i>AI × Quant × Risk × Portfolio × Trading</i></sub>
 </p>
+
+下载地址：[QuantBot v1.1.0 Release](https://github.com/jeokeo011222/quantbot/releases/tag/v1.1.0-build.2)，在 Assets 中下载 `QuantBot-v1.1.0-full.zip`
 
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white" alt="Windows">
