@@ -33,6 +33,7 @@
 
 <h2 align="center">⭐ 如果你觉得 AI + 量化投资很酷，请给这个项目一个 Star</h2>
 
+
 <p align="center">
   <img src="image/AI团队.png" alt="AI 团队架构" width="100%">
 </p>
@@ -203,7 +204,7 @@ AI Agent 协作 → 投资决策
 
 <a id="etf"></a>
 
-## 🎁 Hidden Feature · ETF Monitor
+## 🎁 彩蛋 · ETF Monitor
 
 <p align="center">
   <img src="image/ETF监控.png" alt="ETF 监控" width="100%">
@@ -284,29 +285,6 @@ QuantBot 支持模拟交易，也支持 QMT / XtQuant 实盘接口。
 
 ---
 
-## 🧩 项目架构
-
-```text
-┌─────────────────────────────────────────────┐
-│                  QuantBot                   │
-├─────────────────────────────────────────────┤
-│              React Frontend                 │
-│                     │                       │
-│                     ▼                       │
-│               Go Application                │
-│        ┌────────────┼────────────┐          │
-│        ▼            ▼            ▼          │
-│    AI Agents   Quant Engine   Risk Engine   │
-│        │            │            │          │
-│        ▼            ▼            ▼          │
-│       LLM        DuckDB       Portfolio     │
-│                     │                       │
-│                     ▼                       │
-│                  SQLite                    │
-└─────────────────────────────────────────────┘
-```
-
----
 
 ## 🧭 Roadmap
 
@@ -394,10 +372,6 @@ QuantBot 仅供学习、研究和量化投资实验使用。
 > 💡 程序运行过程中，需要消耗一定的 Token 成本，请根据自己的需要调整刷新频率。
 
 ---
-
-<p align="center">
-  <img src="image/关于.png" alt="QuantBot" width="60%">
-</p>
 
 <h2 align="center">🤖 QuantBot</h2>
 
