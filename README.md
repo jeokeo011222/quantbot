@@ -318,43 +318,6 @@ AI Agent -> Quant -> Risk -> Portfolio -> Trading -> Daily Workflow -> Self Revi
 
 如果你发现 Bug、产生新的想法，或者希望贡献代码：**欢迎提交 Issue / Pull Request。**
 
-
-
-
-### 💎 付费群（￥500 元）
-
-经用户建议，决定开展付费（入群费用：￥500 元）企鹅 Q 群活动。入群后，您可以获得：
-
-1. 为大家搭建一个专业爱好者的圈子平台，随时交流
-2. 不定期在群里发布一些量化策略
-3. QuantBot 的数据业务和技术问题答疑，可提供相应技术支持和建议
-
-**加群步骤：**
-
-1. 用微信扫码支付 **500**，备注：**QQ 号码和昵称**
-2. 再用企鹅扫下方二维码加群，我们核对身份后通过
-
-| 第一步：微信支付 | 第二步：QQ VIP 群 |
-|:---:|:---:|
-| <img src="ui/image/WX收款.png" width="240"> | <img src="ui/image/QQvip1群.jpg" width="240"> |
-
-### 🆓 免费群
-
-如果您不想支付费用，也可以直接加我们的免费企鹅群。用企鹅直接扫二维码入群。
-
-<p align="center">
-  <img src="ui/image/QQFree1群.jpg" alt="免费企鹅群" width="240">
-</p>
-
-### 💼 商务洽谈
-
-请直接扫微信二维码：
-
-<p align="center">
-  <img src="ui/image/WX商务.jpg" alt="商务洽谈" width="240">
-</p>
-
-
 ---
 
 # ⚠️ Disclaimer
