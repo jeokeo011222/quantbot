@@ -27,7 +27,7 @@
 
 ---
 
-  下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)
+  下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)    内含少量测试数据，直接下载解包，输入LLM API-key即可运行使用
 
 ---
 
