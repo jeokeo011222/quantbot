@@ -19,12 +19,10 @@
 
 ---
 
-
-
   下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)
 
 <br>
-  ## ⭐ 如果你觉得 AI + 量化投资很酷，请给这个项目一个 Star
+## ⭐ 如果你觉得 AI + 量化投资很酷，请给这个项目一个 Star
 
 ---
 
