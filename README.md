@@ -35,7 +35,7 @@
 
 
 <p align="center">
-  <img src="image/AI团队.png" alt="AI 团队架构" width="100%">
+  <img src="ui/image/AI团队.png" alt="AI 团队架构" width="100%">
 </p>
 
 ---
@@ -55,7 +55,7 @@
 它**不是**让一个大模型扮演"股神"，而是让 **多个 AI Agent 分工合作**：
 
 <p align="center">
-  <img src="image/量化分析师.png" alt="Agent 协作" width="70%">
+  <img src="ui/image/量化分析师.png" alt="Agent 协作" width="70%">
 </p>
 
 > **5 个 Agent，不是 5 个聊天窗口。**
@@ -75,7 +75,7 @@ QuantBot 将 **LLM × 量化分析 × 因子研究 × 风险管理 × 组合管�
 > ### 让投资从"每天自己研究"，变成"每天有一支 AI 团队帮你工作"。
 
 <p align="center">
-  <img src="image/驾驶舱2.png" alt="QuantBot 驾驶舱" width="100%">
+  <img src="ui/image/驾驶舱2.png" alt="QuantBot 驾驶舱" width="100%">
 </p>
 
 ---
@@ -87,7 +87,7 @@ QuantBot **不是**：打开 → 问 AI 一个问题 → 关闭。
 而是一套**持续运行的投资工作流**：
 
 <p align="center">
-  <img src="image/实时活动.png" alt="实时活动" width="100%">
+  <img src="ui/image/实时活动.png" alt="实时活动" width="100%">
 </p>
 
 ### 🌅 盘前
@@ -133,7 +133,7 @@ QuantBot **不是**：打开 → 问 AI 一个问题 → 关闭。
 负责理解：资金规模、投资目标、风险偏好、投资约束，然后把人的投资需求转化成投资方案。
 
 <p align="center">
-  <img src="image/投资规划.png" alt="投资规划" width="85%">
+  <img src="ui/image/投资规划.png" alt="投资规划" width="85%">
 </p>
 
 ### 02 · Quant 量化分析师
@@ -161,7 +161,7 @@ QuantBot **不是**：打开 → 问 AI 一个问题 → 关闭。
 负责执行：建仓、调仓、仓位调整、交易约束、模拟交易、QMT 实盘接口。
 
 <p align="center">
-  <img src="image/投资决策.png" alt="投资决策" width="85%">
+  <img src="ui/image/投资决策.png" alt="投资决策" width="85%">
 </p>
 
 ---
@@ -185,19 +185,19 @@ AI Agent 协作 → 投资决策
 ```
 
 <p align="center">
-  <img src="image/我的投资.png" alt="我的投资" width="100%">
+  <img src="ui/image/我的投资.png" alt="我的投资" width="100%">
 </p>
 
 ## 📈 内置量化能力
 
 | 能力 | 说明 | 截图 |
 |------|------|------|
-| 🔎 **选股** | 多因子智能选股 | <img src="image/选股引擎.png" width="200"> |
-| 🧪 **策略** | 内置多种量化策略及策略指标 | <img src="image/量化策略.png" width="200"> |
-| 📊 **回测** | 收益、最大回撤、Sharpe、胜率、策略表现 | <img src="image/量化回测.png" width="200"> |
-| 💼 **投资组合** | 管理持仓、盈亏、资产曲线、投资方案、每日决策 | <img src="image/投资方案.png" width="200"> |
+| 🔎 **选股** | 多因子智能选股 | <img src="ui/image/选股引擎.png" width="200"> |
+| 🧪 **策略** | 内置多种量化策略及策略指标 | <img src="ui/image/量化策略.png" width="200"> |
+| 📊 **回测** | 收益、最大回撤、Sharpe、胜率、策略表现 | <img src="ui/image/量化回测.png" width="200"> |
+| 💼 **投资组合** | 管理持仓、盈亏、资产曲线、投资方案、每日决策 | <img src="ui/image/投资方案.png" width="200"> |
 | 🛡️ **风险** | 从组合角度监控风险 | — |
-| 🧠 **AI 决策** | 让多个 Agent 协作完成每日投资流程 | <img src="image/投资决策.png" width="200"> |
+| 🧠 **AI 决策** | 让多个 Agent 协作完成每日投资流程 | <img src="ui/image/投资决策.png" width="200"> |
 | 📋 **审计** | 记录 AI 调用、投资规划、选股、策略、回测、CIO 决策、系统事件 | — |
 
 ---
@@ -207,7 +207,7 @@ AI Agent 协作 → 投资决策
 ## 🎁 彩蛋 · ETF Monitor
 
 <p align="center">
-  <img src="image/ETF监控.png" alt="ETF 监控" width="100%">
+  <img src="ui/image/ETF监控.png" alt="ETF 监控" width="100%">
 </p>
 
 给不想研究个股的人 —— 如果你看到这里，觉得"股票实在太复杂了"，没关系，这里还偷偷放了一个小彩蛋。
@@ -275,7 +275,7 @@ QuantBot 支持模拟交易，也支持 QMT / XtQuant 实盘接口。
 ## 🛠️ 数据源
 
 <p align="center">
-  <img src="image/多数据源.png" alt="多数据源" width="100%">
+  <img src="ui/image/多数据源.png" alt="多数据源" width="100%">
 </p>
 
 - ⚡ **实时行情**：原生 TDX、TDX MCP、MCP、通达信终端接口、腾讯财经
@@ -337,14 +337,14 @@ QuantBot 是一个长期项目。它不是一个商业公司投入几十个人�
 
 | 第一步：微信支付 | 第二步：QQ VIP 群 |
 |:---:|:---:|
-| <img src="image/WX收款.png" width="240"> | <img src="image/QQvip1群.jpg" width="240"> |
+| <img src="ui/image/WX收款.png" width="240"> | <img src="ui/image/QQvip1群.jpg" width="240"> |
 
 ### 🆓 免费群
 
 如果您不想支付费用，也可以直接加我们的免费企鹅群。用企鹅直接扫二维码入群。
 
 <p align="center">
-  <img src="image/QQFree1群.jpg" alt="免费企鹅群" width="240">
+  <img src="ui/image/QQFree1群.jpg" alt="免费企鹅群" width="240">
 </p>
 
 ### 💼 商务洽谈
@@ -352,7 +352,7 @@ QuantBot 是一个长期项目。它不是一个商业公司投入几十个人�
 请直接扫微信二维码：
 
 <p align="center">
-  <img src="image/WX商务.jpg" alt="商务洽谈" width="240">
+  <img src="ui/image/WX商务.jpg" alt="商务洽谈" width="240">
 </p>
 
 ---

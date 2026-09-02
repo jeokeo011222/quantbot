@@ -7,6 +7,9 @@
 # 重新包含待开源目录
 !/ui/
 !/python/
+# 根级开源文档
+!/README.md
+!/LICENSE
 
 # Python 目录内排除真实行情数据库（1.2GB，超 GitHub 单文件限制且含真实行情数据）
 /python/stock.duckdb
