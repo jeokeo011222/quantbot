@@ -246,7 +246,7 @@ QuantBot 当前采用 **Go + React + SQLite + DuckDB + LLM**，绿色免安装 �
 
 | 步骤 | 操作 |
 |------|------|
-| 1️⃣ **下载** | 前往下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)    内含少量测试数据，直接下载解包，输入LLM API-key即可运行使用，在 Assets 中下载 `QuantBot-v1.1.0-full.zip` |
+| 1️⃣ **下载** | 前往下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)    内含少量测试数据，直接下载解包，输入LLM API-key即可运行使用。 |
 | 2️⃣ **解压** | 直接解压到任意普通目录，如 `D:\QuantBot\` |
 | 3️⃣ **启动** | 双击 `QuantBot.exe`，无需复杂安装 |
 | 4️⃣ **配置 AI** | 进入 `设置 → AI`，选择 AI 服务商并填写 API Key |
