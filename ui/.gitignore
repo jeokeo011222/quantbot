@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Build output (Vite / Wails)
+build/
+dist/
+
+# Wails build artifact (auto-regenerated on each `wails build`)
+package.json.md5
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.local

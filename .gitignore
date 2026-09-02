@@ -1,27 +1,28 @@
-# Dependencies
-node_modules/
+# ===== QuantBot 开源仓库白名单 =====
+# 本仓库仅开源 前端(ui/) 与 Python 工具(python/)，
+# 其余内容（后端 Go 源码、构建产物、数据库、日志、配置）一律忽略，不对外公开。
 
-# Build output (Vite / Wails)
-build/
-dist/
+# 默认忽略仓库根下所有内容
+/*
+# 重新包含待开源目录
+!/ui/
+!/python/
 
-# Wails build artifact (auto-regenerated on each `wails build`)
-package.json.md5
+# Python 目录内排除真实行情数据库（1.2GB，超 GitHub 单文件限制且含真实行情数据）
+/python/stock.duckdb
+/python/stock.duckdb.wal
 
-# Environment / secrets
-.env
-.env.*
-!.env.example
+# 显式保护：根级散落文件（探测脚本/临时 JSON）不入库
+/databak/
+/probe_stock2.duckdb
+/t1.json
+/t2.json
+/tencent_k.json
+/tencent_test.txt
+/quantpilot.exe
 
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# OS / editor
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-*.local
+# 兜底：任何路径下的 duckdb/db 数据库文件都不入库
+**/*.duckdb
+**/*.duckdb.wal
+**/*.db
+**/*.db-*

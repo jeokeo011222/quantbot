@@ -1,0 +1,171 @@
+{
+  "model_name": "xgboost_astock_v1",
+  "created_at": "2026-08-19 13:29:26",
+  "params": {
+    "max_depth": 6,
+    "learning_rate": 0.1,
+    "n_estimators": 200,
+    "min_child_weight": 3,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1.0,
+    "objective": "multi:softmax",
+    "num_class": 3,
+    "eval_metric": "mlogloss",
+    "random_state": 42,
+    "use_label_encoder": false
+  },
+  "feature_columns": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "amount",
+    "return_1d",
+    "return_5d",
+    "return_10d",
+    "return_20d",
+    "volatility_5",
+    "volatility_10",
+    "volatility_20",
+    "ma_5",
+    "ma_ratio_5",
+    "ma_10",
+    "ma_ratio_10",
+    "ma_20",
+    "ma_ratio_20",
+    "ma_60",
+    "ma_ratio_60",
+    "ma_alignment",
+    "rsi_6",
+    "rsi_14",
+    "macd_dif",
+    "macd_dea",
+    "macd_hist",
+    "macd_cross",
+    "kdj_k",
+    "kdj_d",
+    "kdj_j",
+    "boll_mid",
+    "boll_std",
+    "boll_upper",
+    "boll_lower",
+    "boll_position",
+    "vol_ma_5",
+    "vol_ma_10",
+    "vol_ma_20",
+    "vol_ratio",
+    "vol_surge",
+    "body_ratio",
+    "upper_shadow",
+    "lower_shadow",
+    "is_yang",
+    "momentum_10",
+    "momentum_20",
+    "high_20d",
+    "low_20d",
+    "new_high",
+    "new_low"
+  ],
+  "forward_days": 5,
+  "threshold": 0.02,
+  "train_accuracy": 0.5061,
+  "test_accuracy": 0.4816,
+  "test_precision_macro": 0.4751,
+  "test_recall_macro": 0.4603,
+  "test_f1_macro": 0.4523,
+  "train_samples": 490928,
+  "test_samples": 122733,
+  "total_samples": 613661,
+  "label_distribution": {
+    "sell": 192482,
+    "hold": 239900,
+    "buy": 181279
+  },
+  "cv_accuracy_mean": 0.4715,
+  "cv_accuracy_std": 0.0039,
+  "top_features": [
+    {
+      "feature": "volatility_20",
+      "importance": 0.14630000293254852
+    },
+    {
+      "feature": "volatility_10",
+      "importance": 0.07900000363588333
+    },
+    {
+      "feature": "volatility_5",
+      "importance": 0.030799999833106995
+    },
+    {
+      "feature": "ma_ratio_60",
+      "importance": 0.03020000085234642
+    },
+    {
+      "feature": "ma_ratio_10",
+      "importance": 0.02370000071823597
+    },
+    {
+      "feature": "low_20d",
+      "importance": 0.023399999365210533
+    },
+    {
+      "feature": "ma_ratio_20",
+      "importance": 0.022600000724196434
+    },
+    {
+      "feature": "amount",
+      "importance": 0.021800000220537186
+    },
+    {
+      "feature": "close",
+      "importance": 0.021700000390410423
+    },
+    {
+      "feature": "high_20d",
+      "importance": 0.018699999898672104
+    },
+    {
+      "feature": "momentum_20",
+      "importance": 0.017999999225139618
+    },
+    {
+      "feature": "boll_position",
+      "importance": 0.017500000074505806
+    },
+    {
+      "feature": "low",
+      "importance": 0.01730000041425228
+    },
+    {
+      "feature": "return_20d",
+      "importance": 0.01730000041425228
+    },
+    {
+      "feature": "macd_dea",
+      "importance": 0.017100000753998756
+    },
+    {
+      "feature": "ma_ratio_5",
+      "importance": 0.017000000923871994
+    },
+    {
+      "feature": "ma_5",
+      "importance": 0.01679999940097332
+    },
+    {
+      "feature": "return_1d",
+      "importance": 0.016499999910593033
+    },
+    {
+      "feature": "ma_10",
+      "importance": 0.016200000420212746
+    },
+    {
+      "feature": "boll_lower",
+      "importance": 0.016100000590085983
+    }
+  ]
+}
