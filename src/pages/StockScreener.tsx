@@ -32,6 +32,8 @@ const FACTOR_COLORS: Record<string, { bg: string; text: string; bar: string }> =
   low_volatility: { bg: 'bg-purple-50 dark:bg-purple-900/20', text: 'text-purple-600 dark:text-purple-400', bar: 'bg-purple-500' },
   earnings_stability: { bg: 'bg-pink-50 dark:bg-pink-900/20', text: 'text-pink-600 dark:text-pink-400', bar: 'bg-pink-500' },
   liquidity: { bg: 'bg-cyan-50 dark:bg-cyan-900/20', text: 'text-cyan-600 dark:text-cyan-400', bar: 'bg-cyan-500' },
+  order_book: { bg: 'bg-amber-50 dark:bg-amber-900/20', text: 'text-amber-600 dark:text-amber-400', bar: 'bg-amber-500' },
+  cointegration_spread: { bg: 'bg-indigo-50 dark:bg-indigo-900/20', text: 'text-indigo-600 dark:text-indigo-400', bar: 'bg-indigo-500' },
 }
 
 const FACTOR_NAMES: Record<string, string> = {
@@ -41,9 +43,11 @@ const FACTOR_NAMES: Record<string, string> = {
   low_volatility: '低波动',
   earnings_stability: '盈利稳定',
   liquidity: '流动性',
+  order_book: '盘口',
+  cointegration_spread: '配对/协整',
 }
 
-const FACTOR_ORDER = ['value', 'quality', 'momentum', 'low_volatility', 'earnings_stability', 'liquidity']
+const FACTOR_ORDER = ['value', 'quality', 'momentum', 'low_volatility', 'earnings_stability', 'liquidity', 'order_book', 'cointegration_spread']
 
 function buildFormulaString(weights: Record<string, number>): string {
   if (!weights) return ''

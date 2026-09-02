@@ -246,7 +246,7 @@ QuantBot 当前采用 **Go + React + SQLite + DuckDB + LLM**，绿色免安装 �
 
 | 步骤 | 操作 |
 |------|------|
-| 1️⃣ **下载** | 前往 GitHub Releases 下载最新版本 `QuantBot.zip` |
+| 1️⃣ **下载** | 前往 [QuantBot v1.1.0 Release](https://github.com/jeokeo011222/quantbot/releases/tag/v1.1.0-build.2)，在 Assets 中下载 `QuantBot-v1.1.0-full.zip` |
 | 2️⃣ **解压** | 直接解压到任意普通目录，如 `D:\QuantBot\` |
 | 3️⃣ **启动** | 双击 `QuantBot.exe`，无需复杂安装 |
 | 4️⃣ **配置 AI** | 进入 `设置 → AI`，选择 AI 服务商并填写 API Key |
@@ -337,7 +337,7 @@ QuantBot 是一个长期项目。它不是一个商业公司投入几十个人�
 
 | 第一步：微信支付 | 第二步：QQ VIP 群 |
 |:---:|:---:|
-| <img src="image/WX收款.jpg" width="240"> | <img src="image/QQvip1群.jpg" width="240"> |
+| <img src="image/WX收款.png" width="240"> | <img src="image/QQvip1群.jpg" width="240"> |
 
 ### 🆓 免费群
 

@@ -11,6 +11,7 @@ import {
   Target,
   Calendar,
   BarChart3,
+  Layers,
   Lightbulb,
 } from 'lucide-react'
 import {
@@ -19,10 +20,11 @@ import {
   RunCIODailyCheck,
   GetCIOStatus,
   GetCIOJournal,
-  GetTodayDecisions,
   GetCurrentMarketState,
   GetPortfolioState,
   GetPortfolioRiskMetrics,
+  GetMarketSixDimReports,
+  GetDailyStrategyPlans,
   ResumeTrading,
   EmergencyStop,
 } from '../../wailsjs/go/main/App'
@@ -36,6 +38,86 @@ interface JournalEntry {
   reason: string
   riskApproval: string
   policyStatus: string
+  marketState: string
+  marketConfidence: number
+  date: string
+  isFallback?: boolean
+  optimization?: OptimizationResult | null
+  sixdim?: MarketSixDim | null
+  evidence?: DecisionProposalEvidence | null
+  llmReview?: LLMReview | null
+}
+
+// 决策主张层 + 对抗评审证据链负载（对应后端 decisionProposalPayload）
+interface DecisionProposalEvidence {
+  market_direction?: string
+  market_read?: string
+  suggested_position_rate?: number
+  effective_position_rate?: number
+  governed_by_sixdim?: boolean
+  preferred_stocks?: { code: string; reason: string }[]
+  confidence?: number
+  conclusion?: string
+  skeptic_verdict?: string
+  skeptic_concerns?: string[]
+  feedback?: string
+  evidence?: string[]
+  generated_at?: string
+}
+
+// LLM 复议层输出（对应后端 llmReviewResult）
+interface LLMReview {
+  action?: string
+  score?: number
+  reason?: string
+  suggestion?: string
+}
+
+interface OptimizationWeight {
+  code: string
+  name: string
+  weight: number
+}
+
+interface OptimizationResult {
+  strategy: string
+  expected_return: number
+  expected_volatility: number
+  sharpe_ratio: number
+  weights: OptimizationWeight[]
+  constraints?: {
+    max_industry_weight: number
+    max_stocks_per_industry: number
+  }
+  industry_exposure?: IndustryExposure[]
+  brinson?: BrinsonResult
+}
+
+interface IndustryExposure {
+  industry: string
+  weight: number
+  limit: number
+}
+
+interface BrinsonIndustry {
+  industry: string
+  portfolio_weight: number
+  benchmark_weight: number
+  portfolio_return: number
+  benchmark_return: number
+  allocation: number
+  selection: number
+  interaction: number
+}
+
+interface BrinsonResult {
+  benchmark_return: number
+  portfolio_return: number
+  excess_return: number
+  allocation: number
+  selection: number
+  interaction: number
+  industries: BrinsonIndustry[]
 }
 
 interface TodayDecision {
@@ -46,6 +128,156 @@ interface TodayDecision {
   marketState: string
   marketConfidence: number
   timestamp: string
+  date?: string
+  isFallback?: boolean
+  optimization?: OptimizationResult | null
+  sixdim?: MarketSixDim | null
+}
+
+// 市场六维判势结果（《六维策略.md》模块B MarketSixDim）
+interface MarketSixDim {
+  as_of?: string
+  dim_scores?: Record<string, number>
+  dim_chinese?: Record<string, string>
+  raw_total_score?: number
+  conflict_count?: number
+  adjusted_total_score?: number
+  position_rate?: number
+  market_tag?: string
+  position_advice?: string
+  sources?: Record<string, string>
+}
+
+interface SixDimHistoryReport {
+  trade_date: string
+  dim_scores?: Record<string, number>
+  raw_total_score?: number
+  conflict_count?: number
+  adjusted_total_score?: number
+  position_rate?: number
+  market_tag?: string
+  sources?: Record<string, string>
+}
+
+// 策略日计划：量化分析师盘后选定次日交易策略，操盘手次日按该策略信号执行卖出（如 KDJ 死叉）
+interface DailyStrategyPlan {
+  id: number
+  trade_date: string
+  strategy_type: string
+  strategy_name: string
+  reason?: string
+  status: string
+  executed_sell_num: number
+  created_by?: string
+  source?: string
+}
+
+const sixDimOrder = ['tech', 'breadth', 'volume', 'capital', 'sentiment', 'external']
+const sixDimDefaultChinese: Record<string, string> = {
+  tech: '技术趋势',
+  breadth: '市场广度',
+  volume: '量能流动性',
+  capital: '资金结构',
+  sentiment: '情绪赚钱效应',
+  external: '外部约束',
+}
+
+// 六维判势：每维度的数据源key + 金融含义 + 分值解读（《六维策略.md》模块B MarketSixDim）
+// sourceKeys 对应后端 MarketSixDim.sources 返回的真实数据源标注键名
+const sixDimDetail: Record<string, { sourceKeys: string[]; meaning: string; scoreNote: string }> = {
+  tech: {
+    sourceKeys: ['tech'],
+    meaning: '大盘中期方向：以上证指数均线系统(MA20/MA60)和5日/20日涨跌幅衡量趋势多空',
+    scoreNote: '≥70 多头排列、上涨动能强；45~70 中性震荡；<45 空头排列、下跌动能',
+  },
+  breadth: {
+    sourceKeys: ['breadth_rise', 'breadth_highlow', 'breadth_limit', 'breadth_hotline'],
+    meaning: '市场参与宽度：涨跌家数比、20日新高/新低数、涨停/跌停家数、热点板块集中度',
+    scoreNote: '≥70 普涨、赚钱效应广；45~70 分化；<45 普跌、赚钱效应收窄',
+  },
+  volume: {
+    sourceKeys: ['volume'],
+    meaning: '量能流动性：全市场成交额相对20日均值，以及价格涨跌与成交量的配合情况',
+    scoreNote: '量价齐升为强；缩量回调为中；放量下跌为弱',
+  },
+  capital: {
+    sourceKeys: ['capital'],
+    meaning: '资金结构：资金风险偏好与集中度（北向无实时源，以成交额连续放量天数代理）',
+    scoreNote: '资金连续流入、集中度高为强；流出、涣散为弱',
+  },
+  sentiment: {
+    sourceKeys: ['sentiment'],
+    meaning: '短线情绪与赚钱效应：涨停/跌停家数、炸板率反映接力与惜售情绪',
+    scoreNote: '涨停多、炸板率低为热；跌停多、炸板率高为冷',
+  },
+  external: {
+    sourceKeys: ['external'],
+    meaning: '隔夜外围与事件风险：无实时数据源，按中性处理、不猜测',
+    scoreNote: '仅作提示维度，默认中性',
+  },
+}
+
+const marketTagColor: Record<string, string> = {
+  强势: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+  结构性震荡: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+  偏弱: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-400',
+  退潮风险: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
+}
+
+// 兼容后端两套风控取值：cio.go 落库用 APPROVED/REJECTED，agents/workflow.go 用 APPROVE/REJECT
+const isRiskApproved = (v?: string) => v === 'APPROVED' || v === 'APPROVE'
+const isRiskRejected = (v?: string) => v === 'REJECTED' || v === 'REJECT'
+
+// 决策主张层方向 / 异议评审 / 复议动作 中文标签
+const propDirectionCN = (v?: string) =>
+  v === 'BULLISH' ? '看多' : v === 'BEARISH' ? '看空' : v === 'NEUTRAL' ? '中性/震荡' : (v || '--')
+const skepticVerdictCN = (v?: string) =>
+  v === 'AGREE' ? '认可' : v === 'CAUTION' ? '谨慎（可注意风险）' : v === 'RISK' ? '降仓（明显风险）' : (v || '--')
+const reviewActionCN = (v?: string) =>
+  v === 'APPROVE' ? '通过' : v === 'MODIFY' ? '修改' : v === 'REJECT' ? '否决' : (v || '--')
+
+// 六维判势雷达图：6 个轴，0-100 映射到半径
+function MarketRadar({ scores, chinese }: { scores: Record<string, number>; chinese: Record<string, string> }) {
+  const keys = sixDimOrder
+  const cx = 120
+  const cy = 112
+  const R = 78
+  const pt = (i: number, r: number): [number, number] => {
+    const a = (Math.PI * 2 * i) / keys.length - Math.PI / 2
+    return [cx + r * Math.cos(a), cy + r * Math.sin(a)]
+  }
+  const rings = [0.25, 0.5, 0.75, 1]
+  const poly = (list: [number, number][]) => list.map((p) => `${p[0]},${p[1]}`).join(' ')
+  const valuePts = keys.map((k, i) => pt(i, ((scores[k] ?? 0) / 100) * R))
+  return (
+    <svg viewBox="0 0 240 224" className="w-full h-full max-h-72 text-slate-400 dark:text-slate-500">
+      {rings.map((r) => (
+        <polygon key={r} points={poly(keys.map((_, i) => pt(i, R * r)))} fill="none" stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      ))}
+      {keys.map((k, i) => {
+        const [x, y] = pt(i, R)
+        return <line key={k} x1={cx} y1={cy} x2={x} y2={y} stroke="currentColor" strokeWidth="1" opacity="0.3" />
+      })}
+      <polygon points={poly(valuePts)} fill="rgba(99,102,241,0.30)" stroke="#6366f1" strokeWidth="1.5" strokeLinejoin="round" />
+      {keys.map((k, i) => {
+        const [x, y] = pt(i, R + 14)
+        return (
+          <text key={k} x={x} y={y} textAnchor="middle" dominantBaseline="middle"
+            fill="currentColor" className="text-slate-500 dark:text-slate-400" style={{ fontSize: 11, fontWeight: 500 }}>
+            {chinese[k] || k}
+          </text>
+        )
+      })}
+    </svg>
+  )
+}
+
+const optimizationStrategyLabel: Record<string, string> = {
+  EQUAL_WEIGHT: '等权',
+  RISK_PARITY: '风险平价',
+  MIN_VARIANCE: '最小方差',
+  MAX_SHARPE: '最大夏普',
+  MARKOWITZ: '马科维茨',
 }
 
 interface DailyReview {
@@ -169,7 +401,6 @@ export default function CIO() {
   const showWarning = useToastStore((s) => s.warning)
   const [cioStatusState, setCioStatusState] = useState<any>(null)
   const [journal, setJournal] = useState<JournalEntry[]>([])
-  const [todayDecisions, setTodayDecisions] = useState<TodayDecision[]>([])
   const [reviews, setReviews] = useState<DailyReview[]>([])
   const [loadingReviews, setLoadingReviews] = useState(false)
   const [generatingReview, setGeneratingReview] = useState(false)
@@ -177,6 +408,8 @@ export default function CIO() {
   const [loading, setLoading] = useState(true)
   const [currentMarketState, setCurrentMarketState] = useState<any>(null)
   const [riskMetrics, setRiskMetrics] = useState<any>(null)
+  const [marketSixDimReports, setMarketSixDimReports] = useState<SixDimHistoryReport[]>([])
+  const [dailyStrategyPlans, setDailyStrategyPlans] = useState<DailyStrategyPlan[]>([])
 
   // CIO 日志分页状态
   const [journalPage, setJournalPage] = useState(1)
@@ -189,38 +422,47 @@ export default function CIO() {
   const loadAll = useCallback(async (): Promise<boolean> => {
     setLoading(true)
     let anyFailed = false
+
+    // Phase 1 —— CIO 运行状态（快）：仅读内存/DB 状态，立即结束页面级 loading。
+    // 决策日志（CIO 日志 · 投资决策记录）、组合、市场状态、风险、六维、策略计划等卡片在 Phase 2 后台异步填充，避免页面加载很慢。
     try {
-      const results = await Promise.allSettled([
-        GetCIOStatus(),
-        GetCIOJournal(7),
-        GetTodayDecisions(),
+      const status = await GetCIOStatus()
+      if (status) {
+        setCioStatusState(status)
+      }
+    } catch {
+      anyFailed = true
+      showError('CIO状态加载失败', '无法获取CIO运行状态')
+    }
+
+    // CIO 状态就绪即结束页面级 loading；其余卡片在 Phase 2 后台异步填充
+    setLoading(false)
+
+    try {
+      // Phase 2 —— 决策日志（CIO 日志 · 投资决策记录）独立先行加载：核心卡片立即显示，
+      // 不被六维/风险等慢接口拖累（此前 Promise.allSettled 捆绑 6 接口，最慢的会阻塞日志渲染）。
+      GetCIOJournal(7)
+        .then((journalResult) => {
+          if (Array.isArray(journalResult?.entries)) {
+            setJournal(journalResult.entries as JournalEntry[])
+          } else {
+            anyFailed = true
+            showWarning('日志加载异常', '无法获取CIO决策日志')
+          }
+        })
+        .catch(() => {
+          anyFailed = true
+          showWarning('日志加载异常', '无法获取CIO决策日志')
+        })
+
+      // 其余卡片（组合/市场状态/风险/六维/策略）并行加载，互不阻塞决策日志渲染
+      const [portfolioResult, marketStateResult, riskResult, sixDimResult, strategyPlanResult] = await Promise.allSettled([
         GetPortfolioState(),
         GetCurrentMarketState(),
         GetPortfolioRiskMetrics(),
+        GetMarketSixDimReports(7),
+        GetDailyStrategyPlans(5),
       ])
-
-      const [statusResult, journalResult, decisionsResult, portfolioResult, marketStateResult, riskResult] = results
-
-      if (statusResult.status === 'fulfilled' && statusResult.value) {
-        setCioStatusState(statusResult.value)
-      } else {
-        anyFailed = true
-        showError('CIO状态加载失败', '无法获取CIO运行状态')
-      }
-
-      if (journalResult.status === 'fulfilled' && Array.isArray(journalResult.value?.entries)) {
-        setJournal(journalResult.value.entries as JournalEntry[])
-      } else {
-        anyFailed = true
-        showWarning('日志加载异常', '无法获取CIO决策日志')
-      }
-
-      if (decisionsResult.status === 'fulfilled' && decisionsResult.value?.decisions) {
-        setTodayDecisions(decisionsResult.value.decisions as TodayDecision[])
-      } else {
-        anyFailed = true
-        showWarning('决策加载异常', '无法获取今日决策数据')
-      }
 
       if (portfolioResult.status === 'fulfilled' && portfolioResult.value) {
         // Portfolio state loaded but not directly displayed on this page
@@ -240,12 +482,29 @@ export default function CIO() {
       } else {
         anyFailed = true
       }
+
+      if (sixDimResult.status === 'fulfilled' && Array.isArray(sixDimResult.value?.reports)) {
+        setMarketSixDimReports(sixDimResult.value.reports as SixDimHistoryReport[])
+      } else {
+        anyFailed = true
+        const sixDimErr = sixDimResult.status === 'rejected' ? sixDimResult.reason : sixDimResult.value
+        console.warn('六维判势接口异常', sixDimErr)
+        // 无兜底数据（决策日志中的 sixdim）时提示；有兜底则静默降级展示
+        const hasFallback = journal.some((e) => e.sixdim && e.sixdim.dim_scores)
+        if (!hasFallback) {
+          showWarning('六维判势加载异常', '无法获取市场六维判势结果')
+        }
+      }
+
+      if (strategyPlanResult.status === 'fulfilled' && Array.isArray(strategyPlanResult.value?.plans)) {
+        setDailyStrategyPlans(strategyPlanResult.value.plans as DailyStrategyPlan[])
+      } else {
+        console.warn('策略日计划接口异常', strategyPlanResult.status === 'rejected' ? strategyPlanResult.reason : strategyPlanResult.value)
+      }
     } catch (err) {
       anyFailed = true
       const errMsg = err instanceof Error ? err.message : String(err)
       showError('CIO数据加载失败', `加载过程出现异常: ${errMsg}`)
-    } finally {
-      setLoading(false)
     }
     return anyFailed
   }, [showError, showWarning])
@@ -341,8 +600,19 @@ export default function CIO() {
   // 无真实决策时一律不显示时间戳（显示"--"），避免把当前时间误当决策完成时间
   const currentPhase = getCurrentPhase()
   const decisionPending = currentPhase === 'PRE_MARKET' || currentPhase === 'CLOSED'
-  const todayDecision = todayDecisions.length > 0 
-    ? todayDecisions[0] 
+  // 风险评价是否具备真实数值字段；后端在历史收益不足时只返回 note（"数据不足"提示），
+  // 此时不应渲染 N/A 网格，而应显示该说明。
+  const hasRiskMetrics =
+    riskMetrics != null &&
+    typeof riskMetrics.var95_daily_return_pct === 'number' &&
+    typeof riskMetrics.var99_daily_return_pct === 'number' &&
+    typeof riskMetrics.cvar95_daily_return_pct === 'number' &&
+    typeof riskMetrics.annualized_volatility_pct === 'number' &&
+    typeof riskMetrics.max_drawdown_pct === 'number'
+  // 最新一条决策记录（journal 按时间倒序），用于六维判势 / 组合优化 / 归因等卡片的数据源。
+  // 决策记录统一来自「CIO 日志 · 投资决策记录」（decision_logs 表），不再单独维护今日决策快照。
+  const todayDecision = journal.length > 0
+    ? journal[0]
     : (currentMarketState ? {
         decision: 'NO_ACTION',
         reason: decisionPending
@@ -353,6 +623,10 @@ export default function CIO() {
         marketState: currentMarketState.regime,
         marketConfidence: currentMarketState.confidence,
         timestamp: '',
+        date: '',
+        isFallback: false,
+        optimization: null,
+        sixdim: null,
       } : null)
 
   const isRunning = cioStatusState?.state === 'RUNNING' || cioStatusState?.state === 'ACTIVE'
@@ -439,77 +713,283 @@ export default function CIO() {
       {/* Decision Tab */}
       {activeTab === 'decision' && (
         <>
-      {/* Today's Decision */}
-      <div className="card p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <Target className="w-4 h-4 text-brand-500" />
-          <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">今日决策</h2>
-        </div>
-
-        {loading ? (
-          <div className="flex items-center justify-center py-12">
-            <RefreshCw className="w-5 h-5 animate-spin text-slate-400" />
-            <span className="ml-2 text-sm text-slate-500">加载决策中...</span>
-          </div>
-        ) : todayDecision ? (
-          <div className="flex items-center gap-4">
-            <div className={`min-w-[80px] h-14 rounded-xl flex items-center justify-center text-white font-bold text-sm px-4 ${decisionTypeColor[todayDecision.decision] || 'bg-slate-500'}`}>
-              {decisionTypeLabel[todayDecision.decision] || todayDecision.decision}
+      {/* 市场六维判势（《六维策略.md》模块B MarketSixDim） */}
+      {(() => {
+        const sixDim = todayDecision?.sixdim ?? (marketSixDimReports.length > 0 ? (marketSixDimReports[0] as unknown as MarketSixDim) : null)
+        if (!sixDim || !sixDim.dim_scores) return null
+        const dimScores = sixDim.dim_scores
+        const chinese = { ...sixDimDefaultChinese, ...(sixDim.dim_chinese || {}) }
+        const adjusted = typeof sixDim.adjusted_total_score === 'number' ? sixDim.adjusted_total_score : null
+        const positionRate = typeof sixDim.position_rate === 'number' ? sixDim.position_rate : null
+        return (
+          <div className="card p-5 mt-4">
+            <div className="flex items-center gap-2 mb-4">
+              <BarChart3 className="w-4 h-4 text-brand-500" />
+              <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">市场六维判势</h2>
+              <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto">
+                {sixDim.as_of ? `数据日期 ${sixDim.as_of}` : 'MarketSixDim'}
+              </span>
             </div>
 
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400">决策类型</span>
-                <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-                  {decisionTypeLabel[todayDecision.decision] || todayDecision.decision}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60">
+                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">市场标签</div>
+                <span className={`inline-block text-sm font-semibold px-2 py-0.5 rounded ${marketTagColor[sixDim.market_tag || ''] || 'bg-slate-100 text-slate-600'}`}>
+                  {sixDim.market_tag || '—'}
                 </span>
               </div>
-              <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
-                {todayDecision.marketState && (
-                  <span>
-                    <span className="text-slate-400 dark:text-slate-500 mr-1">市场</span>
-                    {marketStateLabel[todayDecision.marketState] || todayDecision.marketState}
-                  </span>
-                )}
-                {todayDecision.marketConfidence > 0 && (
-                  <span>
-                    <span className="text-slate-400 dark:text-slate-500 mr-1">信心</span>
-                    {(todayDecision.marketConfidence * 100).toFixed(0)}%
-                  </span>
-                )}
-                {todayDecision.riskApproval && (
-                  <span>
-                    <span className="text-slate-400 dark:text-slate-500 mr-1">风控</span>
-                    {todayDecision.riskApproval === 'APPROVED' ? '✓ 通过' : todayDecision.riskApproval === 'REJECTED' ? '✗ 否决' : '审核中'}
-                  </span>
-                )}
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60">
+                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">仓位系数 position_rate</div>
+                <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                  {positionRate !== null ? `× ${positionRate.toFixed(2)}` : '—'}
+                </div>
+              </div>
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60">
+                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">修正总分</div>
+                <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                  {adjusted !== null ? adjusted.toFixed(1) : '—'}
+                  {typeof sixDim.raw_total_score === 'number' && (
+                    <span className="text-xs text-slate-400 font-normal ml-1">原始 {sixDim.raw_total_score.toFixed(1)}</span>
+                  )}
+                </div>
+              </div>
+              <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60">
+                <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">矛盾维度</div>
+                <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                  {typeof sixDim.conflict_count === 'number' ? `${sixDim.conflict_count} 个` : '—'}
+                </div>
               </div>
             </div>
 
-            <div className="text-right">
-              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">决策时间</div>
-              <div className="text-sm font-bold text-brand-600 dark:text-brand-400">
-                {formatDecisionTime(todayDecision.timestamp)}
+            <div className="flex flex-col lg:flex-row gap-5 mb-4">
+              <div className="lg:w-2/5 min-h-56 text-slate-600 dark:text-slate-400">
+                <MarketRadar scores={dimScores} chinese={chinese} />
+              </div>
+              <div className="flex-1 space-y-3">
+                {sixDimOrder.map((key) => {
+                  const score = dimScores[key]
+                  if (typeof score !== 'number') return null
+                  const detail = sixDimDetail[key]
+                  const srcText = (detail?.sourceKeys ?? [])
+                    .map((sk) => (sixDim.sources as Record<string, string> | undefined)?.[sk])
+                    .filter((v): v is string => !!v && v.trim() !== '')
+                    .join('；')
+                  return (
+                    <div key={key} className="flex items-center gap-3 text-sm">
+                      <span className="w-16 shrink-0 text-slate-500 dark:text-slate-400 text-xs">{chinese[key] || key}</span>
+                      <div className="h-1.5 flex-1 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden" title={srcText}>
+                        <div
+                          className={`h-full rounded-full ${score >= 70 ? 'bg-emerald-500' : score >= 45 ? 'bg-amber-500' : 'bg-red-500'}`}
+                          style={{ width: `${Math.min(100, Math.max(2, score))}%` }}
+                        />
+                      </div>
+                      <span className="w-8 shrink-0 text-right font-semibold text-slate-800 dark:text-slate-100">{score.toFixed(0)}</span>
+                      <span className="flex-1 min-w-0 text-xs text-slate-400 dark:text-slate-500 truncate" title={`${detail?.scoreNote ?? ''}${srcText ? `；来源：${srcText}` : ''}`}>
+                        {detail?.scoreNote}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {sixDim.position_advice && (
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-2">{sixDim.position_advice}</div>
+            )}
+          </div>
+        )
+      })()}
+
+      {/* 今日交易策略（策略日计划：量化分析师盘后选定，操盘手次日按信号执行） */}
+      {dailyStrategyPlans.length > 0 && (
+        <div className="card p-5 mt-4">
+          <div className="flex items-center gap-2 mb-4">
+            <TrendingUp className="w-4 h-4 text-brand-500" />
+            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">今日交易策略</h2>
+            <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto">操盘手按策略信号执行卖出（如 KDJ 死叉）</span>
+          </div>
+          {dailyStrategyPlans.map((p, idx) => (
+            <div key={p.id} className={`${idx > 0 ? 'mt-3 pt-3 border-t border-slate-100 dark:border-slate-700' : ''}`}>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{p.trade_date} 计划</span>
+                <span className="inline-block text-sm font-semibold px-2 py-0.5 rounded bg-brand-50 dark:bg-brand-500/10 text-brand-600 dark:text-brand-400">
+                  {p.strategy_name}
+                </span>
+                <span className="inline-block text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300">
+                  {p.strategy_type}
+                </span>
+                <span className={`text-xs px-2 py-0.5 rounded ${p.source === 'quant' ? 'bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
+                  {p.source === 'quant' ? '量化分析师选定' : '盘后自动兑底'}
+                </span>
+                <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto">已执行卖出信号 {p.executed_sell_num ?? 0} 次</span>
+              </div>
+              {p.reason && (
+                <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{p.reason}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* 组合优化结果（真实协方差 · 均值-方差/风险平价） */}
+      {todayDecision?.optimization && todayDecision.optimization.weights && todayDecision.optimization.weights.length > 0 && (
+        <div className="card p-5 mt-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Layers className="w-4 h-4 text-brand-500" />
+            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">组合优化结果</h2>
+            <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto">真实协方差 · 因子评分作预期收益</span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">优化策略</div>
+              <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                {optimizationStrategyLabel[todayDecision.optimization.strategy] || todayDecision.optimization.strategy}
+              </div>
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">组合预期收益</div>
+              <div className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
+                {typeof todayDecision.optimization.expected_return === 'number' ? `${todayDecision.optimization.expected_return.toFixed(2)}%` : '—'}
+              </div>
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">组合预期波动</div>
+              <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                {typeof todayDecision.optimization.expected_volatility === 'number' ? `${todayDecision.optimization.expected_volatility.toFixed(2)}%` : '—'}
+              </div>
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">夏普比率</div>
+              <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                {typeof todayDecision.optimization.sharpe_ratio === 'number' ? todayDecision.optimization.sharpe_ratio.toFixed(2) : '—'}
               </div>
             </div>
           </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-10 text-center">
-            <Target className="w-10 h-10 text-slate-300 dark:text-slate-600 mb-3" />
-            <p className="text-sm text-slate-500 dark:text-slate-400">今日暂无决策记录</p>
-            <p className="text-xs text-slate-400 mt-1">点击「运行每日检查」生成决策</p>
-          </div>
-        )}
 
-        {todayDecision && (
-          <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              <span className="text-slate-400 dark:text-slate-500 mr-2">决策说明：</span>
-              {todayDecision.reason}
-            </p>
+          <div className="text-xs text-slate-400 dark:text-slate-500 mb-2">目标权重分配</div>
+          <div className="space-y-2">
+            {todayDecision.optimization.weights.map((item) => (
+              <div key={item.code} className="flex items-center gap-3">
+                <span className="w-28 truncate text-xs text-slate-600 dark:text-slate-300">{item.name || item.code}</span>
+                <div className="flex-1 h-2 rounded bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                  <div
+                    className="h-full rounded bg-gradient-to-r from-brand-500 to-cyan-400"
+                    style={{ width: `${Math.min(100, Math.max(0, item.weight))}%` }}
+                  />
+                </div>
+                <span className="w-14 text-right text-xs font-semibold text-slate-800 dark:text-slate-100">
+                  {item.weight.toFixed(1)}%
+                </span>
+              </div>
+            ))}
           </div>
-        )}
-      </div>
+
+          {todayDecision.optimization.constraints && (
+            <div className="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+              <Shield className="w-3.5 h-3.5 text-brand-500" />
+              <span>行业风控约束：单一行业敞口 ≤ {(todayDecision.optimization.constraints.max_industry_weight * 100).toFixed(0)}%，同行业最多 {todayDecision.optimization.constraints.max_stocks_per_industry} 只</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* 行业敞口 */}
+      {todayDecision?.optimization?.industry_exposure && todayDecision.optimization.industry_exposure.length > 0 && (
+        <div className="card p-5 mt-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Target className="w-4 h-4 text-brand-500" />
+            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">行业敞口</h2>
+            <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto">单一行业上限 30%</span>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+            {todayDecision.optimization.industry_exposure.map((ind) => (
+              <div key={ind.industry} className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                <div className="flex items-baseline justify-between mb-2">
+                  <span className="text-xs text-slate-600 dark:text-slate-300 truncate">{ind.industry}</span>
+                  <span className={`text-xs font-semibold ${ind.weight > ind.limit ? 'text-red-500' : 'text-slate-700 dark:text-slate-200'}`}>
+                    {ind.weight.toFixed(1)}%
+                  </span>
+                </div>
+                <div className="h-1.5 rounded bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                  <div
+                    className={`h-full rounded ${ind.weight > ind.limit ? 'bg-red-500' : 'bg-gradient-to-r from-brand-500 to-cyan-400'}`}
+                    style={{ width: `${Math.min(100, Math.max(0, (ind.weight / ind.limit) * 100))}%` }}
+                  />
+                </div>
+                <div className="mt-1 text-right text-[10px] text-slate-400 dark:text-slate-500">上限 {ind.limit.toFixed(0)}%</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Brinson 行业归因 */}
+      {todayDecision?.optimization?.brinson && todayDecision.optimization.brinson.industries.length > 0 && (
+        <div className="card p-5 mt-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Lightbulb className="w-4 h-4 text-brand-500" />
+            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Brinson 行业归因</h2>
+            <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto">组合 vs 等权全候选池 · 区间真实收益</span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">组合超额收益</div>
+              <div className={`text-sm font-semibold ${todayDecision.optimization.brinson.excess_return >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}`}>
+                {(todayDecision.optimization.brinson.excess_return >= 0 ? '+' : '') + todayDecision.optimization.brinson.excess_return.toFixed(2)}%
+              </div>
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">配置效应</div>
+              <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                {(todayDecision.optimization.brinson.allocation >= 0 ? '+' : '') + todayDecision.optimization.brinson.allocation.toFixed(2)}%
+              </div>
+            </div>
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">选择效应</div>
+              <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                {(todayDecision.optimization.brinson.selection >= 0 ? '+' : '') + todayDecision.optimization.brinson.selection.toFixed(2)}%
+              </div>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="text-left text-slate-400 dark:text-slate-500 border-b border-slate-100 dark:border-slate-700">
+                  <th className="py-2 pr-2 font-medium">行业</th>
+                  <th className="py-2 pr-2 font-medium">组合权重</th>
+                  <th className="py-2 pr-2 font-medium">组合收益</th>
+                  <th className="py-2 pr-2 font-medium">配置效应</th>
+                  <th className="py-2 pr-2 font-medium">选择效应</th>
+                  <th className="py-2 pr-2 font-medium">交互效应</th>
+                </tr>
+              </thead>
+              <tbody>
+                {todayDecision.optimization.brinson.industries.map((row) => (
+                  <tr key={row.industry} className="border-b border-slate-50 dark:border-slate-800">
+                    <td className="py-2 pr-2 text-slate-600 dark:text-slate-300">{row.industry}</td>
+                    <td className="py-2 pr-2 text-slate-500 dark:text-slate-400">{row.portfolio_weight.toFixed(1)}%</td>
+                    <td className={`py-2 pr-2 font-medium ${row.portfolio_return >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}`}>
+                      {(row.portfolio_return >= 0 ? '+' : '') + row.portfolio_return.toFixed(2)}%
+                    </td>
+                    <td className={`py-2 pr-2 ${row.allocation >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}`}>
+                      {(row.allocation >= 0 ? '+' : '') + row.allocation.toFixed(2)}%
+                    </td>
+                    <td className={`py-2 pr-2 ${row.selection >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}`}>
+                      {(row.selection >= 0 ? '+' : '') + row.selection.toFixed(2)}%
+                    </td>
+                    <td className={`py-2 pr-2 ${row.interaction >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-500'}`}>
+                      {(row.interaction >= 0 ? '+' : '') + row.interaction.toFixed(2)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
       {/* 风险评价（VaR / ES）及含义 */}
       <div className="card p-5">
@@ -519,7 +999,7 @@ export default function CIO() {
           <span className="text-xs text-slate-400 dark:text-slate-500 ml-auto">历史法 · 基于真实组合结算收益</span>
         </div>
 
-        {riskMetrics ? (
+        {hasRiskMetrics ? (
           <>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50">
@@ -571,7 +1051,9 @@ export default function CIO() {
           <div className="flex flex-col items-center justify-center py-6 text-center">
             <BarChart3 className="w-8 h-8 text-slate-300 dark:text-slate-600 mb-2" />
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              {typeof riskMetrics?.note === 'string' ? riskMetrics.note : '暂无风险评价数据'}
+              {typeof riskMetrics?.note === 'string' && riskMetrics.note.length > 0
+                ? riskMetrics.note
+                : '暂无风险评价数据'}
             </p>
           </div>
         )}
@@ -634,15 +1116,56 @@ export default function CIO() {
                     </span>
                     {entry.riskApproval && (
                       <span className={`text-[10px] px-1.5 py-0.5 rounded ${
-                        entry.riskApproval === 'APPROVED' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                        entry.riskApproval === 'REJECTED' ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
+                        isRiskApproved(entry.riskApproval) ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                        isRiskRejected(entry.riskApproval) ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' :
                         'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
                       }`}>
-                        {entry.riskApproval === 'APPROVED' ? '✓ 通过' : entry.riskApproval === 'REJECTED' ? '✗ 否决' : '审核中'}
+                        {isRiskApproved(entry.riskApproval) ? '✓ 通过' : isRiskRejected(entry.riskApproval) ? '✗ 否决' : '审核中'}
                       </span>
                     )}
                   </div>
                   <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{entry.reason}</p>
+
+                  {/* 决策主张层 + 对抗评审 + 复议 */}
+                  {(entry.evidence?.market_direction || entry.evidence?.skeptic_verdict || entry.llmReview) && (
+                    <div className="mt-1.5 space-y-1 border-t border-slate-200 dark:border-slate-800 pt-1.5">
+                      {entry.evidence?.market_direction && (
+                        <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                          <span className="font-medium text-amber-600 dark:text-amber-400">【LLM主张】</span>
+                          方向 {propDirectionCN(entry.evidence.market_direction)}
+                          {entry.evidence.market_read ? ` · ${entry.evidence.market_read}` : ''}
+                          {typeof entry.evidence.confidence === 'number' && ` · 信心 ${entry.evidence.confidence}%`}
+                          {typeof entry.evidence.suggested_position_rate === 'number' && (
+                            ` · 主张仓位 ${(entry.evidence.suggested_position_rate * 100).toFixed(0)}%`
+                          )}
+                          {typeof entry.evidence.effective_position_rate === 'number' && (
+                            ` · 生效仓位 ${(entry.evidence.effective_position_rate * 100).toFixed(0)}%${typeof entry.evidence.suggested_position_rate === 'number' && entry.evidence.effective_position_rate < entry.evidence.suggested_position_rate ? '（已趋保守）' : ''}`
+                          )}
+                          {entry.evidence.preferred_stocks && entry.evidence.preferred_stocks.length > 0 && (
+                            ` · 偏好 ${entry.evidence.preferred_stocks.map((p) => p.code).join('、')}`
+                          )}
+                          {entry.evidence.feedback && ` · 归因: ${entry.evidence.feedback}`}
+                        </div>
+                      )}
+                      {entry.evidence?.skeptic_verdict && (
+                        <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                          <span className="font-medium text-rose-600 dark:text-rose-400">【异议评审】</span>
+                          {skepticVerdictCN(entry.evidence.skeptic_verdict)}
+                          {entry.evidence.skeptic_concerns && entry.evidence.skeptic_concerns.length > 0
+                            ? ` · ${entry.evidence.skeptic_concerns.join('；')}`
+                            : ''}
+                        </div>
+                      )}
+                      {entry.llmReview && (
+                        <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                          <span className="font-medium text-blue-600 dark:text-blue-400">【LLM复议】</span>
+                          {reviewActionCN(entry.llmReview.action)}（{entry.llmReview.score}/100）
+                          {entry.llmReview.reason ? ` · ${entry.llmReview.reason}` : ''}
+                          {entry.llmReview.suggestion ? ` · 建议: ${entry.llmReview.suggestion}` : ''}
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -10,6 +10,7 @@ import {
   GetProfitHistory,
   GetLatestDailyStat,
   RecordDailySnapshot,
+  GetPortfolioNavBenchmark,
   IsReady,
 } from '../../wailsjs/go/main/App'
 import { formatCurrency, formatPercent } from '../utils/formatters'
@@ -138,6 +139,7 @@ export default function Portfolio() {
 
   // 盈亏分析数据
   const [profitHistory, setProfitHistory] = useState<any[]>([])
+  const [navBenchmarkData, setNavBenchmarkData] = useState<any>(null)
   const [latestDailyStat, setLatestDailyStat] = useState<any>(null)
 
   // 数据获取失败弹窗去重标记（成功后重置）
@@ -241,11 +243,21 @@ export default function Portfolio() {
     }
   }, [])
 
+  const loadNavBenchmark = useCallback(async () => {
+    try {
+      const data = await GetPortfolioNavBenchmark(365)
+      setNavBenchmarkData(data)
+    } catch {
+      setNavBenchmarkData(null)
+    }
+  }, [])
+
   useEffect(() => {
     loadData()
     loadProfitHistory(profitPeriod)
     loadLatestDailyStat()
-  }, [loadData, profitPeriod, loadProfitHistory, loadLatestDailyStat])
+    loadNavBenchmark()
+  }, [loadData, profitPeriod, loadProfitHistory, loadLatestDailyStat, loadNavBenchmark])
 
   // 定时刷新：间隔取设置-通用中的 activity_refresh_minutes（默认5分钟）
   useEffect(() => {
@@ -625,7 +637,7 @@ export default function Portfolio() {
                           </span>
                         </td>
                         <td className="px-5 py-4 text-slate-600 dark:text-slate-400">
-                          {(p.weight * 100).toFixed(2)}%
+                          {p.weight.toFixed(2)}%
                         </td>
                       </tr>
                     )
@@ -1049,7 +1061,69 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* 收益率折线图 */}
+          {/* 净值 vs 沪深300基准 卡片 */}
+          <div className="card p-5">
+            <div className="flex items-center gap-2 mb-2">
+              <TrendingUp className="w-5 h-5 text-indigo-500" />
+              <span className="font-medium text-slate-800 dark:text-slate-100">净值 vs 沪深300（业绩基准）</span>
+            </div>
+            {navBenchmarkData?.summary?.currentNav != null && (
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-4 text-sm">
+                <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400">当前净值(NAV)</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">{navBenchmarkData.summary.currentNav}</div>
+                </div>
+                <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400">累计收益</div>
+                  <div className={`font-semibold ${Number(navBenchmarkData.summary.totalReturn) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {Number(navBenchmarkData.summary.totalReturn) >= 0 ? '+' : ''}{navBenchmarkData.summary.totalReturn}%
+                  </div>
+                </div>
+                <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400">基准累计收益</div>
+                  <div className={`font-semibold ${Number(navBenchmarkData.summary.benchmarkReturn) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {Number(navBenchmarkData.summary.benchmarkReturn) >= 0 ? '+' : ''}{navBenchmarkData.summary.benchmarkReturn}%
+                  </div>
+                </div>
+                <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400">超额收益(α)</div>
+                  <div className={`font-semibold ${Number(navBenchmarkData.summary.alpha) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                    {Number(navBenchmarkData.summary.alpha) >= 0 ? '+' : ''}{navBenchmarkData.summary.alpha}%
+                  </div>
+                </div>
+                <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400">最大回撤</div>
+                  <div className="font-semibold text-red-600">-{navBenchmarkData.summary.maxDrawdown}%</div>
+                </div>
+              </div>
+            )}
+            <div className="h-64">
+              {navBenchmarkData?.series?.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <RechartsLineChart data={navBenchmarkData.series}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" strokeOpacity={0.5} />
+                    <XAxis dataKey="date" tick={{ fontSize: 11 }} tickFormatter={(v) => v?.substring(5)} />
+                    <YAxis tick={{ fontSize: 11 }} domain={['auto', 'auto']} />
+                    <Tooltip
+                      formatter={(value: number, name: string) => [
+                        name === 'nav' ? Number(value).toFixed(4) : Number(value).toFixed(4),
+                        name === 'nav' ? '组合净值' : '沪深300基准'
+                      ]}
+                      labelFormatter={(label) => `日期: ${label}`}
+                      contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb' }}
+                    />
+                    <Line type="monotone" dataKey="nav" name="nav" stroke="#6366f1" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="benchmarkNav" name="benchmarkNav" stroke="#f59e0b" strokeWidth={2} strokeDasharray="5 5" dot={false} />
+                  </RechartsLineChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-full text-slate-400">
+                  <Activity className="w-10 h-10 mb-2 opacity-50" />
+                  <p className="text-sm">{navBenchmarkData?.summary?.message || '暂无净值数据，待日终结算后生成'}</p>
+                </div>
+              )}
+            </div>
+          </div>
           <div className="card p-5">
             <div className="flex items-center gap-2 mb-4">
               <LineChart className="w-5 h-5 text-purple-500" />

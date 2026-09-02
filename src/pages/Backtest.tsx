@@ -1,7 +1,25 @@
 import { useState, useEffect, useRef } from 'react'
-import { BarChart3, Play, Calendar, TrendingUp, TrendingDown, Loader2 } from 'lucide-react'
+import { BarChart3, Play, Calendar, TrendingUp, TrendingDown, Loader2, GitCompareArrows } from 'lucide-react'
 import { useI18nStore } from '../store/i18nStore'
-import { getStrategies, runBacktest, getBacktestResults, getBacktestStats, type Strategy, type BacktestResult } from '../services/strategy'
+import {
+  getStrategies,
+  runBacktest,
+  getBacktestResults,
+  getBacktestStats,
+  type Strategy,
+  type BacktestResult,
+} from '../services/strategy'
+import {
+  LineChart as ReLineChart,
+  Line,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from 'recharts'
 
 interface DisplayResult {
   strategy: string
@@ -20,6 +38,9 @@ interface DisplayResult {
   dataSource?: string
   stockCode?: string
   stockName?: string
+  turnover?: number
+  equityCurve?: number[]
+  dates?: string[]
 }
 
 // 格式化浮点数，避免精度问题
@@ -27,6 +48,82 @@ const fmt = (v: number, decimals: number = 2): number => {
   if (isNaN(v) || !isFinite(v)) return 0
   const factor = Math.pow(10, decimals)
   return Math.round(v * factor) / factor
+}
+
+// ==== 回测诊断计算（均基于真实权益曲线与日期，无伪造） ====
+
+// 月度收益矩阵：按月聚合权益曲线的区间收益
+interface MonthCell { year: number; month: number; ret: number }
+function buildMonthlyReturns(dates: string[], equity: number[]): MonthCell[] {
+  if (!dates || !equity || dates.length === 0 || equity.length !== dates.length) return []
+  const cells: MonthCell[] = []
+  let prevMonth = ''
+  let prevEq = equity[0] > 0 ? equity[0] : 1
+  for (let i = 0; i < dates.length; i++) {
+    const d = dates[i]
+    const month = d.slice(0, 7)
+    if (prevMonth === '') {
+      prevMonth = month
+      continue
+    }
+    if (month !== prevMonth) {
+      const lastEq = equity[i - 1]
+      cells.push(retCell(prevMonth, lastEq / prevEq - 1))
+      prevMonth = month
+      prevEq = lastEq > 0 ? lastEq : 1
+    }
+  }
+  // 收尾：最后一个月到期末
+  if (prevMonth !== '') {
+    const lastEq = equity[equity.length - 1]
+    cells.push(retCell(prevMonth, lastEq / prevEq - 1))
+  }
+  return cells
+}
+
+function retCell(monthKey: string, ret: number): MonthCell {
+  const year = Number(monthKey.slice(0, 4))
+  const month = Number(monthKey.slice(5, 7))
+  return { year, month, ret: fmt(ret * 100, 2) }
+}
+
+// 水下曲线：累计回撤序列
+function buildDrawdownCurve(dates: string[], equity: number[]): { date: string; dd: number }[] {
+  const out: { date: string; dd: number }[] = []
+  if (!dates || !equity || dates.length === 0) return out
+  let peak = equity[0] > 0 ? equity[0] : 1
+  for (let i = 0; i < equity.length; i++) {
+    if (equity[i] > peak) peak = equity[i]
+    const dd = peak > 0 ? -(peak - equity[i]) / peak * 100 : 0
+    out.push({ date: dates[i].slice(0, 10), dd: fmt(dd, 2) })
+  }
+  return out
+}
+
+// 滚动夏普：滚动窗口（默认25根）年化夏普
+function buildRollingSharpe(dates: string[], equity: number[], window = 25): { date: string; sharpe: number }[] {
+  const out: { date: string; sharpe: number }[] = []
+  if (!dates || !equity || equity.length < window + 1) return out
+  for (let i = window; i < equity.length; i++) {
+    const returns: number[] = []
+    for (let j = i - window + 1; j <= i; j++) {
+      if (equity[j - 1] > 0) returns.push((equity[j] - equity[j - 1]) / equity[j - 1])
+    }
+    if (returns.length < 2) continue
+    const meanR = returns.reduce((a, b) => a + b, 0) / returns.length
+    const sd = Math.sqrt(returns.reduce((a, b) => a + (b - meanR) * (b - meanR), 0) / (returns.length - 1))
+    if (sd < 1e-8) continue
+    out.push({ date: dates[i].slice(0, 10), sharpe: fmt(meanR / sd * Math.sqrt(252), 2) })
+  }
+  return out
+}
+
+// Calmar比率：总收益 / |最大回撤|（避免除零），仅用于横向对比。
+// 注意：后端 max_drawdown 为正值（如33.79），此处统一取绝对值计算。
+function calmar(totalReturn: number, maxDD: number): number {
+  const dd = Math.abs(maxDD)
+  if (dd < 1e-9) return 0
+  return fmt(totalReturn / dd, 2)
 }
 
 interface StrategyConfig {
@@ -58,6 +155,7 @@ export default function Backtest() {
   const [results, setResults] = useState<DisplayResult[]>([])
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10
+  const [comparePage, setComparePage] = useState(1)
 
   const [isRunning, setIsRunning] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -182,6 +280,9 @@ export default function Backtest() {
           dataSource: 'DuckDB/TDX 实时行情',
           stockCode: result.stock_code,
           stockName: result.stock_name,
+          turnover: result.turnover,
+          equityCurve: result.equity_curve || [],
+          dates: result.dates || [],
         }
 
         setResults([displayResult, ...results.filter(r =>
@@ -206,7 +307,7 @@ export default function Backtest() {
     }
   }
 
-  // 分页计算
+  // 最近结果分页计算
   const totalPages = Math.ceil(results.length / pageSize) || 1
   const startIndex = (currentPage - 1) * pageSize
   const paginatedResults = results.slice(startIndex, startIndex + pageSize)
@@ -217,28 +318,24 @@ export default function Backtest() {
     }
   }
 
-  // 页码渲染
-  const renderPageNumbers = () => {
-    const pages: (number | string)[] = []
-    const maxVisible = 5
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2))
-    let endPage = Math.min(totalPages, startPage + maxVisible - 1)
-    if (endPage - startPage + 1 < maxVisible) {
-      startPage = Math.max(1, endPage - maxVisible + 1)
+  // 多策略横向对比分页计算
+  const compareTotalPages = Math.ceil(strategies.length / pageSize) || 1
+  const compareStartIndex = (comparePage - 1) * pageSize
+  const paginatedStrategies = strategies.slice(compareStartIndex, compareStartIndex + pageSize)
+
+  const handleComparePageChange = (page: number) => {
+    if (page >= 1 && page <= compareTotalPages) {
+      setComparePage(page)
     }
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i)
-    }
-    if (startPage > 1) {
-      pages.unshift('...')
-      pages.unshift(1)
-    }
-    if (endPage < totalPages) {
-      pages.push('...')
-      pages.push(totalPages)
-    }
-    return pages
   }
+
+  // 数据量变化时，若当前页超出范围则回到第1页
+  useEffect(() => {
+    if (comparePage > compareTotalPages) setComparePage(1)
+  }, [compareTotalPages, comparePage])
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(1)
+  }, [totalPages, currentPage])
 
   return (
     <div className="space-y-6">
@@ -509,8 +606,73 @@ export default function Backtest() {
               <div>交易制度：T+1 · 1手=100股</div>
             </div>
           </div>
+
+          {activeResult.equityCurve && activeResult.dates && activeResult.equityCurve.length > 1 && (
+            <BacktestCharts equityCurve={activeResult.equityCurve} dates={activeResult.dates} />
+          )}
         </div>
       )}
+
+      {/* 多策略横向对比看板 */}
+      <div className="card overflow-hidden">
+        <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <GitCompareArrows className="w-5 h-5 text-brand-500" />
+            <h3 className="font-medium text-slate-800 dark:text-slate-100">多策略横向对比</h3>
+          </div>
+          <span className="text-xs text-slate-500 dark:text-slate-400">
+            Sharpe / 卡玛比率 / 回撤 / 换手 / 胜率（指标来自真实回测刷新）
+          </span>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="text-left text-xs text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+                <th className="px-5 py-3 font-medium">策略</th>
+                <th className="px-5 py-3 font-medium">Sharpe</th>
+                <th className="px-5 py-3 font-medium">卡玛比率</th>
+                <th className="px-5 py-3 font-medium">最大回撤</th>
+                <th className="px-5 py-3 font-medium">年化换手</th>
+                <th className="px-5 py-3 font-medium">胜率</th>
+              </tr>
+            </thead>
+            <tbody>
+              {strategies.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="text-center py-8 text-slate-400 dark:text-slate-500">
+                    暂无策略数据，请先创建策略（指标将在启动/每日调优后用真实回测刷新）
+                  </td>
+                </tr>
+              ) : (
+                paginatedStrategies.map((s) => (
+                  <tr key={s.id} className="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                    <td className="px-5 py-4">
+                      <div className="font-medium text-slate-800 dark:text-slate-100">{s.name}</div>
+                      <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{s.strategy_type}</div>
+                    </td>
+                    <td className={`px-5 py-4 font-medium ${s.sharpe_ratio >= 0 ? 'text-green-500' : 'text-red-500'}`}>{fmt(s.sharpe_ratio, 2)}</td>
+                    <td className="px-5 py-4 font-medium text-slate-800 dark:text-slate-100">{calmar(s.total_return, s.max_drawdown)}</td>
+                    <td className="px-5 py-4 font-medium text-red-500">{fmt(s.max_drawdown, 2)}%</td>
+                    <td className="px-5 py-4 text-slate-800 dark:text-slate-100">{s.turnover ? `${fmt(s.turnover, 1)}x` : '—'}</td>
+                    <td className="px-5 py-4 text-slate-800 dark:text-slate-100">{fmt(s.win_rate, 1)}%</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        {/* 多策略对比分页导航 */}
+        {strategies.length > pageSize && (
+          <PaginationBar
+            page={comparePage}
+            totalPages={compareTotalPages}
+            total={strategies.length}
+            startIndex={compareStartIndex}
+            pageSize={pageSize}
+            onChange={handleComparePageChange}
+          />
+        )}
+      </div>
 
       {/* Results Table */}
       <div className="card overflow-hidden">
@@ -584,46 +746,190 @@ export default function Backtest() {
         
         {/* 分页导航 */}
         {results.length > pageSize && (
-          <div className="px-5 py-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
-            <div className="text-xs text-slate-500 dark:text-slate-400">
-              显示第 {startIndex + 1} - {Math.min(startIndex + pageSize, results.length)} 条，共 {results.length} 条
-            </div>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-3 py-1 text-xs rounded-md border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                上一页
-              </button>
-              {renderPageNumbers().map((page, idx) => (
-                <span key={`page-${idx}`}>
-                  {page === '...' ? (
-                    <span className="px-2 py-1 text-xs text-slate-400">...</span>
-                  ) : (
-                    <button
-                      onClick={() => handlePageChange(page as number)}
-                      className={`px-3 py-1 text-xs rounded-md transition-colors ${
-                        currentPage === page
-                          ? 'bg-brand-500 text-white'
-                          : 'border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  )}
-                </span>
-              ))}
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="px-3 py-1 text-xs rounded-md border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                下一页
-              </button>
-            </div>
-          </div>
+          <PaginationBar
+            page={currentPage}
+            totalPages={totalPages}
+            total={results.length}
+            startIndex={startIndex}
+            pageSize={pageSize}
+            onChange={handlePageChange}
+          />
         )}
+      </div>
+    </div>
+  )
+}
+
+// ==================== 子组件 ====================
+
+// 通用分页栏：显示当前区间 + 上一页/页码/下一页
+function PaginationBar({
+  page,
+  totalPages,
+  total,
+  startIndex,
+  pageSize,
+  onChange,
+}: {
+  page: number
+  totalPages: number
+  total: number
+  startIndex: number
+  pageSize: number
+  onChange: (page: number) => void
+}) {
+  const pageNumbers = () => {
+    const pages: (number | string)[] = []
+    const maxVisible = 5
+    let startPage = Math.max(1, page - Math.floor(maxVisible / 2))
+    let endPage = Math.min(totalPages, startPage + maxVisible - 1)
+    if (endPage - startPage + 1 < maxVisible) {
+      startPage = Math.max(1, endPage - maxVisible + 1)
+    }
+    for (let i = startPage; i <= endPage; i++) pages.push(i)
+    if (startPage > 1) {
+      pages.unshift('...')
+      pages.unshift(1)
+    }
+    if (endPage < totalPages) {
+      pages.push('...')
+      pages.push(totalPages)
+    }
+    return pages
+  }
+  return (
+    <div className="px-5 py-4 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between bg-slate-50 dark:bg-slate-800/50">
+      <div className="text-xs text-slate-500 dark:text-slate-400">
+        显示第 {startIndex + 1} - {Math.min(startIndex + pageSize, total)} 条，共 {total} 条
+      </div>
+      <div className="flex items-center gap-1">
+        <button
+          onClick={() => onChange(page - 1)}
+          disabled={page === 1}
+          className="px-3 py-1 text-xs rounded-md border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          上一页
+        </button>
+        {pageNumbers().map((p, idx) => (
+          <span key={`page-${idx}`}>
+            {p === '...' ? (
+              <span className="px-2 py-1 text-xs text-slate-400">...</span>
+            ) : (
+              <button
+                onClick={() => onChange(p as number)}
+                className={`px-3 py-1 text-xs rounded-md transition-colors ${
+                  page === p
+                    ? 'bg-brand-500 text-white'
+                    : 'border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+                }`}
+              >
+                {p}
+              </button>
+            )}
+          </span>
+        ))}
+        <button
+          onClick={() => onChange(page + 1)}
+          disabled={page === totalPages}
+          className="px-3 py-1 text-xs rounded-md border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          下一页
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function BacktestCharts({ equityCurve, dates }: { equityCurve: number[]; dates: string[] }) {
+  const monthly = buildMonthlyReturns(dates, equityCurve)
+  const ddCurve = buildDrawdownCurve(dates, equityCurve)
+  const rollingSharpe = buildRollingSharpe(dates, equityCurve)
+
+  // 月度热力图：按 年 × 月 汇总
+  const years = Array.from(new Set(monthly.map((m) => m.year))).sort()
+  const monthlyMap = new Map<string, number>()
+  monthly.forEach((m) => monthlyMap.set(`${m.year}-${m.month}`, m.ret))
+
+  const heatColor = (ret: number): string => {
+    if (ret >= 3) return '#16a34a'
+    if (ret >= 1) return '#4ade80'
+    if (ret >= 0) return '#86efac'
+    if (ret >= -1) return '#fca5a5'
+    if (ret >= -3) return '#ef4444'
+    return '#b91c1c'
+  }
+
+  return (
+    <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 space-y-4">
+      {/* 月度收益热力图 */}
+      <div>
+        <div className="text-xs text-slate-400 dark:text-slate-500 mb-2">月度收益热力图（%）</div>
+        <div className="overflow-x-auto">
+          <table className="text-xs min-w-full">
+            <thead>
+              <tr>
+                <th className="px-2 py-1 text-left text-slate-400 font-medium">年</th>
+                {Array.from({ length: 12 }, (_, i) => (
+                  <th key={i} className="px-1.5 py-1 text-center text-slate-400 font-medium">{i + 1}月</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {years.map((y) => (
+                <tr key={y}>
+                  <td className="px-2 py-1 text-slate-500">{y}</td>
+                  {Array.from({ length: 12 }, (_, i) => {
+                    const ret = monthlyMap.get(`${y}-${i + 1}`)
+                    return ret === undefined ? (
+                      <td key={i} className="px-1.5 py-1 text-center text-slate-400 dark:text-slate-600">—</td>
+                    ) : (
+                      <td
+                        key={i}
+                        className="px-1.5 py-1 text-center font-medium text-white rounded"
+                        style={{ backgroundColor: heatColor(ret) }}
+                        title={`${y}年${i + 1}月 ${ret}%`}
+                      >
+                        {ret}
+                      </td>
+                    )
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* 水下曲线 */}
+      <div>
+        <div className="text-xs text-slate-400 dark:text-slate-500 mb-2">资金水下曲线（Cumulative Drawdown）</div>
+        <div className="h-48">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={ddCurve} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#64748b33" />
+              <XAxis dataKey="date" tick={{ fontSize: 10 }} minTickGap={40} />
+              <YAxis tick={{ fontSize: 10 }} />
+              <Tooltip formatter={(v) => [`${v}%`, '回撤']} />
+              <Area type="monotone" dataKey="dd" stroke="#ef4444" fill="#ef444444" name="回撤" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* 滚动夏普 */}
+      <div>
+        <div className="text-xs text-slate-400 dark:text-slate-500 mb-2">滚动夏普比率（窗口25根K线，年化）</div>
+        <div className="h-48">
+          <ResponsiveContainer width="100%" height="100%">
+            <ReLineChart data={rollingSharpe} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#64748b33" />
+              <XAxis dataKey="date" tick={{ fontSize: 10 }} minTickGap={40} />
+              <YAxis tick={{ fontSize: 10 }} />
+              <Tooltip formatter={(v) => [String(v), '夏普']} />
+              <Line type="monotone" dataKey="sharpe" stroke="#6366f1" dot={false} name="夏普" />
+            </ReLineChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   )

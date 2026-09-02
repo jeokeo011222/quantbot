@@ -138,6 +138,10 @@ export function GenerateFactorHealthReport() {
   return window['go']['main']['App']['GenerateFactorHealthReport']();
 }
 
+export function GenerateMonthlyReport(arg1, arg2) {
+  return window['go']['main']['App']['GenerateMonthlyReport'](arg1, arg2);
+}
+
 export function GeneratePlan() {
   return window['go']['main']['App']['GeneratePlan']();
 }
@@ -274,12 +278,24 @@ export function GetDailyReviews(arg1) {
   return window['go']['main']['App']['GetDailyReviews'](arg1);
 }
 
+export function GetDailyStrategyPlans(arg1) {
+  return window['go']['main']['App']['GetDailyStrategyPlans'](arg1);
+}
+
 export function GetETFMonitorData() {
   return window['go']['main']['App']['GetETFMonitorData']();
 }
 
 export function GetETFMonitorKline(arg1) {
   return window['go']['main']['App']['GetETFMonitorKline'](arg1);
+}
+
+export function GetFinancialReportAsOf(arg1, arg2) {
+  return window['go']['main']['App']['GetFinancialReportAsOf'](arg1, arg2);
+}
+
+export function GetFinancialSyncStatus() {
+  return window['go']['main']['App']['GetFinancialSyncStatus']();
 }
 
 export function GetFundFlow(arg1, arg2) {
@@ -326,6 +342,10 @@ export function GetMarketPhaseInfo() {
   return window['go']['main']['App']['GetMarketPhaseInfo']();
 }
 
+export function GetMarketSixDimReports(arg1) {
+  return window['go']['main']['App']['GetMarketSixDimReports'](arg1);
+}
+
 export function GetOrchestratorStats() {
   return window['go']['main']['App']['GetOrchestratorStats']();
 }
@@ -356,6 +376,10 @@ export function GetPlans() {
 
 export function GetPolicyStatus() {
   return window['go']['main']['App']['GetPolicyStatus']();
+}
+
+export function GetPortfolioNavBenchmark(arg1) {
+  return window['go']['main']['App']['GetPortfolioNavBenchmark'](arg1);
 }
 
 export function GetPortfolioRiskMetrics() {
@@ -436,10 +460,6 @@ export function GetTeamActivity(arg1) {
 
 export function GetTierInfo() {
   return window['go']['main']['App']['GetTierInfo']();
-}
-
-export function GetTodayDecisions() {
-  return window['go']['main']['App']['GetTodayDecisions']();
 }
 
 export function GetTodayTeamActivity() {
@@ -562,6 +582,10 @@ export function PublishWorkflowEvent(arg1, arg2, arg3, arg4) {
   return window['go']['main']['App']['PublishWorkflowEvent'](arg1, arg2, arg3, arg4);
 }
 
+export function RebuildInvestmentPlan(arg1) {
+  return window['go']['main']['App']['RebuildInvestmentPlan'](arg1);
+}
+
 export function RecordDailySettlement(arg1) {
   return window['go']['main']['App']['RecordDailySettlement'](arg1);
 }
@@ -570,8 +594,16 @@ export function RecordDailySnapshot() {
   return window['go']['main']['App']['RecordDailySnapshot']();
 }
 
+export function RecordOrderBookDaily(arg1) {
+  return window['go']['main']['App']['RecordOrderBookDaily'](arg1);
+}
+
 export function RefreshPrices() {
   return window['go']['main']['App']['RefreshPrices']();
+}
+
+export function RefreshStrategyMetrics() {
+  return window['go']['main']['App']['RefreshStrategyMetrics']();
 }
 
 export function RejectPlan(arg1, arg2) {
@@ -684,6 +716,10 @@ export function StartContinuousTrading() {
 
 export function StartDailyWorkflow() {
   return window['go']['main']['App']['StartDailyWorkflow']();
+}
+
+export function StartFinancialSync(arg1, arg2) {
+  return window['go']['main']['App']['StartFinancialSync'](arg1, arg2);
 }
 
 export function StartGeneratePlan() {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Brain, Globe, Rocket, Loader2 } from 'lucide-react'
+import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Brain, Globe, Rocket, Loader2, HeartHandshake, BarChart3 } from 'lucide-react'
 import { EventsOn, EventsOff } from '../../wailsjs/runtime/runtime'
 import { useI18nStore } from '../store/i18nStore'
 import type { Language } from '../store/i18nStore'
@@ -7,8 +7,13 @@ import { useThemeStore } from '../store/themeStore'
 import AuditLogPage from './AuditLog'
 import LLMLogViewer from './LLMLogViewer'
 import AppLogo from '../components/AppLogo'
+// 联系与捐赠二维码图片（与 ui/README.md Community 部分一致）
+import wxPayImg from '../../image/WX收款.png'
+import qqVipImg from '../../image/QQvip1群.jpg'
+import qqFreeImg from '../../image/QQFree1群.jpg'
+import wxBizImg from '../../image/WX商务.jpg'
 
-type TabKey = 'general' | 'trading' | 'ai' | 'datasource' | 'llm' | 'audit' | 'maintenance' | 'health' | 'about'
+type TabKey = 'general' | 'trading' | 'ai' | 'datasource' | 'llm' | 'audit' | 'maintenance' | 'health' | 'about' | 'contact'
 
 // Wails 后端 API 访问助手
 type AppMethod = (...args: unknown[]) => Promise<unknown> | undefined
@@ -105,6 +110,12 @@ export default function Settings() {
   const [cleanupResult, setCleanupResult] = useState<any>(null)
   const [cleanupBusy, setCleanupBusy] = useState(false)
 
+  // 财务数据同步状态
+  const [finSyncStatus, setFinSyncStatus] = useState<any>(null)
+  const [finSyncPolling, setFinSyncPolling] = useState(false)
+  // 财务数据源：默认通达信终端（本地RPC，不封IP、不依赖东财频控）；'em' 东财
+  const [finSource, setFinSource] = useState<'em' | 'tdx'>('tdx')
+
   // 系统健康状态
   const [health, setHealth] = useState<any>(null)
   const [healthLoading, setHealthLoading] = useState(false)
@@ -123,7 +134,7 @@ export default function Settings() {
         // 兼容旧版 "paper" 模式，映射为 "simulated"
         const tm = cfg.trading_mode === 'paper' ? 'simulated' : (cfg.trading_mode || 'simulated')
         setTradingMode(tm)
-        setInitialCapital(cfg.initial_capital || 100000)
+        setInitialCapital(cfg.initial_capital ?? 100000)
         setActivityRefreshMinutes(cfg.activity_refresh_minutes || 5)
         setQmtEnabled(cfg.qmt_enabled || false)
         setQmtPath(cfg.qmt_path || '')
@@ -429,6 +440,45 @@ export default function Settings() {
     }
   }
 
+  // 财务数据同步
+  useEffect(() => {
+    if (!finSyncPolling) return
+    const timer = setInterval(async () => {
+      try {
+        const st = await callApp<any>('GetFinancialSyncStatus')
+        setFinSyncStatus(st)
+        if (!st?.running) {
+          setFinSyncPolling(false)
+        }
+      } catch (e) {
+        console.error('Failed to poll financial sync status:', e)
+      }
+    }, 1500)
+    return () => clearInterval(timer)
+  }, [finSyncPolling])
+
+  const handleStartFinancialSync = async (mode: string) => {
+    try {
+      setFinSyncStatus({ running: true, message: '正在启动财务数据同步...' })
+      await callApp<void>('StartFinancialSync', mode, finSource)
+      setFinSyncPolling(true)
+    } catch (e: any) {
+      setFinSyncStatus({ running: false, error: e?.message || '启动财务同步失败' })
+    }
+  }
+
+  // 可选：进入页面时静默拉取一次财务同步状态（已选模式展示历史记录）
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const st = await callApp<any>('GetFinancialSyncStatus')
+        setFinSyncStatus(st)
+      } catch (e) {
+        // 忽略：仅用于回填历史状态
+      }
+    })()
+  }, [])
+
   const handleReset = async () => {
     if (resetBusy) return
     setResetBusy(true)
@@ -486,6 +536,7 @@ export default function Settings() {
     { key: 'audit' as TabKey, icon: FileText, label: t('settings.auditLog') },
     { key: 'maintenance' as TabKey, icon: Wrench, label: '数据维护' },
     { key: 'health' as TabKey, icon: HeartPulse, label: '系统健康' },
+    { key: 'contact' as TabKey, icon: HeartHandshake, label: '联系与捐赠' },
     { key: 'about' as TabKey, icon: Info, label: '关于' },
   ]
 
@@ -576,7 +627,7 @@ export default function Settings() {
                     value={initialCapital}
                     onChange={(e) => setInitialCapital(Number(e.target.value))}
                     className="input-field"
-                    min={10000}
+                    min={0}
                     step={10000}
                   />
                 </div>
@@ -1314,15 +1365,90 @@ export default function Settings() {
                 )}
               </div>
 
-              {/* 2. 系统初始化 */}
+              {/* 2. 财务数据维护（东财 datacenter / 通达信终端） */}
+              <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3">
+                <div className="flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">财务数据维护</h3>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300">
+                    {finSource === 'tdx' ? '通达信终端' : '东财 datacenter'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  同步各股票的历史财务数据（营收、净利润、ROE、毛利率、资产负债率、股本等）到 stock.duckdb 的
+                  <code className="mx-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[11px]">financial_report</code>表。
+                  数据按「报告期」存储并记录披露日，回测时仅用当时已披露的数据，杜绝未来函数。
+                </p>
+                {/* 数据源选择：通达信终端不经 HTTP、不受东财频控/IP 封禁影响 */}
+                <div className="flex gap-2 items-center">
+                  <select
+                    value={finSource}
+                    onChange={(e) => setFinSource(e.target.value as 'em' | 'tdx')}
+                    className="px-2 py-1.5 rounded-md text-xs border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                    disabled={finSyncStatus?.running}
+                  >
+                    <option value="em">东方财富（历史完整，需下载专业财务前若被封需耐心等）</option>
+                    <option value="tdx">通达信终端（本地RPC，不封IP，需主程序登录+已下载专业财务数据）</option>
+                  </select>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleStartFinancialSync('incremental')}
+                    disabled={finSyncStatus?.running}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    {finSyncStatus?.running ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                    {finSyncStatus?.running ? '同步中...' : '增量更新'}
+                  </button>
+                  <button
+                    onClick={() => handleStartFinancialSync('full')}
+                    disabled={finSyncStatus?.running}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    <Database className="w-3.5 h-3.5" />
+                    全量重建
+                  </button>
+                </div>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">
+                  提示：全量重建会遍历全部 A 股拉取全历史，耗时较长；日常建议用「增量更新」只补新报告期。任一模式均保留旧数据，拉取失败自动跳过。东财被频控时建议改用「通达信终端」。
+                </p>
+
+                {finSyncStatus && (
+                  <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                    {finSyncStatus.message && <p>状态：{finSyncStatus.message}</p>}
+                    {finSyncStatus.mode && <p>模式：{finSyncStatus.mode === 'full' ? '全量' : '增量'}（{'tdx' === finSource ? '通达信终端' : '东财 datacenter'}）</p>}
+                    {(finSyncStatus.total_stocks ?? 0) > 0 && (
+                      <p>
+                        进度：{finSyncStatus.processed_stocks || 0} / {finSyncStatus.total_stocks} 只股票，
+                        写入 {finSyncStatus.inserted_records?.toLocaleString() || 0} 条
+                        {finSyncStatus.failed_count ? `，失败 ${finSyncStatus.failed_count}` : ''}
+                      </p>
+                    )}
+                    {finSyncStatus.running && (finSyncStatus.total_stocks ?? 0) > 0 && (
+                      <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-brand-500 transition-all"
+                          style={{ width: `${Math.min(100, Math.round(((finSyncStatus.processed_stocks || 0) / finSyncStatus.total_stocks) * 100))}%` }}
+                        />
+                      </div>
+                    )}
+                    {finSyncStatus.error && <p className="text-red-600 dark:text-red-400">错误：{finSyncStatus.error}</p>}
+                    {finSyncStatus.last_result && !finSyncStatus.running && (
+                      <p className="text-green-600 dark:text-green-400">上次结果：{finSyncStatus.last_result}（{finSyncStatus.last_update || ''}）</p>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* 3. 系统初始化 */}
               <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800/50 space-y-3">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
                   <h3 className="text-sm font-semibold text-red-700 dark:text-red-400">系统初始化</h3>
                 </div>
                 <p className="text-xs text-red-600/90 dark:text-red-400/90">
-                  <strong>危险操作：</strong>将清空所有用户过程数据（交易记录、持仓、策略、回测结果、投资计划、智能体记录、每日复盘、因子质量、仓位配置等），
-                  <strong>仅保留字典数据</strong>（股票标的、市场指数、自选股、系统设置、审计日志）与表结构。此操作不可恢复，建议先备份！
+                  <strong>危险操作：</strong>将清空所有用户过程数据（交易记录、持仓、策略、回测、投资计划、智能体记录、复盘、因子质量、仓位配置、审计日志等），
+                  <strong>仅保留字典数据</strong>（股票标的、市场指数、自选股、系统设置）与表结构。此操作不可恢复，建议先备份！
                 </p>
                 <div className="flex gap-2 items-center">
                   <input
@@ -1629,6 +1755,60 @@ export default function Settings() {
                 <p className="text-[10px] text-slate-400 mt-1">
                   © 2024-2026 QuantBot lab. All rights reserved.
                 </p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'contact' && (
+            <div className="space-y-5">
+              {/* 付费群 */}
+              <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">💎 付费群（￥500 元）</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                  付费咨询（入群费用：￥500 元）企鹅 Q 群活动。入群后，您可以获得：
+                </p>
+                <ul className="list-disc list-inside text-xs text-slate-500 dark:text-slate-400 mt-2 space-y-1">
+                  <li>为大家搭建一个专业爱好者的圈子平台，随时交流</li>
+                  <li>不定期在群里发布一些量化策略</li>
+                  <li>QuantBot 的数据业务和技术问题答疑，可提供相应技术支持和建议</li>
+                </ul>
+                <div className="mt-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <p className="text-xs font-medium text-slate-600 dark:text-slate-300 mb-1">加群步骤：</p>
+                  <ol className="list-decimal list-inside text-xs text-slate-500 dark:text-slate-400 space-y-1">
+                    <li>用微信扫码支付 <b>500</b>，备注：<b>QQ 号码和昵称</b></li>
+                    <li>再用企鹅扫下方二维码加群，我们核对身份后通过</li>
+                  </ol>
+                </div>
+                <div className="grid grid-cols-2 gap-3 mt-4">
+                  <div className="text-center">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">第一步：微信支付</p>
+                    <img src={wxPayImg} alt="微信支付" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+                  </div>
+                  <div className="text-center">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">第二步：QQ VIP 群</p>
+                    <img src={qqVipImg} alt="QQ VIP 群" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+                  </div>
+                </div>
+              </div>
+
+              {/* 免费群 */}
+              <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">🆓 免费群</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                  如果您不想支付费用，也可以直接加我们的免费企鹅群。用企鹅直接扫二维码入群。
+                </p>
+                <div className="text-center mt-3">
+                  <img src={qqFreeImg} alt="免费企鹅群" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+                </div>
+              </div>
+
+              {/* 商务洽谈 */}
+              <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">💼 商务洽谈</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">请直接扫微信二维码：</p>
+                <div className="text-center mt-3">
+                  <img src={wxBizImg} alt="商务洽谈" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+                </div>
               </div>
             </div>
           )}

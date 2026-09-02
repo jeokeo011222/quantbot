@@ -71,6 +71,8 @@ export function GenerateDailyReview():Promise<any>;
 
 export function GenerateFactorHealthReport():Promise<any>;
 
+export function GenerateMonthlyReport(arg1:number,arg2:number):Promise<any>;
+
 export function GeneratePlan():Promise<any>;
 
 export function GeneratePlanStockPool():Promise<any>;
@@ -139,9 +141,15 @@ export function GetCurrentPlan():Promise<any>;
 
 export function GetDailyReviews(arg1:number):Promise<any>;
 
+export function GetDailyStrategyPlans(arg1:number):Promise<any>;
+
 export function GetETFMonitorData():Promise<any>;
 
 export function GetETFMonitorKline(arg1:string):Promise<any>;
+
+export function GetFinancialReportAsOf(arg1:string,arg2:string):Promise<any>;
+
+export function GetFinancialSyncStatus():Promise<any>;
 
 export function GetFundFlow(arg1:string,arg2:string):Promise<any>;
 
@@ -165,6 +173,8 @@ export function GetMarketIndices():Promise<any>;
 
 export function GetMarketPhaseInfo():Promise<any>;
 
+export function GetMarketSixDimReports(arg1:number):Promise<any>;
+
 export function GetOrchestratorStats():Promise<any>;
 
 export function GetPendingStocks():Promise<any>;
@@ -180,6 +190,8 @@ export function GetPlannerState():Promise<any>;
 export function GetPlans():Promise<any>;
 
 export function GetPolicyStatus():Promise<any>;
+
+export function GetPortfolioNavBenchmark(arg1:number):Promise<any>;
 
 export function GetPortfolioRiskMetrics():Promise<any>;
 
@@ -220,8 +232,6 @@ export function GetTaskStatusByRole():Promise<any>;
 export function GetTeamActivity(arg1:number):Promise<any>;
 
 export function GetTierInfo():Promise<any>;
-
-export function GetTodayDecisions():Promise<any>;
 
 export function GetTodayTeamActivity():Promise<any>;
 
@@ -283,11 +293,17 @@ export function ProcessTradeablePool(arg1:context.Context):Promise<void>;
 
 export function PublishWorkflowEvent(arg1:string,arg2:string,arg3:string,arg4:Record<string, any>):Promise<any>;
 
+export function RebuildInvestmentPlan(arg1:context.Context):Promise<void>;
+
 export function RecordDailySettlement(arg1:context.Context):Promise<void>;
 
 export function RecordDailySnapshot():Promise<any>;
 
+export function RecordOrderBookDaily(arg1:context.Context):Promise<void>;
+
 export function RefreshPrices():Promise<any>;
+
+export function RefreshStrategyMetrics():Promise<any>;
 
 export function RejectPlan(arg1:string,arg2:string):Promise<void>;
 
@@ -344,6 +360,8 @@ export function StartAutoScheduler():Promise<void>;
 export function StartContinuousTrading():Promise<void>;
 
 export function StartDailyWorkflow():Promise<any>;
+
+export function StartFinancialSync(arg1:string,arg2:string):Promise<any>;
 
 export function StartGeneratePlan():Promise<any>;
 

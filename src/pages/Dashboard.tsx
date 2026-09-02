@@ -20,7 +20,7 @@ import {
   Target,
   RefreshCw,
 } from 'lucide-react'
-import { GetPortfolioState, RefreshPrices as RefreshPricesAPI, GetContinuousTradingStatus, StopContinuousTrading, StartContinuousTrading, GetTodayDecisions, IsReady } from '../../wailsjs/go/main/App'
+import { GetPortfolioState, RefreshPrices as RefreshPricesAPI, GetContinuousTradingStatus, StopContinuousTrading, StartContinuousTrading, GetCIOJournal, IsReady } from '../../wailsjs/go/main/App'
 import { formatCurrency, formatPercent, getPnLColor } from '../utils/formatters'
 import { toFriendlyError } from '../utils/errorMessages'
 import { useToastStore } from '../store/toastStore'
@@ -188,8 +188,8 @@ export default function Dashboard() {
 
   const loadDecisions = useCallback(async () => {
     try {
-      const result = await GetTodayDecisions()
-      setDecisions(result?.decisions || [])
+      const result = await GetCIOJournal(7)
+      setDecisions(result?.entries || [])
     } catch {
       setDecisions([])
     } finally {

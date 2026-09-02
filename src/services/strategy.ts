@@ -12,6 +12,7 @@ export interface Strategy {
   max_drawdown: number
   total_return: number
   win_rate: number
+  turnover: number
   initial_capital: number
   max_position: number
   stop_loss_pct: number
@@ -42,11 +43,14 @@ export interface BacktestResult {
   win_trades: number
   loss_trades: number
   bars_count: number
+  turnover: number
   status: string
   error_message: string
   run_time: string
   duration_ms: number
   created_at: string
+  equity_curve?: number[]
+  dates?: string[]
 }
 
 export interface BacktestStats {
@@ -83,6 +87,20 @@ export async function getStrategies(status?: string): Promise<Strategy[]> {
   } catch (err) {
     console.error('GetStrategies failed:', err)
     return []
+  }
+}
+
+// 后台异步重新回测全部内置策略并写入最新指标（触发真实回测，而非仅重读旧值）
+export async function refreshStrategyMetrics(): Promise<{ started: boolean; message: string }> {
+  const app = getAppInstance()
+  if (!app) {
+    return { started: false, message: '后端未就绪' }
+  }
+  try {
+    return (await app.RefreshStrategyMetrics()) as { started: boolean; message: string }
+  } catch (err) {
+    console.error('RefreshStrategyMetrics failed:', err)
+    return { started: false, message: String(err) }
   }
 }
 

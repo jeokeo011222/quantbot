@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Target, Play, Pause, BarChart3, X, Check, Trash2, Eye, AlertCircle, Loader2 } from 'lucide-react'
-import { getStrategies, toggleStrategyStatus as toggleStatusAPI, deleteStrategy as deleteStrategyAPI, type Strategy } from '../services/strategy'
+import { getStrategies, refreshStrategyMetrics, toggleStrategyStatus as toggleStatusAPI, deleteStrategy as deleteStrategyAPI, type Strategy } from '../services/strategy'
 
 interface StrategyForm {
   name: string
@@ -49,6 +49,7 @@ export default function Strategies() {
     { value: 'mean_reversion', label: '均值回归' },
     { value: 'arbitrage', label: '套利策略' },
     { value: 'ml_model', label: '机器学习' },
+    { value: 'fundamental', label: '基本面因子' },
   ]
 
   const retryTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -74,6 +75,25 @@ export default function Strategies() {
     } finally {
       setLoading(false)
     }
+  }
+
+  // 刷新：触发后台真实回测刷新指标（而非仅重读 DB），紧接着重拉列表展示最新值
+  const handleRefresh = async () => {
+    setLoading(true)
+    try {
+      const res = await refreshStrategyMetrics()
+      if (!res?.started) {
+        showFeedback(res?.message || '指标刷新未开始', 'error')
+      } else {
+        showFeedback('已触发后台回测刷新指标，稍后自动更新')
+      }
+    } catch (err) {
+      console.error('refreshStrategyMetrics failed:', err)
+      showFeedback('触发指标刷新失败', 'error')
+    }
+    const list = await getStrategies()
+    setStrategies(list)
+    setLoading(false)
   }
 
   const showFeedback = (message: string, type: 'success' | 'error' = 'success') => {
@@ -150,7 +170,7 @@ export default function Strategies() {
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={loadStrategies}
+            onClick={handleRefresh}
             className="btn-secondary flex items-center gap-2"
             disabled={loading}
           >
@@ -400,6 +420,7 @@ export default function Strategies() {
           </div>
         </div>
       )}
+
     </div>
   )
 }

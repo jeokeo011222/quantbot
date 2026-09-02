@@ -1733,11 +1733,11 @@ export default function Activity() {
               {AGENT_ROLE_NAMES[selectedAgent]} · 今日任务日志
             </span>
           </div>
-          <div className="space-y-2 h-[200px] overflow-y-auto pr-2">
+          <div className="space-y-2 h-[260px] overflow-y-auto pr-2">
             {agentWorkDetails[selectedAgent].todayTasks.map((task, idx) => (
-              <div key={idx} className="flex items-start gap-2 text-xs">
-                <span className="text-slate-400 mt-0.5">•</span>
-                <span className="text-slate-600 dark:text-slate-400">{task}</span>
+              <div key={idx} className="flex items-start gap-2 text-xs leading-relaxed">
+                <span className="text-slate-400 mt-0.5 shrink-0">•</span>
+                <span className="text-slate-600 dark:text-slate-400 whitespace-pre-wrap break-words">{task}</span>
               </div>
             ))}
           </div>
