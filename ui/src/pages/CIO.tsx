@@ -841,25 +841,25 @@ export default function CIO() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
-            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800 dark:border-slate-700">
               <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">优化策略</div>
               <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                 {optimizationStrategyLabel[todayDecision.optimization.strategy] || todayDecision.optimization.strategy}
               </div>
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800 dark:border-slate-700">
               <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">组合预期收益</div>
               <div className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
                 {typeof todayDecision.optimization.expected_return === 'number' ? `${todayDecision.optimization.expected_return.toFixed(2)}%` : '—'}
               </div>
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800 dark:border-slate-700">
               <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">组合预期波动</div>
               <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                 {typeof todayDecision.optimization.expected_volatility === 'number' ? `${todayDecision.optimization.expected_volatility.toFixed(2)}%` : '—'}
               </div>
             </div>
-            <div className="p-3 rounded-lg bg-slate-50 dark:border-slate-700">
+            <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800 dark:border-slate-700">
               <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">夏普比率</div>
               <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
                 {typeof todayDecision.optimization.sharpe_ratio === 'number' ? todayDecision.optimization.sharpe_ratio.toFixed(2) : '—'}

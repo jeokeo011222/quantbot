@@ -1,326 +1,322 @@
-<h1 align="center">🤖 QuantBot</h1>
+# 🤖 QuantBot
 
 <p align="center">
-  <b>一个真正会每天工作的 AI 投资团队</b><br>
-  <sub><i>AI × Quant × Risk × Portfolio × Trading</i></sub>
-</p>
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows&logoColor=white" alt="Windows">
-  <img src="https://img.shields.io/badge/Stack-Go%20%2B%20React%20%2B%20SQLite%20%2B%20DuckDB-4FC08D" alt="Stack">
-  <img src="https://img.shields.io/badge/License-Open%20Source-blue" alt="License">
-  <img src="https://img.shields.io/badge/LLM-DeepSeek%20%E2%80%A2%20%E8%B1%86%E5%8C%85%20%E2%80%A2%20%E5%8D%83%E9%97%AE-orange" alt="LLM">
-</p>
+### 一个真正会每天工作的 A 股量化交易系统
 
-<p align="center">
-  <b>不是聊天机器人。不是简单选股器。</b><br>
-  而是一支由 <b>5 个 AI Agent</b> 协作完成投资工作的量化团队。
-</p>
+**AI × Quant × Risk × Portfolio × Trading**
 
-<p align="center">
-  <a href="#quickstart">🚀 快速开始</a> ·
-  <a href="#agents">🤖 五个 Agent</a> ·
-  <a href="#quant">📊 量化能力</a> ·
-  <a href="#etf">🎁 ETF 彩蛋</a> ·
-  <a href="#community">🤝 加入社区</a>
+<br>
+
+不是聊天机器人，不是简单选股器。  
+而是一套从 **研究 → 策略 → 回测 → 风控 → 组合 → 交易 → 复盘** 的完整量化投资工作流。
+
+<br>
+
+[🚀 快速开始](#-快速开始) · [🧠 AI 团队](#-ai-投资团队) ·  [📊 量化能力](#-量化能力) · [🎁 ETF Monitor](#-etf-monitor) · [🗺️ Roadmap](#️-roadmap)
+
 </p>
 
 ---
 
-  下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)    内含少量测试数据，直接下载解包，输入LLM API-key即可运行使用
+  下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)
 
 ---
 
-<h2 align="center">⭐ 如果你觉得 AI + 量化投资很酷，请给这个项目一个 Star</h2>
 
+## 🌟 QuantBot 是什么？
+
+如果每天的投资工作是：
+
+> 看市场 → 找机会 → 做研究 → 选股票 → 回测 → 控风险 → 管组合 → 执行交易 → 复盘
+
+那么 QuantBot 希望把这整个过程放进一个系统。
+
+```text
+                QuantBot
+                   │
+       ┌───────────┼───────────┐
+       ↓           ↓           ↓
+   Research     Strategy      Risk
+       │           │           │
+       └───────────┼───────────┘
+                   ↓
+               Portfolio
+                   ↓
+                Trading
+                   ↓
+                Review
+                   │
+                   └──────→ Next Day
+```
+
+它不是让一个大模型扮演“股神”。
+
+而是让：**AI + Quant + Risk + Portfolio + Trading**
+
+共同组成一个每天持续工作的投资系统。
+
+---
+
+# 🧠 AI 投资团队
+
+QuantBot 当前采用多个 AI Agent 协作完成投资工作。
+
+| Agent | 角色 | 主要职责 |
+|:---:|---|---|
+| 🧭 **Planner** | 投资规划师 | 投资目标、资金规模、风险偏好、投资约束 |
+| 🔬 **Quant** | 量化分析师 | 股票池、因子分析、策略、回测、量化评分 |
+| 🛡️ **Risk** | 风控师 | 风险识别、仓位约束、市场状态、组合风险 |
+| 👔 **CIO** | 首席投资官 | 综合分析并形成最终投资决策 |
+| 🤖 **Trader** | AI 操盘手 | 建仓、调仓、仓位调整、模拟 / QMT 实盘 |
+
+### 5 个 Agent，不是 5 个聊天窗口。
+
+每个 Agent 都拥有自己的职责、任务和决策边界。
+
+```text
+Planner -> Quant -> Risk -> CIO -> Trader
+```
+
+形成完整的投资决策链。
+
+---
 
 <p align="center">
   <img src="ui/image/AI团队.png" alt="AI 团队架构" width="100%">
 </p>
 
----
 
-## 🧠 如果你的投资账户拥有一个 AI 团队，那会怎么样？
+# ⏱️ 每天自动工作的投资流程
 
-想象一下：
-
-- 🌅 **每天开盘前** —— 有人帮你分析市场
-- 📈 **盘中** —— 有人盯着你的组合
-- ⚠️ **风险发生变化** —— 有人提醒你
-- ⚖️ **需要调整仓位** —— 有人进行分析
-- 🌙 **收盘以后** —— 有人复盘今天的每一个决定，第二天继续工作
-
-**这就是 QuantBot 想做的事情。**
-
-它**不是**让一个大模型扮演"股神"，而是让 **多个 AI Agent 分工合作**：
-
-<p align="center">
-  <img src="ui/image/量化分析师.png" alt="Agent 协作" width="70%">
-</p>
-
-> **5 个 Agent，不是 5 个聊天窗口。**
-> 它们拥有不同的职责、任务和决策边界。
-
----
-
-## 💎 核心亮点
-
-<p align="center">
-  <b>AI × Quant × Risk × Portfolio × Trading</b>
-</p>
-
-QuantBot 将 **LLM × 量化分析 × 因子研究 × 风险管理 × 组合管理 × 策略回测 × 自动工作流** 组合到了一起。
-
-> ### 🎯 目标只有一个：
-> ### 让投资从"每天自己研究"，变成"每天有一支 AI 团队帮你工作"。
-
-<p align="center">
-  <img src="ui/image/驾驶舱2.png" alt="QuantBot 驾驶舱" width="100%">
-</p>
-
----
-
-## 🕐 AI 团队每天都在工作
-
-QuantBot **不是**：打开 → 问 AI 一个问题 → 关闭。
-
-而是一套**持续运行的投资工作流**：
-
-<p align="center">
-  <img src="ui/image/实时活动.png" alt="实时活动" width="100%">
-</p>
-
-### 🌅 盘前
+QuantBot 不是：
 
 ```text
-昨日复盘 → Planner → Quant → Risk → CIO → 今日投资决策
+打开 → 问 AI 一个问题 → 关闭
 ```
 
-系统会在 A 股开盘前完成当天的 AI 决策链。
+而是一套持续运行的工作流。
 
-### 📈 盘中
+## 🌅 盘前
 
 ```text
-市场变化 → 组合监控 → 风险状态 → AI 分析 → 建仓 / 加仓 / 防守
+昨日复盘 -> Planner -> Quant  -> Risk  -> CIO -> 今日投资决策
 ```
 
-系统持续监控 ACTIVE / RUNNING 投资方案。
-
-### 🌙 盘后
-
-```text
-交易结算 → 因子复盘 → 策略分析 → CIO 深度复盘 → 制定明日计划
-```
-
-于是形成 —— **分析 → 决策 → 执行 → 结果 → 复盘 → 再决策** 的完整闭环。
+系统在 A 股开盘前完成当天的投资分析与决策链。
 
 ---
 
-<a id="agents"></a>
+## 📈 盘中
 
-## 🤖 五个 AI Agent
+```text
+市场变化 -> 组合监控 -> 风险状态 -> AI 分析 -> 建仓 / 加仓 / 防守
+```
 
-| # | Agent | 角色 | 职责 |
-|---|-------|------|------|
-| 01 | **Planner** | 🧭 投资规划师 | 理解资金规模、投资目标、风险偏好、约束 |
-| 02 | **Quant** | 🔬 量化分析师 | 股票池、因子分析、策略、回测、量化评分 |
-| 03 | **Risk** | 🛡️ 风控师 | 风险识别、仓位约束、市场状态、组合风险 |
-| 04 | **CIO** | 👔 首席投资官 | 综合各方分析，做出**最终投资决策** |
-| 05 | **Trader** | 🤖 AI 操盘手 | 建仓、调仓、仓位调整、模拟/QMT 实盘 |
-
-### 01 · Planner 投资规划师
-
-负责理解：资金规模、投资目标、风险偏好、投资约束，然后把人的投资需求转化成投资方案。
-
-<p align="center">
-  <img src="ui/image/投资规划.png" alt="投资规划" width="85%">
-</p>
-
-### 02 · Quant 量化分析师
-
-**让数据负责计算，而不是让 AI 凭感觉猜股票。**
-
-负责：股票池、因子分析、策略分析、数据分析、回测、量化评分。
-
-### 03 · Risk 风控师
-
-始终问一个问题：
-
-> **"这个决定，会让组合承担多大的风险？"**
-
-负责：风险识别、风险检查、仓位约束、市场状态、组合风险。
-
-### 04 · CIO 首席投资官
-
-综合 Planner、Quant、Risk 的分析，负责**最终投资决策**。
-
-不是简单地把三个 Agent 的答案拼起来，而是形成完整的决策链。
-
-### 05 · Trader AI 操盘手
-
-负责执行：建仓、调仓、仓位调整、交易约束、模拟交易、QMT 实盘接口。
-
-<p align="center">
-  <img src="ui/image/投资决策.png" alt="投资决策" width="85%">
-</p>
+持续监控 ACTIVE / RUNNING 投资方案。
 
 ---
 
-<a id="quant"></a>
+## 🌙 盘后
 
-## 📊 不只是 AI
+```text
+交易结算 -> 因子复盘 -> 策略分析 -> CIO 深度复盘 -> 制定明日计划
+```
+
+最终形成：
+
+> **分析 → 决策 → 执行 → 结果 → 复盘 → 再决策**
+
+的完整闭环。
+
+---
+
+# 📊 不只是 AI
 
 QuantBot 的一个核心原则：
 
-> **LLM 负责理解与决策协作。量化引擎负责计算事实。**
+> **LLM 负责理解与决策协作，量化引擎负责计算事实。**
 
-所以它不是 —— `用户 → ChatGPT → "我觉得这只股票不错"`
+因此 QuantBot 不是：
+
+```text
+用户 -> ChatGPT -> “我觉得这只股票不错”
+```
 
 而是：
 
 ```text
-投资方案 → 量化筛选 → 因子分析 → 风险分析 → 组合分析
-    ↓
-AI Agent 协作 → 投资决策
+投资方案 -> 量化筛选 -> 因子分析 -> 策略分析 -> 风险分析 -> 组合分析 -> AI Agent 协作 -> 投资决策
 ```
 
-<p align="center">
-  <img src="ui/image/我的投资.png" alt="我的投资" width="100%">
-</p>
-
-## 📈 内置量化能力
-
-| 能力 | 说明 | 截图 |
-|------|------|------|
-| 🔎 **选股** | 多因子智能选股 | <img src="ui/image/选股引擎.png" width="200"> |
-| 🧪 **策略** | 内置多种量化策略及策略指标 | <img src="ui/image/量化策略.png" width="200"> |
-| 📊 **回测** | 收益、最大回撤、Sharpe、胜率、策略表现 | <img src="ui/image/量化回测.png" width="200"> |
-| 💼 **投资组合** | 管理持仓、盈亏、资产曲线、投资方案、每日决策 | <img src="ui/image/投资方案.png" width="200"> |
-| 🛡️ **风险** | 从组合角度监控风险 | — |
-| 🧠 **AI 决策** | 让多个 Agent 协作完成每日投资流程 | <img src="ui/image/投资决策.png" width="200"> |
-| 📋 **审计** | 记录 AI 调用、投资规划、选股、策略、回测、CIO 决策、系统事件 | — |
+AI 建立在量化数据和系统状态之上，而不是凭感觉猜股票。
 
 ---
 
-<a id="etf"></a>
+# 📈 量化能力
 
-## 🎁 彩蛋 · ETF Monitor
+QuantBot 将量化研究、策略和投资管理整合在一起。
 
-<p align="center">
-  <img src="ui/image/ETF监控.png" alt="ETF 监控" width="100%">
-</p>
+| 能力 | 说明 |
+|---|---|
+| 🔎 **多因子选股** | 基于多个量化因子进行股票筛选 |
+| 🧪 **策略研究** | 内置多种量化策略及策略指标 |
+| 📊 **策略回测** | 收益、最大回撤、Sharpe、胜率、策略表现 |
+| 💼 **投资组合** | 持仓、盈亏、资产曲线、投资方案、每日决策 |
+| 🛡️ **风险管理** | 从组合角度监控风险 |
+| 🧠 **AI 决策** | 多个 Agent 协作完成每日投资流程 |
+| 📋 **审计日志** | 记录 AI 调用、投资规划、选股、策略、回测、CIO 决策及系统事件 |
 
-给不想研究个股的人 —— 如果你看到这里，觉得"股票实在太复杂了"，没关系，这里还偷偷放了一个小彩蛋。
+---
 
-**📡 ETF Monitor** —— 专门给普通投资爱好者设计，不需要懂复杂的量化模型。
+# 🇨🇳 A 股原生
+
+QuantBot 当前专注于：
+
+> **中国 A 股市场**
+
+从数据、策略到交易工作流，都围绕 A 股进行设计。
+
+当前覆盖：
+
+- A 股市场
+- 集合竞价相关流程
+- 股票池筛选
+- 多因子选股
+- 市场状态
+- 策略回测
+- 投资组合
+- 风险管理
+- AI 投资决策
+- 模拟交易
+- QMT / XtQuant 实盘接口
+
+> **QuantBot 不是一个泛化交易机器人再加一个 A 股数据源。**
+>
+> **A 股就是 QuantBot 当前的主要设计环境。**
+
+---
+
+# 🎁 ETF Monitor
+
+如果你不想研究单只股票，QuantBot 里还藏了一个小功能：
+
+## ETF Monitor
+
+它将多个市场信息进行综合：
 
 ```text
-价格位置 + 份额流向 + 交易方向 + 成交额热度 + 融资杠杆 → 共振判断
+价格位置 + 份额流向 + 交易方向 + 成交额热度 + 融资杠杆 -> 共振判断
 ```
 
-最后直接变成：🟢 机会 / 🟡 观察 / 🔴 风险。
+最终简化成：
 
-甚至直接做成了 **🔥 ETF 共振热力图** —— 一眼看完整个 ETF 池，只需要看：**现在是红？黄？还是绿？**
+🟢 **机会**    🟡 **观察**   🔴 **风险**
 
-### 💡 为什么做这个功能？
+并提供 ETF 共振热力图。
 
-因为并不是所有人都适合直接投资单只股票。对于非专业投资者、刚开始接触投资的人、不想承担个股风险的人、更喜欢分散化投资的人，ETF 可能是一个更值得研究的方向。
-
-> **不懂选股？先看看 ETF。**
+> 不懂选股？    **先看看 ETF。**
 
 ---
 
-## ⚡ 为什么是本地软件？
+# 🖥️ 为什么是本地软件？
 
-QuantBot 当前采用 **Go + React + SQLite + DuckDB + LLM**，绿色免安装 —— 下载、解压、运行。
+QuantBot 当前采用：
 
-- 📦 核心数据与数据库保存在**本地**
+**Go + React + SQLite + DuckDB + LLM**
+
+### 本地运行
+
+- 📦 下载、解压、运行。下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)
+- 💾 核心数据与数据库保存在本地
 - 🔑 AI 服务使用你自己的 API Key
-- 🌐 支持：**DeepSeek · 豆包 · 千问 · OpenAI API 兼容服务**
+- ⚡ 本地 DuckDB 用于历史研究数据
+
+### AI 服务
+
+支持：DeepSeek/豆包/千问/OpenAI API 兼容服务
+
 
 ---
 
-<a id="quickstart"></a>
+# 📡 数据源
 
-## 🚀 Quick Start
+当前支持的数据来源包括：
 
-| 步骤 | 操作 |
-|------|------|
-| 1️⃣ **下载** | 前往下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)    内含少量测试数据，直接下载解包，输入LLM API-key即可运行使用。 |
-| 2️⃣ **解压** | 直接解压到任意普通目录，如 `D:\QuantBot\` |
-| 3️⃣ **启动** | 双击 `QuantBot.exe`，无需复杂安装 |
-| 4️⃣ **配置 AI** | 进入 `设置 → AI`，选择 AI 服务商并填写 API Key |
-| 5️⃣ **开始使用** | 设置初始资金 → 配置 AI → 完成投资规划 → 启动 AI 团队 |
+### 实时行情
 
-然后让它开始工作。
+- TDX
+- TDX MCP
+- MCP
+- 通达信终端接口
+- 腾讯财经
+
+### 历史研究数据
+
+- 本地 DuckDB
+
+行情读取与量化研究相互解耦。
 
 ---
 
-## 🧪 第一次使用？请先模拟
 
-强烈建议：
+# 🗺️ Roadmap
 
+QuantBot 目前已经可以完成核心投资工作流。接下来不会无限堆功能，而是：
+
+> **把已有能力做深。**
+
+### 下一阶段
+
+- 更完善的组合风险管理
+- 更多因子
+- 更多策略
+- ETF Monitor 增强
+- 数据源扩展
+- 社区策略生态
+
+---
+
+# 🌱 Open Source
+
+QuantBot 是一个长期项目。它不是一个几十个人同时开发的大型商业产品。
+
+很多东西来自：
+
+> 一个人不断研究、设计、写代码、测试，然后一点点把它做出来。
+
+最初的问题很简单：
+
+> **“能不能让 AI 帮我做量化投资？”**
+
+然后逐渐变成：
+
+```text
+AI Agent -> Quant -> Risk -> Portfolio -> Trading -> Daily Workflow -> Self Review
 ```
-模拟模式 → 观察 AI → 验证策略 → 验证交易 → 验证风险 → 充分测试 → 再考虑实盘
-```
 
-QuantBot 支持模拟交易，也支持 QMT / XtQuant 实盘接口。
-
-> ⚠️ **不要因为看到一个漂亮的回测结果，就马上把真金白银交给程序。**
->
-> **市场永远比回测复杂。**
+现在，我把它放到 GitHub。希望它能够帮助更多对：**AI × Quant × Finance**感兴趣的人。
 
 ---
 
-## 🛠️ 数据源
+# 🤝 Community
 
-<p align="center">
-  <img src="ui/image/多数据源.png" alt="多数据源" width="100%">
-</p>
+欢迎对以下方向感兴趣的人参与交流：
 
-- ⚡ **实时行情**：原生 TDX、TDX MCP、MCP、通达信终端接口、腾讯财经
-- 📚 **历史研究数据**：本地 DuckDB
+- Quantitative Finance
+- AI Agent
+- LLM
+- Algorithmic Trading
+- Portfolio Management
+- Risk Management
+- Factor Investing
+- ETF
+- Open Source
 
-> **行情读取与量化研究相互解耦。**
-
----
+如果你发现 Bug、产生新的想法，或者希望贡献代码：**欢迎提交 Issue / Pull Request。**
 
 
-## 🧭 Roadmap
 
-QuantBot 现在已经可以完成核心投资工作流。接下来，我更希望把**已有能力做深，而不是无限堆功能。**
-
-重点方向：
-
-- ✅ 更稳定的 AI Agent 协作
-- ✅ 更完善的建仓系统
-- ✅ 动态仓位管理
-- ✅ 每日投资工作流优化
-- 🔜 更完善的组合风险管理
-- 🔜 更多因子、更多策略、ETF 监控增强
-- 🔜 数据源扩展、社区策略生态
-
----
-
-## 🌱 Open Source
-
-QuantBot 是一个长期项目。它不是一个商业公司投入几十个人做出来的产品，很多内容来自——
-
-> **一个人不断研究、设计、写代码、测试，然后一点点把它做出来。**
-
-从最初的"能不能让 AI 帮我做量化投资？"，慢慢变成一套完整的 `AI Agent → Quant → Risk → Portfolio → Trading → Daily Workflow → Self Review`。
-
-现在，我把它放到 GitHub，希望能帮助更多对 **AI + Quant + Finance** 感兴趣的人。
-
----
-
-<a id="community"></a>
-
-## 🤝 Community
-
-欢迎所有对以下方向感兴趣的人一起交流：
-
-**Quantitative Finance · AI Agent · LLM · Algorithmic Trading · Portfolio Management · Risk Management · Factor Investing · ETF · Open Source**
 
 ### 💎 付费群（￥500 元）
 
@@ -355,35 +351,41 @@ QuantBot 是一个长期项目。它不是一个商业公司投入几十个人�
   <img src="ui/image/WX商务.jpg" alt="商务洽谈" width="240">
 </p>
 
+
 ---
 
-## ⚠️ Disclaimer
+# ⚠️ Disclaimer
 
 QuantBot 仅供学习、研究和量化投资实验使用。
 
-程序产生的信号、评分、策略、AI 分析、投资决策、回测结果，均基于历史数据与模型计算。
+程序产生的信号、评分、策略、AI 分析、投资决策及回测结果，均基于历史数据与模型计算。
 
-**不保证未来收益，也不构成任何投资建议。** 金融市场存在风险。
+**不保证未来收益，也不构成任何投资建议。**
+
+金融市场存在风险。
 
 模拟交易结果不代表真实交易结果。使用 QMT 等接口进行实盘交易时，请充分理解相关风险，并遵守适用的法律法规、交易所及券商规定。
 
-**请始终只使用你能够承受损失的资金进行投资。**
+请始终只使用你能够承受损失的资金进行投资。
 
 > 💡 程序运行过程中，需要消耗一定的 Token 成本，请根据自己的需要调整刷新频率。
 
 ---
 
-<h2 align="center">🤖 QuantBot</h2>
+# 🤖 QuantBot
 
 <p align="center">
-  <b>AI × Quant × Risk × Portfolio</b><br>
-  <i>让 AI 成为你的投资团队。</i>
-</p>
 
-<p align="center">
-  ⭐ Star · 🍴 Fork · 🐛 Issue · ☕ Support
-</p>
+### AI × Quant × Risk × Portfolio × Trading
 
-<p align="center">
-  <b>Made with ❤️ by QuantBot Lab</b>
+**让 AI 成为你的投资团队。**
+
+<br>
+
+⭐ Star · 🍴 Fork · 🐛 Issue
+
+<br><br>
+
+**Made with ❤️ by QuantBot Lab**
+
 </p>

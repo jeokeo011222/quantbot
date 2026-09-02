@@ -1608,7 +1608,7 @@ export default function Settings() {
                   {systemInfo?.appName || 'QuantBot AI'}
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  版本 {systemInfo?.appVersion || '1.0.0'}
+                  版本 {systemInfo?.appVersion || '1.2.1'}
                 </p>
               </div>
 
