@@ -118,6 +118,7 @@ const statusLabelMap: Record<string, string> = { normal: '正常', working: '工
 const agentTasks: Record<AgentRole, { id: string; name: string; phase: string }[]> = {
   PLANNER: [
     { id: 'PLN-001', name: '盘前市场分析', phase: '盘前' },
+    { id: 'PLN-002', name: '生成投资规划', phase: '全时段' },
   ],
   QUANT: [
     { id: 'QNT-001', name: '盘前量化分析', phase: '盘前' },
@@ -177,11 +178,12 @@ export default function AITeam() {
   useEffect(() => {
     const loadAgentTasks = async () => {
       try {
-        const result = await GetAllAgentTasks() as Record<string, { id: string; status: string }[]>
+        // 后端返回 { planner: [...], quant: [...], ... }，每个角色为任务数组
+        const result = await GetAllAgentTasks() as Record<string, { status: string }[]>
         const statusMap: Record<string, { status: string; count: number }> = {}
         for (const [role, tasks] of Object.entries(result || {})) {
           const list = tasks as { status: string }[]
-          if (list && list.length > 0) {
+          if (Array.isArray(list) && list.length > 0) {
             const executing = list.filter((t) => t.status === 'EXECUTING' || t.status === 'IN_PROGRESS').length
             const completed = list.filter((t) => t.status === 'COMPLETED' || t.status === 'APPROVED').length
             const failed = list.filter((t) => t.status === 'FAILED').length
@@ -231,7 +233,7 @@ export default function AITeam() {
           <div>
             <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100">AI 投资团队</h1>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              五智能体架构 · PROPOSE → EVIDENCE → VETO → DECIDE → EXECUTE
+              五智能体架构 · 提议 → 举证 → 否决 → 决定 → 执行
             </p>
           </div>
         </div>

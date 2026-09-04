@@ -14,7 +14,9 @@ import {
   Search,
   Radio,
 } from 'lucide-react'
+import { GetSystemInfo, GetMarketDataStatus } from '../../wailsjs/go/main/App'
 import { useI18nStore } from '../store/i18nStore'
+import { useToastStore } from '../store/toastStore'
 import { useViewModeStore } from '../store/viewModeStore'
 import ThemeToggle from './ThemeToggle'
 import LanguageToggle from './LanguageToggle'
@@ -29,11 +31,11 @@ interface NavItem {
 
 const simpleNavItems: NavItem[] = [
   { path: '#/', key: 'nav.commandCenter', icon: Cpu },
-  { path: '#/ai-team', key: 'nav.aiTeam', icon: Users },
   { path: '#/investment-planner', key: 'nav.investmentPlanner', icon: Sparkles },
   { path: '#/cio', key: 'nav.aiDecision', icon: Shield },
   { path: '#/activity', key: 'nav.activity', icon: Activity },
   { path: '#/portfolio', key: 'nav.myInvestments', icon: Briefcase },
+  { path: '#/ai-team', key: 'nav.aiTeam', icon: Users },
 ]
 
 const researchItems: NavItem[] = [
@@ -52,6 +54,35 @@ export default function Layout({ children }: LayoutProps) {
   const mode = useViewModeStore((s) => s.mode)
   const toggleMode = useViewModeStore((s) => s.toggleMode)
   const [currentPath, setCurrentPath] = useState(window.location.hash || '#/')
+  const [appVersion, setAppVersion] = useState<string>('')
+  const showWarning = useToastStore((s) => s.warning)
+
+  useEffect(() => {
+    // 从后端读取真实版本号（version.Version），避免侧边栏版本与 About 页/发布版本漂移
+    GetSystemInfo()
+      .then((info: any) => {
+        if (info?.appVersion) setAppVersion(info.appVersion)
+      })
+      .catch(() => {
+        // 忽略失败，回退到翻译中的默认版本文案
+      })
+  }, [])
+
+  useEffect(() => {
+    // 启动时检查行情数据新旧度：量化回测/选股依赖最新行情，过期则提示用户更新
+    GetMarketDataStatus()
+      .then((status: any) => {
+        if (status?.needs_update) {
+          showWarning(
+            '行情数据需更新',
+            `最新 ${status.latest_date}，应更新到 ${status.expected_date}（前一个交易日）。量化回测/选股依赖最新行情，请在「设置 → 数据更新」中同步行情数据。`,
+          )
+        }
+      })
+      .catch(() => {
+        // 忽略失败（行情库未挂载等），由系统健康检查页展示详细状态
+      })
+  }, [])
 
   useEffect(() => {
     const handler = () => setCurrentPath(window.location.hash || '#/')
@@ -129,7 +160,7 @@ export default function Layout({ children }: LayoutProps) {
             </button>
 
             <div className="mt-2 text-center text-xs text-slate-400">
-              {t('app.version')}
+              {appVersion ? `v${appVersion}` : t('app.version')}
             </div>
           </div>
         </aside>

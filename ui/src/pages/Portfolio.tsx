@@ -2,8 +2,8 @@ import { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { Briefcase, TrendingUp, TrendingDown, DollarSign, Wallet, RefreshCw, Radio, Search, ChevronLeft, ChevronRight, X, ArrowRightLeft, ShoppingCart, Activity, LineChart, BarChart3, Calendar } from 'lucide-react'
 import {
   GetPortfolioState,
-  GetConfig,
   GetTradeHistory,
+  GetOrders,
   TriggerRebalance,
   RefreshPrices as RefreshPricesAPI,
   ExecuteManualTrade,
@@ -56,6 +56,20 @@ interface TradeRecord {
   tradeDate: string
 }
 
+interface OrderRecord {
+  orderId: string
+  side: string
+  instrumentId: string
+  stockName: string
+  quantity: number
+  price: number
+  amount: number
+  status: string // pending / filled / cancelled
+  submittedAt: string | null
+  filledAt: string | null
+  createdAt: string
+}
+
 interface PortfolioState {
   portfolioID: number
   totalCapital: number
@@ -69,7 +83,20 @@ interface PortfolioState {
   positionsCount: number
   positions: Position[]
   recentTrades: TradeRecord[]
+  ledger?: LedgerInfo
   lastUpdated: string
+}
+
+/** 财务流水账四账对账信息（期初账/临时账/明细账/总账） */
+interface LedgerInfo {
+  opening_capital: number
+  temp: { pending_orders: number; reserved_buy: number }
+  detail: { trade_count: number; buy_count: number; buy_net: number; sell_count: number; sell_net: number }
+  general: { date: string; total_assets: number; total_pnl: number; daily_pnl: number }
+  cash: { derived: number; on_record: number }
+  total_assets: number
+  reconciled: boolean
+  issues: string[]
 }
 
 /** 表格分页组件（10行/页） */
@@ -127,6 +154,8 @@ function TablePagination({ total, currentPage, totalPages, onPageChange }: {
 export default function Portfolio() {
   const [portfolio, setPortfolio] = useState<PortfolioState | null>(null)
   const [trades, setTrades] = useState<TradeRecord[]>([])
+  const [orders, setOrders] = useState<OrderRecord[]>([])
+  const [ordersFilter, setOrdersFilter] = useState<'all' | 'pending'>('pending')
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
@@ -234,6 +263,16 @@ export default function Portfolio() {
     }
   }, [])
 
+  // 订单队列：读取 orders 临时表（待确认/已成交/已取消）
+  const loadOrders = useCallback(async (includeFilled: boolean) => {
+    try {
+      const data = await GetOrders(includeFilled)
+      setOrders(data || [])
+    } catch {
+      setOrders([])
+    }
+  }, [])
+
   const loadLatestDailyStat = useCallback(async () => {
     try {
       const data = await GetLatestDailyStat()
@@ -259,31 +298,17 @@ export default function Portfolio() {
     loadNavBenchmark()
   }, [loadData, profitPeriod, loadProfitHistory, loadLatestDailyStat, loadNavBenchmark])
 
-  // 定时刷新：间隔取设置-通用中的 activity_refresh_minutes（默认5分钟）
+  // 实时刷新：每30秒从 sqlite 权威数据重建组合状态（含持仓/成交/盈亏），无需手动刷新
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval> | null = null
-    const start = async () => {
-      let minutes = 5
+    const interval = setInterval(async () => {
       try {
-        const cfg: any = await GetConfig()
-        const v = Number(cfg?.activity_refresh_minutes)
-        if (v >= 1 && v <= 60) minutes = v
+        await RefreshPricesAPI()
       } catch {
-        // 取配置失败时回退默认5分钟
+        // 行情刷新失败不阻断数据轮询
       }
-      interval = setInterval(async () => {
-        try {
-          await RefreshPricesAPI()
-          loadData()
-        } catch {
-          // ignore
-        }
-      }, minutes * 60 * 1000)
-    }
-    start()
-    return () => {
-      if (interval) clearInterval(interval)
-    }
+      loadData()
+    }, 30 * 1000)
+    return () => clearInterval(interval)
   }, [loadData])
 
   const handleRebalance = async () => {
@@ -331,6 +356,20 @@ export default function Portfolio() {
     } finally {
       setRefreshing(false)
       setTimeout(() => setTradeMessage(null), 3000)
+    }
+  }
+
+  const handleTabChange = (tab: 'positions' | 'trades' | 'trading' | 'profit') => {
+    setActiveTab(tab)
+    // 切换页签时实时刷新对应数据，确保从 sqlite 权威数据同步最新状态
+    loadData()
+    if (tab === 'trading') {
+      loadOrders(ordersFilter === 'all')
+    }
+    if (tab === 'profit') {
+      loadProfitHistory(profitPeriod)
+      loadLatestDailyStat()
+      loadNavBenchmark()
     }
   }
 
@@ -432,13 +471,6 @@ export default function Portfolio() {
             <Radio className="w-3.5 h-3.5" />
             实时持仓监控
           </span>
-          <button onClick={() => loadData()}
-            className="btn-secondary text-xs py-1.5 px-3"
-            disabled={refreshing}
-          >
-            <RefreshCw className={`w-3.5 h-3.5 mr-1 ${refreshing ? 'animate-spin' : ''}`} />
-            刷新
-          </button>
         </div>
       </div>
 
@@ -519,7 +551,7 @@ export default function Portfolio() {
         ] as const).map((tab) => (
           <button
             key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
+            onClick={() => handleTabChange(tab.key)}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
               activeTab === tab.key
                 ? 'bg-white dark:bg-slate-700 shadow text-slate-800 dark:text-slate-100'
@@ -739,6 +771,7 @@ export default function Portfolio() {
 
       {/* Trading Tab */}
       {activeTab === 'trading' && (
+        <>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Manual Trade */}
           <div className="card p-6">
@@ -886,9 +919,110 @@ export default function Portfolio() {
             </div>
           </div>
         </div>
-      )}
 
-      {/* Profit Analysis Tab */}
+        {/* 订单队列（orders 临时表）：待确认 / 已成交 / 已取消 */}
+        <div className="card overflow-hidden mt-6">
+          <div className="p-5 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between flex-wrap gap-3">
+            <h3 className="font-medium text-slate-800 dark:text-slate-100">订单队列 · 共 {orders.length} 条</h3>
+              <div className="flex items-center gap-2">
+                <div className="flex rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 text-xs">
+                  <button
+                    onClick={() => { setOrdersFilter('pending'); loadOrders(false) }}
+                    className={`px-3 py-1.5 font-medium transition-colors ${
+                      ordersFilter === 'pending'
+                        ? 'bg-indigo-500 text-white'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                    }`}
+                  >
+                    未成交
+                  </button>
+                  <button
+                    onClick={() => { setOrdersFilter('all'); loadOrders(true) }}
+                    className={`px-3 py-1.5 font-medium transition-colors ${
+                      ordersFilter === 'all'
+                        ? 'bg-indigo-500 text-white'
+                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                    }`}
+                  >
+                    全部
+                  </button>
+                </div>
+                <button
+                  onClick={() => loadOrders(ordersFilter === 'all')}
+                  className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-500"
+                  title="刷新订单"
+                >
+                  <RefreshCw className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="text-left text-xs text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+                    <th className="px-5 py-3 font-medium">提交时间</th>
+                    <th className="px-5 py-3 font-medium">方向</th>
+                    <th className="px-5 py-3 font-medium">代码</th>
+                    <th className="px-5 py-3 font-medium">股票</th>
+                    <th className="px-5 py-3 font-medium">数量</th>
+                    <th className="px-5 py-3 font-medium">价格</th>
+                    <th className="px-5 py-3 font-medium">金额</th>
+                    <th className="px-5 py-3 font-medium">状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.length > 0 ? (
+                    orders.map((o) => {
+                      const isBuy = o.side === 'BUY'
+                      const statusMeta =
+                        o.status === 'pending'
+                          ? { text: '排队中', cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' }
+                          : o.status === 'filled'
+                            ? { text: '已成交', cls: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' }
+                            : { text: '已取消', cls: 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400' }
+                      return (
+                        <tr
+                          key={o.orderId}
+                          className="border-b border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                        >
+                          <td className="px-5 py-3 text-sm text-slate-600 dark:text-slate-400">
+                            {new Date(o.submittedAt || o.createdAt).toLocaleString('zh-CN')}
+                          </td>
+                          <td className="px-5 py-3">
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${
+                              isBuy
+                                ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                            }`}>
+                              {isBuy ? '买入' : '卖出'}
+                            </span>
+                          </td>
+                          <td className="px-5 py-3 font-mono text-sm">{o.instrumentId}</td>
+                          <td className="px-5 py-3 text-sm">{o.stockName}</td>
+                          <td className="px-5 py-3">{o.quantity.toLocaleString()}</td>
+                          <td className="px-5 py-3">¥{o.price.toFixed(2)}</td>
+                          <td className="px-5 py-3 font-semibold">{formatCurrency(o.amount)}</td>
+                          <td className="px-5 py-3">
+                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${statusMeta.cls}`}>
+                              {statusMeta.text}
+                            </span>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan={8} className="text-center py-8 text-slate-400 dark:text-slate-500">
+                        暂无订单
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </>
+      )}
       {activeTab === 'profit' && (
         <div className="space-y-4">
           {/* 盈亏分析概览卡片 */}
@@ -930,6 +1064,82 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
+
+          {/* 记账对账（财务流水账：期初 / 临时账 / 明细账 / 总账） */}
+          {portfolio?.ledger && (
+            <div className="card p-5">
+              <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <Activity className="w-5 h-5 text-cyan-500" />
+                  <span className="font-medium text-slate-800 dark:text-slate-100">记账对账（财务流水账）</span>
+                </div>
+                <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium ${
+                  portfolio.ledger.reconciled
+                    ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                    : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                }`}>
+                  {portfolio.ledger.reconciled ? '✓ 四账对平' : '⚠ 存在差异'}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400 mb-1">期初账 · 初始资金</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">
+                    {formatCurrency(portfolio.ledger.opening_capital)}
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400 mb-1">临时账 · 挂单占用</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">
+                    {formatCurrency(portfolio.ledger.temp.reserved_buy)}
+                  </div>
+                  <div className="text-xs text-slate-400 mt-0.5">
+                    {portfolio.ledger.temp.pending_orders} 笔待确认
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400 mb-1">明细账 · 成交流水</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">
+                    {portfolio.ledger.detail.buy_count}买 / {portfolio.ledger.detail.sell_count}卖
+                  </div>
+                  <div className="text-xs text-slate-400 mt-0.5">
+                    买入 {formatCurrency(portfolio.ledger.detail.buy_net)} · 卖出 {formatCurrency(portfolio.ledger.detail.sell_net)}
+                  </div>
+                </div>
+                <div className="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
+                  <div className="text-xs text-slate-400 mb-1">现金 · 明细账推导</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">
+                    {formatCurrency(portfolio.ledger.cash.derived)}
+                  </div>
+                  <div className="text-xs text-slate-400 mt-0.5">
+                    记录 {formatCurrency(portfolio.ledger.cash.on_record)}
+                  </div>
+                </div>
+              </div>
+
+              {portfolio.ledger.general.date && (
+                <div className="mt-3 p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 text-sm flex flex-wrap gap-x-6 gap-y-1">
+                  <span className="text-xs text-slate-400">总账 · {portfolio.ledger.general.date} 结算</span>
+                  <span>总资产 <b className="text-slate-800 dark:text-slate-100">{formatCurrency(portfolio.ledger.general.total_assets)}</b></span>
+                  <span className={portfolio.ledger.general.total_pnl >= 0 ? 'text-green-600' : 'text-red-600'}>
+                    累计盈亏 {portfolio.ledger.general.total_pnl >= 0 ? '+' : ''}{formatCurrency(portfolio.ledger.general.total_pnl)}
+                  </span>
+                  <span className={portfolio.ledger.general.daily_pnl >= 0 ? 'text-green-600' : 'text-red-600'}>
+                    今日盈亏 {portfolio.ledger.general.daily_pnl >= 0 ? '+' : ''}{formatCurrency(portfolio.ledger.general.daily_pnl)}
+                  </span>
+                </div>
+              )}
+
+              {!portfolio.ledger.reconciled && portfolio.ledger.issues?.length > 0 && (
+                <div className="mt-3 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-xs text-red-600 dark:text-red-400">
+                  {portfolio.ledger.issues.map((it, idx) => (
+                    <div key={idx}>· {it}</div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* 时间周期选择器 */}
           <div className="card p-4">

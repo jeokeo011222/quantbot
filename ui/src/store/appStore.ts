@@ -24,8 +24,6 @@ interface AppState {
   setDailyReport: (report: DailyCycleResult | null) => void
   setIsLoading: (loading: boolean) => void
   setFirstRun: (value: boolean) => void
-  setAutoRefresh: (value: boolean) => void
-  toggleAutoRefresh: () => void
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -37,8 +35,6 @@ export const useAppStore = create<AppState>((set) => ({
   setFirstRun: (value) => set({ isFirstRun: value }),
   setDailyReport: (report: DailyCycleResult | null) => set({ dailyReport: report }),
   setIsLoading: (loading: boolean) => set({ isLoading: loading }),
-  setAutoRefresh: (value) => set({ isAutoRefresh: value }),
-  toggleAutoRefresh: () => set((state) => ({ isAutoRefresh: !state.isAutoRefresh })),
   fetchDailyReport: async () => {
     set({ isLoading: true, error: null })
     try {

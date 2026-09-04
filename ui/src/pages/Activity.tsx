@@ -431,8 +431,6 @@ const _generateNewActivity = (phase: MarketPhase, positions: PositionInfo[]): Ac
   }
 }
 
-type TransparencyTab = 'dataRead' | 'algorithms' | 'decisions'
-
 interface TaskLogItem {
   id: number
   task_date: string
@@ -468,7 +466,7 @@ const convertTaskLogToActivity = (task: TaskLogItem): ActivityItem => {
     type = 'execution'
   } else if (taskNameLower.includes('risk') || taskNameLower.includes('风控') || taskNameLower.includes('check')) {
     type = 'risk_check'
-  } else if (taskNameLower.includes('decision') || taskNameLower.includes('决策') || taskNameLower.includes('plan')) {
+  } else if (taskNameLower.includes('decision') || taskNameLower.includes('决策') || taskNameLower.includes('plan') || taskNameLower.includes('投资规划') || taskNameLower.includes('投资方案')) {
     type = 'decision'
   } else if (taskNameLower.includes('alert') || taskNameLower.includes('警报') || task.status === 'FAILED') {
     type = 'alert'
@@ -543,8 +541,6 @@ export default function Activity() {
   const [activeFilter, setActiveFilter] = useState<'all' | AgentRole>('all')
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date())
   const [selectedAgent, setSelectedAgent] = useState<AgentRole>('CIO')
-  const [showTransparency, setShowTransparency] = useState(false)
-  const [transparencyTab, setTransparencyTab] = useState<TransparencyTab>('dataRead')
   const [indices, setIndices] = useState<MarketIndex[]>([])
   const [indicesUpdatedAt, setIndicesUpdatedAt] = useState<Date>(new Date())
   const [hasPositions, setHasPositions] = useState<boolean>(false)
@@ -569,18 +565,7 @@ export default function Activity() {
   const [agentWorkDetailsSource, setAgentWorkDetailsSource] = useState<'real' | 'error' | 'loading'>('loading')
   const [agentWorkDetailsError, setAgentWorkDetailsError] = useState<string | null>(null)
 
-  // 透明度数据相关状态
-  const [transparencyData, setTransparencyData] = useState<{
-    data_sources: Array<{ source: string; status: string; items: string[]; read_time: string }>;
-    algorithms: Array<{ name: string; input: string; output: string; status: string; run_time: string; duration_ms: number }>;
-    decisions: Array<{ step: number; agent: string; action: string; reason: string; data_used: string[]; timestamp: string }>;
-    message?: string;
-  } | null>(null)
-  const [transparencyLoading, setTransparencyLoading] = useState(false)
-  const [transparencyError, setTransparencyError] = useState<string | null>(null)
-
   const isAutoRefresh = useAppStore((s) => s.isAutoRefresh)
-  const toggleAutoRefresh = useAppStore((s) => s.toggleAutoRefresh)
   const showError = useToastStore((s) => s.error)
 
   // 实时活动自动刷新间隔（分钟）：从后台配置读取（设置-通用），默认 5 分钟
@@ -634,49 +619,29 @@ export default function Activity() {
   )
   const showWarning = useToastStore((s) => s.warning)
 
-  // 加载透明度数据
-  const loadTransparencyData = async () => {
-    setTransparencyLoading(true)
-    setTransparencyError(null)
+  // 持仓数据实时读取数据库：后端 GetPortfolioState 每次以 sqlite 权威数据（最近收盘快照+其后成交）
+  // 强制对账后返回，前端无需手动刷新按钮，轮询/切页加载均直接读取最新持仓。
+  const loadPortfolioState = async () => {
+    const App: any = (window as any)['go']?.['main']?.['App']
+    if (!App || typeof App.GetPortfolioState !== 'function') return
     try {
-      const App: any = (window as any)['go']?.['main']?.['App']
-      if (!App || typeof App.GetTransparencyData !== 'function') {
-        setTransparencyError('后端 API 未就绪')
-        setTransparencyData(null)
-        return
-      }
-
-      const result = await App.GetTransparencyData('')
-      if (result && !result.error) {
-        setTransparencyData({
-          data_sources: result.data_sources || [],
-          algorithms: result.algorithms || [],
-          decisions: result.decisions || [],
-          message: result.message,
-        })
+      const state = await App.GetPortfolioState()
+      const count = state?.positionsCount || 0
+      setPositionsCount(count)
+      setHasPositions(count > 0)
+      if (state?.positions && Array.isArray(state.positions)) {
+        const posList: PositionInfo[] = state.positions.map((p: any) => ({
+          code: p.code,
+          name: p.stockName,
+        }))
+        setPositions(posList)
       } else {
-        setTransparencyData({
-          data_sources: [],
-          algorithms: [],
-          decisions: [],
-          message: result?.message || '暂无透明度数据',
-        })
+        setPositions([])
       }
-    } catch (err) {
-      console.warn('Failed to load transparency data:', err)
-      setTransparencyError('获取透明度数据失败')
-      setTransparencyData(null)
-    } finally {
-      setTransparencyLoading(false)
+    } catch {
+      setHasPositions(false)
     }
   }
-
-  // 当显示透明度面板时加载数据
-  useEffect(() => {
-    if (showTransparency) {
-      loadTransparencyData()
-    }
-  }, [showTransparency])
 
   // 从后端加载真实的 Agent 活动数据（团队活动 + 任务日志）
   const loadRealActivities = async () => {
@@ -880,25 +845,8 @@ export default function Activity() {
 
   useEffect(() => {
     loadIndices()
-    // 获取持仓状态和持仓明细
-    const App: any = (window as any)['go']?.['main']?.['App']
-    if (App && typeof App.GetPortfolioState === 'function') {
-      App.GetPortfolioState().then((state: any) => {
-        const count = state?.positionsCount || 0
-        setPositionsCount(count)
-        setHasPositions(count > 0)
-        // 提取持仓明细用于活动生成
-        if (state?.positions && Array.isArray(state.positions)) {
-          const posList: PositionInfo[] = state.positions.map((p: any) => ({
-            code: p.code,
-            name: p.stockName,
-          }))
-          setPositions(posList)
-        }
-      }).catch(() => {
-        setHasPositions(false)
-      })
-    }
+    // 持仓状态实时读取数据库（后端 GetPortfolioState 每次对账 sqlite 后返回）
+    loadPortfolioState()
     // 加载真实的 Agent 活动数据和今日交易
     loadRealActivities()
     loadAgentWorkDetails()
@@ -915,6 +863,8 @@ export default function Activity() {
       loadRealActivities()
       loadAgentWorkDetails()
       loadSchedulerStatus()
+      // 持仓数据实时读取数据库（无手动刷新按钮，随自动轮询保持最新）
+      loadPortfolioState()
       // 交易时段内同时刷新实时指数行情
       loadIndices({ silent: true })
     }, activityRefreshMinutes * 60 * 1000) // 按后台配置的分钟数刷新
@@ -931,43 +881,10 @@ export default function Activity() {
     }
   }, [])
 
-  const handleRefreshPositions = async () => {
-    const App: any = (window as any)['go']?.['main']?.['App']
-    if (App && typeof App.GetPortfolioState === 'function') {
-      try {
-        const state = await App.GetPortfolioState()
-        const count = state?.positionsCount || 0
-        setPositionsCount(count)
-        setHasPositions(count > 0)
-        // 更新持仓明细
-        if (state?.positions && Array.isArray(state.positions)) {
-          const posList: PositionInfo[] = state.positions.map((p: any) => ({
-            code: p.code,
-            name: p.stockName,
-          }))
-          setPositions(posList)
-        } else {
-          setPositions([])
-        }
-      } catch {
-        // ignore
-      }
-    }
-    // 同时刷新真实的 Agent 活动和交易数据
-    loadRealActivities()
-    loadAgentWorkDetails()
-  }
-
   const filteredActivities =
     activeFilter === 'all'
       ? activities
       : activities.filter((a) => a.agentRole === activeFilter)
-
-  const handleManualRefresh = () => {
-    // 刷新真实的 Agent 活动数据和今日交易
-    loadRealActivities()
-    loadAgentWorkDetails()
-  }
 
   const autoRefreshIntervalLabel = isAutoRefresh ? `${activityRefreshMinutes}分钟` : '已暂停'
   const isMarketOpen = isTradingTime()
@@ -1040,35 +957,12 @@ export default function Activity() {
             />
             {!isMarketOpen ? '非交易时段' : isAutoRefresh ? `自动刷新 · ${autoRefreshIntervalLabel}` : '自动刷新已暂停'}
           </span>
-
-          <button onClick={toggleAutoRefresh} className="btn-secondary text-xs py-1.5 px-3">
-            {isAutoRefresh ? '暂停' : '启动'}
-          </button>
-
-          {/* 无持仓时显示刷新持仓状态按钮 */}
-          {!hasPositions && (
-            <button onClick={handleRefreshPositions} className="btn-primary text-xs py-1.5 px-3">
-              <RefreshCw className="w-3.5 h-3.5 mr-1" />
-              刷新持仓状态
-            </button>
-          )}
-
-          <button onClick={handleManualRefresh} className="btn-secondary text-xs py-1.5 px-3 disabled:opacity-50 disabled:cursor-not-allowed" disabled={!hasPositions || positions.length === 0}>
-            <RefreshCw className="w-3.5 h-3.5 mr-1" />
-            立即刷新
-          </button>
-
-          <button
-            onClick={() => setShowTransparency(!showTransparency)}
-            className={`btn-secondary text-xs py-1.5 px-3 ${showTransparency ? 'bg-purple-100 text-purple-700' : ''}`}
-          >
-            <GitBranch className="w-3.5 h-3.5 mr-1" />
-            AI 决策过程
-          </button>
         </div>
       </header>
 
-      {indices.length > 0 && (
+      {/* 市场指数：仅展示核心三大指数（上证指数/深证成指/创业板指），
+          过滤掉沪深300/中证500/创业板50，保持页面极简 */}
+      {indices.filter((idx) => ['sh000001', 'sz399001', 'sz399006'].includes((idx.code || '').toLowerCase())).length > 0 && (
         <div className="card p-4">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
@@ -1089,7 +983,7 @@ export default function Activity() {
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {indices.map((idx) => {
+            {indices.filter((idx) => ['sh000001', 'sz399001', 'sz399006'].includes((idx.code || '').toLowerCase())).map((idx) => {
               const isUp = idx.changePercent >= 0
               return (
                 <div key={idx.code} className="p-3 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
@@ -1253,229 +1147,6 @@ export default function Activity() {
           )
         })()}
       </div>
-
-      {showTransparency && (
-        <div className="card p-5">
-          <div className="flex items-center gap-2 mb-4">
-            <GitBranch className="w-4 h-4 text-purple-500" />
-            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-              AI 决策过程透明化 · 它读了什么？怎么决策的？
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-1 mb-4">
-            {([
-              { key: 'dataRead' as TransparencyTab, label: '📥 读取的数据', icon: Database },
-              { key: 'algorithms' as TransparencyTab, label: '🧮 运行的算法', icon: Cpu },
-              { key: 'decisions' as TransparencyTab, label: '🎯 决策链路', icon: GitBranch },
-            ]).map((tab) => (
-              <button
-                key={tab.key}
-                onClick={() => setTransparencyTab(tab.key)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg transition-colors ${
-                  transparencyTab === tab.key
-                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 font-medium'
-                    : 'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700'
-                }`}
-              >
-                <tab.icon className="w-3.5 h-3.5" />
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {transparencyTab === 'dataRead' && (
-            <div className="space-y-4">
-              {transparencyLoading ? (
-                <div className="text-center py-8">
-                  <RefreshCw className="w-8 h-8 text-slate-400 animate-spin mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 dark:text-slate-400">加载中...</p>
-                </div>
-              ) : !transparencyData || transparencyData.data_sources.length === 0 ? (
-                <div className="text-center py-8">
-                  <AlertTriangle className="w-12 h-12 text-yellow-500 mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    {transparencyData?.message || '暂无数据源记录'}
-                  </p>
-                  <p className="text-xs text-slate-400 mt-2">
-                    执行智能体任务后，将在此展示 AI 决策前读取的真实数据源
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                      AI 在做出投资决策前，从以下数据源读取了 {transparencyData.data_sources.length} 条记录
-                    </p>
-                    <button
-                      onClick={loadTransparencyData}
-                      className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-1"
-                    >
-                      <RefreshCw className="w-3 h-3" />
-                      刷新
-                    </button>
-                  </div>
-                  {transparencyData.data_sources.map((source, idx) => (
-                    <div key={idx} className="border border-slate-200 dark:border-slate-700 rounded-lg p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <Database className="w-4 h-4 text-brand-500" />
-                          <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{source.source}</span>
-                        </div>
-                        <span className={`text-xs px-2 py-0.5 rounded ${
-                          source.status === '成功' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                        }`}>
-                          {source.status}
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {source.items.map((item, i) => (
-                          <span key={i} className="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 font-mono">
-                            {item.length > 50 ? item.substring(0, 50) + '...' : item}
-                          </span>
-                        ))}
-                      </div>
-                      <p className="text-xs text-slate-400 mt-2">读取时间: {source.read_time}</p>
-                    </div>
-                  ))}
-                </>
-              )}
-            </div>
-          )}
-
-          {transparencyTab === 'algorithms' && (
-            <div className="space-y-3">
-              {transparencyLoading ? (
-                <div className="text-center py-8">
-                  <RefreshCw className="w-8 h-8 text-slate-400 animate-spin mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 dark:text-slate-400">加载中...</p>
-                </div>
-              ) : !transparencyData || transparencyData.algorithms.length === 0 ? (
-                <div className="text-center py-8">
-                  <Cpu className="w-12 h-12 text-yellow-500 mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    {transparencyData?.message || '暂无算法执行记录'}
-                  </p>
-                  <p className="text-xs text-slate-400 mt-2">
-                    执行智能体任务后，将在此展示 AI 运行的算法模型
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                      AI 运行了 {transparencyData.algorithms.length} 个算法/工具
-                    </p>
-                    <button
-                      onClick={loadTransparencyData}
-                      className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-1"
-                    >
-                      <RefreshCw className="w-3 h-3" />
-                      刷新
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    {transparencyData.algorithms.map((algo, idx) => (
-                      <div key={idx} className="border border-slate-200 dark:border-slate-700 rounded-lg p-4">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center gap-2">
-                            <Cpu className="w-4 h-4 text-cyan-500" />
-                            <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{algo.name}</span>
-                          </div>
-                          <span className="text-xs text-slate-400">{algo.duration_ms}ms</span>
-                        </div>
-                        <div className="space-y-1.5 text-xs">
-                          <div className="flex items-start gap-1.5">
-                            <span className="text-slate-400 shrink-0">输入:</span>
-                            <span className="text-slate-600 dark:text-slate-400 break-all">
-                              {algo.input.length > 80 ? algo.input.substring(0, 80) + '...' : algo.input}
-                            </span>
-                          </div>
-                          <div className="flex items-start gap-1.5">
-                            <span className="text-slate-400 shrink-0">输出:</span>
-                            <span className="text-slate-600 dark:text-slate-400 break-all">
-                              {algo.output.length > 80 ? algo.output.substring(0, 80) + '...' : algo.output}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className={`font-medium ${
-                              algo.status === '成功' ? 'text-green-500' : 'text-red-500'
-                            }`}>{algo.status}</span>
-                            <span className="text-slate-400">{algo.run_time}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-
-          {transparencyTab === 'decisions' && (
-            <div className="space-y-3">
-              {transparencyLoading ? (
-                <div className="text-center py-8">
-                  <RefreshCw className="w-8 h-8 text-slate-400 animate-spin mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 dark:text-slate-400">加载中...</p>
-                </div>
-              ) : !transparencyData || transparencyData.decisions.length === 0 ? (
-                <div className="text-center py-8">
-                  <GitBranch className="w-12 h-12 text-yellow-500 mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    {transparencyData?.message || '暂无决策链路记录'}
-                  </p>
-                  <p className="text-xs text-slate-400 mt-2">
-                    执行智能体任务后，将在此展示从数据到决策的完整链路
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <div className="flex items-center justify-between mb-3">
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                      从数据到决策的完整链路，共 {transparencyData.decisions.length} 个步骤
-                    </p>
-                    <button
-                      onClick={loadTransparencyData}
-                      className="text-xs text-purple-600 hover:text-purple-700 flex items-center gap-1"
-                    >
-                      <RefreshCw className="w-3 h-3" />
-                      刷新
-                    </button>
-                  </div>
-                  <div className="relative">
-                    <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700" />
-                    {transparencyData.decisions.map((dec, idx) => (
-                      <div key={idx} className="relative pl-12 pb-4">
-                        <div className="absolute left-2 top-1 w-5 h-5 rounded-full bg-purple-500 text-white text-xs flex items-center justify-center font-bold">
-                          {dec.step}
-                        </div>
-                        <div className="border border-slate-200 dark:border-slate-700 rounded-lg p-3">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs px-2 py-0.5 rounded bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300 font-medium">
-                              {dec.agent}
-                            </span>
-                            <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{dec.action}</span>
-                          </div>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">{dec.reason}</p>
-                          <div className="flex flex-wrap gap-1">
-                            {dec.data_used.map((d, i) => (
-                              <span key={i} className="text-xs px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-mono">
-                                {d.length > 30 ? d.substring(0, 30) + '...' : d}
-                              </span>
-                            ))}
-                          </div>
-                          <p className="text-xs text-slate-400 mt-2">{dec.timestamp}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          )}
-        </div>
-      )}
 
       <div className="card p-3 flex items-center gap-3">
         <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">

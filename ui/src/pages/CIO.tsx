@@ -13,10 +13,10 @@ import {
   BarChart3,
   Layers,
   Lightbulb,
+  ClipboardList,
 } from 'lucide-react'
 import {
   GetDailyReviews,
-  GenerateDailyReview,
   RunCIODailyCheck,
   GetCIOStatus,
   GetCIOJournal,
@@ -33,6 +33,7 @@ import { getCurrentPhase } from '../utils/marketPhase'
 import { useToastStore } from '../store/toastStore'
 
 interface JournalEntry {
+  decisionID: string
   timestamp: string
   decision: string
   reason: string
@@ -403,7 +404,6 @@ export default function CIO() {
   const [journal, setJournal] = useState<JournalEntry[]>([])
   const [reviews, setReviews] = useState<DailyReview[]>([])
   const [loadingReviews, setLoadingReviews] = useState(false)
-  const [generatingReview, setGeneratingReview] = useState(false)
   const [activeTab, setActiveTab] = useState<'decision' | 'review'>('decision')
   const [loading, setLoading] = useState(true)
   const [currentMarketState, setCurrentMarketState] = useState<any>(null)
@@ -441,7 +441,7 @@ export default function CIO() {
     try {
       // Phase 2 —— 决策日志（CIO 日志 · 投资决策记录）独立先行加载：核心卡片立即显示，
       // 不被六维/风险等慢接口拖累（此前 Promise.allSettled 捆绑 6 接口，最慢的会阻塞日志渲染）。
-      GetCIOJournal(7)
+      GetCIOJournal(1)
         .then((journalResult) => {
           if (Array.isArray(journalResult?.entries)) {
             setJournal(journalResult.entries as JournalEntry[])
@@ -531,20 +531,6 @@ export default function CIO() {
       }, 30000)
     } finally {
       setLoadingReviews(false)
-    }
-  }
-
-  const handleGenerateReview = async () => {
-    setGeneratingReview(true)
-    try {
-      const result = await GenerateDailyReview()
-      if (result && result.success) {
-        await loadReviews()
-      }
-    } catch (err) {
-      console.error('Failed to generate daily review:', err)
-    } finally {
-      setGeneratingReview(false)
     }
   }
 
@@ -1064,9 +1050,9 @@ export default function CIO() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <FileText className="w-4 h-4 text-brand-500" />
-            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">CIO 日志 · 投资决策记录</h2>
+            <h2 className="text-sm font-semibold text-slate-700 dark:text-slate-300">CIO 日志 · 今日投资决策记录</h2>
             {journal.length > 0 && (
-              <span className="text-xs text-slate-400">（共 {journal.length} 条）</span>
+              <span className="text-xs text-slate-400">（今日 {journal.length} 条）</span>
             )}
           </div>
           {journal.length > journalPageSize && (
@@ -1190,16 +1176,9 @@ export default function CIO() {
             <div className="card p-8 text-center">
               <Calendar className="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600 mb-4" />
               <h3 className="text-lg font-medium text-slate-700 dark:text-slate-300 mb-2">暂无复盘报告</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-                今日还没有生成复盘报告。点击上方按钮手动生成，或等待系统在收盘后自动生成。
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                今日还没有生成复盘报告，系统将在收盘后自动生成。
               </p>
-              <button
-                onClick={handleGenerateReview}
-                disabled={generatingReview}
-                className="btn-primary disabled:opacity-50"
-              >
-                生成今日复盘
-              </button>
             </div>
           ) : (
             <div className="space-y-4">
@@ -1219,9 +1198,11 @@ export default function CIO() {
                         </p>
                       </div>
                     </div>
-                    <span className={`badge ${review.status === 'COMPLETED' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'}`}>
-                      {review.status === 'COMPLETED' ? '已完成' : '进行中'}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className={`badge ${review.status === 'COMPLETED' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'}`}>
+                        {review.status === 'COMPLETED' ? '已完成' : '进行中'}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Key Metrics */}
@@ -1271,13 +1252,13 @@ export default function CIO() {
                     </div>
                   </div>
 
-                  {/* Summary */}
+                  {/* 首席投资官深度复盘 */}
                   <div className="mb-4">
                     <div className="flex items-center gap-2 mb-2">
                       <FileText className="w-4 h-4 text-brand-500" />
-                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">复盘摘要</span>
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">首席投资官深度复盘</span>
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-line">
                       {review.summary}
                     </p>
                   </div>
@@ -1418,13 +1399,13 @@ export default function CIO() {
                     )
                   })()}
 
-                  {/* Recommendations */}
+                  {/* 明日计划 */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <Lightbulb className="w-4 h-4 text-yellow-500" />
-                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">投资建议</span>
+                      <ClipboardList className="w-4 h-4 text-yellow-500" />
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">明日计划与建议</span>
                     </div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed whitespace-pre-line p-3 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
                       {review.recommendations}
                     </p>
                   </div>

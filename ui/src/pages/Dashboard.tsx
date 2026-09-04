@@ -9,7 +9,6 @@ import {
   PanelLeft,
   Play,
   Square,
-  Pause,
   Sparkles,
   DollarSign,
   PiggyBank,
@@ -20,7 +19,7 @@ import {
   Target,
   RefreshCw,
 } from 'lucide-react'
-import { GetPortfolioState, RefreshPrices as RefreshPricesAPI, GetContinuousTradingStatus, StopContinuousTrading, StartContinuousTrading, GetCIOJournal, IsReady } from '../../wailsjs/go/main/App'
+import { GetPortfolioState, RefreshPrices as RefreshPricesAPI, GetPolicyStatus, EmergencyStop, ResumeTrading, GetCIOJournal, IsReady } from '../../wailsjs/go/main/App'
 import { formatCurrency, formatPercent, getPnLColor } from '../utils/formatters'
 import { toFriendlyError } from '../utils/errorMessages'
 import { useToastStore } from '../store/toastStore'
@@ -65,7 +64,7 @@ interface PortfolioState {
 
 export default function Dashboard() {
   const { mode, toggleMode } = useViewModeStore()
-  const [isPaused, setIsPaused] = useState(false)
+  const [isStopped, setIsStopped] = useState(false)
   const [portfolio, setPortfolio] = useState<PortfolioState | null>(null)
   const [decisions, setDecisions] = useState<AIDecision[]>([])
   const [decisionsLoading, setDecisionsLoading] = useState(true)
@@ -177,9 +176,10 @@ export default function Dashboard() {
 
   const loadContinuousStatus = useCallback(async () => {
     try {
-      const status = await GetContinuousTradingStatus()
-      if (status?.running !== undefined) {
-        setIsPaused(!status.running)
+      // 驾驶舱状态只与「紧急停止/恢复工作」开关关联
+      const status = await GetPolicyStatus()
+      if (status?.emergency_stop !== undefined) {
+        setIsStopped(!!status.emergency_stop)
       }
     } catch {
       // ignore
@@ -218,15 +218,15 @@ export default function Dashboard() {
 
   const cioStatus = {
     state: 'NORMAL',
-    todayMessage: isPaused ? '交易系统已暂停' : 'AI 投资团队运行正常',
+    todayMessage: isStopped ? '交易系统已停止' : 'AI 投资团队运行正常',
     teamMessage: 'AI 投资团队运行正常',
   }
 
   const handleEmergencyStop = async () => {
     try {
-      await StopContinuousTrading()
-      setIsPaused(true)
-      setRunMessage({ type: 'success', text: '已紧急停止交易' })
+      await EmergencyStop()
+      setIsStopped(true)
+      setRunMessage({ type: 'success', text: '已紧急停止，所有智能体已停止工作' })
       setTimeout(() => setRunMessage(null), 3000)
     } catch (err) {
       const friendly = toFriendlyError(err)
@@ -237,9 +237,9 @@ export default function Dashboard() {
 
   const handleResume = async () => {
     try {
-      await StartContinuousTrading()
-      setIsPaused(false)
-      setRunMessage({ type: 'success', text: '已恢复交易' })
+      await ResumeTrading()
+      setIsStopped(false)
+      setRunMessage({ type: 'success', text: '已恢复工作，所有智能体继续运行' })
       setTimeout(() => setRunMessage(null), 3000)
     } catch (err) {
       const friendly = toFriendlyError(err)
@@ -305,7 +305,7 @@ export default function Dashboard() {
           cash={cash}
           positionsCount={positionsCount}
           cioStatus={cioStatus}
-          isPaused={isPaused}
+          isStopped={isStopped}
           onToggleMode={toggleMode}
           onEmergencyStop={handleEmergencyStop}
           onResume={handleResume}
@@ -330,7 +330,7 @@ export default function Dashboard() {
         decisions={decisions}
         decisionsLoading={decisionsLoading}
         cioStatus={cioStatus}
-        isPaused={isPaused}
+        isStopped={isStopped}
         onToggleMode={toggleMode}
         refreshing={refreshing}
         onRefresh={loadData}
@@ -352,7 +352,7 @@ interface SimpleModeProps {
   cash: number
   positionsCount: number
   cioStatus: { state: string; todayMessage: string; teamMessage: string }
-  isPaused: boolean
+  isStopped: boolean
   onToggleMode: () => void
   onEmergencyStop: () => void
   onResume: () => void
@@ -362,7 +362,7 @@ interface SimpleModeProps {
 function SimpleMode({
   totalAsset, todayPnL, todayPnLPct, totalReturn,
   holdings, cash, positionsCount, cioStatus,
-  isPaused, onToggleMode, onEmergencyStop, onResume, refreshing,
+  isStopped, onToggleMode, onEmergencyStop, onResume, refreshing,
 }: SimpleModeProps) {
   return (
     <div className="min-h-[calc(100vh-80px)] flex flex-col">
@@ -374,10 +374,10 @@ function SimpleMode({
           <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100">QuantBot</h1>
         </div>
         <div className="flex items-center gap-3">
-          {isPaused ? (
+          {isStopped ? (
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-50 dark:bg-yellow-900/30">
               <span className="w-2 h-2 rounded-full bg-yellow-500" />
-              <span className="text-xs font-medium text-yellow-700 dark:text-yellow-400">已暂停</span>
+              <span className="text-xs font-medium text-yellow-700 dark:text-yellow-400">停止</span>
             </div>
           ) : (
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-900/30">
@@ -425,13 +425,13 @@ function SimpleMode({
         </div>
 
         <div className="w-full max-w-md">
-          <div className="bg-gradient-to-r from-brand-50 to-cyan-50 dark:from-brand-900/20 dark:to-cyan-900/20 rounded-xl p-4 border border-brand-100 dark:border-brand-800">
-            <div className="flex items-center gap-2 mb-2">
+          <div className="bg-gradient-to-r from-brand-50 to-cyan-50 dark:from-brand-900/20 dark:to-cyan-900/20 rounded-xl p-4 border border-brand-100 dark:border-brand-800 text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
               <Sparkles className="w-4 h-4 text-brand-500" />
               <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">AI 投资团队</span>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              {isPaused ? '交易系统已暂停。点击「恢复」继续运行。' : cioStatus.todayMessage}
+              {isStopped ? '交易系统已停止。点击「恢复工作」继续运行。' : cioStatus.todayMessage}
             </p>
           </div>
         </div>
@@ -452,23 +452,20 @@ function SimpleMode({
         </div>
 
         <div className="flex items-center gap-3 mt-8">
-          {isPaused ? (
+          {isStopped ? (
             <button onClick={onResume} className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-medium">
-              <Play className="w-4 h-4" />恢复交易
+              <Play className="w-4 h-4" />恢复工作
             </button>
           ) : (
-            <button onClick={onToggleMode} className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors text-sm font-medium">
-              <Pause className="w-4 h-4" />暂停
+            <button onClick={onEmergencyStop} className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm font-medium">
+              <Square className="w-4 h-4" />紧急停止
             </button>
           )}
-          <button onClick={onEmergencyStop} className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm font-medium">
-            <Square className="w-4 h-4" />紧急停止
-          </button>
         </div>
       </div>
 
       <footer className="text-center py-4 text-xs text-slate-400 dark:text-slate-500">
-        {isPaused ? '交易已暂停 · AI 投资团队待命' : '你的 AI 投资团队正在工作'}
+        {isStopped ? '交易已停止 · AI 投资团队待命' : '你的 AI 投资团队正在工作'}
       </footer>
     </div>
   )
@@ -486,7 +483,7 @@ interface DetailedModeProps {
   decisions: AIDecision[]
   decisionsLoading: boolean
   cioStatus: { state: string; todayMessage: string; teamMessage: string }
-  isPaused: boolean
+  isStopped: boolean
   onToggleMode: () => void
   refreshing: boolean
   onRefresh: () => void
@@ -501,12 +498,12 @@ function DetailedMode({
   totalAsset, todayPnL, todayPnLPct, totalReturn,
   holdings, cash, positions, positionsCount,
   decisions, decisionsLoading,
-  cioStatus, isPaused, onToggleMode, refreshing, onRefresh,
+  cioStatus, isStopped, onToggleMode, refreshing, onRefresh,
   holdingsTotalPages, safeHoldingsPage, pagePositions, onHoldingsPageChange,
 }: DetailedModeProps) {
   const teamStatus = [
     { role: 'CIO', name: '首席投资官', state: 'NORMAL', color: 'text-green-500', icon: Shield },
-    { role: 'QUANT', name: '量化分析师', state: 'WORKING', color: 'text-blue-500', icon: Brain },
+    { role: 'QUANT', name: '量化分析师', state: 'NORMAL', color: 'text-blue-500', icon: Brain },
     { role: 'RISK', name: '风控师', state: 'NORMAL', color: 'text-green-500', icon: Shield },
     { role: 'TRADER', name: '操盘手', state: 'IDLE', color: 'text-slate-500', icon: Activity },
   ]
@@ -531,15 +528,15 @@ function DetailedMode({
           <h1 className="text-lg font-bold text-slate-800 dark:text-slate-100">QuantBot 驾驶舱</h1>
         </div>
         <div className="flex items-center gap-3">
-          {isPaused ? (
+          {isStopped ? (
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-yellow-50 dark:bg-yellow-900/30">
               <span className="w-2 h-2 rounded-full bg-yellow-500" />
-              <span className="text-xs font-medium text-yellow-700 dark:text-yellow-400">已暂停</span>
+              <span className="text-xs font-medium text-yellow-700 dark:text-yellow-400">停止</span>
             </div>
           ) : (
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-900/30">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs font-medium text-green-700 dark:text-green-400">正常运行</span>
+              <span className="text-xs font-medium text-green-700 dark:text-green-400">正常</span>
             </div>
           )}
           <button onClick={onRefresh} className="p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
@@ -802,13 +799,13 @@ function DetailedMode({
             <Activity className="w-3.5 h-3.5" />AI 团队在线
           </span>
           <span className="flex items-center gap-1.5">
-            <AlertTriangle className={`w-3.5 h-3.5 ${isPaused ? 'text-yellow-500' : 'text-green-500'}`} />
-            {isPaused ? '交易暂停' : '0 风险警报'}
+            <AlertTriangle className={`w-3.5 h-3.5 ${isStopped ? 'text-yellow-500' : 'text-green-500'}`} />
+            {isStopped ? '交易停止' : '0 风险警报'}
           </span>
         </div>
         <div className="text-xs text-slate-400 flex items-center gap-2">
           {refreshing && <Loader2 className="w-3 h-3 animate-spin" />}
-          {isPaused ? '系统已暂停' : '你的 AI 投资团队正在工作'}
+          {isStopped ? '系统已停止' : '你的 AI 投资团队正在工作'}
         </div>
       </footer>
     </div>

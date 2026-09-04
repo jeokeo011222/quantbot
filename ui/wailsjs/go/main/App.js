@@ -82,6 +82,10 @@ export function DeleteBacktestResult(arg1) {
   return window['go']['main']['App']['DeleteBacktestResult'](arg1);
 }
 
+export function DeleteDailyReview(arg1) {
+  return window['go']['main']['App']['DeleteDailyReview'](arg1);
+}
+
 export function DeleteStrategy(arg1) {
   return window['go']['main']['App']['DeleteStrategy'](arg1);
 }
@@ -254,6 +258,10 @@ export function GetCIOStatus() {
   return window['go']['main']['App']['GetCIOStatus']();
 }
 
+export function GetClaimAccuracy() {
+  return window['go']['main']['App']['GetClaimAccuracy']();
+}
+
 export function GetConfig() {
   return window['go']['main']['App']['GetConfig']();
 }
@@ -348,6 +356,10 @@ export function GetMarketSixDimReports(arg1) {
 
 export function GetOrchestratorStats() {
   return window['go']['main']['App']['GetOrchestratorStats']();
+}
+
+export function GetOrders(arg1) {
+  return window['go']['main']['App']['GetOrders'](arg1);
 }
 
 export function GetPendingStocks() {
@@ -788,6 +800,10 @@ export function UpdateConfig(arg1) {
 
 export function UpdateStrategy(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) {
   return window['go']['main']['App']['UpdateStrategy'](arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+}
+
+export function UpdateTradingCalendar() {
+  return window['go']['main']['App']['UpdateTradingCalendar']();
 }
 
 export function UpgradeTier(arg1) {
