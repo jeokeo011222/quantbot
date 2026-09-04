@@ -43,6 +43,8 @@ export function CreateStrategy(arg1:string,arg2:string,arg3:string,arg4:number,a
 
 export function DeleteBacktestResult(arg1:number):Promise<any>;
 
+export function DeleteDailyReview(arg1:number):Promise<any>;
+
 export function DeleteStrategy(arg1:number):Promise<any>;
 
 export function DeleteTradeableStock(arg1:string):Promise<any>;
@@ -129,6 +131,8 @@ export function GetCIOJournal(arg1:number):Promise<any>;
 
 export function GetCIOStatus():Promise<any>;
 
+export function GetClaimAccuracy():Promise<any>;
+
 export function GetConfig():Promise<any>;
 
 export function GetContinuousTradingStatus():Promise<any>;
@@ -176,6 +180,8 @@ export function GetMarketPhaseInfo():Promise<any>;
 export function GetMarketSixDimReports(arg1:number):Promise<any>;
 
 export function GetOrchestratorStats():Promise<any>;
+
+export function GetOrders(arg1:boolean):Promise<any>;
 
 export function GetPendingStocks():Promise<any>;
 
@@ -396,6 +402,8 @@ export function TriggerRebalance():Promise<any>;
 export function UpdateConfig(arg1:any):Promise<void>;
 
 export function UpdateStrategy(arg1:number,arg2:string,arg3:string,arg4:string,arg5:number,arg6:number,arg7:number,arg8:number):Promise<any>;
+
+export function UpdateTradingCalendar():Promise<any>;
 
 export function UpgradeTier(arg1:string):Promise<void>;
 

@@ -19,7 +19,7 @@
 
 ---
 
-  下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)
+  下载地址：[QuantBot v1.3.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.3.0/QuantBot-v1.3.0.zip)
 
 <br>
 ⭐ 如果你觉得 AI + 量化投资很酷，请给这个项目一个 Star
@@ -232,7 +232,7 @@ QuantBot 当前采用：
 
 ### 本地运行
 
-- 📦 下载、解压、运行。下载地址：[QuantBot v1.2.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.2.0/QuantBot-v1.2.0.zip)
+- 📦 下载、解压、运行。下载地址：[QuantBot v1.3.0 Release](https://github.com/jeokeo011222/quantbot/releases/download/v1.3.0/QuantBot-v1.3.0.zip)
 - 💾 核心数据与数据库保存在本地
 - 🔑 AI 服务使用你自己的 API Key
 - ⚡ 本地 DuckDB 用于历史研究数据

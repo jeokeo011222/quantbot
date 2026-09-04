@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
-import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Brain, Globe, Rocket, Loader2, HeartHandshake, BarChart3 } from 'lucide-react'
+import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Globe, Rocket, Loader2, HeartHandshake, BarChart3 } from 'lucide-react'
 import { EventsOn, EventsOff } from '../../wailsjs/runtime/runtime'
 import { useI18nStore } from '../store/i18nStore'
 import type { Language } from '../store/i18nStore'
 import { useThemeStore } from '../store/themeStore'
 import AuditLogPage from './AuditLog'
-import LLMLogViewer from './LLMLogViewer'
 import AppLogo from '../components/AppLogo'
 // 联系与捐赠二维码图片（与 ui/README.md Community 部分一致）
 import wxPayImg from '../../image/WX收款.png'
@@ -13,7 +12,7 @@ import qqVipImg from '../../image/QQvip1群.jpg'
 import qqFreeImg from '../../image/QQFree1群.jpg'
 import wxBizImg from '../../image/WX商务.jpg'
 
-type TabKey = 'general' | 'trading' | 'ai' | 'datasource' | 'llm' | 'audit' | 'maintenance' | 'health' | 'about' | 'contact'
+type TabKey = 'general' | 'trading' | 'ai' | 'datasource' | 'audit' | 'maintenance' | 'health' | 'about' | 'contact'
 
 // Wails 后端 API 访问助手
 type AppMethod = (...args: unknown[]) => Promise<unknown> | undefined
@@ -532,7 +531,6 @@ export default function Settings() {
     { key: 'trading' as TabKey, icon: ArrowRightLeft, label: t('settings.tradingInterface') },
     { key: 'ai' as TabKey, icon: Cpu, label: t('settings.aiProvider') },
     { key: 'datasource' as TabKey, icon: Database, label: t('settings.dataSource') },
-    { key: 'llm' as TabKey, icon: Brain, label: 'LLM 监控' },
     { key: 'audit' as TabKey, icon: FileText, label: t('settings.auditLog') },
     { key: 'maintenance' as TabKey, icon: Wrench, label: '数据维护' },
     { key: 'health' as TabKey, icon: HeartPulse, label: '系统健康' },
@@ -1288,10 +1286,6 @@ export default function Settings() {
             </div>
           )}
 
-          {activeTab === 'llm' && (
-            <LLMLogViewer />
-          )}
-
           {activeTab === 'audit' && (
             <div className="space-y-4">
               <h2 className="text-base font-semibold text-slate-800 dark:text-slate-100">{t('settings.auditLog')}</h2>
@@ -1608,7 +1602,7 @@ export default function Settings() {
                   {systemInfo?.appName || 'QuantBot AI'}
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  版本 {systemInfo?.appVersion || '1.2.1'}
+                  版本 {systemInfo?.appVersion || '1.3.0'}
                 </p>
               </div>
 
@@ -1791,23 +1785,24 @@ export default function Settings() {
                 </div>
               </div>
 
-              {/* 免费群 */}
-              <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">🆓 免费群</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-                  如果您不想支付费用，也可以直接加我们的免费企鹅群。用企鹅直接扫二维码入群。
-                </p>
-                <div className="text-center mt-3">
-                  <img src={qqFreeImg} alt="免费企鹅群" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+              {/* 免费群 + 商务洽谈 并列排放 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">🆓 免费群</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                    如果您不想支付费用，也可以直接加我们的免费企鹅群。用企鹅直接扫二维码入群。
+                  </p>
+                  <div className="text-center mt-3">
+                    <img src={qqFreeImg} alt="免费企鹅群" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+                  </div>
                 </div>
-              </div>
 
-              {/* 商务洽谈 */}
-              <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
-                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">💼 商务洽谈</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">请直接扫微信二维码：</p>
-                <div className="text-center mt-3">
-                  <img src={wxBizImg} alt="商务洽谈" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+                <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">💼 商务洽谈</h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">请直接扫微信二维码：</p>
+                  <div className="text-center mt-3">
+                    <img src={wxBizImg} alt="商务洽谈" className="mx-auto w-40 h-40 rounded-lg border border-slate-200 dark:border-slate-700 object-contain" />
+                  </div>
                 </div>
               </div>
             </div>

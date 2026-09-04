@@ -7,7 +7,7 @@ export const translations: Record<Language, TranslationDict> = {
     // App
     'app.name': 'QuantBot',
     'app.subtitle': 'AI Quant Robot',
-    'app.version': 'v1.0.0',
+    'app.version': 'v1.3.0',
     'app.statusReady': '状态：就绪',
     'app.disclaimer': 'For learning & research only. Not investment advice. Markets carry risk.',
 
@@ -315,7 +315,7 @@ export const translations: Record<Language, TranslationDict> = {
     // App
     'app.name': 'QuantBot',
     'app.subtitle': 'AI量化机器人',
-    'app.version': 'v1.0.0',
+    'app.version': 'v1.3.0',
     'app.statusReady': '状态：就绪',
     'app.disclaimer': '本软件仅供学习研究使用，不构成任何投资建议。市场有风险，投资需谨慎。',
 

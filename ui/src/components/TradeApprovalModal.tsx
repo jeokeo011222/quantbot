@@ -60,6 +60,20 @@ export default function TradeApprovalModal() {
     }
   }, [syncQueue])
 
+  // 监听日终结算收盘清扫：未获确认的排队交易判定失败，自动从弹窗队列移除
+  useEffect(() => {
+    const off = EventsOn('trade:approval_expired', (trades: PendingTrade[] | any) => {
+      if (!Array.isArray(trades) || trades.length === 0) return
+      const ids = new Set(trades.map((t: PendingTrade) => t.id).filter(Boolean))
+      if (ids.size === 0) return
+      syncQueue(queueRef.current.filter((t) => !ids.has(t.id)))
+    })
+    return () => {
+      off()
+      EventsOff('trade:approval_expired')
+    }
+  }, [syncQueue])
+
   const handleConfirm = async (approved: boolean) => {
     if (!current || processing) return
     const tradeId = current.id
@@ -71,9 +85,9 @@ export default function TradeApprovalModal() {
     } catch (e: any) {
       const errMsg = e?.message || '确认失败，请重试'
       setError(errMsg)
-      // 关键修复：即使API失败（如后端交易已超时/不存在），也从本地队列移除，防止弹窗卡死
+      // 关键修复：即使API失败（如后端交易已超时/不存在/已收盘），也从本地队列移除，防止弹窗卡死
       // 错误信息包含"不存在或已处理"时，说明后端已无此交易，前端应同步关闭
-      if (errMsg.includes('不存在') || errMsg.includes('已处理') || errMsg.includes('超时') || errMsg.includes('not found') || errMsg.includes('already')) {
+      if (errMsg.includes('不存在') || errMsg.includes('已处理') || errMsg.includes('超时') || errMsg.includes('已收盘') || errMsg.includes('判定失败') || errMsg.includes('not found') || errMsg.includes('already')) {
         syncQueue(queueRef.current.filter((t) => t.id !== tradeId))
       }
     } finally {
@@ -176,7 +190,7 @@ export default function TradeApprovalModal() {
           </div>
 
           <p className="text-[11px] text-slate-400 dark:text-slate-500 text-center">
-            模拟接口模式下，智能体交易需人工确认。超时未确认将自动拒绝。
+            模拟接口模式下，智能体交易需人工确认。未及时确认将保持排队等待，可稍后确认/拒绝；确认结果决定订单是否成交。
           </p>
         </div>
       </div>
