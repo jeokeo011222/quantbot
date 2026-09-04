@@ -353,7 +353,7 @@ QuantBot 仅供学习、研究和量化投资实验使用。
 ⭐ Star · 🍴 Fork · 🐛 Issue
 
 <br>
-联系我们：QQ 3571038944
+欢迎国内的云服务商、数据服务商给我们提供资源，联系我们：QQ 3571038944
 <br>
 
 **Made with ❤️ by QuantBot Lab**
