@@ -1,0 +1,10 @@
+# 训练 / 推理 / 服务运行依赖
+duckdb>=0.9.0
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+lightgbm>=4.0.0
+joblib>=1.3.0
+flask>=3.0.0
+flask-cors>=4.0.0

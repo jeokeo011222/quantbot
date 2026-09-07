@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 行情数据（版权数据，请勿入库）
+*.duckdb
+*.duckdb.wal
+
+# 训练产物（模型权重，按需自行训练）
+*.pkl
+*.joblib
+astock_*_v1*.json
+xgboost_astock_v1*.json
+
+# 日志
+*.log
+
+# IDE
+.idea/
+.vscode/
