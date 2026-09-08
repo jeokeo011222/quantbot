@@ -13,9 +13,9 @@
 
 ## 📥 立即下载
 
-[![Download](https://img.shields.io/badge/⬇-下载_QuantBot_v1.3.0-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jeokeo011222/quantbot/releases/download/v1.3.0/QuantBot-v1.3.0.zip)
+**👉 [下载 QuantBot v1.3.0（Windows x64，ZIP 免安装包）](https://github.com/jeokeo011222/quantbot/releases/download/v1.3.0/QuantBot-v1.3.0.zip)**
 
-> 下载 → 解压 → 运行 `QuantBot.exe` → 配置 API Key 即可开始。支持 Windows x64。
+> 下载 → 解压 → 运行 `QuantBot.exe` → 配置 API Key 即可开始。
 
 <br>
 
