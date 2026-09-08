@@ -422,6 +422,10 @@ export function GetQMTConfig() {
   return window['go']['main']['App']['GetQMTConfig']();
 }
 
+export function GetSixDimSourceConfig() {
+  return window['go']['main']['App']['GetSixDimSourceConfig']();
+}
+
 export function GetStockSnapshots(arg1) {
   return window['go']['main']['App']['GetStockSnapshots'](arg1);
 }
@@ -452,6 +456,22 @@ export function GetSystemInfo() {
 
 export function GetSystemStatus() {
   return window['go']['main']['App']['GetSystemStatus']();
+}
+
+export function GetTHSAdjFactorStatus() {
+  return window['go']['main']['App']['GetTHSAdjFactorStatus']();
+}
+
+export function GetTHSConfig() {
+  return window['go']['main']['App']['GetTHSConfig']();
+}
+
+export function GetTHSDailyKStatus() {
+  return window['go']['main']['App']['GetTHSDailyKStatus']();
+}
+
+export function GetTHSTradingCalendarStatus() {
+  return window['go']['main']['App']['GetTHSTradingCalendarStatus']();
 }
 
 export function GetTaskSchedulerStatus() {
@@ -560,6 +580,14 @@ export function GetWorkflowTodayTasks() {
 
 export function GetXtQuantFolderPath() {
   return window['go']['main']['App']['GetXtQuantFolderPath']();
+}
+
+export function ImportTHSAdjFactors() {
+  return window['go']['main']['App']['ImportTHSAdjFactors']();
+}
+
+export function ImportTHSDailyK(arg1) {
+  return window['go']['main']['App']['ImportTHSDailyK'](arg1);
 }
 
 export function IsReady() {
@@ -710,8 +738,16 @@ export function SetQMTConfig(arg1, arg2, arg3, arg4, arg5, arg6, arg7) {
   return window['go']['main']['App']['SetQMTConfig'](arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 }
 
+export function SetSixDimSourceConfig(arg1) {
+  return window['go']['main']['App']['SetSixDimSourceConfig'](arg1);
+}
+
 export function SetTDXPath(arg1) {
   return window['go']['main']['App']['SetTDXPath'](arg1);
+}
+
+export function SetTHSConfig(arg1, arg2, arg3) {
+  return window['go']['main']['App']['SetTHSConfig'](arg1, arg2, arg3);
 }
 
 export function SetTradingMode(arg1) {
@@ -760,6 +796,10 @@ export function StopContinuousTrading() {
 
 export function SubmitScreenResult(arg1, arg2, arg3, arg4, arg5, arg6) {
   return window['go']['main']['App']['SubmitScreenResult'](arg1, arg2, arg3, arg4, arg5, arg6);
+}
+
+export function SyncTHSTradingCalendar() {
+  return window['go']['main']['App']['SyncTHSTradingCalendar']();
 }
 
 export function TestAIConnection(arg1, arg2, arg3, arg4) {

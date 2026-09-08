@@ -487,12 +487,19 @@ function SimpleScreener(props: {
                     }`}
                   >
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-lg font-bold ${
-                        stock.totalScore >= 75 ? 'bg-green-100 text-green-700' :
-                        stock.totalScore >= 60 ? 'bg-amber-100 text-amber-700' :
-                        'bg-red-100 text-red-700'
-                      }`}>
-                        {stock.totalScore.toFixed(0)}
+                      <div className="flex flex-col items-center gap-0.5">
+                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-lg font-bold ${
+                          stock.totalScore >= 75 ? 'bg-green-100 text-green-700' :
+                          stock.totalScore >= 60 ? 'bg-amber-100 text-amber-700' :
+                          'bg-red-100 text-red-700'
+                        }`}>
+                          {stock.totalScore.toFixed(0)}
+                        </div>
+                        {stock.aiScore ? (
+                          <span className="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">
+                            AI {stock.aiScore}/10
+                          </span>
+                        ) : null}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
@@ -576,6 +583,54 @@ function FactorScoreCard({ stock }: {
         <div className="text-center">
           <p className="text-sm opacity-80 mb-1">QuantBot Core Score</p>
           <p className="text-4xl font-bold">{stock.totalScore.toFixed(1)}<span className="text-lg opacity-80"> / 100</span></p>
+        </div>
+      </div>
+
+      {/* AI 评分拆解（对标 PanWatch AI Score：1-10 评分 + 利好/风险因子） */}
+      <div className="mb-6">
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="w-4 h-4 text-indigo-500" />
+          <span className="text-sm font-semibold text-slate-700 dark:text-slate-300">AI 选股评分</span>
+          <span className="ml-auto text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+            {stock.aiScore ?? '--'}
+            <span className="text-sm font-medium opacity-60"> / 10</span>
+          </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="rounded-lg bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 p-3">
+            <h4 className="text-xs font-semibold text-green-600 dark:text-green-400 mb-2">利好因子</h4>
+            {(stock.factorExplain?.positive || []).length > 0 ? (
+              <ul className="space-y-1">
+                {(stock.factorExplain?.positive || []).map((fc) => (
+                  <li key={fc.factorId} className="flex items-center justify-between text-sm">
+                    <span className="text-slate-600 dark:text-slate-400">{fc.factorName}</span>
+                    <span className="text-green-600 dark:text-green-400 font-medium">
+                      +{fc.contribution.toFixed(1)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs text-slate-400">无明显利好因子</p>
+            )}
+          </div>
+          <div className="rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 p-3">
+            <h4 className="text-xs font-semibold text-red-600 dark:text-red-400 mb-2">风险因子</h4>
+            {(stock.factorExplain?.negative || []).length > 0 ? (
+              <ul className="space-y-1">
+                {(stock.factorExplain?.negative || []).map((fc) => (
+                  <li key={fc.factorId} className="flex items-center justify-between text-sm">
+                    <span className="text-slate-600 dark:text-slate-400">{fc.factorName}</span>
+                    <span className="text-red-600 dark:text-red-400 font-medium">
+                      {fc.contribution.toFixed(1)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-xs text-slate-400">无明显风险因子</p>
+            )}
+          </div>
         </div>
       </div>
 

@@ -61,6 +61,20 @@ interface DecisionProposalEvidence {
   conclusion?: string
   skeptic_verdict?: string
   skeptic_concerns?: string[]
+  debate?: {
+    direction?: string
+    bull?: string[]
+    bear?: string[]
+    agreement?: number
+    summary?: string
+  }
+  kelly_position_scale?: number
+  ensemble?: {
+    direction?: string
+    votes?: Record<string, string>
+    net_score?: number
+    summary?: string
+  }
   feedback?: string
   evidence?: string[]
   generated_at?: string
@@ -1140,6 +1154,27 @@ export default function CIO() {
                           {entry.evidence.skeptic_concerns && entry.evidence.skeptic_concerns.length > 0
                             ? ` · ${entry.evidence.skeptic_concerns.join('；')}`
                             : ''}
+                        </div>
+                      )}
+                      {entry.evidence?.debate && (
+                        <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                          <span className="font-medium text-indigo-600 dark:text-indigo-400">【多空辩论】</span>
+                          方向 {propDirectionCN(entry.evidence.debate.direction)}
+                          {typeof entry.evidence.debate.agreement === 'number' && ` · 共识 ${entry.evidence.debate.agreement}%`}
+                          {(entry.evidence.debate.bull?.length ?? 0) > 0 && ` · 多 ${entry.evidence.debate.bull!.join('；')}`}
+                          {(entry.evidence.debate.bear?.length ?? 0) > 0 && ` · 空 ${entry.evidence.debate.bear!.join('；')}`}
+                          {typeof entry.evidence.kelly_position_scale === 'number' && entry.evidence.kelly_position_scale < 1 && (
+                            ` · Kelly仓位×${entry.evidence.kelly_position_scale.toFixed(2)}`
+                          )}
+                        </div>
+                      )}
+                      {entry.evidence?.ensemble && (
+                        <div className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                          <span className="font-medium text-emerald-600 dark:text-emerald-400">【多提案集成】</span>
+                          方向 {propDirectionCN(entry.evidence.ensemble.direction)}
+                          {typeof entry.evidence.ensemble.net_score === 'number' && ` · 净多 ${(entry.evidence.ensemble.net_score * 100).toFixed(0)}%`}
+                          {entry.evidence.ensemble.votes &&
+                            ` · 来源 ${Object.entries(entry.evidence.ensemble.votes).map(([k, v]) => `${k}=${v}`).join(', ')}`}
                         </div>
                       )}
                       {entry.llmReview && (

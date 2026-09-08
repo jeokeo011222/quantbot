@@ -8,6 +8,18 @@ export interface FactorScore {
   contributor?: string
 }
 
+export interface FactorContribution {
+  factorId: string
+  factorName: string
+  score: number
+  contribution: number
+}
+
+export interface FactorExplain {
+  positive: FactorContribution[]
+  negative: FactorContribution[]
+}
+
 export interface StockScore {
   code: string
   name: string
@@ -19,6 +31,9 @@ export interface StockScore {
   reasons: string[]
   warnings: string[]
   factorScores: FactorScore[]
+  // AI评分拆解（对标 PanWatch）：1-10 AI Score + 利好因子/风险因子
+  aiScore?: number
+  factorExplain?: FactorExplain
   // Pro版扩展 - 收益率和风险指标
   momentum1m?: number
   momentum3m?: number

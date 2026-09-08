@@ -41,6 +41,14 @@ interface DisplayResult {
   turnover?: number
   equityCurve?: number[]
   dates?: string[]
+  // 成本分解（三因子模型）
+  totalCost?: number
+  totalCommission?: number
+  totalStampDuty?: number
+  totalImpact?: number
+  costRatio?: number
+  costPerTrade?: number
+  costCurve?: number[]
 }
 
 // 格式化浮点数，避免精度问题
@@ -283,6 +291,14 @@ export default function Backtest() {
           turnover: result.turnover,
           equityCurve: result.equity_curve || [],
           dates: result.dates || [],
+          // 成本分解
+          totalCost: result.total_cost,
+          totalCommission: result.total_commission,
+          totalStampDuty: result.total_stamp_duty,
+          totalImpact: result.total_impact,
+          costRatio: result.cost_ratio,
+          costPerTrade: result.cost_per_trade,
+          costCurve: result.cost_curve || [],
         }
 
         setResults([displayResult, ...results.filter(r =>
@@ -580,6 +596,37 @@ export default function Backtest() {
               <div className="text-lg font-semibold text-green-500">¥{activeResult.finalCapital.toLocaleString()}</div>
             </div>
           </div>
+
+          {/* 交易成本分解（三因子模型：佣金/印花税/市场冲击） */}
+          {activeResult.totalCost != null && activeResult.totalCost > 0 && (
+            <div className="mt-4 p-3 rounded-lg bg-amber-50/60 dark:bg-amber-900/10 border border-amber-200/60 dark:border-amber-800/60">
+              <div className="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1">
+                <span className="inline-block w-2 h-2 rounded-full bg-amber-500"></span>
+                交易成本分解（成本吞噬收益分析）
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                <div className="p-2 bg-white dark:bg-slate-800 rounded-md border border-amber-100 dark:border-slate-700">
+                  <div className="text-slate-400 dark:text-slate-500 mb-0.5">累计佣金</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">¥{(activeResult.totalCommission || 0).toFixed(2)}</div>
+                </div>
+                <div className="p-2 bg-white dark:bg-slate-800 rounded-md border border-amber-100 dark:border-slate-700">
+                  <div className="text-slate-400 dark:text-slate-500 mb-0.5">累计印花税</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">¥{(activeResult.totalStampDuty || 0).toFixed(2)}</div>
+                </div>
+                <div className="p-2 bg-white dark:bg-slate-800 rounded-md border border-amber-100 dark:border-slate-700">
+                  <div className="text-slate-400 dark:text-slate-500 mb-0.5">市场冲击</div>
+                  <div className="font-semibold text-slate-800 dark:text-slate-100">¥{(activeResult.totalImpact || 0).toFixed(2)}</div>
+                </div>
+                <div className="p-2 bg-white dark:bg-slate-800 rounded-md border border-amber-100 dark:border-slate-700">
+                  <div className="text-slate-400 dark:text-slate-500 mb-0.5">总成本（占初始资金 {fmt(activeResult.costRatio || 0, 2)}%）</div>
+                  <div className="font-semibold text-amber-600 dark:text-amber-400">¥{activeResult.totalCost.toFixed(2)}</div>
+                </div>
+              </div>
+              <div className="mt-2 text-[11px] text-slate-400 dark:text-slate-500">
+                单笔平均成本 ¥{(activeResult.costPerTrade || 0).toFixed(2)}/笔 · 模型：佣金万三(最低5元) + 卖出印花税0.05% + 市场冲击(平方根冲击律)
+              </div>
+            </div>
+          )}
           
           <div className="mt-4 text-xs text-slate-500 dark:text-slate-400">
             回测区间：{activeResult.backtestPeriod} | 初始资金：¥{activeResult.initialCapital.toLocaleString()}
@@ -608,7 +655,11 @@ export default function Backtest() {
           </div>
 
           {activeResult.equityCurve && activeResult.dates && activeResult.equityCurve.length > 1 && (
-            <BacktestCharts equityCurve={activeResult.equityCurve} dates={activeResult.dates} />
+            <BacktestCharts
+              equityCurve={activeResult.equityCurve}
+              dates={activeResult.dates}
+              costCurve={activeResult.costCurve || []}
+            />
           )}
         </div>
       )}
@@ -840,10 +891,15 @@ function PaginationBar({
   )
 }
 
-function BacktestCharts({ equityCurve, dates }: { equityCurve: number[]; dates: string[] }) {
+function BacktestCharts({ equityCurve, dates, costCurve }: { equityCurve: number[]; dates: string[]; costCurve?: number[] }) {
   const monthly = buildMonthlyReturns(dates, equityCurve)
   const ddCurve = buildDrawdownCurve(dates, equityCurve)
   const rollingSharpe = buildRollingSharpe(dates, equityCurve)
+
+  // 累计交易成本曲线（与日期对齐）
+  const costData = costCurve && costCurve.length > 1
+    ? dates.map((d, i) => ({ date: d.slice(0, 10), cost: fmt(costCurve[i] || 0, 2) }))
+    : []
 
   // 月度热力图：按 年 × 月 汇总
   const years = Array.from(new Set(monthly.map((m) => m.year))).sort()
@@ -931,6 +987,24 @@ function BacktestCharts({ equityCurve, dates }: { equityCurve: number[]; dates: 
           </ResponsiveContainer>
         </div>
       </div>
+
+      {/* 累计交易成本 */}
+      {costData.length > 1 && (
+        <div>
+          <div className="text-xs text-slate-400 dark:text-slate-500 mb-2">累计交易成本（元，佣金/印花税/市场冲击逐笔记账）</div>
+          <div className="h-40">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={costData} margin={{ top: 5, right: 10, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#64748b33" />
+                <XAxis dataKey="date" tick={{ fontSize: 10 }} minTickGap={40} />
+                <YAxis tick={{ fontSize: 10 }} />
+                <Tooltip formatter={(v) => [`¥${v}`, '累计成本']} />
+                <Area type="monotone" dataKey="cost" stroke="#d97706" fill="#d9770644" name="累计成本" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

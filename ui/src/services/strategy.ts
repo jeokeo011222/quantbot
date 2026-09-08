@@ -51,6 +51,15 @@ export interface BacktestResult {
   created_at: string
   equity_curve?: number[]
   dates?: string[]
+  // 成本分解（三因子模型：佣金/印花税/市场冲击/收盘bias）
+  total_commission?: number
+  total_stamp_duty?: number
+  total_impact?: number
+  total_bias?: number
+  total_cost?: number
+  cost_ratio?: number
+  cost_per_trade?: number
+  cost_curve?: number[]
 }
 
 export interface BacktestStats {

@@ -16,6 +16,8 @@ import ETFMonitor from './pages/ETFMonitor'
 import Settings from './pages/Settings'
 import WelcomeWizard from './pages/WelcomeWizard'
 import { useAppStore } from './store/appStore'
+import { useToastStore } from './store/toastStore'
+import { EventsOn } from '../wailsjs/runtime/runtime'
 
 function AppRouter() {
   const isFirstRun = useAppStore((state) => state.isFirstRun)
@@ -26,6 +28,33 @@ function AppRouter() {
     const handler = () => setHash(getHash())
     window.addEventListener('hashchange', handler)
     return () => window.removeEventListener('hashchange', handler)
+  }, [])
+
+  // 启动告警：同花顺官方数据源未配置 / 股票行情未更新到上一交易日，前端以 toast 提示
+  useEffect(() => {
+    const off1 = EventsOn('ths:warning', (data: { message?: string; timestamp?: string }) => {
+      useToastStore.getState().warning(
+        '同花顺数据源未配置',
+        data?.message || '请到「设置-数据源-市场信息数据」启用并填写同花顺 API Key'
+      )
+    })
+    const off2 = EventsOn('data:stale', (data: { message?: string; timestamp?: string }) => {
+      useToastStore.getState().warning(
+        '股票行情数据待更新',
+        data?.message || '行情数据未更新到上一交易日'
+      )
+    })
+    const off3 = EventsOn('data:syncwarning', (data: { message?: string; timestamp?: string }) => {
+      useToastStore.getState().warning(
+        '同花顺数据同步未成功',
+        data?.message || '建议在下个交易日 9 点前及时补充股票时序数据'
+      )
+    })
+    return () => {
+      off1()
+      off2()
+      off3()
+    }
   }, [])
 
   // 显示初始加载界面，等待系统初始化完成

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Globe, Rocket, Loader2, HeartHandshake, BarChart3 } from 'lucide-react'
+import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Globe, Rocket, Loader2, HeartHandshake, BarChart3, Activity, Calendar } from 'lucide-react'
 import { EventsOn, EventsOff } from '../../wailsjs/runtime/runtime'
 import { useI18nStore } from '../store/i18nStore'
 import type { Language } from '../store/i18nStore'
@@ -77,9 +77,49 @@ export default function Settings() {
   const [mcpURL, setMcpURL] = useState('http://127.0.0.1:8765')
   const [mcpAPIKey, setMcpAPIKey] = useState('')
 
+  // 市场六维判势数据源配置（持久化到 config.json，优先级越小越先尝试，高优先级失败自动回退）
+  const defaultSixDimSource = () => ({
+    northbound: { enabled: true, priority: 1 },
+    margin: { enabled: true, priority: 2 },
+    volume_expansion: { enabled: true, priority: 3 },
+    ths_boards: { enabled: true, priority: 1 },
+    limit_board: { enabled: true, priority: 1 },
+    full_market_stats: { enabled: true, priority: 2 },
+    overnight: { enabled: true, priority: 1 },
+  })
+  const [sixDimSource, setSixDimSource] = useState<any>(defaultSixDimSource())
+  // 六维判势数据源卡片是否展开（选中卡片显示具体配置，对标腾讯财经卡片模式）
+  const [sixDimOpen, setSixDimOpen] = useState(false)
+  const updateSixDimSource = (key: string, field: 'enabled' | 'priority', value: any) => {
+    setSixDimSource((prev: any) => ({
+      ...prev,
+      [key]: { ...prev[key], [field]: value },
+    }))
+  }
+  // 六维判势数据源展示信息（名称/说明/维度归属）
+  const sixDimSourceMeta: Record<string, { name: string; desc: string }> = {
+    northbound: { name: '北向资金（同花顺 hsgtApi）', desc: '北向实时净流入，资金结构维度最高优先级源' },
+    margin: { name: '两融余额（东财数据中心）', desc: '融资余额连续增减天数，T-1 真实杠杆资金' },
+    volume_expansion: { name: '成交额放量（DuckDB 兜底）', desc: '全市场成交额连续放量天数，资金结构兜底代理' },
+    ths_boards: { name: '涨跌停/炸板池（同花顺官方）', desc: '官方涨停/跌停/炸板池+连板天梯，真实炸板率，需启用上方官方数据源并填 Key' },
+    limit_board: { name: '涨跌停/炸板池（东财 push2ex）', desc: '实时涨停/跌停/炸板池，情绪维度高优先级源' },
+    full_market_stats: { name: '全市场收盘统计（DuckDB 兜底）', desc: '全市场涨跌家数等收盘统计，情绪维度兜底' },
+    overnight: { name: '隔夜外围（腾讯全球指数）', desc: '真实隔夜外围指数，4s超时+5min缓存，失败回退跳空代理' },
+  }
+
   // 数据源测试状态
   const [testing, setTesting] = useState(false)
   const [testResult, setTestResult] = useState<any>(null)
+
+  // 数据源页内部页签：实时行情 / 辅助数据源
+  const [dsTab, setDsTab] = useState<'realtime' | 'aux'>('realtime')
+
+  // 同花顺官方数据源（fuyao.aicubes.cn）配置（默认展开同花顺卡片）
+  const [thsOpen, setThsOpen] = useState(true)
+  const [thsEnabled, setThsEnabled] = useState(false)
+  const [thsApiKey, setThsApiKey] = useState('')
+  const [thsBaseUrl, setThsBaseUrl] = useState('')
+  const [thsSaved, setThsSaved] = useState(false)
 
   // 保存错误提示
   const [saveError, setSaveError] = useState<string>('')
@@ -112,8 +152,24 @@ export default function Settings() {
   // 财务数据同步状态
   const [finSyncStatus, setFinSyncStatus] = useState<any>(null)
   const [finSyncPolling, setFinSyncPolling] = useState(false)
-  // 财务数据源：默认通达信终端（本地RPC，不封IP、不依赖东财频控）；'em' 东财
-  const [finSource, setFinSource] = useState<'em' | 'tdx'>('tdx')
+  // 同花顺复权因子导入 + 前复权查询
+  const [adjBusy, setAdjBusy] = useState(false)
+  const [adjStatus, setAdjStatus] = useState<any>(null)
+  const [adjResult, setAdjResult] = useState<any>(null)
+  const [adjErr, setAdjErr] = useState<string | null>(null)
+
+  // 同花顺日K导入（stock.ohlc 底层 stock_daily）
+  const [dailyKBusy, setDailyKBusy] = useState(false)
+  const [dailyKStatus, setDailyKStatus] = useState<any>(null)
+  const [dailyKResult, setDailyKResult] = useState<any>(null)
+  const [dailyKErr, setDailyKErr] = useState<string | null>(null)
+
+  // 同花顺交易日历同步
+  const [calStatus, setCalStatus] = useState<any>(null)
+  const [calResult, setCalResult] = useState<any>(null)
+  const [calErr, setCalErr] = useState<string | null>(null)
+
+  // 同花顺「财务数据」同步（见同花顺数据页签）
 
   // 系统健康状态
   const [health, setHealth] = useState<any>(null)
@@ -133,7 +189,7 @@ export default function Settings() {
         // 兼容旧版 "paper" 模式，映射为 "simulated"
         const tm = cfg.trading_mode === 'paper' ? 'simulated' : (cfg.trading_mode || 'simulated')
         setTradingMode(tm)
-        setInitialCapital(cfg.initial_capital ?? 100000)
+        setInitialCapital(Math.min(cfg.initial_capital ?? 100000, 2000000))
         setActivityRefreshMinutes(cfg.activity_refresh_minutes || 5)
         setQmtEnabled(cfg.qmt_enabled || false)
         setQmtPath(cfg.qmt_path || '')
@@ -151,6 +207,11 @@ export default function Settings() {
         setTdxPath(cfg.tdx_path || 'D:\\tdx')
         setSyncTdxPath(cfg.tdx_path || 'D:\\tdx')
         setMcpURL(cfg.mcp_url || 'http://127.0.0.1:8765')
+        setSixDimSource(cfg.sixdim_source || defaultSixDimSource())
+        // 同花顺官方数据源（独立于行情数据源选择）
+        setThsEnabled(!!cfg.ths_source?.enabled)
+        setThsApiKey(cfg.ths_source?.api_key || '')
+        setThsBaseUrl(cfg.ths_source?.base_url || '')
       }
     } catch (e) {
       console.error('Failed to load config:', e)
@@ -272,6 +333,17 @@ export default function Settings() {
     }
   }
 
+  // 保存同花顺官方数据源配置（启用开关 + API Key + 服务地址），保存后无需重启
+  const handleSaveTHS = async () => {
+    setThsSaved(false)
+    try {
+      await callApp<void>('SetTHSConfig', thsEnabled, thsApiKey.trim(), thsBaseUrl.trim())
+      setThsSaved(true)
+    } catch (e: any) {
+      setSaveError(`同花顺官方数据源: ${e?.message || '保存失败'}`)
+    }
+  }
+
   const handleSave = async () => {
     setSaveError('')
     setSaveSuccess(false)
@@ -341,6 +413,20 @@ export default function Settings() {
       await callApp<void>('SetMCPConfig', mcpURL, mcpAPIKey)
     } catch (e: any) {
       errors.push(`MCP: ${e?.message || '失败'}`)
+    }
+
+    // 保存市场六维判势数据源配置（启用开关+优先级，持久化到 config.json）
+    try {
+      await callApp<void>('SetSixDimSourceConfig', sixDimSource)
+    } catch (e: any) {
+      errors.push(`六维判势数据源: ${e?.message || '失败'}`)
+    }
+
+    // 保存同花顺官方数据源配置（启用开关 + API Key + 服务地址）
+    try {
+      await callApp<void>('SetTHSConfig', thsEnabled, thsApiKey, thsBaseUrl)
+    } catch (e: any) {
+      errors.push(`同花顺官方数据源: ${e?.message || '失败'}`)
     }
 
     if (errors.length > 0) {
@@ -456,10 +542,10 @@ export default function Settings() {
     return () => clearInterval(timer)
   }, [finSyncPolling])
 
-  const handleStartFinancialSync = async (mode: string) => {
+  const handleStartFinancialSync = async (mode: string, source: string) => {
     try {
       setFinSyncStatus({ running: true, message: '正在启动财务数据同步...' })
-      await callApp<void>('StartFinancialSync', mode, finSource)
+      await callApp<void>('StartFinancialSync', mode, source)
       setFinSyncPolling(true)
     } catch (e: any) {
       setFinSyncStatus({ running: false, error: e?.message || '启动财务同步失败' })
@@ -476,6 +562,124 @@ export default function Settings() {
         // 忽略：仅用于回填历史状态
       }
     })()
+  }, [])
+
+  // 同花顺复权因子导入 + 状态 + 前复权查询
+  const loadAdjStatus = async () => {
+    try {
+      const st = await callApp<any>('GetTHSAdjFactorStatus')
+      setAdjStatus(st)
+    } catch (e) {
+      // 忽略：未配置/未初始化时静默
+    }
+  }
+  useEffect(() => {
+    loadAdjStatus()
+  }, [])
+  const handleImportAdjFactors = async () => {
+    if (adjBusy) return
+    setAdjBusy(true)
+    setAdjErr(null)
+    setAdjResult(null)
+    try {
+      const res = await callApp<any>('ImportTHSAdjFactors')
+      setAdjResult(res)
+      await loadAdjStatus()
+    } catch (e: any) {
+      setAdjErr(e?.message || '导入复权因子失败')
+    }
+    setAdjBusy(false)
+  }
+  // 一键同步全部：先导入全市场复权因子，再同步交易日历，一次完成
+  const [syncAllBusy, setSyncAllBusy] = useState(false)
+  const handleSyncAll = async () => {
+    if (syncAllBusy) return
+    setSyncAllBusy(true)
+    setAdjErr(null)
+    setAdjResult(null)
+    setCalErr(null)
+    setCalResult(null)
+    try {
+      // 步骤1：复权因子导入
+      const adjRes = await callApp<any>('ImportTHSAdjFactors')
+      setAdjResult(adjRes)
+      await loadAdjStatus()
+      let steps = ['✓ 复权因子导入：' + (adjRes?.message || '完成')]
+      // 步骤2：交易日历同步（失败不影响已完成的复权因子，但仍提示）
+      try {
+        const calRes = await callApp<any>('SyncTHSTradingCalendar')
+        setCalResult(calRes)
+        await loadCalStatus()
+        steps.push('✓ 交易日历同步：' + (calRes?.message || '完成'))
+      } catch (ce: any) {
+        setCalErr(ce?.message || '同步交易日历失败')
+        steps.push('✗ 交易日历同步：' + (ce?.message || '同步失败'))
+      }
+      setAdjResult({ ...adjRes, _steps: steps })
+    } catch (e: any) {
+      setAdjErr(e?.message || '一键同步失败')
+    }
+    setSyncAllBusy(false)
+  }
+  const loadDailyKStatus = async () => {
+    try {
+      const st = await callApp<any>('GetTHSDailyKStatus')
+      setDailyKStatus(st)
+    } catch (e) {
+      // 忽略：未配置/未初始化时静默
+    }
+  }
+  useEffect(() => {
+    loadDailyKStatus()
+  }, [])
+  const handleImportDailyK = async (mode: 'full' | 'incr') => {
+    if (dailyKBusy) return
+    setDailyKBusy(true)
+    setDailyKErr(null)
+    setDailyKResult(null)
+    try {
+      const res = await callApp<any>('ImportTHSDailyK', mode)
+      setDailyKResult(res)
+      await loadDailyKStatus()
+    } catch (e: any) {
+      setDailyKErr(e?.message || '导入日K失败')
+    }
+    setDailyKBusy(false)
+  }
+  const loadCalStatus = async () => {
+    try {
+      const st = await callApp<any>('GetTHSTradingCalendarStatus')
+      setCalStatus(st)
+    } catch (e) {
+      // 忽略：未配置/未初始化时静默
+    }
+  }
+  useEffect(() => {
+    loadCalStatus()
+  }, [])
+  // 同花顺「财务数据」同步导入（source=ths）
+  const [thsFinSync, setThsFinSync] = useState<any>({})
+  const handleStartTHSFinancialSync = async (mode: string) => {
+    if (thsFinSync?.running) return
+    setThsFinSync({ running: true, message: '正在启动同花顺财务数据同步...' })
+    try {
+      await callApp<void>('StartFinancialSync', mode, 'ths')
+    } catch (e: any) {
+      setThsFinSync({ running: false, error: e?.message || '启动同花顺财务同步失败' })
+    }
+  }
+  const pollTHSFinSync = async () => {
+    try {
+      const st = await callApp<any>('GetFinancialSyncStatus')
+      setThsFinSync(st)
+    } catch (e) {
+      // 忽略
+    }
+  }
+  useEffect(() => {
+    pollTHSFinSync()
+    const t = setInterval(pollTHSFinSync, 5000)
+    return () => clearInterval(t)
   }, [])
 
   const handleReset = async () => {
@@ -526,13 +730,15 @@ export default function Settings() {
     }
   }, [activeTab])
 
+  const [maintTab, setMaintTab] = useState<'ths' | 'tdx' | 'sysinit' | 'log'>('ths')
+
   const tabs = [
     { key: 'general' as TabKey, icon: SettingsIcon, label: t('settings.general') },
     { key: 'trading' as TabKey, icon: ArrowRightLeft, label: t('settings.tradingInterface') },
     { key: 'ai' as TabKey, icon: Cpu, label: t('settings.aiProvider') },
     { key: 'datasource' as TabKey, icon: Database, label: t('settings.dataSource') },
-    { key: 'audit' as TabKey, icon: FileText, label: t('settings.auditLog') },
     { key: 'maintenance' as TabKey, icon: Wrench, label: '数据维护' },
+    { key: 'audit' as TabKey, icon: FileText, label: t('settings.auditLog') },
     { key: 'health' as TabKey, icon: HeartPulse, label: '系统健康' },
     { key: 'contact' as TabKey, icon: HeartHandshake, label: '联系与捐赠' },
     { key: 'about' as TabKey, icon: Info, label: '关于' },
@@ -623,11 +829,20 @@ export default function Settings() {
                   <input
                     type="number"
                     value={initialCapital}
-                    onChange={(e) => setInitialCapital(Number(e.target.value))}
+                    onChange={(e) => {
+                      const v = Number(e.target.value)
+                      if (v > 2000000) {
+                        setInitialCapital(2000000)
+                        return
+                      }
+                      setInitialCapital(v)
+                    }}
                     className="input-field"
                     min={0}
+                    max={2000000}
                     step={10000}
                   />
+                  <p className="mt-1 text-[11px] text-slate-400 dark:text-slate-500">最高 200 万</p>
                 </div>
 
                 <div>
@@ -1022,6 +1237,32 @@ export default function Settings() {
             <div className="space-y-4">
               <h2 className="text-base font-semibold text-slate-800 dark:text-slate-100">{t('settings.dataSource')}</h2>
 
+              {/* 数据源页内部页签：行情数据 / 市场信息数据 */}
+              <div className="flex border-b border-slate-200 dark:border-slate-700">
+                <button
+                  onClick={() => setDsTab('realtime')}
+                  className={`px-4 py-2 text-xs font-medium border-b-2 transition-colors ${
+                    dsTab === 'realtime'
+                      ? 'border-brand-500 text-brand-600 dark:text-brand-400'
+                      : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
+                >
+                  行情数据
+                </button>
+                <button
+                  onClick={() => setDsTab('aux')}
+                  className={`px-4 py-2 text-xs font-medium border-b-2 transition-colors ${
+                    dsTab === 'aux'
+                      ? 'border-brand-500 text-brand-600 dark:text-brand-400'
+                      : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
+                  }`}
+                >
+                  市场信息数据
+                </button>
+              </div>
+
+              {dsTab === 'realtime' && (
+              <>
               {/* 数据源类型选择 */}
               <div>
                 <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
@@ -1239,7 +1480,7 @@ export default function Settings() {
                 </div>
               )}
 
-              {/* 测试数据源 */}
+              {/* 实时行情：测试连接 + 保存 */}
               <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
                 <div className="flex gap-2">
                   <button
@@ -1257,7 +1498,6 @@ export default function Settings() {
                     {testing ? t('settings.testing') : t('settings.testConnection')}
                   </button>
                 </div>
-
                 {saveError && (
                   <div className="mt-2 p-2.5 rounded-md text-xs bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800">
                     <span className="font-medium">❌ 保存失败：</span>
@@ -1269,7 +1509,6 @@ export default function Settings() {
                     <span className="font-medium">✅ 设置已保存</span>
                   </div>
                 )}
-
                 {testResult && (
                   <div className={`mt-3 p-3 rounded-md text-xs ${
                     testResult.success === true
@@ -1283,6 +1522,183 @@ export default function Settings() {
                   </div>
                 )}
               </div>
+              </>
+              )}
+
+              {dsTab === 'aux' && (
+              <>
+              {/* 辅助数据源卡片（并排）：市场六维判势 / 同花顺官方，选中不同卡片填写不同配置 */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* 同花顺官方卡片 */}
+                <div
+                  onClick={() => { setThsOpen(true); setSixDimOpen(false) }}
+                  className={`cursor-pointer p-3 rounded-md border-2 text-xs transition-colors ${
+                    thsOpen
+                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20 dark:border-brand-400'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-300">
+                    <Activity className="w-3.5 h-3.5" />
+                    <span>同花顺官方金融数据服务</span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
+                    六维判势情绪 / 财务同步 / 复权因子 / 估值竞价 / 全市场日K。
+                  </p>
+                </div>
+                {/* 市场六维判势卡片 */}
+                <div
+                  onClick={() => { setSixDimOpen(true); setThsOpen(false) }}
+                  className={`cursor-pointer p-3 rounded-md border-2 text-xs transition-colors ${
+                    sixDimOpen
+                      ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/20 dark:border-brand-400'
+                      : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5 font-medium text-slate-700 dark:text-slate-300">
+                    <Activity className="w-3.5 h-3.5" />
+                    <span>市场六维判势数据源</span>
+                  </div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">
+                    情绪/资金/外围实时源配置，与实时行情数据源选择相互独立。
+                  </p>
+                </div>
+              </div>
+
+              {/* 市场六维判势数据源配置（选中上方卡片后展开，优先级越小越先尝试，高优先级失败自动回退，配置保存在 config.json） */}
+              {sixDimOpen && (
+              <div className="space-y-3 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-md">
+                <div>
+                  <h3 className="text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5" />
+                    市场六维判势数据源
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    优先级数值越小越先尝试；高优先级源失败自动回退低优先级源（DuckDB 兜底），全程无伪造。保存后下一次判势立即生效。
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  {Object.keys(sixDimSourceMeta).map((key) => (
+                    <div key={key} className="flex items-center justify-between gap-2 p-2 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-slate-700 dark:text-slate-300">
+                          <span className="truncate">{sixDimSourceMeta[key].name}</span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5 truncate">{sixDimSourceMeta[key].desc}</p>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <label className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
+                          <input
+                            type="checkbox"
+                            checked={sixDimSource[key]?.enabled ?? true}
+                            onChange={(e) => updateSixDimSource(key, 'enabled', e.target.checked)}
+                            className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600 accent-brand-600"
+                          />
+                          启用
+                        </label>
+                        <label className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
+                          优先级
+                          <input
+                            type="number"
+                            min={1}
+                            max={9}
+                            value={sixDimSource[key]?.priority ?? 1}
+                            onChange={(e) => updateSixDimSource(key, 'priority', Math.max(1, Number(e.target.value) || 1))}
+                            className="w-14 px-1.5 py-1 rounded-md text-xs border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              )}
+
+              {thsOpen && (
+              <div className="space-y-3 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-md">
+                <div>
+                  <h3 className="text-xs font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5" />
+                    同花顺官方数据服务配置
+                  </h3>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    需在<a href="https://fuyao.aicubes.cn" target="_blank" rel="noreferrer" className="text-brand-600 dark:text-brand-400 underline">https://fuyao.aicubes.cn</a>金融数据服务开通后填写 API Key。保存后无需重启。
+                  </p>
+                </div>
+                <div className="flex items-center justify-between gap-2">
+                  <label className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-300">
+                    <input
+                      type="checkbox"
+                      checked={thsEnabled}
+                      onChange={(e) => setThsEnabled(e.target.checked)}
+                      className="w-3.5 h-3.5 rounded border-slate-300 dark:border-slate-600 accent-brand-600"
+                    />
+                    启用官方数据源
+                  </label>
+                </div>
+                <div className="space-y-2">
+                  <label className="block text-xs text-slate-500 dark:text-slate-400">
+                    API Key（X-api-key）
+                    <input
+                      type="password"
+                      value={thsApiKey}
+                      onChange={(e) => setThsApiKey(e.target.value)}
+                      placeholder="填写官方开通的 API Key"
+                      className="mt-1 w-full px-2.5 py-1.5 rounded-md text-xs border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                    />
+                  </label>
+                  <label className="block text-xs text-slate-500 dark:text-slate-400">
+                    服务地址（可选，默认官方 https://fuyao.aicubes.cn）
+                    <input
+                      type="text"
+                      value={thsBaseUrl}
+                      onChange={(e) => setThsBaseUrl(e.target.value)}
+                      placeholder="https://fuyao.aicubes.cn"
+                      className="mt-1 w-full px-2.5 py-1.5 rounded-md text-xs border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                    />
+                  </label>
+                </div>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">
+                  启用后：六维判势情绪维度优先取官方涨停/跌停/炸板池+连板天梯（真实炸板率）；「财务数据维护」可选择同花顺官方源；数据维护区可一键导入全市场复权因子；盘中可用估值/集合竞价快照。
+                </p>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleSaveTHS}
+                    className="px-2.5 py-1.5 rounded-md text-xs font-medium bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1.5"
+                  >
+                    <Save className="w-3.5 h-3.5" />
+                    保存同花顺配置
+                  </button>
+                  {thsSaved && <span className="text-[11px] text-green-600 dark:text-green-400">已保存，立即生效</span>}
+                </div>
+              </div>
+              )}
+
+              {/* 辅助数据源：保存 */}
+              <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
+                <div className="flex gap-2">
+                  <button
+                    onClick={handleSave}
+                    className="btn-primary"
+                  >
+                    {t('settings.save')}
+                  </button>
+                </div>
+
+                {saveError && (
+                  <div className="mt-2 p-2.5 rounded-md text-xs bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800">
+                    <span className="font-medium">❌ 保存失败：</span>
+                    <span className="ml-1">{saveError}</span>
+                  </div>
+                )}
+                {saveSuccess && (
+                  <div className="mt-2 p-2.5 rounded-md text-xs bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800">
+                    <span className="font-medium">✅ 设置已保存</span>
+                  </div>
+                )}
+              </div>
+              </>
+              )}
             </div>
           )}
 
@@ -1302,6 +1718,31 @@ export default function Settings() {
             <div className="space-y-5">
               <h2 className="text-base font-semibold text-slate-800 dark:text-slate-100">数据维护</h2>
 
+              {/* 数据维护子页签：同花顺数据 / 通达信数据 / 系统初始化 / 日志数据清理 */}
+              <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-700 pb-2">
+                {([
+                  ['ths', '同花顺数据'],
+                  ['tdx', '通达信数据'],
+                  ['sysinit', '系统初始化'],
+                  ['log', '日志数据清理'],
+                ] as const).map(([k, label]) => (
+                  <button
+                    key={k}
+                    onClick={() => setMaintTab(k)}
+                    className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      maintTab === k
+                        ? 'bg-brand-600 text-white'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
+              {/* ===== 页签1：通达信数据（股票时序 + 财务） ===== */}
+              {maintTab === 'tdx' && (
+              <>
               {/* 1. 股票时序数据维护 */}
               <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3">
                 <div className="flex items-center gap-2">
@@ -1359,35 +1800,24 @@ export default function Settings() {
                 )}
               </div>
 
-              {/* 2. 财务数据维护（东财 datacenter / 通达信终端） */}
+              {/* 2. 财务数据维护（通达信终端，本地 RPC 直连，不封 IP） */}
               <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3">
                 <div className="flex items-center gap-2">
                   <BarChart3 className="w-4 h-4 text-brand-600 dark:text-brand-400" />
                   <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">财务数据维护</h3>
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300">
-                    {finSource === 'tdx' ? '通达信终端' : '东财 datacenter'}
+                    通达信终端
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  同步各股票的历史财务数据（营收、净利润、ROE、毛利率、资产负债率、股本等）到 stock.duckdb 的
+                  直接从通达信终端同步各股票的历史财务数据（营收、净利润、ROE、毛利率、资产负债率、股本等）到 stock.duckdb 的
                   <code className="mx-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[11px]">financial_report</code>表。
                   数据按「报告期」存储并记录披露日，回测时仅用当时已披露的数据，杜绝未来函数。
+                  同花顺官方财务数据请到「同花顺数据」页签同步。
                 </p>
-                {/* 数据源选择：通达信终端不经 HTTP、不受东财频控/IP 封禁影响 */}
-                <div className="flex gap-2 items-center">
-                  <select
-                    value={finSource}
-                    onChange={(e) => setFinSource(e.target.value as 'em' | 'tdx')}
-                    className="px-2 py-1.5 rounded-md text-xs border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-brand-500"
-                    disabled={finSyncStatus?.running}
-                  >
-                    <option value="em">东方财富（历史完整，需下载专业财务前若被封需耐心等）</option>
-                    <option value="tdx">通达信终端（本地RPC，不封IP，需主程序登录+已下载专业财务数据）</option>
-                  </select>
-                </div>
                 <div className="flex gap-2">
                   <button
-                    onClick={() => handleStartFinancialSync('incremental')}
+                    onClick={() => handleStartFinancialSync('incremental', 'tdx')}
                     disabled={finSyncStatus?.running}
                     className="px-3 py-1.5 rounded-md text-xs font-medium bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
                   >
@@ -1395,7 +1825,7 @@ export default function Settings() {
                     {finSyncStatus?.running ? '同步中...' : '增量更新'}
                   </button>
                   <button
-                    onClick={() => handleStartFinancialSync('full')}
+                    onClick={() => handleStartFinancialSync('full', 'tdx')}
                     disabled={finSyncStatus?.running}
                     className="px-3 py-1.5 rounded-md text-xs font-medium border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5 disabled:opacity-50"
                   >
@@ -1404,13 +1834,13 @@ export default function Settings() {
                   </button>
                 </div>
                 <p className="text-[10px] text-slate-400 dark:text-slate-500">
-                  提示：全量重建会遍历全部 A 股拉取全历史，耗时较长；日常建议用「增量更新」只补新报告期。任一模式均保留旧数据，拉取失败自动跳过。东财被频控时建议改用「通达信终端」。
+                  数据源固定为「通达信终端」（本地 RPC 直连，不封 IP），需主程序已登录并下载专业财务数据。全量重建遍历全部 A 股拉取全历史，耗时较长；日常建议用「增量更新」。
                 </p>
 
                 {finSyncStatus && (
                   <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
                     {finSyncStatus.message && <p>状态：{finSyncStatus.message}</p>}
-                    {finSyncStatus.mode && <p>模式：{finSyncStatus.mode === 'full' ? '全量' : '增量'}（{'tdx' === finSource ? '通达信终端' : '东财 datacenter'}）</p>}
+                    {finSyncStatus.mode && <p>模式：{finSyncStatus.mode === 'full' ? '全量' : '增量'}（通达信终端）</p>}
                     {(finSyncStatus.total_stocks ?? 0) > 0 && (
                       <p>
                         进度：{finSyncStatus.processed_stocks || 0} / {finSyncStatus.total_stocks} 只股票，
@@ -1433,8 +1863,183 @@ export default function Settings() {
                   </div>
                 )}
               </div>
+              </>
+              )}
 
-              {/* 3. 系统初始化 */}
+              {/* ===== 页签2：同花顺数据（复权因子导入 + 日K导入 + 估值/集合竞价） ===== */}
+              {maintTab === 'ths' && (
+              <>
+
+              {/* 3. 同花顺复权因子导入 + 前复权视图 */}
+              <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3">
+                <div className="flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">复权因子导入（前复权视图）</h3>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300">
+                    {adjStatus?.configured ? '官方源已配置' : '未配置官方源'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  从同花顺官方下载全市场复权事件（分红/送股/配股）Parquet，结合本机真实日K推算日频复权因子，
+                  构建 <code className="mx-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[11px]">stock.adj_factor</code> 表
+                  与 <code className="mx-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[11px]">stock.ohlc_qfq</code> 前复权视图。
+                  最新收盘为基准（前复权因子=1），历史价格按因子缩放。
+                </p>
+                <div className="flex flex-wrap gap-2 items-center">
+                  <button
+                    onClick={handleSyncAll}
+                    disabled={syncAllBusy || !adjStatus?.configured}
+                    className="px-3 py-1.5 rounded-md text-xs font-semibold bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    {syncAllBusy ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Calendar className="w-3.5 h-3.5" />}
+                    {syncAllBusy ? '一键同步中（复权因子+交易日历）...' : '一键同步全部（复权因子 + 交易日历）'}
+                  </button>
+                  <button
+                    onClick={handleImportAdjFactors}
+                    disabled={adjBusy || syncAllBusy || !adjStatus?.configured}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5"
+                  >
+                    {adjBusy ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                    {adjBusy ? '仅导入复权因子...' : '仅导入复权因子'}
+                  </button>
+                  {adjStatus?.factor_symbols > 0 && (
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                      已导入 {adjStatus?.event_rows?.toLocaleString() || 0} 条事件，覆盖 {adjStatus?.factor_symbols?.toLocaleString() || 0} 只股票
+                      {adjStatus?.view_ready ? '，前复权视图已就绪' : ''}
+                    </span>
+                  )}
+                </div>
+                {calStatus?.has_data && (
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                    交易日历：{calStatus?.count?.toLocaleString() || 0} 个交易日，{calStatus?.date_min} ~ {calStatus?.date_max}
+                    {calStatus?.configured ? '' : '（官方源未配置，不会自动同步）'}
+                  </p>
+                )}
+                {adjErr && <p className="text-xs text-red-600 dark:text-red-400">错误：{adjErr}</p>}
+                {calErr && <p className="text-xs text-red-600 dark:text-red-400">交易日历错误：{calErr}</p>}
+                {adjResult && (
+                  <div className="text-xs text-green-600 dark:text-green-400 space-y-0.5">
+                    {(adjResult as any)._steps
+                      ? (adjResult as any)._steps.map((s: string, i: number) => <p key={i}>{s}</p>)
+                      : <p>导入完成：{adjResult.message}</p>}
+                  </div>
+                )}
+              </div>
+
+              {/* 4. 同花顺全市场日K导入（stock.ohlc 底层 stock_daily） */}
+              <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3">
+                <div className="flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">全市场日K导入（stock.ohlc）</h3>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300">
+                    {dailyKStatus?.configured ? '官方源已配置' : '未配置官方源'}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  从同花顺官方下载全市场日K Parquet（原始未复权），按 (symbol,date) 去重后增量合并到
+                  <code className="mx-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[11px]">stock.stock_daily</code>
+                  （<code className="mx-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[11px]">stock.ohlc</code> 视图底层）。
+                  已存在数据自动跳过，可重复导入。
+                </p>
+                <div className="flex flex-wrap gap-2 items-center">
+                  <button
+                    onClick={() => handleImportDailyK('incr')}
+                    disabled={dailyKBusy || !dailyKStatus?.configured}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    {dailyKBusy ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                    {dailyKBusy ? '导入中...' : '增量导入（近10交易日）'}
+                  </button>
+                  <button
+                    onClick={() => handleImportDailyK('full')}
+                    disabled={dailyKBusy || !dailyKStatus?.configured}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    全量导入（近3年）
+                  </button>
+                  {dailyKStatus?.has_data && (
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                      当前 {dailyKStatus?.rows?.toLocaleString() || 0} 行，覆盖 {dailyKStatus?.symbols?.toLocaleString() || 0} 只股票
+                      {dailyKStatus?.latest_date ? `，最新 ${dailyKStatus.latest_date}` : ''}
+                    </span>
+                  )}
+                </div>
+                {dailyKErr && <p className="text-xs text-red-600 dark:text-red-400">错误：{dailyKErr}</p>}
+                {dailyKResult && (
+                  <p className="text-xs text-green-600 dark:text-green-400">完成：{dailyKResult.message}</p>
+                )}
+              </div>
+
+              {/* 7. 同花顺「财务数据」同步导入 */}
+              <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3">
+                <div className="flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">财务数据维护</h3>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/40 text-brand-700 dark:text-brand-300">
+                    同花顺官方（需配置上方 API Key）
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  从同花顺官方同步各股票历史财务数据（营收、净利润、ROE、毛利率、资产负债率、股本等）到
+                  <code className="mx-1 px-1 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-[11px]">financial_report</code>表。
+                  数据按「报告期」存储并记录披露日，回测时仅用当时已披露的数据，杜绝未来函数。
+                </p>
+                <div className="flex gap-2 items-center">
+                  <button
+                    onClick={() => handleStartTHSFinancialSync('incremental')}
+                    disabled={thsFinSync?.running}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium bg-brand-600 hover:bg-brand-700 text-white transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    {thsFinSync?.running ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Download className="w-3.5 h-3.5" />}
+                    {thsFinSync?.running ? '同步中...' : '增量更新'}
+                  </button>
+                  <button
+                    onClick={() => handleStartTHSFinancialSync('full')}
+                    disabled={thsFinSync?.running}
+                    className="px-3 py-1.5 rounded-md text-xs font-medium border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                  >
+                    <Database className="w-3.5 h-3.5" />
+                    全量重建
+                  </button>
+                </div>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">
+                  提示：全量重建遍历全部 A 股拉取全历史，耗时较长；日常建议用「增量更新」只补新报告期。未配置官方 API Key 时将被拒绝。
+                </p>
+                {thsFinSync && (
+                  <div className="text-xs text-slate-600 dark:text-slate-400 space-y-1">
+                    {thsFinSync.message && <p>状态：{thsFinSync.message}</p>}
+                    {thsFinSync.mode && <p>模式：{thsFinSync.mode === 'full' ? '全量' : '增量'}（同花顺官方）</p>}
+                    {(thsFinSync.total_stocks ?? 0) > 0 && (
+                      <p>
+                        进度：{thsFinSync.processed_stocks || 0} / {thsFinSync.total_stocks} 只股票，
+                        写入 {thsFinSync.inserted_records?.toLocaleString() || 0} 条
+                        {thsFinSync.failed_count ? `，失败 ${thsFinSync.failed_count}` : ''}
+                      </p>
+                    )}
+                    {thsFinSync.running && (thsFinSync.total_stocks ?? 0) > 0 && (
+                      <div className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-brand-500 transition-all"
+                          style={{ width: `${Math.min(100, Math.round(((thsFinSync.processed_stocks || 0) / thsFinSync.total_stocks) * 100))}%` }}
+                        />
+                      </div>
+                    )}
+                    {thsFinSync.error && <p className="text-red-600 dark:text-red-400">错误：{thsFinSync.error}</p>}
+                    {thsFinSync.last_result && !thsFinSync.running && (
+                      <p className="text-green-600 dark:text-green-400">上次结果：{thsFinSync.last_result}（{thsFinSync.last_update || ''}）</p>
+                    )}
+                  </div>
+                )}
+              </div>
+              </>
+              )}
+
+              {/* ===== 页签3：系统初始化 ===== */}
+              {maintTab === 'sysinit' && (
+              <>
+
+              {/* 5. 系统初始化 */}
               <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800/50 space-y-3">
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-red-600 dark:text-red-400" />
@@ -1471,6 +2076,12 @@ export default function Settings() {
                   </div>
                 )}
               </div>
+              </>
+              )}
+
+              {/* ===== 页签4：日志数据清理 ===== */}
+              {maintTab === 'log' && (
+              <>
 
               {/* 3. 基础数据维护 */}
               <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3">
@@ -1507,6 +2118,8 @@ export default function Settings() {
                   </div>
                 )}
               </div>
+              </>
+              )}
             </div>
           )}
 
