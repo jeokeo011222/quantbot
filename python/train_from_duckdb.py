@@ -373,6 +373,15 @@ def train_model(
     if len(X_train) < 100 or len(X_test) < 100:
         return {"error": f"时间切分后样本不足: train={len(X_train)}, test={len(X_test)}"}
 
+    # 类别均衡样本权重：按类别逆频率加权，让模型不再把概率压向多数类（hold），
+    # 从而在买/卖上有真实区分度，避免 argmax 恒落 hold 导致策略 0 成交、指标全 0。
+    # 仅作用于 XGBoost / LightGBM（sklearn 模型直接用 class_weight）。
+    def _balance_weights(yv):
+        classes, counts = np.unique(yv, return_counts=True)
+        w = dict(zip(classes, len(yv) / (len(classes) * counts)))
+        return np.array([w[v] for v in yv], dtype=np.float64)
+    train_sw = _balance_weights(y_train)
+
     print(f"  [{model_type}] 时间切分: train={len(X_train)}, test={len(X_test)}, test_cut={pd.Timestamp(test_cut).date()}")
     print(f"  [{model_type}] Label dist: sell={int((y == 0).sum())}, hold={int((y == 1).sum())}, buy={int((y == 2).sum())}")
 
@@ -395,7 +404,7 @@ def train_model(
         if params:
             default_params.update(params)
         model = xgb.XGBClassifier(**default_params)
-        model.fit(X_train_s, y_train, eval_set=[(X_test_s, y_test)], verbose=False)
+        model.fit(X_train_s, y_train, sample_weight=train_sw, eval_set=[(X_test_s, y_test)], verbose=False)
         export_xgboost(model, os.path.join(output_dir, f"{model_name}.json"))
     elif model_type == "lgbm":
         default_params = {
@@ -408,12 +417,12 @@ def train_model(
         if params:
             default_params.update(params)
         model = lgb.LGBMClassifier(**default_params)
-        model.fit(X_train_s, y_train, eval_set=[(X_test_s, y_test)], callbacks=[lgb.early_stopping(20, verbose=False)])
+        model.fit(X_train_s, y_train, sample_weight=train_sw, eval_set=[(X_test_s, y_test)], callbacks=[lgb.early_stopping(20, verbose=False)])
         export_lgbm(model, os.path.join(output_dir, f"{model_name}.json"))
     elif model_type == "rf":
         default_params = {
             'n_estimators': 150, 'max_depth': 8, 'min_samples_leaf': 20,
-            'max_features': 'sqrt', 'random_state': 42, 'n_jobs': -1,
+            'max_features': 'sqrt', 'class_weight': 'balanced', 'random_state': 42, 'n_jobs': -1,
         }
         if params:
             default_params.update(params)
@@ -421,13 +430,15 @@ def train_model(
         model.fit(X_train_s, y_train)
         export_sklearn_rf(model, os.path.join(output_dir, f"{model_name}.json"))
     elif model_type == "logistic":
-        default_params = {'C': 1.0, 'solver': 'lbfgs', 'max_iter': 500, 'random_state': 42}
+        default_params = {'C': 1.0, 'solver': 'lbfgs', 'max_iter': 500, 'class_weight': 'balanced', 'random_state': 42}
         if params:
             default_params.update(params)
         model = LogisticRegression(**default_params)
         model.fit(X_train_s, y_train)
         export_logistic(model, os.path.join(output_dir, f"{model_name}.json"))
     elif model_type == "mlp":
+        # 注意：sklearn 1.7.x 的 MLPClassifier 不支持 class_weight，
+        # 均衡权重通过 fit 的 sample_weight 传入。
         default_params = {
             'hidden_layer_sizes': (64,), 'activation': 'relu', 'solver': 'adam',
             'alpha': 1e-4, 'batch_size': 512, 'learning_rate_init': 1e-3,
@@ -437,7 +448,7 @@ def train_model(
         if params:
             default_params.update(params)
         model = MLPClassifier(**default_params)
-        model.fit(X_train_s, y_train)
+        model.fit(X_train_s, y_train, sample_weight=train_sw)
         export_mlp(model, os.path.join(output_dir, f"{model_name}.json"))
     else:
         return {"error": f"Unsupported model_type: {model_type}"}
