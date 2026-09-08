@@ -11,6 +11,14 @@
 
 <br>
 
+## 📥 立即下载
+
+[![Download](https://img.shields.io/badge/⬇-下载_QuantBot_v1.3.0-2ea44f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jeokeo011222/quantbot/releases/download/v1.3.0/QuantBot-v1.3.0.zip)
+
+> 下载 → 解压 → 运行 `QuantBot.exe` → 配置 API Key 即可开始。支持 Windows x64。
+
+<br>
+
 [![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](https://go.dev)
 [![Wails](https://img.shields.io/badge/Wails-v2-C2185B?logo=wails&logoColor=white)](https://wails.io)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev)
