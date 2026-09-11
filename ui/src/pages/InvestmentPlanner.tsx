@@ -181,6 +181,18 @@ const CHOICE_QUESTIONS: ChoiceQuestion[] = [
       { value: 'BROAD', label: '均衡配置', description: '不偏好特定行业，进行行业均衡分散配置' },
     ],
   },
+  {
+    key: 'market_downturn_handling',
+    title: '行情走弱时会怎么反应？',
+    subtitle: '说人话：最近的盘面要是瞧着不对，您希望系统自动怎么操作您的仓位？',
+    icon: <Shield className="w-6 h-6" />,
+    options: [
+      { value: 'HOLD_STILL', label: '先拿着，别慌', description: '相信长期，跌了就拿着等它回来，不轻易割肉' },
+      { value: 'DIP_DEFENSE', label: '趁机捡点防御龙头', description: '分批买点银行、电力这类分红稳的龙头，当压箱底' },
+      { value: 'HEDGE_REDUCE', label: '先减仓，躲一躲', description: '看着不对就先降仓位、握住现金，等市场稳了再进' },
+      { value: 'KEEP_PLAN', label: '照常按计划走', description: '涨跌都不临时改主意，坚决执行既定计划' },
+    ],
+  },
 ]
 
 // 投资风格映射
@@ -207,6 +219,7 @@ function generateStyle(answers: Record<string, string>): InvestmentStyle {
   const stylePref = answers.investment_style_preference || 'BALANCED'
   const lossAttitude = answers.loss_attitude || 'HOLD'
   const capital = parseFloat(answers.capital || '100000')
+  const downturnHandling = answers.market_downturn_handling || 'KEEP_PLAN'
 
   // 根据风险承受和最大回撤确定风格等级
   let styleLevel = 'balanced'
@@ -254,6 +267,12 @@ function generateStyle(answers: Record<string, string>): InvestmentStyle {
 
   // 根据亏损态度调整
   if (lossAttitude === 'CUT_LOSS' && styleLevel === 'aggressive') {
+    styleLevel = 'balanced'
+    riskRating = 'R3'
+  }
+
+  // 根据市场转弱时的应对调整（口语化判断题）：选择"先减仓躲一躲"趋于保守
+  if (downturnHandling === 'HEDGE_REDUCE' && styleLevel === 'aggressive') {
     styleLevel = 'balanced'
     riskRating = 'R3'
   }

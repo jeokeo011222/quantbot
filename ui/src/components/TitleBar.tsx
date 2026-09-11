@@ -1,5 +1,5 @@
 import { Minus, Square, X, LineChart, AlertTriangle } from 'lucide-react'
-import { WindowMinimise, WindowToggleMaximise, WindowQuit } from '../../wailsjs/go/main/App'
+import { WindowMinimise, WindowToggleMaximise, HideToTray } from '../../wailsjs/go/main/App'
 
 interface TitleBarProps {
   title?: string
@@ -17,7 +17,8 @@ export default function TitleBar({ title = 'QuantBot', subtitle = 'AI量化机�
   }
 
   const handleClose = () => {
-    WindowQuit()
+    // 点×：隐藏主窗口到系统托盘（进程与后台任务继续运行），由托盘图标恢复/退出
+    HideToTray()
   }
 
   return (

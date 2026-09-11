@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { Target, Play, Pause, BarChart3, X, Check, Trash2, Eye, AlertCircle, Loader2 } from 'lucide-react'
-import { getStrategies, refreshStrategyMetrics, toggleStrategyStatus as toggleStatusAPI, deleteStrategy as deleteStrategyAPI, type Strategy } from '../services/strategy'
+import { Target, Play, Pause, BarChart3, X, Check, Trash2, Eye, AlertCircle, Loader2, Bookmark, TrendingUp } from 'lucide-react'
+import { getStrategies, refreshStrategyMetrics, toggleStrategyStatus as toggleStatusAPI, deleteStrategy as deleteStrategyAPI, getStrategyStockBindings, type Strategy, type StrategyStockBinding } from '../services/strategy'
 
 interface StrategyForm {
   name: string
@@ -22,6 +22,10 @@ interface StrategyForm {
 export default function Strategies() {
   const [strategies, setStrategies] = useState<Strategy[]>([])
   const [loading, setLoading] = useState(true)
+
+  // 每股当前绑定的策略与参数
+  const [bindings, setBindings] = useState<StrategyStockBinding[]>([])
+  const [bindingsLoading, setBindingsLoading] = useState(true)
 
   const [viewingStrategy, setViewingStrategy] = useState<Strategy | null>(null)
   const [deleteConfirm, setDeleteConfirm] = useState<Strategy | null>(null)
@@ -56,10 +60,24 @@ export default function Strategies() {
 
   useEffect(() => {
     loadStrategies()
+    loadBindings()
     return () => {
       if (retryTimerRef.current) clearTimeout(retryTimerRef.current)
     }
   }, [])
+
+  // 加载每股策略绑定
+  const loadBindings = async () => {
+    setBindingsLoading(true)
+    try {
+      const list = await getStrategyStockBindings()
+      setBindings(list)
+    } catch (err) {
+      console.error('Failed to load strategy bindings:', err)
+    } finally {
+      setBindingsLoading(false)
+    }
+  }
 
   const loadStrategies = async () => {
     setLoading(true)
@@ -178,6 +196,91 @@ export default function Strategies() {
             刷新
           </button>
         </div>
+      </div>
+
+      {/* 每股当前绑定的策略与参数 */}
+      <div className="card p-5">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-9 h-9 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center">
+            <Bookmark className="w-4 h-4 text-indigo-500" />
+          </div>
+          <div>
+            <h2 className="font-semibold text-slate-800 dark:text-slate-100">每股策略绑定</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              收盘后量化分析师按每只个股自身近期K线滚动调参绑定，次日 CIO/操盘手按该绑定执行
+            </p>
+          </div>
+          <button
+            onClick={loadBindings}
+            className="ml-auto p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            title="刷新绑定"
+          >
+            {bindingsLoading ? <Loader2 className="w-4 h-4 animate-spin text-slate-400" /> : <TrendingUp className="w-4 h-4 text-slate-500 dark:text-slate-400" />}
+          </button>
+        </div>
+        {bindingsLoading ? (
+          <div className="p-8 text-center">
+            <Loader2 className="w-6 h-6 mx-auto text-brand-500 animate-spin" />
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">加载每股策略绑定...</p>
+          </div>
+        ) : bindings.length === 0 ? (
+          <div className="p-8 text-center text-sm text-slate-400 dark:text-slate-500">
+            暂无个股策略绑定记录。每只持仓收盘后滚动调参绑定后将在此展示。
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="text-left text-xs text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+                  <th className="py-2 pr-3 font-medium">股票</th>
+                  <th className="py-2 pr-3 font-medium">绑定策略</th>
+                  <th className="py-2 pr-3 font-medium">调优参数</th>
+                  <th className="py-2 pr-3 font-medium text-right">夏普</th>
+                  <th className="py-2 pr-3 font-medium text-right">总收益</th>
+                  <th className="py-2 pr-3 font-medium text-right">胜率</th>
+                  <th className="py-2 pr-3 font-medium text-right">回撤</th>
+                  <th className="py-2 pr-3 font-medium text-right">交易</th>
+                  <th className="py-2 font-medium">更新时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bindings.map((b) => (
+                  <tr key={b.code} className="border-b border-slate-100 dark:border-slate-800 last:border-0">
+                    <td className="py-2.5 pr-3">
+                      <div className="font-medium text-slate-800 dark:text-slate-100">{b.stock_name || '—'}</div>
+                      <div className="text-xs text-slate-400 dark:text-slate-500">{b.code}</div>
+                    </td>
+                    <td className="py-2.5 pr-3">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400">
+                        {b.strategy_type}
+                      </span>
+                      <div className="text-xs text-slate-400 dark:text-slate-500 mt-1">{b.strategy_name || ''}</div>
+                    </td>
+                    <td className="py-2.5 pr-3">
+                      {Object.keys(b.params || {}).length > 0 ? (
+                        <div className="flex flex-wrap gap-1">
+                          {Object.entries(b.params).map(([k, v]) => (
+                            <span key={k} className="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-xs text-slate-600 dark:text-slate-300">
+                              {k}={typeof v === 'number' ? v.toFixed(2) : v}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="text-xs text-slate-400">—</span>
+                      )}
+                    </td>
+                    <td className="py-2.5 pr-3 text-right text-slate-700 dark:text-slate-200">{b.sharpe_ratio.toFixed(2)}</td>
+                    <td className={`py-2.5 pr-3 text-right font-medium ${b.total_return >= 0 ? 'text-green-500' : 'text-red-500'}`}>{b.total_return.toFixed(2)}%</td>
+                    <td className="py-2.5 pr-3 text-right text-slate-700 dark:text-slate-200">{b.win_rate.toFixed(1)}%</td>
+                    <td className="py-2.5 pr-3 text-right text-red-500">{b.max_drawdown.toFixed(2)}%</td>
+                    <td className="py-2.5 pr-3 text-right text-slate-700 dark:text-slate-200">{b.trades}</td>
+                    <td className="py-2.5 text-xs text-slate-400 dark:text-slate-500">{b.updated_at}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {loading ? (

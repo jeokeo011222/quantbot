@@ -1,3 +1,78 @@
+export namespace broker {
+	
+	export class Asset {
+	    Cash: number;
+	    MarketValue: number;
+	    TotalAssets: number;
+	    Frozen: number;
+	    Available: number;
+	    ExternalMessage: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Asset(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Cash = source["Cash"];
+	        this.MarketValue = source["MarketValue"];
+	        this.TotalAssets = source["TotalAssets"];
+	        this.Frozen = source["Frozen"];
+	        this.Available = source["Available"];
+	        this.ExternalMessage = source["ExternalMessage"];
+	    }
+	}
+	export class Position {
+	    Symbol: string;
+	    Quantity: number;
+	    Available: number;
+	    CostPrice: number;
+	    Market: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Position(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Symbol = source["Symbol"];
+	        this.Quantity = source["Quantity"];
+	        this.Available = source["Available"];
+	        this.CostPrice = source["CostPrice"];
+	        this.Market = source["Market"];
+	    }
+	}
+	export class Status {
+	    mode: string;
+	    connected: boolean;
+	    python_ok: boolean;
+	    xtquant_ok: boolean;
+	    account: string;
+	    cash: number;
+	    market_value: number;
+	    message: string;
+	    python_path: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Status(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.mode = source["mode"];
+	        this.connected = source["connected"];
+	        this.python_ok = source["python_ok"];
+	        this.xtquant_ok = source["xtquant_ok"];
+	        this.account = source["account"];
+	        this.cash = source["cash"];
+	        this.market_value = source["market_value"];
+	        this.message = source["message"];
+	        this.python_path = source["python_path"];
+	    }
+	}
+
+}
+
 export namespace config {
 	
 	export class SourceToggle {
@@ -123,6 +198,33 @@ export namespace llmstore {
 		    }
 		    return a;
 		}
+	}
+
+}
+
+export namespace main {
+	
+	export class OptimizePortfolioRequest {
+	    method: string;
+	    symbols: string[];
+	    totalWeight: number;
+	    maxSingle: number;
+	    budgets: number[];
+	    days: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new OptimizePortfolioRequest(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.method = source["method"];
+	        this.symbols = source["symbols"];
+	        this.totalWeight = source["totalWeight"];
+	        this.maxSingle = source["maxSingle"];
+	        this.budgets = source["budgets"];
+	        this.days = source["days"];
+	    }
 	}
 
 }

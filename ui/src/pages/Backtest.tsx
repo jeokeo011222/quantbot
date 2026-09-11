@@ -21,6 +21,7 @@ import {
   CartesianGrid,
 } from 'recharts'
 
+
 interface DisplayResult {
   strategy: string
   annualReturn: number
@@ -807,7 +808,8 @@ export default function Backtest() {
           />
         )}
       </div>
-    </div>
+
+      </div>
   )
 }
 

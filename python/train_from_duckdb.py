@@ -390,6 +390,18 @@ def train_model(
     X_train_s = scaler.fit_transform(X_train)
     X_test_s = scaler.transform(X_test)
 
+    # 从训练集内部按时间顺序尾部分出 validation 集，专供 xgboost/lgbm 的 early stopping。
+    # 绝不使用测试集做早停（会泄漏测试标签）；shuffle=False 使 validation 为训练集最近一段，
+    # 紧邻测试期，符合时间序列语义。
+    val_X, val_y, val_sw = None, None, None
+    if model_type in ("xgboost", "lgbm"):
+        val_size = max(1, int(len(X_train) * 0.15))
+        from sklearn.model_selection import train_test_split
+        X_tr_v, val_X, y_tr_v, val_y, sw_v, val_sw = train_test_split(
+            X_train_s, y_train, train_sw, test_size=val_size, shuffle=False)
+    else:
+        X_tr_v, y_tr_v, sw_v = X_train_s, y_train, train_sw
+
     # ---- 构建模型 ----
     print(f"  [{model_type}] Training...")
     t0 = time.time()
@@ -404,7 +416,7 @@ def train_model(
         if params:
             default_params.update(params)
         model = xgb.XGBClassifier(**default_params)
-        model.fit(X_train_s, y_train, sample_weight=train_sw, eval_set=[(X_test_s, y_test)], verbose=False)
+        model.fit(X_tr_v, y_tr_v, sample_weight=sw_v, eval_set=[(val_X, val_y)], verbose=False)
         export_xgboost(model, os.path.join(output_dir, f"{model_name}.json"))
     elif model_type == "lgbm":
         default_params = {
@@ -417,7 +429,7 @@ def train_model(
         if params:
             default_params.update(params)
         model = lgb.LGBMClassifier(**default_params)
-        model.fit(X_train_s, y_train, sample_weight=train_sw, eval_set=[(X_test_s, y_test)], callbacks=[lgb.early_stopping(20, verbose=False)])
+        model.fit(X_tr_v, y_tr_v, sample_weight=sw_v, eval_set=[(val_X, val_y)], callbacks=[lgb.early_stopping(20, verbose=False)])
         export_lgbm(model, os.path.join(output_dir, f"{model_name}.json"))
     elif model_type == "rf":
         default_params = {

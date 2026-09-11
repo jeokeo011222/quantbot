@@ -12,7 +12,8 @@ import Backtest from './pages/Backtest'
 import Portfolio from './pages/Portfolio'
 import InvestmentPlanner from './pages/InvestmentPlanner'
 import StockScreener from './pages/StockScreener'
-import ETFMonitor from './pages/ETFMonitor'
+import RiskManagement from './pages/RiskManagement'
+import PortfolioCenter from './pages/PortfolioCenter'
 import Settings from './pages/Settings'
 import WelcomeWizard from './pages/WelcomeWizard'
 import { useAppStore } from './store/appStore'
@@ -83,14 +84,17 @@ function AppRouter() {
     case '/screener':
       page = <StockScreener />
       break
-    case '/etf-monitor':
-      page = <ETFMonitor />
-      break
     case '/strategies':
       page = <Strategies />
       break
     case '/backtest':
       page = <Backtest />
+      break
+    case '/risk':
+      page = <RiskManagement />
+      break
+    case '/portfolio-center':
+      page = <PortfolioCenter />
       break
     case '/portfolio':
       page = <Portfolio />

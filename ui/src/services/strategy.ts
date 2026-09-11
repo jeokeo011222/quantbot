@@ -21,6 +21,36 @@ export interface Strategy {
   updated_at: string
 }
 
+// 参数网格扫描（vectorbt bruteforce Go 版）：单组参数的样本内评分结果
+export interface GridComboResult {
+  params: Record<string, number>
+  param_msg: string
+  is_sharpe: number
+  is_return: number
+  is_max_dd: number
+  is_trades: number
+}
+
+// 策略超参网格扫描结果：样本内(前70%)选优 + 样本外(后30%)验证
+export interface GridScanResult {
+  strategy_type: string
+  stock_code: string
+  objective: string
+  combos_tested: number
+  train_bars: number
+  test_bars: number
+  best_params: Record<string, number>
+  best_param_msg: string
+  best_is_sharpe: number
+  best_is_return: number
+  oos_sharpe: number
+  oos_return: number
+  oos_max_dd: number
+  oos_trades: number
+  ranked: GridComboResult[]
+  method: string
+}
+
 export interface BacktestResult {
   id: number
   strategy_id: string
@@ -81,6 +111,43 @@ interface DeleteResponse {
 interface BacktestResultsResponse {
   results: BacktestResult[]
   totalCount: number
+}
+
+// 个股策略绑定：每股当前绑定的策略类型与调优参数（strategy_stock_params 表）
+export interface StrategyStockBinding {
+  code: string
+  stock_name?: string
+  strategy_type: string
+  strategy_name: string
+  params: Record<string, number>
+  params_json: string
+  window_days: number
+  sharpe_ratio: number
+  total_return: number
+  win_rate: number
+  max_drawdown: number
+  trades: number
+  updated_at: string
+}
+
+interface StrategyBindingsResponse {
+  bindings: StrategyStockBinding[]
+  total: number
+}
+
+// 获取每股当前绑定的策略与参数
+export async function getStrategyStockBindings(): Promise<StrategyStockBinding[]> {
+  const app = getAppInstance()
+  if (!app) {
+    return []
+  }
+  try {
+    const result = (await app.GetStrategyStockBindings()) as StrategyBindingsResponse
+    return result?.bindings || []
+  } catch (err) {
+    console.error('GetStrategyStockBindings failed:', err)
+    return []
+  }
 }
 
 // 获取策略列表
@@ -261,6 +328,43 @@ export async function runBacktest(params: {
     )) as BacktestResult | null
   } catch (err) {
     console.error('RunBacktest failed:', err)
+    return null
+  }
+}
+
+// 策略超参网格扫描：样本内选优 + 样本外验证（vectorbt bruteforce 理念 Go 版）。
+// gridJSON 为空时由后端使用该策略默认网格。
+export async function runBacktestGrid(params: {
+  strategy_type: string
+  stock_code?: string
+  stock_name?: string
+  market?: string
+  period?: string
+  start_date?: string
+  end_date?: string
+  initial_capital?: number
+  objective?: string
+  grid_json?: string
+}): Promise<GridScanResult | null> {
+  const app = getAppInstance()
+  if (!app) {
+    return null
+  }
+  try {
+    return (await app.RunBacktestGrid(
+      params.strategy_type,
+      params.stock_code || '',
+      params.stock_name || '',
+      params.market || 'SH',
+      params.period || 'day',
+      params.start_date || '',
+      params.end_date || '',
+      params.initial_capital || 100000,
+      params.objective || 'sharpe',
+      params.grid_json || ''
+    )) as GridScanResult | null
+  } catch (err) {
+    console.error('RunBacktestGrid failed:', err)
     return null
   }
 }

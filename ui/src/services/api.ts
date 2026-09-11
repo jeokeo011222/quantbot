@@ -36,14 +36,21 @@ export function getAppInstance(): AppAPI | null {
  * @param methodName 方法名
  * @param args 参数列表
  * @param fallbackValue 失败时返回的默认值
+ * @param onError 可选回调，后端真正抛错时触发，用于区分"后端异常"与"没有数据"，
+ *                避免把后端异常静默吞成空数组/默认值而误显"无数据"。
  */
 export async function safeCall<T>(
   methodName: string,
   args: unknown[],
   fallbackValue: T,
+  onError?: (err: unknown) => void,
 ): Promise<T> {
   const app = getAppInstance()
   if (!app || typeof app[methodName] !== 'function') {
+    // 后端/方法本身不可用：明确记录，避免静默按"数据为空"处理
+    const err = new Error(`Backend method '${methodName}' not available`)
+    console.error(`[API] ${methodName} unavailable:`, err)
+    if (onError) onError(err)
     return fallbackValue
   }
 
@@ -52,7 +59,9 @@ export async function safeCall<T>(
     const result = await method(...args)
     return result
   } catch (err) {
+    // 后端异常：不得吞掉并按"空数据"展示；交由 onError 上报，仍返回 fallback 避免崩溃
     console.error(`[API] ${methodName} failed:`, err)
+    if (onError) onError(err)
     return fallbackValue
   }
 }

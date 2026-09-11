@@ -70,6 +70,10 @@ export function ConnectNativeTDX() {
   return window['go']['main']['App']['ConnectNativeTDX']();
 }
 
+export function ConnectQMT() {
+  return window['go']['main']['App']['ConnectQMT']();
+}
+
 export function CreateInvestmentDecision(arg1, arg2, arg3, arg4, arg5, arg6, arg7) {
   return window['go']['main']['App']['CreateInvestmentDecision'](arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 }
@@ -92,6 +96,10 @@ export function DeleteStrategy(arg1) {
 
 export function DeleteTradeableStock(arg1) {
   return window['go']['main']['App']['DeleteTradeableStock'](arg1);
+}
+
+export function DisconnectQMT() {
+  return window['go']['main']['App']['DisconnectQMT']();
 }
 
 export function DownloadUpdate() {
@@ -246,6 +254,10 @@ export function GetBoardStocks(arg1) {
   return window['go']['main']['App']['GetBoardStocks'](arg1);
 }
 
+export function GetBrokerStatus() {
+  return window['go']['main']['App']['GetBrokerStatus']();
+}
+
 export function GetBuyableStocks() {
   return window['go']['main']['App']['GetBuyableStocks']();
 }
@@ -288,14 +300,6 @@ export function GetDailyReviews(arg1) {
 
 export function GetDailyStrategyPlans(arg1) {
   return window['go']['main']['App']['GetDailyStrategyPlans'](arg1);
-}
-
-export function GetETFMonitorData() {
-  return window['go']['main']['App']['GetETFMonitorData']();
-}
-
-export function GetETFMonitorKline(arg1) {
-  return window['go']['main']['App']['GetETFMonitorKline'](arg1);
 }
 
 export function GetFinancialReportAsOf(arg1, arg2) {
@@ -394,6 +398,10 @@ export function GetPortfolioNavBenchmark(arg1) {
   return window['go']['main']['App']['GetPortfolioNavBenchmark'](arg1);
 }
 
+export function GetPortfolioOptimizations(arg1) {
+  return window['go']['main']['App']['GetPortfolioOptimizations'](arg1);
+}
+
 export function GetPortfolioRiskMetrics() {
   return window['go']['main']['App']['GetPortfolioRiskMetrics']();
 }
@@ -422,6 +430,18 @@ export function GetQMTConfig() {
   return window['go']['main']['App']['GetQMTConfig']();
 }
 
+export function GetResearchTimeline(arg1) {
+  return window['go']['main']['App']['GetResearchTimeline'](arg1);
+}
+
+export function GetRiskGuardStatus() {
+  return window['go']['main']['App']['GetRiskGuardStatus']();
+}
+
+export function GetRiskReports(arg1) {
+  return window['go']['main']['App']['GetRiskReports'](arg1);
+}
+
 export function GetSixDimSourceConfig() {
   return window['go']['main']['App']['GetSixDimSourceConfig']();
 }
@@ -444,6 +464,10 @@ export function GetStrategy(arg1) {
 
 export function GetStrategyList() {
   return window['go']['main']['App']['GetStrategyList']();
+}
+
+export function GetStrategyStockBindings() {
+  return window['go']['main']['App']['GetStrategyStockBindings']();
 }
 
 export function GetSystemHealth() {
@@ -582,6 +606,10 @@ export function GetXtQuantFolderPath() {
   return window['go']['main']['App']['GetXtQuantFolderPath']();
 }
 
+export function HideToTray() {
+  return window['go']['main']['App']['HideToTray']();
+}
+
 export function ImportTHSAdjFactors() {
   return window['go']['main']['App']['ImportTHSAdjFactors']();
 }
@@ -610,6 +638,14 @@ export function MonitorIntradayInvestmentPlan(arg1) {
   return window['go']['main']['App']['MonitorIntradayInvestmentPlan'](arg1);
 }
 
+export function OptimizePortfolio(arg1) {
+  return window['go']['main']['App']['OptimizePortfolio'](arg1);
+}
+
+export function PauseBuilding() {
+  return window['go']['main']['App']['PauseBuilding']();
+}
+
 export function PlaceTrade(arg1, arg2, arg3, arg4, arg5, arg6) {
   return window['go']['main']['App']['PlaceTrade'](arg1, arg2, arg3, arg4, arg5, arg6);
 }
@@ -620,6 +656,14 @@ export function ProcessTradeablePool(arg1) {
 
 export function PublishWorkflowEvent(arg1, arg2, arg3, arg4) {
   return window['go']['main']['App']['PublishWorkflowEvent'](arg1, arg2, arg3, arg4);
+}
+
+export function QueryQMTAsset() {
+  return window['go']['main']['App']['QueryQMTAsset']();
+}
+
+export function QueryQMTPositions() {
+  return window['go']['main']['App']['QueryQMTPositions']();
 }
 
 export function RebuildInvestmentPlan(arg1) {
@@ -636,6 +680,10 @@ export function RecordDailySnapshot() {
 
 export function RecordOrderBookDaily(arg1) {
   return window['go']['main']['App']['RecordOrderBookDaily'](arg1);
+}
+
+export function RefreshMarketSixDim() {
+  return window['go']['main']['App']['RefreshMarketSixDim']();
 }
 
 export function RefreshPrices() {
@@ -666,6 +714,10 @@ export function ResetUserData(arg1) {
   return window['go']['main']['App']['ResetUserData'](arg1);
 }
 
+export function ResumeBuilding() {
+  return window['go']['main']['App']['ResumeBuilding']();
+}
+
 export function ResumeTrading() {
   return window['go']['main']['App']['ResumeTrading']();
 }
@@ -678,6 +730,10 @@ export function RunBacktest(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9
   return window['go']['main']['App']['RunBacktest'](arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12);
 }
 
+export function RunBacktestGrid(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10) {
+  return window['go']['main']['App']['RunBacktestGrid'](arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10);
+}
+
 export function RunCIODailyCheck() {
   return window['go']['main']['App']['RunCIODailyCheck']();
 }
@@ -688,6 +744,10 @@ export function RunDailyCycle() {
 
 export function RunManualWorkflow(arg1) {
   return window['go']['main']['App']['RunManualWorkflow'](arg1);
+}
+
+export function RunRiskReport() {
+  return window['go']['main']['App']['RunRiskReport']();
 }
 
 export function SaveProfileAnswers(arg1) {
@@ -734,6 +794,10 @@ export function SetMarket(arg1) {
   return window['go']['main']['App']['SetMarket'](arg1);
 }
 
+export function SetQMTApplyAutoExecution(arg1) {
+  return window['go']['main']['App']['SetQMTApplyAutoExecution'](arg1);
+}
+
 export function SetQMTConfig(arg1, arg2, arg3, arg4, arg5, arg6, arg7) {
   return window['go']['main']['App']['SetQMTConfig'](arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 }
@@ -752,6 +816,10 @@ export function SetTHSConfig(arg1, arg2, arg3) {
 
 export function SetTradingMode(arg1) {
   return window['go']['main']['App']['SetTradingMode'](arg1);
+}
+
+export function ShowMainWindow() {
+  return window['go']['main']['App']['ShowMainWindow']();
 }
 
 export function StartAutoScheduler() {
@@ -818,6 +886,10 @@ export function TestQMTConnection() {
   return window['go']['main']['App']['TestQMTConnection']();
 }
 
+export function TestSixDimSources() {
+  return window['go']['main']['App']['TestSixDimSources']();
+}
+
 export function ToggleStrategyStatus(arg1) {
   return window['go']['main']['App']['ToggleStrategyStatus'](arg1);
 }
@@ -832,6 +904,10 @@ export function TriggerDailyReview(arg1) {
 
 export function TriggerRebalance() {
   return window['go']['main']['App']['TriggerRebalance']();
+}
+
+export function TuneStockParamsByHoldings(arg1) {
+  return window['go']['main']['App']['TuneStockParamsByHoldings'](arg1);
 }
 
 export function UpdateConfig(arg1) {

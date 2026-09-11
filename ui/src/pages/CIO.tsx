@@ -31,6 +31,7 @@ import {
 import { formatCurrency } from '../utils/formatters'
 import { getCurrentPhase } from '../utils/marketPhase'
 import { useToastStore } from '../store/toastStore'
+import ResearchTimelineCard from '../components/ResearchTimelineCard'
 
 interface JournalEntry {
   decisionID: string
@@ -1201,6 +1202,8 @@ export default function CIO() {
       {/* Review Tab */}
       {activeTab === 'review' && (
         <>
+          {/* 研究记忆 · 历史预期验证（跨日研究飞轮） */}
+          <ResearchTimelineCard />
           {/* Review List */}
           {loadingReviews ? (
             <div className="card p-8 flex items-center justify-center">

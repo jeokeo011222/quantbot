@@ -300,15 +300,25 @@ export default function Portfolio() {
 
   // 实时刷新：每30秒从 sqlite 权威数据重建组合状态（含持仓/成交/盈亏），无需手动刷新
   useEffect(() => {
-    const interval = setInterval(async () => {
+    let cancelled = false
+    let timer: number | null = null
+    // 顺序轮询：本次完成后才安排下一次，避免请求重叠
+    const poll = async () => {
+      if (cancelled) return
       try {
         await RefreshPricesAPI()
       } catch {
         // 行情刷新失败不阻断数据轮询
       }
+      if (cancelled) return
       loadData()
-    }, 30 * 1000)
-    return () => clearInterval(interval)
+      if (!cancelled) timer = window.setTimeout(poll, 30 * 1000)
+    }
+    timer = window.setTimeout(poll, 30 * 1000)
+    return () => {
+      cancelled = true
+      if (timer !== null) window.clearTimeout(timer)
+    }
   }, [loadData])
 
   const handleRebalance = async () => {

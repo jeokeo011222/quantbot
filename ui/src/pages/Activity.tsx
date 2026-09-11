@@ -91,7 +91,7 @@ const convertTeamActivityToActivity = (item: TeamActivityItem): ActivityItem => 
   const agentRole = ((item.agent_role || '').toUpperCase() || 'QUANT') as AgentRole
 
   return {
-    id: `activity-${item.timestamp}-${item.agent_role}-${type}`,
+    id: `activity-${item.timestamp}-${item.agent_role}-${type}-${description.slice(0, 40)}`,
     time,
     agentRole,
     type,

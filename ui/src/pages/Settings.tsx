@@ -58,6 +58,7 @@ export default function Settings() {
   const [qmtStrategyName, setQmtStrategyName] = useState('QuantBot')
   const [qmtStrategyPath, setQmtStrategyPath] = useState('')
   const [qmtFolderStatus, setQmtFolderStatus] = useState<any>(null)
+  const [qmtAutoExecution, setQmtAutoExecution] = useState(false)
   const [qmtTesting, setQmtTesting] = useState(false)
   const [qmtTestResult, setQmtTestResult] = useState<any>(null)
 
@@ -90,6 +91,12 @@ export default function Settings() {
   const [sixDimSource, setSixDimSource] = useState<any>(defaultSixDimSource())
   // 六维判势数据源卡片是否展开（选中卡片显示具体配置，对标腾讯财经卡片模式）
   const [sixDimOpen, setSixDimOpen] = useState(false)
+  // 市场六维判势「数据测试」状态
+  const [sixDimTesting, setSixDimTesting] = useState(false)
+  const [sixDimTestResult, setSixDimTestResult] = useState<any>(null)
+  // 市场六维判势「后台强制刷新」状态
+  const [sixDimRefreshing, setSixDimRefreshing] = useState(false)
+  const [sixDimRefreshResult, setSixDimRefreshResult] = useState<any>(null)
   const updateSixDimSource = (key: string, field: 'enabled' | 'priority', value: any) => {
     setSixDimSource((prev: any) => ({
       ...prev,
@@ -237,6 +244,7 @@ export default function Settings() {
         setQmtStrategyName(qmt.strategy_name || 'QuantBot')
         setQmtStrategyPath(qmt.strategy_path || '')
         setQmtFolderStatus(qmt.folder_status || null)
+        setQmtAutoExecution(!!qmt.auto_execution)
       }
     } catch (e) {
       console.error('Failed to load QMT config:', e)
@@ -254,6 +262,17 @@ export default function Settings() {
       setQmtTestResult({ success: false, message: e?.message || '测试失败' })
     }
     setQmtTesting(false)
+  }
+
+  // 盘中自动买卖实盘独立开关（立即保存并生效，不走"保存设置"按钮）
+  const handleToggleAutoExecution = async () => {
+    const next = !qmtAutoExecution
+    try {
+      await callApp<void>('SetQMTApplyAutoExecution', next)
+      setQmtAutoExecution(next)
+    } catch (e: any) {
+      alert(e?.message || '设置失败')
+    }
   }
 
   // ==================== 软件更新 ====================
@@ -450,6 +469,32 @@ export default function Settings() {
     setTesting(false)
   }
 
+  // 市场六维判势数据源「数据测试」：绕过缓存逐个探测各数据源连通性
+  const handleTestSixDimSources = async () => {
+    setSixDimTesting(true)
+    setSixDimTestResult(null)
+    try {
+      const result = await callApp<any>('TestSixDimSources')
+      setSixDimTestResult(result)
+    } catch (e: any) {
+      setSixDimTestResult({ ok_count: 0, total: 0, probes: [], note: '', error: e?.message || e })
+    }
+    setSixDimTesting(false)
+  }
+
+  // 市场六维判势「后台强制刷新」：穿透缓存重新判势并落库，前端判势卡片自动更新
+  const handleRefreshSixDim = async () => {
+    setSixDimRefreshing(true)
+    setSixDimRefreshResult(null)
+    try {
+      const result = await callApp<any>('RefreshMarketSixDim')
+      setSixDimRefreshResult(result)
+    } catch (e: any) {
+      setSixDimRefreshResult({ error: e?.message || e })
+    }
+    setSixDimRefreshing(false)
+  }
+
   const handleConnectNativeTDX = async () => {
     if (nativeTDXConnected) {
       setNativeTDXConnected(false)
@@ -501,18 +546,30 @@ export default function Settings() {
   // 轮询同步任务状态
   useEffect(() => {
     if (!syncPolling) return
-    const timer = setInterval(async () => {
+    let cancelled = false
+    let timer: number | null = null
+    // 顺序轮询：本次完成后再安排下一次，避免请求重叠；同步结束后自动停止
+    const poll = async () => {
+      if (cancelled) return
       try {
         const st = await callApp<any>('GetStockSyncStatus')
+        if (cancelled) return
         setSyncStatus(st)
-        if (!st?.running) {
+        if (st?.running) {
+          timer = window.setTimeout(poll, 1500)
+        } else {
           setSyncPolling(false)
         }
       } catch (e) {
         console.error('Failed to poll sync status:', e)
+        if (!cancelled) timer = window.setTimeout(poll, 1500)
       }
-    }, 1500)
-    return () => clearInterval(timer)
+    }
+    timer = window.setTimeout(poll, 1500)
+    return () => {
+      cancelled = true
+      if (timer !== null) window.clearTimeout(timer)
+    }
   }, [syncPolling])
 
   const handleStartSync = async () => {
@@ -528,18 +585,30 @@ export default function Settings() {
   // 财务数据同步
   useEffect(() => {
     if (!finSyncPolling) return
-    const timer = setInterval(async () => {
+    let cancelled = false
+    let timer: number | null = null
+    // 顺序轮询：本次完成后再安排下一次，避免请求重叠；同步结束后自动停止
+    const poll = async () => {
+      if (cancelled) return
       try {
         const st = await callApp<any>('GetFinancialSyncStatus')
+        if (cancelled) return
         setFinSyncStatus(st)
-        if (!st?.running) {
+        if (st?.running) {
+          timer = window.setTimeout(poll, 1500)
+        } else {
           setFinSyncPolling(false)
         }
       } catch (e) {
         console.error('Failed to poll financial sync status:', e)
+        if (!cancelled) timer = window.setTimeout(poll, 1500)
       }
-    }, 1500)
-    return () => clearInterval(timer)
+    }
+    timer = window.setTimeout(poll, 1500)
+    return () => {
+      cancelled = true
+      if (timer !== null) window.clearTimeout(timer)
+    }
   }, [finSyncPolling])
 
   const handleStartFinancialSync = async (mode: string, source: string) => {
@@ -1045,6 +1114,20 @@ export default function Settings() {
                         </button>
                       </div>
 
+                      {/* 盘中自动买卖实盘独立开关：立即生效，独立于手动/确认下单 */}
+                      <div className="flex items-center justify-between p-3 bg-amber-50/60 dark:bg-amber-900/10 rounded-lg border border-amber-200 dark:border-amber-800">
+                        <div className="pr-3">
+                          <p className="text-xs font-medium text-slate-700 dark:text-slate-300">{t('settings.qmtAutoExecution')}</p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t('settings.qmtAutoExecutionDesc')}</p>
+                        </div>
+                        <button
+                          onClick={handleToggleAutoExecution}
+                          className={`relative w-10 h-5 rounded-full transition-colors shrink-0 ${qmtAutoExecution ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                        >
+                          <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${qmtAutoExecution ? 'left-5' : 'left-0.5'}`} />
+                        </button>
+                      </div>
+
                       {/* 策略设置 */}
                       <div className="grid grid-cols-2 gap-3">
                         <div>
@@ -1472,7 +1555,7 @@ export default function Settings() {
                     腾讯财经数据源
                   </h3>
                   <div className="text-xs text-slate-500 dark:text-slate-400 p-2 bg-amber-50 dark:bg-amber-900/20 rounded">
-                    💡 腾讯财经用于读取<b>实时行情</b>数据（组合持仓、看板、指数、交易报价等）。研究中心的选股引擎、策略、回测、ETF监控仍使用本地 DuckDB 数据，不受数据源切换影响。
+                    💡 腾讯财经用于读取<b>实时行情</b>数据（组合持仓、看板、指数、交易报价等）。研究中心的选股引擎、策略、回测仍使用本地 DuckDB 数据，不受数据源切换影响。
                   </div>
                   <div className="text-xs text-slate-500 dark:text-slate-400">
                     无需安装通达信，也无需任何额外配置。保存后即可生效，可点击下方「测试连接」验证腾讯财经实时行情是否可用。
@@ -1610,6 +1693,80 @@ export default function Settings() {
                       </div>
                     </div>
                   ))}
+                </div>
+
+                {/* 数据测试 + 后台强制刷新 */}
+                <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
+                  <p className="text-[11px] text-slate-400 dark:text-slate-500 mb-2">
+                    数据测试绕过缓存逐个探测各数据源连通性（外部源带 6s 超时+限流）；后台强制刷新穿透缓存重新判势并落库，前端判势卡片立即更新。
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      onClick={handleTestSixDimSources}
+                      disabled={sixDimTesting}
+                      className="px-2.5 py-1.5 rounded-md text-xs font-medium border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5 disabled:opacity-60"
+                    >
+                      {sixDimTesting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <TestTube className="w-3.5 h-3.5" />}
+                      {sixDimTesting ? '测试中...' : '数据测试'}
+                    </button>
+                    <button
+                      onClick={handleRefreshSixDim}
+                      disabled={sixDimRefreshing}
+                      className="px-2.5 py-1.5 rounded-md text-xs font-medium border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-1.5 disabled:opacity-60"
+                    >
+                      {sixDimRefreshing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
+                      {sixDimRefreshing ? '刷新中...' : '后台强制刷新'}
+                    </button>
+                  </div>
+
+                  {/* 数据测试结果 */}
+                  {sixDimTestResult && (
+                    <div className="mt-3 space-y-1.5 rounded-md border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 p-2.5">
+                      <div className="flex items-center justify-between text-xs font-medium text-slate-700 dark:text-slate-300">
+                        <span className="flex items-center gap-1.5">
+                          {sixDimTestResult.error ? <AlertTriangle className="w-3.5 h-3.5 text-red-500" /> : <CheckCircle className={`w-3.5 h-3.5 ${(sixDimTestResult.ok_count ?? 0) === (sixDimTestResult.total ?? 0) ? 'text-green-500' : 'text-amber-500'}`} />}
+                          数据测试
+                        </span>
+                        {!sixDimTestResult.error && <span className="text-[11px] text-slate-400">连通 {sixDimTestResult.ok_count} / {sixDimTestResult.total}</span>}
+                      </div>
+                      {sixDimTestResult.error ? (
+                        <p className="text-[11px] text-red-600 dark:text-red-400">{sixDimTestResult.error}</p>
+                      ) : (
+                        ((sixDimTestResult.probes ?? []) as Array<{ key: string; name: string; enabled: boolean; priority: number; kind: string; ok: boolean; message: string; latency_ms: number }>).map((p) => (
+                          <div key={p.key} className="flex items-start justify-between gap-2 text-[11px]">
+                            <div className="min-w-0">
+                              <span className="font-medium text-slate-700 dark:text-slate-300 truncate">{p.name}</span>
+                              <span className="ml-1.5 text-slate-400">{p.enabled ? `优先级${p.priority}` : '（禁用）'}</span>
+                              <span className="block text-slate-400 truncate">{p.message}</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              {p.latency_ms > 0 && <span className="text-slate-400">{p.latency_ms}ms</span>}
+                              <CheckCircle className={`w-3.5 h-3.5 ${p.ok ? 'text-green-500' : 'text-red-500'}`} />
+                            </div>
+                          </div>
+                        ))
+                      )}
+                      <p className="text-[10px] text-slate-300 dark:text-slate-500">{sixDimTestResult.note}</p>
+                    </div>
+                  )}
+
+                  {/* 后台强制刷新结果 */}
+                  {sixDimRefreshResult && (
+                    <div className="mt-3 p-2.5 rounded-md border text-xs bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800">
+                      <div className="flex items-center gap-1.5 font-medium text-green-700 dark:text-green-400">
+                        <CheckCircle className="w-3.5 h-3.5" />
+                        {sixDimRefreshResult.error ? '刷新失败' : '后台强制刷新完成'}
+                      </div>
+                      {sixDimRefreshResult.error ? (
+                        <p className="mt-1 text-[11px] text-red-600 dark:text-red-400">{sixDimRefreshResult.error}</p>
+                      ) : (
+                        <div className="mt-1.5 space-y-0.5 text-[11px] text-green-700 dark:text-green-400">
+                          <div>{sixDimRefreshResult.as_of} 总分={sixDimRefreshResult.raw_total_score?.toFixed(1)}（冲突调整 {sixDimRefreshResult.adjusted_total_score?.toFixed(1)}，冲突数 {sixDimRefreshResult.conflict_count}）</div>
+                          <div>仓位系数 <span className="font-medium">{sixDimRefreshResult.position_rate?.toFixed(2)}</span> · 市场标签 <span className="font-medium">{sixDimRefreshResult.market_tag}</span></div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
               )}
@@ -2215,7 +2372,7 @@ export default function Settings() {
                   {systemInfo?.appName || 'QuantBot AI'}
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  版本 {systemInfo?.appVersion || '1.3.0'}
+                  版本 {systemInfo?.appVersion || '1.5.0'}
                 </p>
               </div>
 

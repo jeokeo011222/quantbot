@@ -204,16 +204,26 @@ export default function Dashboard() {
   }, [loadData, loadContinuousStatus, loadDecisions])
 
   useEffect(() => {
-    const interval = setInterval(async () => {
+    let cancelled = false
+    let timer: number | null = null
+    // 顺序轮询：本次刷新完成后才安排下一次，避免长时间请求导致的重叠
+    const poll = async () => {
+      if (cancelled) return
       try {
         await RefreshPricesAPI()
+        if (cancelled) return
         loadData()
         loadDecisions()
       } catch {
         // ignore
       }
-    }, 300000)
-    return () => clearInterval(interval)
+      if (!cancelled) timer = window.setTimeout(poll, 300000)
+    }
+    timer = window.setTimeout(poll, 300000)
+    return () => {
+      cancelled = true
+      if (timer !== null) window.clearTimeout(timer)
+    }
   }, [loadData, loadDecisions])
 
   const cioStatus = {

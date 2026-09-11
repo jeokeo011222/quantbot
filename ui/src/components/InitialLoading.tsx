@@ -95,49 +95,54 @@ export default function InitialLoading({ onReady }: Props) {
   useEffect(() => {
     const startTime = Date.now()
     const maxWaitTime = 30000 // 最大等待30秒
+    let cancelled = false
+    let finished = false
+    let progressTimer: number | null = null
+    let pollTimer: number | null = null
 
-    const initialize = async () => {
-      const timer = setInterval(() => {
-        setElapsedTime(Math.floor((Date.now() - startTime) / 1000))
-        setProgress(Math.min((Date.now() - startTime) / maxWaitTime * 100, 95))
-      }, 500)
-
-      const pollInterval = setInterval(async () => {
-        const ready = await checkReady()
-        if (ready) {
-          clearInterval(pollInterval)
-          clearInterval(timer)
-          setProgress(100)
-          setCurrentStep('系统初始化完成')
-          setTimeout(() => {
-            onReady()
-          }, 500)
-        } else if (Date.now() - startTime > maxWaitTime) {
-          clearInterval(pollInterval)
-          clearInterval(timer)
-          setProgress(100)
-          setInitFailed(true)
-          setShowContinue(true)
-          setCurrentStep('系统初始化失败')
-        }
-      }, 1000)
-
-      // 立即检查一次
-      const ready = await checkReady()
-      if (ready) {
-        clearInterval(pollInterval)
-        setProgress(100)
+    const finish = (timedOut: boolean) => {
+      if (cancelled || finished) return
+      finished = true
+      if (progressTimer !== null) window.clearInterval(progressTimer)
+      if (pollTimer !== null) window.clearTimeout(pollTimer)
+      setProgress(100)
+      if (timedOut) {
+        setInitFailed(true)
+        setShowContinue(true)
+        setCurrentStep('系统初始化失败')
+      } else {
         setCurrentStep('系统初始化完成')
-        setTimeout(() => {
-          onReady()
-        }, 500)
+        window.setTimeout(() => onReady(), 500)
       }
     }
 
-    initialize()
+    // 顺序轮询：等待本次 checkReady 完成后再安排下一次，避免请求重叠
+    const poll = async () => {
+      if (cancelled || finished) return
+      const ready = await checkReady()
+      if (cancelled || finished) return
+      if (ready) {
+        finish(false)
+      } else if (Date.now() - startTime > maxWaitTime) {
+        finish(true)
+      } else {
+        pollTimer = window.setTimeout(poll, 1000)
+      }
+    }
+
+    progressTimer = window.setInterval(() => {
+      if (cancelled) return
+      setElapsedTime(Math.floor((Date.now() - startTime) / 1000))
+      setProgress(Math.min((Date.now() - startTime) / maxWaitTime * 100, 95))
+    }, 500)
+
+    // 立即检查一次
+    poll()
 
     return () => {
-      // 清理
+      cancelled = true
+      if (progressTimer !== null) window.clearInterval(progressTimer)
+      if (pollTimer !== null) window.clearTimeout(pollTimer)
     }
   }, [checkReady, onReady])
 
