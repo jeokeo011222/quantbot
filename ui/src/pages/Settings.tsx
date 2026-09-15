@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, ArrowRightLeft, FolderOpen, Globe, Rocket, Loader2, HeartHandshake, BarChart3, Activity, Calendar } from 'lucide-react'
+import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, Globe, Rocket, Loader2, HeartHandshake, BarChart3, Activity, Calendar } from 'lucide-react'
 import { EventsOn, EventsOff } from '../../wailsjs/runtime/runtime'
 import { useI18nStore } from '../store/i18nStore'
 import type { Language } from '../store/i18nStore'
@@ -12,7 +12,7 @@ import qqVipImg from '../../image/QQvip1群.jpg'
 import qqFreeImg from '../../image/QQFree1群.jpg'
 import wxBizImg from '../../image/WX商务.jpg'
 
-type TabKey = 'general' | 'trading' | 'ai' | 'datasource' | 'audit' | 'maintenance' | 'health' | 'about' | 'contact'
+type TabKey = 'general' | 'ai' | 'datasource' | 'audit' | 'maintenance' | 'health' | 'about' | 'contact'
 
 // Wails 后端 API 访问助手
 type AppMethod = (...args: unknown[]) => Promise<unknown> | undefined
@@ -45,22 +45,10 @@ export default function Settings() {
 
   // 通用设置
   const [market, setMarket] = useState('CN')
-  const [tradingMode, setTradingMode] = useState('simulated')
+  // 启用弹窗：开启=模拟交易（下单需弹窗确认）；关闭=实盘交易（不再弹窗，自动执行）
+  const [popupEnabled, setPopupEnabled] = useState(true)
   const [initialCapital, setInitialCapital] = useState(100000)
   const [activityRefreshMinutes, setActivityRefreshMinutes] = useState(5)
-
-  // QMT (迅投 XtQuant) 实盘交易接口设置
-  const [qmtEnabled, setQmtEnabled] = useState(false)
-  const [qmtPath, setQmtPath] = useState('')
-  const [qmtAccount, setQmtAccount] = useState('')
-  const [qmtAccountType, setQmtAccountType] = useState('STOCK')
-  const [qmtMiniQMT, setQmtMiniQMT] = useState(true)
-  const [qmtStrategyName, setQmtStrategyName] = useState('QuantBot')
-  const [qmtStrategyPath, setQmtStrategyPath] = useState('')
-  const [qmtFolderStatus, setQmtFolderStatus] = useState<any>(null)
-  const [qmtAutoExecution, setQmtAutoExecution] = useState(false)
-  const [qmtTesting, setQmtTesting] = useState(false)
-  const [qmtTestResult, setQmtTestResult] = useState<any>(null)
 
   // AI 设置
   const [aiProvider, setAiProvider] = useState('deepseek')
@@ -193,18 +181,11 @@ export default function Settings() {
       const cfg = await callApp<any>('GetConfig')
       if (cfg) {
         setMarket(cfg.market || 'CN')
-        // 兼容旧版 "paper" 模式，映射为 "simulated"
+        // 交易模式映射为「启用弹窗」开关：兼容旧版 "paper" 模式
         const tm = cfg.trading_mode === 'paper' ? 'simulated' : (cfg.trading_mode || 'simulated')
-        setTradingMode(tm)
+        setPopupEnabled(tm === 'simulated')
         setInitialCapital(Math.min(cfg.initial_capital ?? 100000, 2000000))
         setActivityRefreshMinutes(cfg.activity_refresh_minutes || 5)
-        setQmtEnabled(cfg.qmt_enabled || false)
-        setQmtPath(cfg.qmt_path || '')
-        setQmtAccount(cfg.qmt_account || '')
-        setQmtAccountType(cfg.qmt_account_type || 'STOCK')
-        setQmtMiniQMT(cfg.qmt_mini_qmt !== false)
-        setQmtStrategyName(cfg.qmt_strategy_name || 'QuantBot')
-        setQmtStrategyPath(cfg.qmt_strategy_path || '')
         setAiProvider(cfg.ai_provider || 'deepseek')
         setAiModel(cfg.ai_model || 'deepseek-chat')
         setAiBaseURL(cfg.ai_base_url || 'https://api.deepseek.com')
@@ -230,48 +211,6 @@ export default function Settings() {
       setSystemInfo(info)
     } catch (e) {
       console.error('Failed to load system info:', e)
-    }
-
-    // 加载 QMT 配置与 XtQuant 文件夹状态
-    try {
-      const qmt = await callApp<any>('GetQMTConfig')
-      if (qmt) {
-        setQmtEnabled(!!qmt.enabled)
-        setQmtPath(qmt.path || '')
-        setQmtAccount(qmt.account || '')
-        setQmtAccountType(qmt.account_type || 'STOCK')
-        setQmtMiniQMT(qmt.mini_qmt !== false)
-        setQmtStrategyName(qmt.strategy_name || 'QuantBot')
-        setQmtStrategyPath(qmt.strategy_path || '')
-        setQmtFolderStatus(qmt.folder_status || null)
-        setQmtAutoExecution(!!qmt.auto_execution)
-      }
-    } catch (e) {
-      console.error('Failed to load QMT config:', e)
-    }
-  }
-
-  const handleTestQMT = async () => {
-    setQmtTesting(true)
-    setQmtTestResult(null)
-    try {
-      const result = await callApp<any>('TestQMTConnection')
-      setQmtTestResult(result)
-      setQmtFolderStatus(result)
-    } catch (e: any) {
-      setQmtTestResult({ success: false, message: e?.message || '测试失败' })
-    }
-    setQmtTesting(false)
-  }
-
-  // 盘中自动买卖实盘独立开关（立即保存并生效，不走"保存设置"按钮）
-  const handleToggleAutoExecution = async () => {
-    const next = !qmtAutoExecution
-    try {
-      await callApp<void>('SetQMTApplyAutoExecution', next)
-      setQmtAutoExecution(next)
-    } catch (e: any) {
-      alert(e?.message || '设置失败')
     }
   }
 
@@ -384,16 +323,9 @@ export default function Settings() {
     }
 
     try {
-      await callApp<void>('SetTradingMode', tradingMode)
+      await callApp<void>('SetTradingMode', popupEnabled ? 'simulated' : 'live')
     } catch (e: any) {
       errors.push(`交易模式: ${e?.message || '失败'}`)
-    }
-
-    // 保存 QMT (迅投 XtQuant) 实盘交易接口配置
-    try {
-      await callApp<void>('SetQMTConfig', qmtEnabled, qmtPath, qmtAccount, qmtAccountType, qmtMiniQMT, qmtStrategyName, qmtStrategyPath)
-    } catch (e: any) {
-      errors.push(`QMT交易接口: ${e?.message || '失败'}`)
     }
 
     try {
@@ -803,7 +735,6 @@ export default function Settings() {
 
   const tabs = [
     { key: 'general' as TabKey, icon: SettingsIcon, label: t('settings.general') },
-    { key: 'trading' as TabKey, icon: ArrowRightLeft, label: t('settings.tradingInterface') },
     { key: 'ai' as TabKey, icon: Cpu, label: t('settings.aiProvider') },
     { key: 'datasource' as TabKey, icon: Database, label: t('settings.dataSource') },
     { key: 'maintenance' as TabKey, icon: Wrench, label: '数据维护' },
@@ -890,6 +821,24 @@ export default function Settings() {
                 </div>
               </div>
 
+              {/* 启用弹窗：开启=模拟交易（下单需弹窗确认）；关闭=实盘交易 */}
+              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-2">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                      {t('settings.enablePopup')}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setPopupEnabled(!popupEnabled)}
+                    className={`relative w-11 h-6 rounded-full transition-colors shrink-0 ${popupEnabled ? 'bg-green-500' : 'bg-red-500'}`}
+                    aria-pressed={popupEnabled}
+                  >
+                    <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${popupEnabled ? 'left-[22px]' : 'left-0.5'}`} />
+                  </button>
+                </div>
+              </div>
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
@@ -966,227 +915,6 @@ export default function Settings() {
                   </p>
                 </div>
               </div>
-
-              <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
-                <button onClick={handleSave} className="btn-primary">
-                  {t('settings.save')}
-                </button>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'trading' && (
-            <div className="space-y-5">
-              <h2 className="text-base font-semibold text-slate-800 dark:text-slate-100">{t('settings.tradingInterface')}</h2>
-
-              {/* 交易模式设置 */}
-              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-3">
-                <div>
-                  <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-2">
-                    {t('settings.tradingMode')}
-                  </label>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setTradingMode('simulated')}
-                      className={`flex-1 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
-                        tradingMode === 'simulated'
-                          ? 'bg-blue-500 text-white'
-                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600'
-                      }`}
-                    >
-                      {t('settings.simulatedInterface')}
-                    </button>
-                    <button
-                      onClick={() => setTradingMode('live')}
-                      className={`flex-1 px-3 py-2 rounded-md text-xs font-medium transition-colors ${
-                        tradingMode === 'live'
-                          ? 'bg-red-500 text-white'
-                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600'
-                      }`}
-                    >
-                      {t('settings.liveInterface')}
-                    </button>
-                  </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
-                    {tradingMode === 'simulated'
-                      ? t('settings.simulatedInterfaceDesc')
-                      : t('settings.liveInterfaceDesc')}
-                  </p>
-                </div>
-
-                {tradingMode === 'live' && (
-                  <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-md border border-amber-200 dark:border-amber-800">
-                    <div className="flex items-center gap-2 text-xs text-amber-700 dark:text-amber-400">
-                      <AlertTriangle className="w-4 h-4 shrink-0" />
-                      <span className="font-medium">{t('settings.liveWarning')}</span>
-                    </div>
-                    <p className="text-xs text-amber-600 dark:text-amber-500 mt-1">
-                      {t('settings.liveWarningDesc')}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* QMT (迅投 XtQuant) 实盘交易接口设置 */}
-              {tradingMode === 'live' && (
-                <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-amber-500" />
-                      <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100">{t('settings.qmtTitle')}</h3>
-                    </div>
-                    <button
-                      onClick={() => setQmtEnabled(!qmtEnabled)}
-                      className={`relative w-10 h-5 rounded-full transition-colors ${qmtEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
-                    >
-                      <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${qmtEnabled ? 'left-5' : 'left-0.5'}`} />
-                    </button>
-                  </div>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">{t('settings.qmtDesc')}</p>
-
-                  {qmtEnabled && (
-                    <div className="space-y-3">
-                      {/* XtQuant 路径 */}
-                      <div>
-                        <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
-                          {t('settings.qmtPath')}
-                        </label>
-                        <div className="flex gap-2">
-                          <input
-                            type="text"
-                            value={qmtPath}
-                            onChange={(e) => setQmtPath(e.target.value)}
-                            placeholder="D:\\qmt\\userdata_mini"
-                            className="input-field flex-1 font-mono"
-                          />
-                          <button
-                            onClick={async () => {
-                              try {
-                                const r = await callApp<any>('GetXtQuantFolderPath')
-                                if (r?.path) setQmtPath(r.path)
-                              } catch { /* ignore */ }
-                            }}
-                            className="px-3 py-2 rounded-md text-xs font-medium bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors flex items-center gap-1"
-                          >
-                            <FolderOpen className="w-3.5 h-3.5" />
-                            {t('settings.qmtUseFolder')}
-                          </button>
-                        </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{t('settings.qmtPathHint')}</p>
-                      </div>
-
-                      {/* 资金账号 */}
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
-                            {t('settings.qmtAccount')}
-                          </label>
-                          <input
-                            type="text"
-                            value={qmtAccount}
-                            onChange={(e) => setQmtAccount(e.target.value)}
-                            placeholder="资金账号"
-                            className="input-field font-mono"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
-                            {t('settings.qmtAccountType')}
-                          </label>
-                          <select value={qmtAccountType} onChange={(e) => setQmtAccountType(e.target.value)} className="input-field">
-                            <option value="STOCK">STOCK（股票）</option>
-                            <option value="CREDIT">CREDIT（信用）</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      {/* MiniQMT 模式 */}
-                      <div className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                        <div>
-                          <p className="text-xs font-medium text-slate-700 dark:text-slate-300">{t('settings.qmtMiniQMT')}</p>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t('settings.qmtMiniQMTDesc')}</p>
-                        </div>
-                        <button
-                          onClick={() => setQmtMiniQMT(!qmtMiniQMT)}
-                          className={`relative w-10 h-5 rounded-full transition-colors shrink-0 ${qmtMiniQMT ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
-                        >
-                          <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${qmtMiniQMT ? 'left-5' : 'left-0.5'}`} />
-                        </button>
-                      </div>
-
-                      {/* 盘中自动买卖实盘独立开关：立即生效，独立于手动/确认下单 */}
-                      <div className="flex items-center justify-between p-3 bg-amber-50/60 dark:bg-amber-900/10 rounded-lg border border-amber-200 dark:border-amber-800">
-                        <div className="pr-3">
-                          <p className="text-xs font-medium text-slate-700 dark:text-slate-300">{t('settings.qmtAutoExecution')}</p>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t('settings.qmtAutoExecutionDesc')}</p>
-                        </div>
-                        <button
-                          onClick={handleToggleAutoExecution}
-                          className={`relative w-10 h-5 rounded-full transition-colors shrink-0 ${qmtAutoExecution ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
-                        >
-                          <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-all ${qmtAutoExecution ? 'left-5' : 'left-0.5'}`} />
-                        </button>
-                      </div>
-
-                      {/* 策略设置 */}
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
-                            {t('settings.qmtStrategyName')}
-                          </label>
-                          <input
-                            type="text"
-                            value={qmtStrategyName}
-                            onChange={(e) => setQmtStrategyName(e.target.value)}
-                            placeholder="QuantBot"
-                            className="input-field"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
-                            {t('settings.qmtStrategyPath')}
-                          </label>
-                          <input
-                            type="text"
-                            value={qmtStrategyPath}
-                            onChange={(e) => setQmtStrategyPath(e.target.value)}
-                            placeholder="策略路径（可选）"
-                            className="input-field font-mono"
-                          />
-                        </div>
-                      </div>
-
-                      {/* 测试连接 */}
-                      <div className="pt-2">
-                        <button
-                          onClick={handleTestQMT}
-                          disabled={qmtTesting}
-                          className="px-4 py-2 rounded-md text-xs font-medium bg-indigo-500 hover:bg-indigo-600 text-white disabled:opacity-50 transition-colors flex items-center gap-1.5"
-                        >
-                          <TestTube className="w-3.5 h-3.5" />
-                          {qmtTesting ? t('settings.qmtTesting') : t('settings.qmtTest')}
-                        </button>
-                        {qmtTestResult && (
-                          <div className={`mt-3 p-3 rounded-md text-xs ${qmtTestResult.success ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800' : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-800'}`}>
-                            <div className="flex items-center gap-1.5 mb-1">
-                              {qmtTestResult.success ? <CheckCircle className="w-3.5 h-3.5" /> : <AlertTriangle className="w-3.5 h-3.5" />}
-                              <span className="font-medium">{qmtTestResult.message || (qmtTestResult.success ? '连接正常' : '连接失败')}</span>
-                            </div>
-                            <div className="space-y-0.5 text-[11px] opacity-90">
-                              <div>XtQuant 文件夹：{qmtTestResult.folder_exists ? '已创建' : '未创建'}（{qmtTestResult.folder_path || '-'}）</div>
-                              <div>Python 环境：{qmtTestResult.python_exists ? '已安装' : '未检测到'}</div>
-                              <div>XtQuant 库：{qmtTestResult.xtquant_exists ? '已安装' : '未检测到'}</div>
-                              {qmtTestResult.interface_files?.length > 0 && (
-                                <div>接口文件：{qmtTestResult.interface_files.join(', ')}</div>
-                              )}
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
 
               <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
                 <button onClick={handleSave} className="btn-primary">
