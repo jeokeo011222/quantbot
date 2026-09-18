@@ -1,0 +1,171 @@
+{
+  "model_name": "astock_rf_v1",
+  "model_type": "rf",
+  "created_at": "2026-09-08 13:41:01",
+  "params": {
+    "n_estimators": 150,
+    "max_depth": 8,
+    "min_samples_leaf": 20,
+    "max_features": "sqrt",
+    "random_state": 42,
+    "n_jobs": -1
+  },
+  "feature_columns": [
+    "open",
+    "high",
+    "low",
+    "close",
+    "volume",
+    "amount",
+    "return_1d",
+    "return_5d",
+    "return_10d",
+    "return_20d",
+    "volatility_5",
+    "volatility_10",
+    "volatility_20",
+    "ma_5",
+    "ma_ratio_5",
+    "ma_10",
+    "ma_ratio_10",
+    "ma_20",
+    "ma_ratio_20",
+    "ma_60",
+    "ma_ratio_60",
+    "ma_alignment",
+    "rsi_6",
+    "rsi_14",
+    "macd_dif",
+    "macd_dea",
+    "macd_hist",
+    "macd_cross",
+    "kdj_k",
+    "kdj_d",
+    "kdj_j",
+    "boll_mid",
+    "boll_std",
+    "boll_upper",
+    "boll_lower",
+    "boll_position",
+    "vol_ma_5",
+    "vol_ma_10",
+    "vol_ma_20",
+    "vol_ratio",
+    "vol_surge",
+    "body_ratio",
+    "upper_shadow",
+    "lower_shadow",
+    "is_yang",
+    "momentum_10",
+    "momentum_20",
+    "high_20d",
+    "low_20d",
+    "new_high",
+    "new_low"
+  ],
+  "label_names": [
+    "sell",
+    "hold",
+    "buy"
+  ],
+  "forward_days": 5,
+  "threshold": 0.02,
+  "train_accuracy": 0.4787,
+  "test_accuracy": 0.4622,
+  "test_precision_macro": 0.4252,
+  "test_recall_macro": 0.4233,
+  "test_f1_macro": 0.3939,
+  "train_samples": 428225,
+  "test_samples": 153963,
+  "total_samples": 583688,
+  "train_seconds": 37.5,
+  "label_distribution": {
+    "sell": 178305,
+    "hold": 236430,
+    "buy": 168953
+  },
+  "cv_accuracy_mean": 0.4718,
+  "cv_accuracy_std": 0.0023,
+  "top_features": [
+    {
+      "feature": "volatility_20",
+      "importance": 0.211
+    },
+    {
+      "feature": "volatility_10",
+      "importance": 0.1659
+    },
+    {
+      "feature": "volatility_5",
+      "importance": 0.1091
+    },
+    {
+      "feature": "ma_ratio_60",
+      "importance": 0.0593
+    },
+    {
+      "feature": "ma_ratio_20",
+      "importance": 0.0267
+    },
+    {
+      "feature": "boll_std",
+      "importance": 0.026
+    },
+    {
+      "feature": "ma_ratio_10",
+      "importance": 0.0231
+    },
+    {
+      "feature": "amount",
+      "importance": 0.0204
+    },
+    {
+      "feature": "momentum_10",
+      "importance": 0.02
+    },
+    {
+      "feature": "low_20d",
+      "importance": 0.0188
+    },
+    {
+      "feature": "boll_lower",
+      "importance": 0.0163
+    },
+    {
+      "feature": "momentum_20",
+      "importance": 0.0156
+    },
+    {
+      "feature": "return_10d",
+      "importance": 0.0156
+    },
+    {
+      "feature": "return_20d",
+      "importance": 0.0156
+    },
+    {
+      "feature": "low",
+      "importance": 0.0148
+    },
+    {
+      "feature": "ma_60",
+      "importance": 0.0118
+    },
+    {
+      "feature": "ma_ratio_5",
+      "importance": 0.0117
+    },
+    {
+      "feature": "open",
+      "importance": 0.0115
+    },
+    {
+      "feature": "vol_ma_10",
+      "importance": 0.0114
+    },
+    {
+      "feature": "macd_dea",
+      "importance": 0.0113
+    }
+  ]
+}

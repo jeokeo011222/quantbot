@@ -1,0 +1,23 @@
+[
+  {
+    "strategy": "集成(voting)",
+    "win_rate": 47.94,
+    "wins": 674,
+    "losses": 732,
+    "total_trades": 1406
+  },
+  {
+    "strategy": "集成(probability)",
+    "win_rate": 48.62,
+    "wins": 793,
+    "losses": 838,
+    "total_trades": 1631
+  },
+  {
+    "strategy": "单XGBoost",
+    "win_rate": 49.45,
+    "wins": 941,
+    "losses": 962,
+    "total_trades": 1903
+  }
+]

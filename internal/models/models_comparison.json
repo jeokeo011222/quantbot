@@ -1,0 +1,716 @@
+[
+  {
+    "model_name": "xgboost_astock_v1",
+    "model_type": "xgboost",
+    "created_at": "2026-09-08 13:39:20",
+    "params": {
+      "max_depth": 6,
+      "learning_rate": 0.1,
+      "n_estimators": 200,
+      "min_child_weight": 3,
+      "subsample": 0.8,
+      "colsample_bytree": 0.8,
+      "reg_alpha": 0.1,
+      "reg_lambda": 1.0,
+      "objective": "multi:softprob",
+      "num_class": 3,
+      "eval_metric": "mlogloss",
+      "random_state": 42,
+      "tree_method": "hist",
+      "use_label_encoder": false,
+      "verbosity": 0
+    },
+    "feature_columns": [
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "amount",
+      "return_1d",
+      "return_5d",
+      "return_10d",
+      "return_20d",
+      "volatility_5",
+      "volatility_10",
+      "volatility_20",
+      "ma_5",
+      "ma_ratio_5",
+      "ma_10",
+      "ma_ratio_10",
+      "ma_20",
+      "ma_ratio_20",
+      "ma_60",
+      "ma_ratio_60",
+      "ma_alignment",
+      "rsi_6",
+      "rsi_14",
+      "macd_dif",
+      "macd_dea",
+      "macd_hist",
+      "macd_cross",
+      "kdj_k",
+      "kdj_d",
+      "kdj_j",
+      "boll_mid",
+      "boll_std",
+      "boll_upper",
+      "boll_lower",
+      "boll_position",
+      "vol_ma_5",
+      "vol_ma_10",
+      "vol_ma_20",
+      "vol_ratio",
+      "vol_surge",
+      "body_ratio",
+      "upper_shadow",
+      "lower_shadow",
+      "is_yang",
+      "momentum_10",
+      "momentum_20",
+      "high_20d",
+      "low_20d",
+      "new_high",
+      "new_low"
+    ],
+    "label_names": [
+      "sell",
+      "hold",
+      "buy"
+    ],
+    "forward_days": 5,
+    "threshold": 0.02,
+    "train_accuracy": 0.5257,
+    "test_accuracy": 0.4615,
+    "test_precision_macro": 0.4295,
+    "test_recall_macro": 0.4309,
+    "test_f1_macro": 0.4077,
+    "train_samples": 428225,
+    "test_samples": 153963,
+    "total_samples": 583688,
+    "train_seconds": 19.0,
+    "label_distribution": {
+      "sell": 178305,
+      "hold": 236430,
+      "buy": 168953
+    },
+    "cv_accuracy_mean": 0.4834,
+    "cv_accuracy_std": 0.0019,
+    "top_features": [
+      {
+        "feature": "volatility_20",
+        "importance": 0.14300000667572021
+      },
+      {
+        "feature": "volatility_10",
+        "importance": 0.04190000146627426
+      },
+      {
+        "feature": "ma_ratio_60",
+        "importance": 0.03359999880194664
+      },
+      {
+        "feature": "low_20d",
+        "importance": 0.026200000196695328
+      },
+      {
+        "feature": "volatility_5",
+        "importance": 0.026100000366568565
+      },
+      {
+        "feature": "ma_ratio_20",
+        "importance": 0.025599999353289604
+      },
+      {
+        "feature": "ma_ratio_10",
+        "importance": 0.02500000037252903
+      },
+      {
+        "feature": "boll_upper",
+        "importance": 0.022600000724196434
+      },
+      {
+        "feature": "amount",
+        "importance": 0.0215000007301569
+      },
+      {
+        "feature": "macd_dea",
+        "importance": 0.01979999989271164
+      },
+      {
+        "feature": "ma_60",
+        "importance": 0.019300000742077827
+      },
+      {
+        "feature": "boll_position",
+        "importance": 0.018400000408291817
+      },
+      {
+        "feature": "high",
+        "importance": 0.01810000091791153
+      },
+      {
+        "feature": "kdj_j",
+        "importance": 0.017899999395012856
+      },
+      {
+        "feature": "kdj_k",
+        "importance": 0.017899999395012856
+      },
+      {
+        "feature": "ma_alignment",
+        "importance": 0.017799999564886093
+      },
+      {
+        "feature": "return_1d",
+        "importance": 0.01769999973475933
+      },
+      {
+        "feature": "return_5d",
+        "importance": 0.01720000058412552
+      },
+      {
+        "feature": "return_20d",
+        "importance": 0.017100000753998756
+      },
+      {
+        "feature": "close",
+        "importance": 0.017000000923871994
+      }
+    ]
+  },
+  {
+    "model_name": "astock_lgbm_v1",
+    "model_type": "lgbm",
+    "created_at": "2026-09-08 13:39:55",
+    "params": {
+      "objective": "multiclass",
+      "num_class": 3,
+      "metric": "multi_logloss",
+      "num_leaves": 31,
+      "learning_rate": 0.1,
+      "n_estimators": 200,
+      "min_child_samples": 20,
+      "subsample": 0.8,
+      "subsample_freq": 1,
+      "colsample_bytree": 0.8,
+      "reg_alpha": 0.1,
+      "reg_lambda": 1.0,
+      "random_state": 42,
+      "verbosity": -1,
+      "n_jobs": -1
+    },
+    "feature_columns": [
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "amount",
+      "return_1d",
+      "return_5d",
+      "return_10d",
+      "return_20d",
+      "volatility_5",
+      "volatility_10",
+      "volatility_20",
+      "ma_5",
+      "ma_ratio_5",
+      "ma_10",
+      "ma_ratio_10",
+      "ma_20",
+      "ma_ratio_20",
+      "ma_60",
+      "ma_ratio_60",
+      "ma_alignment",
+      "rsi_6",
+      "rsi_14",
+      "macd_dif",
+      "macd_dea",
+      "macd_hist",
+      "macd_cross",
+      "kdj_k",
+      "kdj_d",
+      "kdj_j",
+      "boll_mid",
+      "boll_std",
+      "boll_upper",
+      "boll_lower",
+      "boll_position",
+      "vol_ma_5",
+      "vol_ma_10",
+      "vol_ma_20",
+      "vol_ratio",
+      "vol_surge",
+      "body_ratio",
+      "upper_shadow",
+      "lower_shadow",
+      "is_yang",
+      "momentum_10",
+      "momentum_20",
+      "high_20d",
+      "low_20d",
+      "new_high",
+      "new_low"
+    ],
+    "label_names": [
+      "sell",
+      "hold",
+      "buy"
+    ],
+    "forward_days": 5,
+    "threshold": 0.02,
+    "train_accuracy": 0.482,
+    "test_accuracy": 0.4646,
+    "test_precision_macro": 0.4302,
+    "test_recall_macro": 0.429,
+    "test_f1_macro": 0.4025,
+    "train_samples": 428225,
+    "test_samples": 153963,
+    "total_samples": 583688,
+    "train_seconds": 3.1,
+    "label_distribution": {
+      "sell": 178305,
+      "hold": 236430,
+      "buy": 168953
+    },
+    "cv_accuracy_mean": 0.4822,
+    "cv_accuracy_std": 0.0026,
+    "top_features": [
+      {
+        "feature": "volatility_20",
+        "importance": 241.0
+      },
+      {
+        "feature": "ma_ratio_60",
+        "importance": 171.0
+      },
+      {
+        "feature": "volatility_10",
+        "importance": 132.0
+      },
+      {
+        "feature": "amount",
+        "importance": 121.0
+      },
+      {
+        "feature": "volatility_5",
+        "importance": 89.0
+      },
+      {
+        "feature": "kdj_j",
+        "importance": 89.0
+      },
+      {
+        "feature": "ma_ratio_10",
+        "importance": 76.0
+      },
+      {
+        "feature": "boll_position",
+        "importance": 63.0
+      },
+      {
+        "feature": "rsi_14",
+        "importance": 61.0
+      },
+      {
+        "feature": "return_1d",
+        "importance": 54.0
+      },
+      {
+        "feature": "return_20d",
+        "importance": 54.0
+      },
+      {
+        "feature": "kdj_k",
+        "importance": 52.0
+      },
+      {
+        "feature": "macd_hist",
+        "importance": 51.0
+      },
+      {
+        "feature": "ma_ratio_20",
+        "importance": 49.0
+      },
+      {
+        "feature": "low_20d",
+        "importance": 47.0
+      },
+      {
+        "feature": "vol_ratio",
+        "importance": 46.0
+      },
+      {
+        "feature": "macd_dea",
+        "importance": 45.0
+      },
+      {
+        "feature": "ma_ratio_5",
+        "importance": 42.0
+      },
+      {
+        "feature": "kdj_d",
+        "importance": 41.0
+      },
+      {
+        "feature": "return_10d",
+        "importance": 41.0
+      }
+    ]
+  },
+  {
+    "model_name": "astock_rf_v1",
+    "model_type": "rf",
+    "created_at": "2026-09-08 13:41:01",
+    "params": {
+      "n_estimators": 150,
+      "max_depth": 8,
+      "min_samples_leaf": 20,
+      "max_features": "sqrt",
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "feature_columns": [
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "amount",
+      "return_1d",
+      "return_5d",
+      "return_10d",
+      "return_20d",
+      "volatility_5",
+      "volatility_10",
+      "volatility_20",
+      "ma_5",
+      "ma_ratio_5",
+      "ma_10",
+      "ma_ratio_10",
+      "ma_20",
+      "ma_ratio_20",
+      "ma_60",
+      "ma_ratio_60",
+      "ma_alignment",
+      "rsi_6",
+      "rsi_14",
+      "macd_dif",
+      "macd_dea",
+      "macd_hist",
+      "macd_cross",
+      "kdj_k",
+      "kdj_d",
+      "kdj_j",
+      "boll_mid",
+      "boll_std",
+      "boll_upper",
+      "boll_lower",
+      "boll_position",
+      "vol_ma_5",
+      "vol_ma_10",
+      "vol_ma_20",
+      "vol_ratio",
+      "vol_surge",
+      "body_ratio",
+      "upper_shadow",
+      "lower_shadow",
+      "is_yang",
+      "momentum_10",
+      "momentum_20",
+      "high_20d",
+      "low_20d",
+      "new_high",
+      "new_low"
+    ],
+    "label_names": [
+      "sell",
+      "hold",
+      "buy"
+    ],
+    "forward_days": 5,
+    "threshold": 0.02,
+    "train_accuracy": 0.4787,
+    "test_accuracy": 0.4622,
+    "test_precision_macro": 0.4252,
+    "test_recall_macro": 0.4233,
+    "test_f1_macro": 0.3939,
+    "train_samples": 428225,
+    "test_samples": 153963,
+    "total_samples": 583688,
+    "train_seconds": 37.5,
+    "label_distribution": {
+      "sell": 178305,
+      "hold": 236430,
+      "buy": 168953
+    },
+    "cv_accuracy_mean": 0.4718,
+    "cv_accuracy_std": 0.0023,
+    "top_features": [
+      {
+        "feature": "volatility_20",
+        "importance": 0.211
+      },
+      {
+        "feature": "volatility_10",
+        "importance": 0.1659
+      },
+      {
+        "feature": "volatility_5",
+        "importance": 0.1091
+      },
+      {
+        "feature": "ma_ratio_60",
+        "importance": 0.0593
+      },
+      {
+        "feature": "ma_ratio_20",
+        "importance": 0.0267
+      },
+      {
+        "feature": "boll_std",
+        "importance": 0.026
+      },
+      {
+        "feature": "ma_ratio_10",
+        "importance": 0.0231
+      },
+      {
+        "feature": "amount",
+        "importance": 0.0204
+      },
+      {
+        "feature": "momentum_10",
+        "importance": 0.02
+      },
+      {
+        "feature": "low_20d",
+        "importance": 0.0188
+      },
+      {
+        "feature": "boll_lower",
+        "importance": 0.0163
+      },
+      {
+        "feature": "momentum_20",
+        "importance": 0.0156
+      },
+      {
+        "feature": "return_10d",
+        "importance": 0.0156
+      },
+      {
+        "feature": "return_20d",
+        "importance": 0.0156
+      },
+      {
+        "feature": "low",
+        "importance": 0.0148
+      },
+      {
+        "feature": "ma_60",
+        "importance": 0.0118
+      },
+      {
+        "feature": "ma_ratio_5",
+        "importance": 0.0117
+      },
+      {
+        "feature": "open",
+        "importance": 0.0115
+      },
+      {
+        "feature": "vol_ma_10",
+        "importance": 0.0114
+      },
+      {
+        "feature": "macd_dea",
+        "importance": 0.0113
+      }
+    ]
+  },
+  {
+    "model_name": "astock_logistic_v1",
+    "model_type": "logistic",
+    "created_at": "2026-09-08 13:42:15",
+    "params": {
+      "C": 1.0,
+      "solver": "lbfgs",
+      "max_iter": 500,
+      "random_state": 42
+    },
+    "feature_columns": [
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "amount",
+      "return_1d",
+      "return_5d",
+      "return_10d",
+      "return_20d",
+      "volatility_5",
+      "volatility_10",
+      "volatility_20",
+      "ma_5",
+      "ma_ratio_5",
+      "ma_10",
+      "ma_ratio_10",
+      "ma_20",
+      "ma_ratio_20",
+      "ma_60",
+      "ma_ratio_60",
+      "ma_alignment",
+      "rsi_6",
+      "rsi_14",
+      "macd_dif",
+      "macd_dea",
+      "macd_hist",
+      "macd_cross",
+      "kdj_k",
+      "kdj_d",
+      "kdj_j",
+      "boll_mid",
+      "boll_std",
+      "boll_upper",
+      "boll_lower",
+      "boll_position",
+      "vol_ma_5",
+      "vol_ma_10",
+      "vol_ma_20",
+      "vol_ratio",
+      "vol_surge",
+      "body_ratio",
+      "upper_shadow",
+      "lower_shadow",
+      "is_yang",
+      "momentum_10",
+      "momentum_20",
+      "high_20d",
+      "low_20d",
+      "new_high",
+      "new_low"
+    ],
+    "label_names": [
+      "sell",
+      "hold",
+      "buy"
+    ],
+    "forward_days": 5,
+    "threshold": 0.02,
+    "train_accuracy": 0.4558,
+    "test_accuracy": 0.4587,
+    "test_precision_macro": 0.424,
+    "test_recall_macro": 0.4092,
+    "test_f1_macro": 0.3778,
+    "train_samples": 428225,
+    "test_samples": 153963,
+    "total_samples": 583688,
+    "train_seconds": 31.2,
+    "label_distribution": {
+      "sell": 178305,
+      "hold": 236430,
+      "buy": 168953
+    },
+    "cv_accuracy_mean": 0.4564,
+    "cv_accuracy_std": 0.0016
+  },
+  {
+    "model_name": "astock_mlp_v1",
+    "model_type": "mlp",
+    "created_at": "2026-09-08 13:42:58",
+    "params": {
+      "hidden_layer_sizes": [
+        64
+      ],
+      "activation": "relu",
+      "solver": "adam",
+      "alpha": 0.0001,
+      "batch_size": 512,
+      "learning_rate_init": 0.001,
+      "max_iter": 40,
+      "early_stopping": true,
+      "n_iter_no_change": 5,
+      "validation_fraction": 0.1,
+      "random_state": 42
+    },
+    "feature_columns": [
+      "open",
+      "high",
+      "low",
+      "close",
+      "volume",
+      "amount",
+      "return_1d",
+      "return_5d",
+      "return_10d",
+      "return_20d",
+      "volatility_5",
+      "volatility_10",
+      "volatility_20",
+      "ma_5",
+      "ma_ratio_5",
+      "ma_10",
+      "ma_ratio_10",
+      "ma_20",
+      "ma_ratio_20",
+      "ma_60",
+      "ma_ratio_60",
+      "ma_alignment",
+      "rsi_6",
+      "rsi_14",
+      "macd_dif",
+      "macd_dea",
+      "macd_hist",
+      "macd_cross",
+      "kdj_k",
+      "kdj_d",
+      "kdj_j",
+      "boll_mid",
+      "boll_std",
+      "boll_upper",
+      "boll_lower",
+      "boll_position",
+      "vol_ma_5",
+      "vol_ma_10",
+      "vol_ma_20",
+      "vol_ratio",
+      "vol_surge",
+      "body_ratio",
+      "upper_shadow",
+      "lower_shadow",
+      "is_yang",
+      "momentum_10",
+      "momentum_20",
+      "high_20d",
+      "low_20d",
+      "new_high",
+      "new_low"
+    ],
+    "label_names": [
+      "sell",
+      "hold",
+      "buy"
+    ],
+    "forward_days": 5,
+    "threshold": 0.02,
+    "train_accuracy": 0.4858,
+    "test_accuracy": 0.4608,
+    "test_precision_macro": 0.4302,
+    "test_recall_macro": 0.4309,
+    "test_f1_macro": 0.4053,
+    "train_samples": 428225,
+    "test_samples": 153963,
+    "total_samples": 583688,
+    "train_seconds": 23.2,
+    "label_distribution": {
+      "sell": 178305,
+      "hold": 236430,
+      "buy": 168953
+    },
+    "cv_accuracy_mean": 0.4677,
+    "cv_accuracy_std": 0.0027
+  }
+]

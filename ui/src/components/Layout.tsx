@@ -13,7 +13,6 @@ import {
   Wrench,
   Search,
   ShieldAlert,
-  PieChart,
 } from 'lucide-react'
 import { GetSystemInfo, GetMarketDataStatus } from '../../wailsjs/go/main/App'
 import { useI18nStore } from '../store/i18nStore'
@@ -44,7 +43,6 @@ const researchItems: NavItem[] = [
   { path: '#/strategies', key: 'nav.strategies', icon: Target },
   { path: '#/backtest', key: 'nav.backtest', icon: BarChart3 },
   { path: '#/risk', key: 'nav.riskCenter', icon: ShieldAlert },
-  { path: '#/portfolio-center', key: 'nav.portfolioCenter', icon: PieChart },
 ]
 
 interface LayoutProps {

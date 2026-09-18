@@ -1,0 +1,12 @@
+{
+  "name": "QuantBot AI量化机器人",
+  "outputfilename": "QuantBot",
+  "frontend:dir": "ui",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "QuantBot lab"
+  }
+}

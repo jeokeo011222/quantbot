@@ -1,31 +1,69 @@
-# ===== QuantBot 开源仓库白名单 =====
-# 本仓库仅开源 前端(ui/) 与 Python 工具(python/)，
-# 其余内容（后端 Go 源码、构建产物、数据库、日志、配置）一律忽略，不对外公开。
+# ===== QuantBot 开源仓库 .gitignore =====
+#
+# 封装策略（M4）：
+#   - 决策脑源码与构建产物【闭源】：/internal/brain/、/dll/、/bin/
+#   - 其余宿主侧代码（App.go / internal/ / cmd/ / ui/ / python/ 等）【开源】
+#   - 构建产物 / 运行数据 / 数据库 / 密钥【永不入库】（即使宿主侧也排除）
+#
+# 注意：DLL 侧二进制 internal/brain 仅以 bin/agent.dll(+agent.h) 形式对外分发，
+#       其源码与构建脚本不入库。
 
-# 默认忽略仓库根下所有内容
-/*
-# 重新包含待开源目录
-!/ui/
-!/python/
-# 根级开源文档
-!/README.md
-!/LICENSE
+# ---------------------------------------------------------------
+# 一、闭源黑名单（决策脑 + DLL，永不公开）
+# ---------------------------------------------------------------
+/internal/brain/
+/dll/
+/bin/
 
-# Python 目录内排除真实行情数据库（1.2GB，超 GitHub 单文件限制且含真实行情数据）
-/python/stock.duckdb
-/python/stock.duckdb.wal
+# ---------------------------------------------------------------
+# 二、构建产物 / 依赖 / 运行数据（宿主侧也不入库）
+# ---------------------------------------------------------------
+# Wails 前端构建与 Go 运行产物
+/build/
+/dist/
+*.exe
+*.dll
+*.h
+node_modules/
 
-# 显式保护：根级散落文件（探测脚本/临时 JSON）不入库
+# 真实行情 / 私有数据目录
+/data/
 /databak/
+/qprobe/
+
+# 数据库文件（含 python 行情库与探针库）——避免真实数据流出
+**/*.duckdb
+**/*.duckdb.wal
+**/*.db
+**/*.db-wal
+**/*.db-shm
+
+# 本地探针 / 临时 JSON / 日志 / 配置（可能含密钥）
 /probe_stock2.duckdb
 /t1.json
 /t2.json
 /tencent_k.json
 /tencent_test.txt
-/quantpilot.exe
+*.log
 
-# 兜底：任何路径下的 duckdb/db 数据库文件都不入库
-**/*.duckdb
-**/*.duckdb.wal
-**/*.db
-**/*.db-*
+# 密钥与本地环境
+.env
+.env.local
+*.env
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+
+# 本地编辑器 / 工具状态（个人开发环境，不入公开仓库）
+/.trae/
+/.workbuddy/
+
+# 前端构建残留：正式构建走 /ui/，此目录为历史/生成的编译产物
+/frontend/
+
+# Python 缓存
+__pycache__/
+*.pyc
