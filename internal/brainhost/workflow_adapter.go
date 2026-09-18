@@ -1,12 +1,12 @@
 package brainhost
 
 import (
-	"github.com/quantpilot/quantpilot/internal/brain/port"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // workflowStoreAdapter 将宿主 internal/data 的真实实现适配为决策脑抽象 port.WorkflowStore。
-// 决策脑（internal/brain/agents.DailyCycle）只依赖 port.WorkflowStore，宿主在装配点
+// 决策脑每日交易周期（DailyCycle）只依赖 port.WorkflowStore，宿主在装配点
 // 通过 AdaptWorkflowStore 注入真实 data 实现，从而避开包导入环。
 type workflowStoreAdapter struct {
 	db *data.SQLiteManager

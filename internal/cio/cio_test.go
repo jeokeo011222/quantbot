@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
 	"github.com/quantpilot/quantpilot/internal/policy"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // newTestCIOEngine 构造最小 CIOEngine（含 Policy 与四个智能体，其余依赖为 nil），
@@ -13,10 +13,10 @@ import (
 func newTestCIOEngine() *CIOEngine {
 	pe := policy.NewPolicyEngine(nil)
 	return &CIOEngine{
-		agent:       agents.NewAgent("cio_test", agents.RoleCIO, nil, nil, nil),
-		quantAgent:  agents.NewAgent("quant_test", agents.RoleQuant, nil, nil, nil),
-		riskAgent:   agents.NewAgent("risk_test", agents.RoleRisk, nil, nil, nil),
-		traderAgent: agents.NewAgent("trader_test", agents.RoleTrader, nil, nil, nil),
+		agent:        newCIOAgent("cio_test", port.RoleCIO, "CIO_TEST", nil),
+		quantAgent:   newCIOAgent("quant_test", port.RoleQuant, "QUANT_TEST", nil),
+		riskAgent:    newCIOAgent("risk_test", port.RoleRisk, "RISK_TEST", nil),
+		traderAgent:  newCIOAgent("trader_test", port.RoleTrader, "TRADER_TEST", nil),
 		policyEngine: pe,
 	}
 }
@@ -52,9 +52,9 @@ func TestEmergencyStopBlocksOrchestration(t *testing.T) {
 	}
 
 	// 下单执行：portfolio 为 nil，若门控失效会 panic；门控后应直接返回
-	eng.executeDecision(ctx, &agents.CIODecision{
+	eng.executeDecision(ctx, &port.CIODecision{
 		DecisionID: "test-dec",
-		Orders:     []agents.OrderIntent{{Side: "BUY", Symbol: "sh600000", MaxNotional: 1000}},
+		Orders:     []port.OrderIntent{{Side: "BUY", Symbol: "sh600000", MaxNotional: 1000}},
 	})
 
 	// 拆单执行：portfolio 为 nil，若门控失效会 panic；门控后应直接返回

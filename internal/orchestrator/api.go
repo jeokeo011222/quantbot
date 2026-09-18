@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // OrchestratorAPI 编排引擎API
@@ -168,13 +168,13 @@ func (api *OrchestratorAPI) collectAgentTasks(role string) []interface{} {
 func (api *OrchestratorAPI) GetAllAgentTasks() (interface{}, error) {
 	roles := []struct {
 		key  string
-		role agents.AgentRole
+		role port.AgentRole
 	}{
-		{"planner", agents.RolePlanner},
-		{"quant", agents.RoleQuant},
-		{"cio", agents.RoleCIO},
-		{"risk", agents.RoleRisk},
-		{"trader", agents.RoleTrader},
+		{"planner", port.RolePlanner},
+		{"quant", port.RoleQuant},
+		{"cio", port.RoleCIO},
+		{"risk", port.RoleRisk},
+		{"trader", port.RoleTrader},
 	}
 
 	result := make(map[string]interface{}, len(roles))

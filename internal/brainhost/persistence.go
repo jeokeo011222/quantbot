@@ -3,12 +3,12 @@ package brainhost
 import (
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/port"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // PersistenceAdapter 将宿主侧 data.SQLiteManager 适配为决策脑的 port.Persistence 抽象，
-// 使 internal/brain/agents 只需依赖 port 接口即可完成任务日志 / 审计日志 / CIO 决策落库。
+// 使决策脑模块只需依赖 port 接口即可完成任务日志 / 审计日志 / CIO 决策落库。
 type PersistenceAdapter struct {
 	db *data.SQLiteManager
 }

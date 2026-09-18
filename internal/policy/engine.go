@@ -7,8 +7,8 @@ import (
 	"math"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/util"
 )
 
@@ -146,7 +146,7 @@ func (pe *PolicyEngine) sectorOf(code string) string {
 // 覆盖现金/可用资金、单票仓位（含既有持仓）、行业暴露、组合杠杆与输入健壮性校验。
 // 行业暴露由 SectorProvider 注入的"股票代码->行业"映射提供数据；
 // MaxTurnover / MaxSlippage / MinLiquidity 依赖成交量等外部执行数据，当前未注入时无法校验。
-func (pe *PolicyEngine) CheckOrderIntent(intent agents.OrderIntent, portfolioValue float64, currentPositions map[string]float64) PolicyCheckResult {
+func (pe *PolicyEngine) CheckOrderIntent(intent port.OrderIntent, portfolioValue float64, currentPositions map[string]float64) PolicyCheckResult {
 	if pe.emergencyStop {
 		return PolicyCheckResult{
 			Passed:     false,
@@ -308,7 +308,7 @@ func (pe *PolicyEngine) CheckPortfolioRisk(dailyPnL float64, portfolioValue floa
 // ValidateDecision 验证CIO决策
 // currentPositions 为组合当前持仓占比 map[代码]float64（与 CheckOrderIntent 口径一致），
 // 用于单票/行业/杠杆校验的"既有持仓"，使行业暴露等反映整个组合而非仅单笔订单
-func (pe *PolicyEngine) ValidateDecision(decision agents.CIODecision, portfolioValue float64, currentPositions map[string]float64) PolicyCheckResult {
+func (pe *PolicyEngine) ValidateDecision(decision port.CIODecision, portfolioValue float64, currentPositions map[string]float64) PolicyCheckResult {
 	if pe.emergencyStop {
 		return PolicyCheckResult{
 			Passed:     false,

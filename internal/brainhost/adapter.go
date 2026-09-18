@@ -3,8 +3,7 @@ package brainhost
 import (
 	"context"
 
-	"github.com/quantpilot/quantpilot/internal/brain/port"
-	"github.com/quantpilot/quantpilot/internal/brain/toolkit"
+	"github.com/quantpilot/quantpilot/internal/port"
 	toolpkg "github.com/quantpilot/quantpilot/internal/tools"
 )
 
@@ -23,11 +22,11 @@ func (a *toolAdapter) Description() string {
 	return a.inner.Description()
 }
 
-func (a *toolAdapter) GetDefinition() toolkit.ToolDefinition {
+func (a *toolAdapter) GetDefinition() port.ToolDefinition {
 	d := a.inner.GetDefinition()
-	return toolkit.ToolDefinition{
+	return port.ToolDefinition{
 		Type: d.Type,
-		Function: toolkit.ToolFunction{
+		Function: port.ToolFunction{
 			Name:        d.Function.Name,
 			Description: d.Function.Description,
 			Parameters:  d.Function.Parameters,

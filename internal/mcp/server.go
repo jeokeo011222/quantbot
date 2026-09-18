@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"github.com/quantpilot/quantpilot/internal/config"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
+	llm "github.com/quantpilot/quantpilot/internal/port"
 )
 
 // Server MCP 服务器

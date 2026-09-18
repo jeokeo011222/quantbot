@@ -1,7 +1,7 @@
 package brainhost
 
 import (
-	"github.com/quantpilot/quantpilot/internal/brain/port"
+	"github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/transparency"
 )
 

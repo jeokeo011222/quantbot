@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/quantpilot/quantpilot/internal/data"
-	"github.com/quantpilot/quantpilot/internal/brain/intelligence"
+	"github.com/quantpilot/quantpilot/internal/intelligence"
 	"github.com/quantpilot/quantpilot/internal/policy"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

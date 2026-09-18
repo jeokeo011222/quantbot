@@ -3,7 +3,7 @@ package cio
 import (
 	"testing"
 
-	"github.com/quantpilot/quantpilot/internal/brain/sixdim"
+	"github.com/quantpilot/quantpilot/internal/marketsixdim"
 )
 
 func TestComputeMarketConsensus_StrongBullish(t *testing.T) {

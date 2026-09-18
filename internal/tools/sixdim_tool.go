@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/port"
-	"github.com/quantpilot/quantpilot/internal/brain/sixdim"
 	"github.com/quantpilot/quantpilot/internal/config"
+	"github.com/quantpilot/quantpilot/internal/marketsixdim"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // ==================== SixDimTool ====================

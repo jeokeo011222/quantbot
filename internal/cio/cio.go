@@ -12,15 +12,14 @@ import (
 	"time"
 
 	"github.com/quantpilot/quantpilot/internal/backtest"
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
-	"github.com/quantpilot/quantpilot/internal/brain/sixdim"
 	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
 	"github.com/quantpilot/quantpilot/internal/broker"
 	"github.com/quantpilot/quantpilot/internal/data"
 	"github.com/quantpilot/quantpilot/internal/factors"
+	sixdim "github.com/quantpilot/quantpilot/internal/marketsixdim"
 	"github.com/quantpilot/quantpilot/internal/orderbook"
 	"github.com/quantpilot/quantpilot/internal/policy"
+	agents "github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/portfolio"
 	"github.com/quantpilot/quantpilot/internal/risk"
 	"github.com/quantpilot/quantpilot/internal/screener"
@@ -197,13 +196,13 @@ func (c *CIOEngine) addDrawdownAlert(dd, warn, stop float64, level string) {
 }
 
 type CIOEngine struct {
-	agent                *agents.Agent
+	agent                *cioAgent
 	db                   *data.SQLiteManager
 	duckDB               *data.DuckDBManager
 	policyEngine         *policy.PolicyEngine
-	quantAgent           *agents.Agent
-	riskAgent            *agents.Agent
-	traderAgent          *agents.Agent
+	quantAgent           *cioAgent
+	riskAgent            *cioAgent
+	traderAgent          *cioAgent
 	portfolio            *portfolio.Engine
 	factorEngine         *factors.FactorEngine
 	sentimentEngine      *sentiment.Engine
@@ -252,16 +251,16 @@ const maxSliceShares = 5000
 func NewCIOEngine(
 	db *data.SQLiteManager,
 	duckDB *data.DuckDBManager,
-	llmClient llm.Client,
+	llmClient agents.LLMClient,
 	policyEngine *policy.PolicyEngine,
 	portfolioEngine *portfolio.Engine,
 	tradeablePool *screener.TradeablePool,
 	tracker *transparency.Tracker,
 ) *CIOEngine {
-	cioAgent := agents.NewAgent("cio_001", agents.RoleCIO, brainhost.NewPersistenceAdapter(db), llmClient, tracker)
-	quantAgent := agents.NewAgent("quant_001", agents.RoleQuant, brainhost.NewPersistenceAdapter(db), llmClient, tracker)
-	riskAgent := agents.NewAgent("risk_001", agents.RoleRisk, brainhost.NewPersistenceAdapter(db), llmClient, tracker)
-	traderAgent := agents.NewAgent("trader_001", agents.RoleTrader, brainhost.NewPersistenceAdapter(db), llmClient, tracker)
+	cioAgent := newCIOAgent("cio_001", agents.RoleCIO, "CIO", llmClient)
+	quantAgent := newCIOAgent("quant_001", agents.RoleQuant, "QUANT", llmClient)
+	riskAgent := newCIOAgent("risk_001", agents.RoleRisk, "RISK", llmClient)
+	traderAgent := newCIOAgent("trader_001", agents.RoleTrader, "TRADER", llmClient)
 
 	engine := &CIOEngine{
 		agent:           cioAgent,
@@ -361,7 +360,7 @@ func (c *CIOEngine) ReviewInvestmentPlan(ctx context.Context, planID string) (bo
 		return false, "", fmt.Errorf("投资方案审核器未初始化")
 	}
 
-	c.agent.SetState(agents.StateReviewing)
+	c.agent.SetState(cioAgentStateReviewing)
 	c.state = CIOStateReviewing
 	c.addActivity("CIO", "REVIEW_PLAN", fmt.Sprintf("CIO开始审核投资方案: %s", planID), nil)
 
@@ -682,7 +681,7 @@ func (c *CIOEngine) RunDailyCheck(ctx context.Context, portfolioValue float64, d
 }
 
 // requestQuantResearch 请求量化研究（使用真实因子引擎）
-func (c *CIOEngine) requestQuantResearch(ctx context.Context, marketState interface{}) *agents.ResearchReport {
+func (c *CIOEngine) requestQuantResearch(ctx context.Context, marketState interface{}) *ResearchReport {
 	c.quantAgent.SetState(agents.StateThinking)
 	c.addActivity("QUANT", "ANALYZING_MARKET", "正在进行多因子实战分析", nil)
 
@@ -735,7 +734,7 @@ func (c *CIOEngine) requestQuantResearch(ctx context.Context, marketState interf
 		topScores[i] = s.CompositeScore
 	}
 
-	report := &agents.ResearchReport{
+	report := &ResearchReport{
 		ResearchID: fmt.Sprintf("R-%d", time.Now().UnixNano()),
 		Objective:  "evaluate_current_strategy",
 		MarketState: map[string]interface{}{
@@ -808,7 +807,7 @@ func (c *CIOEngine) requestQuantResearch(ctx context.Context, marketState interf
 }
 
 // requestRiskReview 请求风控审查（使用真实风险引擎）
-func (c *CIOEngine) requestRiskReview(ctx context.Context, report *agents.ResearchReport, portfolioValue float64) *agents.RiskReport {
+func (c *CIOEngine) requestRiskReview(ctx context.Context, report *ResearchReport, portfolioValue float64) *RiskReport {
 	c.riskAgent.SetState(agents.StateThinking)
 	c.addActivity("RISK", "REVIEWING_PORTFOLIO", "正在进行组合实战风控审查", nil)
 
@@ -900,12 +899,12 @@ func (c *CIOEngine) requestRiskReview(ctx context.Context, report *agents.Resear
 		violations = append(violations, fmt.Sprintf("年化波动率 %.2f%% 超过 30%% 阈值", metrics.Volatility*100))
 	}
 
-	riskDecision := string(agents.RiskApprove)
+	riskDecision := string(riskApprove)
 	if len(violations) > 0 {
-		riskDecision = string(agents.RiskReviewRequired)
+		riskDecision = string(riskReviewRequired)
 		for _, a := range alerts {
 			if a.AlertType == "stop_loss" || a.AlertType == "trailing_stop" {
-				riskDecision = string(agents.RiskReject)
+				riskDecision = string(riskReject)
 				break
 			}
 		}
@@ -956,7 +955,7 @@ func (c *CIOEngine) requestRiskReview(ctx context.Context, report *agents.Resear
 		}
 	}
 
-	riskReport := &agents.RiskReport{
+	riskReport := &RiskReport{
 		RiskID:         fmt.Sprintf("RK-%d", time.Now().UnixNano()),
 		PortfolioRisk:  portfolioRisk,
 		StructuralRisk: structuralRisk,
@@ -1039,13 +1038,13 @@ func scaleOrdersByPositionRate(orders []agents.OrderIntent, rate float64) []agen
 }
 
 // makeDecision 做出CIO决策（使用多因子评分和组合优化器）
-func (c *CIOEngine) makeDecision(ctx context.Context, quantReport *agents.ResearchReport, riskReport *agents.RiskReport, dailyPnL float64, portfolioValue float64) *agents.CIODecision {
+func (c *CIOEngine) makeDecision(ctx context.Context, quantReport *ResearchReport, riskReport *RiskReport, dailyPnL float64, portfolioValue float64) *agents.CIODecision {
 	decision := &agents.CIODecision{
 		DecisionID:   c.generateDecisionID(),
 		PortfolioID:  "P001",
 		Decision:     agents.DecisionNoAction,
 		Reason:       "",
-		RiskApproval: string(agents.RiskApprove),
+		RiskApproval: string(riskApprove),
 		PolicyStatus: "PENDING",
 		Timestamp:    time.Now(),
 	}
@@ -1057,9 +1056,9 @@ func (c *CIOEngine) makeDecision(ctx context.Context, quantReport *agents.Resear
 	decision.MarketState = regime
 	decision.MarketConfidence = confidence
 
-	if riskReport.Decision == string(agents.RiskReject) || riskReport.Decision == string(agents.RiskEmergencyStop) {
+	if riskReport.Decision == string(riskReject) || riskReport.Decision == string(riskEmergencyStop) {
 		decision.Decision = agents.DecisionPauseTrading
-		decision.RiskApproval = string(agents.RiskReject)
+		decision.RiskApproval = string(riskReject)
 		decision.Reason = "风控师否决了当前决策，建议暂停交易"
 		return decision
 	}
@@ -1334,7 +1333,7 @@ type llmReviewResult struct {
 //   - LLM 未配置 / 调用失败 / 输出无法解析 → 一律放行（规则保底，绝不让 LLM 单点故障阻断交易）。
 //
 // 仅盘前 RunDailyCheck 链路（一日一次）触发，盘中监控不经过 makeDecision，不受影响。
-func (c *CIOEngine) llmReviewDecision(ctx context.Context, decision *agents.CIODecision, quantReport *agents.ResearchReport, riskReport *agents.RiskReport) {
+func (c *CIOEngine) llmReviewDecision(ctx context.Context, decision *agents.CIODecision, quantReport *ResearchReport, riskReport *RiskReport) {
 	// 仅复议有实际操作建议的决策；观望/暂停/风控否决等无需复议
 	if decision == nil || len(decision.Orders) == 0 ||
 		decision.Decision == agents.DecisionNoAction || decision.Decision == agents.DecisionPauseTrading {
@@ -1350,7 +1349,7 @@ func (c *CIOEngine) llmReviewDecision(ctx context.Context, decision *agents.CIOD
 
 	prompt := c.buildReviewPrompt(decision, quantReport, riskReport)
 
-	resp, err := c.agent.LLM.Chat(ctx, []llm.Message{
+	resp, err := c.agent.LLM.Chat(ctx, []agents.Message{
 		{Role: "system", Content: reviewSystemPrompt},
 		{Role: "user", Content: prompt},
 	}, nil)
@@ -1416,7 +1415,7 @@ func (c *CIOEngine) parseReviewResponse(content string) *llmReviewResult {
 }
 
 // buildReviewPrompt 构造 LLM 复议输入：市场状态、组合快照、回撤、六维、风控与候选订单清单。
-func (c *CIOEngine) buildReviewPrompt(decision *agents.CIODecision, quantReport *agents.ResearchReport, riskReport *agents.RiskReport) string {
+func (c *CIOEngine) buildReviewPrompt(decision *agents.CIODecision, quantReport *ResearchReport, riskReport *RiskReport) string {
 	var sb strings.Builder
 
 	sb.WriteString("【候选决策】\n")
@@ -2513,7 +2512,7 @@ func (c *CIOEngine) ExecuteStopLossIfTriggered(ctx context.Context) int {
 			PortfolioID:  "P001",
 			Decision:     agents.DecisionReduce,
 			Reason:       order.Reason,
-			RiskApproval: string(agents.RiskApprove),
+			RiskApproval: string(riskApprove),
 			PolicyStatus: "PASSED",
 			Orders:       []agents.OrderIntent{order},
 			Timestamp:    time.Now(),
@@ -2577,7 +2576,7 @@ func (c *CIOEngine) performSectorRotation() {
 }
 
 // shouldRebalance 判断是否需要调仓
-func shouldRebalance(snapshot *portfolio.PortfolioSnapshot, riskReport *agents.RiskReport) bool {
+func shouldRebalance(snapshot *portfolio.PortfolioSnapshot, riskReport *RiskReport) bool {
 	if len(snapshot.Positions) < 2 {
 		return false
 	}
@@ -3307,7 +3306,7 @@ func (c *CIOEngine) executeDecision(ctx context.Context, decision *agents.CIODec
 		return
 	}
 
-	c.traderAgent.SetState(agents.StateApproved)
+	c.traderAgent.SetState(cioAgentStateApproved)
 	c.addActivity("TRADER", "EXECUTING", "开始执行交易决策", decision.Orders)
 
 	snapshots := c.getStockPoolSnapshots()
@@ -3543,16 +3542,16 @@ func (c *CIOEngine) executeDecision(ctx context.Context, decision *agents.CIODec
 	// 根据执行结果设置正确的状态
 	switch {
 	case successCount > 0 && failCount == 0:
-		c.traderAgent.SetState(agents.StateFilled)
+		c.traderAgent.SetState(cioAgentStateFilled)
 		c.addActivity("TRADER", "EXECUTION_COMPLETE",
 			fmt.Sprintf("交易执行完成: %d笔订单全部成功", successCount), nil)
 	case successCount > 0 && failCount > 0:
-		c.traderAgent.SetState(agents.StateFilled)
+		c.traderAgent.SetState(cioAgentStateFilled)
 		c.addActivity("TRADER", "EXECUTION_COMPLETE",
 			fmt.Sprintf("交易部分完成: %d笔成功, %d笔失败", successCount, failCount), nil)
 	case successCount == 0 && failCount == 0 && pendingCount > 0:
 		// 全部订单排队等待用户确认（未及时确认不判定失败）
-		c.traderAgent.SetState(agents.StateSubmitted)
+		c.traderAgent.SetState(cioAgentStateSubmitted)
 		c.addActivity("TRADER", "EXECUTION_PENDING",
 			fmt.Sprintf("交易排队中: %d笔订单等待用户确认，尚未成交", pendingCount), nil)
 	case successCount == 0 && failCount > 0:
@@ -3975,7 +3974,7 @@ func (c *CIOEngine) MonitorIntradayInvestmentPlan(ctx context.Context) error {
 				Decision:         agents.DecisionReduce,
 				Reason:           fmt.Sprintf("盘中按量化分析师选定策略「%s」执行卖出信号减仓(%d只)，操盘手按策略信号离场", dplan.StrategyName, len(strategyOrders)),
 				Orders:           strategyOrders,
-				RiskApproval:     string(agents.RiskApprove),
+				RiskApproval:     string(riskApprove),
 				PolicyStatus:     "PENDING",
 				MarketState:      marketRegime,
 				MarketConfidence: marketAvgPct,
@@ -4024,7 +4023,7 @@ func (c *CIOEngine) MonitorIntradayInvestmentPlan(ctx context.Context) error {
 				Decision:         agents.DecisionPauseTrading,
 				Reason:           fmt.Sprintf("盘中净值回撤熔断：回撤%.2f%%触发止损线%.0f%%，暂停交易并强制降仓控制风险", ddPct, ddStop),
 				Orders:           forceOrders,
-				RiskApproval:     string(agents.RiskApprove),
+				RiskApproval:     string(riskApprove),
 				PolicyStatus:     "PENDING",
 				MarketState:      marketRegime,
 				MarketConfidence: marketAvgPct,
@@ -4072,7 +4071,7 @@ func (c *CIOEngine) MonitorIntradayInvestmentPlan(ctx context.Context) error {
 				Decision:         agents.DecisionReduce,
 				Reason:           fmt.Sprintf("组合持仓%d只超过目标%d只(投资金额分档)，盘中按方案目标收敛减仓", len(snapshot.Positions), targetPositionCount),
 				Orders:           trimOrders,
-				RiskApproval:     string(agents.RiskApprove),
+				RiskApproval:     string(riskApprove),
 				PolicyStatus:     "PENDING",
 				MarketState:      marketRegime,
 				MarketConfidence: marketAvgPct,
@@ -4130,7 +4129,7 @@ func (c *CIOEngine) MonitorIntradayInvestmentPlan(ctx context.Context) error {
 		Reason: fmt.Sprintf("盘中按投资方案「%s」建仓/%s：目标%d只已执行%d只，缺失%d只，现金¥%.2f，当日指数均涨%.2f%%",
 			plan.Name, marketRegime, equityTargets, equityTargets-len(missing), len(missing), snapshot.Cash, marketAvgPct),
 		Orders:           orders,
-		RiskApproval:     string(agents.RiskApprove),
+		RiskApproval:     string(riskApprove),
 		PolicyStatus:     "PENDING",
 		MarketState:      marketRegime,
 		MarketConfidence: marketAvgPct,
@@ -5121,7 +5120,7 @@ func (c *CIOEngine) pauseBuilding() bool {
 // PauseBuilding 设置"强制暂停建仓"开关（仅拦截买入，卖出不受影响）。
 func (c *CIOEngine) PauseBuilding(pause bool) {
 	if pause {
-		c.traderAgent.SetState(agents.StateBlocked)
+		c.traderAgent.SetState(cioAgentStateBlocked)
 		c.addActivity("CIO", "PAUSE_BUILDING", "强制暂停建仓已启用，仅拦截买入，卖出/离场不受影响", nil)
 	} else {
 		c.traderAgent.SetState(agents.StateIdle)

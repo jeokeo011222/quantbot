@@ -6,8 +6,8 @@ import (
 	"log"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // WorkflowState 决策工作流状态
@@ -44,7 +44,7 @@ type WorkflowExecution struct {
 
 // DecisionWorkflow 决策工作流
 type DecisionWorkflow struct {
-	Decision   *agents.CIODecision // 决策
+	Decision   *port.CIODecision   // 决策
 	State      WorkflowState       // 当前状态
 	Approvals  []WorkflowApproval  // 审批记录
 	Executions []WorkflowExecution // 执行记录
@@ -67,7 +67,7 @@ func NewWorkflowEngine(db *data.SQLiteManager) *WorkflowEngine {
 }
 
 // CreateWorkflow 创建决策工作流
-func (w *WorkflowEngine) CreateWorkflow(decision *agents.CIODecision) *DecisionWorkflow {
+func (w *WorkflowEngine) CreateWorkflow(decision *port.CIODecision) *DecisionWorkflow {
 	flow := &DecisionWorkflow{
 		Decision:   decision,
 		State:      StatePending,
@@ -279,7 +279,7 @@ type DecisionObject struct {
 }
 
 // GenerateDecisionObject 从CIO决策生成DecisionObject
-func (w *WorkflowEngine) GenerateDecisionObject(decision *agents.CIODecision, riskChecked bool) *DecisionObject {
+func (w *WorkflowEngine) GenerateDecisionObject(decision *port.CIODecision, riskChecked bool) *DecisionObject {
 	// 从Orders提取目标股票列表
 	var targetStocks []string
 	for _, order := range decision.Orders {
@@ -304,7 +304,7 @@ func (w *WorkflowEngine) GenerateDecisionObject(decision *agents.CIODecision, ri
 	return obj
 }
 
-func (w *WorkflowEngine) calculateRiskLevel(decision *agents.CIODecision) string {
+func (w *WorkflowEngine) calculateRiskLevel(decision *port.CIODecision) string {
 	if decision.MarketConfidence < 0.3 {
 		return "HIGH"
 	} else if decision.MarketConfidence < 0.6 {
@@ -313,7 +313,7 @@ func (w *WorkflowEngine) calculateRiskLevel(decision *agents.CIODecision) string
 	return "LOW"
 }
 
-func (w *WorkflowEngine) calculatePositionLimit(decision *agents.CIODecision) float64 {
+func (w *WorkflowEngine) calculatePositionLimit(decision *port.CIODecision) float64 {
 	switch decision.Decision {
 	case "BUY":
 		return 0.5

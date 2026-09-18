@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // RolePermission 角色权限
@@ -62,25 +62,25 @@ func (o *Orchestrator) RegisterHandler(handler TaskHandler) {
 }
 
 // RegisterDefaultHandlers 注册默认处理器（从agentTeam映射创建）
-func (o *Orchestrator) RegisterDefaultHandlers(agentTeam map[agents.AgentRole]*agents.Agent) {
+func (o *Orchestrator) RegisterDefaultHandlers(agentTeam map[port.AgentRole]*port.Agent) {
 	if agentTeam == nil {
 		log.Println("[Orchestrator] RegisterDefaultHandlers: agentTeam is nil, skipping")
 		return
 	}
 
-	if plannerAgent, ok := agentTeam[agents.RolePlanner]; ok {
+	if plannerAgent, ok := agentTeam[port.RolePlanner]; ok {
 		o.RegisterHandler(NewPlannerHandler(o, plannerAgent))
 	}
-	if quantAgent, ok := agentTeam[agents.RoleQuant]; ok {
+	if quantAgent, ok := agentTeam[port.RoleQuant]; ok {
 		o.RegisterHandler(NewQuantHandler(o, quantAgent))
 	}
-	if riskAgent, ok := agentTeam[agents.RoleRisk]; ok {
+	if riskAgent, ok := agentTeam[port.RoleRisk]; ok {
 		o.RegisterHandler(NewRiskHandler(o, riskAgent))
 	}
-	if cioAgent, ok := agentTeam[agents.RoleCIO]; ok {
+	if cioAgent, ok := agentTeam[port.RoleCIO]; ok {
 		o.RegisterHandler(NewCIOHandler(o, cioAgent))
 	}
-	if traderAgent, ok := agentTeam[agents.RoleTrader]; ok {
+	if traderAgent, ok := agentTeam[port.RoleTrader]; ok {
 		o.RegisterHandler(NewTraderHandler(o, traderAgent))
 	}
 

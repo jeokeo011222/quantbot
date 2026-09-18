@@ -1,4 +1,4 @@
-package main
+﻿package main
 
 import (
 	"context"
@@ -17,20 +17,19 @@ import (
 	"github.com/quantpilot/quantpilot/internal/agentworkflow"
 	"github.com/quantpilot/quantpilot/internal/audit"
 	"github.com/quantpilot/quantpilot/internal/backtest"
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
-	"github.com/quantpilot/quantpilot/internal/brain/planner"
-	"github.com/quantpilot/quantpilot/internal/brain/port"
 	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
 	"github.com/quantpilot/quantpilot/internal/broker"
 	"github.com/quantpilot/quantpilot/internal/cio"
 	"github.com/quantpilot/quantpilot/internal/config"
 	"github.com/quantpilot/quantpilot/internal/data"
 	"github.com/quantpilot/quantpilot/internal/harness"
+	"github.com/quantpilot/quantpilot/internal/llmhost"
 	"github.com/quantpilot/quantpilot/internal/llmstore"
 	"github.com/quantpilot/quantpilot/internal/mcp"
 	"github.com/quantpilot/quantpilot/internal/orchestrator"
+	"github.com/quantpilot/quantpilot/internal/plannerhost"
 	"github.com/quantpilot/quantpilot/internal/policy"
+	"github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/portfolio"
 	"github.com/quantpilot/quantpilot/internal/pricing"
 	"github.com/quantpilot/quantpilot/internal/riskcenter"
@@ -83,7 +82,7 @@ type App struct {
 	autoScheduler      *scheduler.AutoScheduler
 	taskScheduler      *scheduler.TaskScheduler
 	taskExecutor       *scheduler.DefaultAgentExecutor
-	agentTeam          map[agents.AgentRole]*agents.Agent
+	agentTeam          map[port.AgentRole]*port.Agent
 	strategyService    *strategy.Service
 	backtestService    *backtest.Service
 	agentTaskLogger    *data.AgentTaskLogger
@@ -651,7 +650,7 @@ func (a *App) startup(ctx context.Context) {
 			}
 			return riskcenter.ToMap(rep), nil
 		}
-		a.agentTeam = brainhost.CreateDefaultTeam(a.sqliteManager, a.duckdbManager, llmClient, a.appTracker(), a.screenerService, a.tradeablePool, profileProvider, a.portfolioEngine, a.cioEngine, a.tradeApproval, func() error {
+		a.agentTeam = brainhost.CreateDefaultTeam(a.sqliteManager, a.duckdbManager, a.screenerService, a.tradeablePool, profileProvider, a.portfolioEngine, a.cioEngine, a.tradeApproval, func() error {
 			if a.strategyService == nil {
 				return fmt.Errorf("strategyService 未初始化")
 			}
@@ -766,11 +765,11 @@ func (a *App) startup(ctx context.Context) {
 		a.orchestratorEngine.RegisterDefaultHandlers(a.agentTeam)
 	} else {
 		log.Println("[QuantBot] WARNING: Agent team not available, using empty handlers")
-		a.orchestratorEngine.RegisterDefaultHandlers(map[agents.AgentRole]*agents.Agent{})
+		a.orchestratorEngine.RegisterDefaultHandlers(map[port.AgentRole]*port.Agent{})
 	}
 	// 投资管理页"生成投资方案" → 投资规划师（Planner）编排任务：覆盖 planner handler，
 	// 仅在"投资方案规划"步骤调用方案生成器，其余 planner 步骤（如盘前市场分析）委托默认 handler。
-	plannerFallback := orchestrator.NewPlannerHandler(a.orchestratorEngine, a.agentTeam[agents.RolePlanner])
+	plannerFallback := orchestrator.NewPlannerHandler(a.orchestratorEngine, a.agentTeam[port.RolePlanner])
 	a.orchestratorEngine.RegisterHandler(orchestrator.NewInvestmentPlanHandler(
 		a.orchestratorEngine,
 		plannerFallback,
@@ -1597,24 +1596,30 @@ func (dllc *App) tryRunDailyCycleViaDLL(date string, progressCB harness.Progress
 	//   - 工具：复用 App 已装配的真实 agentTeam（每个 Agent.Tools 为真实 port.ToolExecutor）；
 	//   - 持久化：真实 SQLite（brainhost.NewPersistenceAdapter）；
 	//   - 上下文：复用 harness orchestrator 注入的真实系统上下文构建器；
-	//   - LLM：复用 App 的真实 llmClient（未配置 key 时 DLL 会失败，走空会话回退）。
+	//   - LLM：由 agent.dll 决策脑自持（配置经 AgentInit 传入），宿主不再注入。
 	host := &toolworker.Host{}
 	var ctxProvider port.ContextProvider
 	if dllc.harnessApp != nil && dllc.harnessApp.GetOrchestrator() != nil {
 		ctxProvider = dllc.harnessApp.GetOrchestrator().ContextProvider
 	}
-	host.BindReal(dllc.agentTeam,
+	host.BindReal(dllc.flattenTeamTools(),
 		brainhost.NewPersistenceAdapter(dllc.sqliteManager),
-		ctxProvider,
-		dllc.llmClient)
+		ctxProvider)
 
-	catalog := toolworker.BuildCatalogFromTeam(dllc.agentTeam)
+	catalog := toolworker.BuildCatalog(dllc.teamToolsByRole())
 	if progressCB != nil {
 		progressCB("dll_init", 0.1, fmt.Sprintf("经 agent.dll 决策脑启动（%d 角色目录）", len(catalog)))
 	}
 	log.Printf("[QuantBot] 经 agent.dll 决策路径启动：catalog=%d 角色", len(catalog))
 
-	orchResult, counters, err := toolworker.RunAgentCycle(agent, host, catalog, date, 4*time.Minute)
+	// LLM：配置经 AgentInit 传入 DLL，由决策脑自建 llm.Client（不再经总线代理）。
+	llmCfg := port.LLMConfig{
+		Provider: dllc.configManager.GetConfig().AIProvider,
+		APIKey:   dllc.configManager.GetConfig().AIAPIKey,
+		BaseURL:  dllc.configManager.GetConfig().AIBaseURL,
+		Model:    dllc.configManager.GetConfig().AIModel,
+	}
+	orchResult, counters, err := toolworker.RunAgentCycle(agent, host, catalog, date, llmCfg, 4*time.Minute)
 	if err != nil {
 		log.Printf("[QuantBot] agent.dll 决策路径失败（回退 harness）: %v", err)
 		return nil, false
@@ -1634,7 +1639,7 @@ func (dllc *App) tryRunDailyCycleViaDLL(date string, progressCB harness.Progress
 
 // mapOrchestratorResult 把 DLL 内 orchestrator 的结果映射为与 harness.runWithOrchestrator
 // 同构的 DailyCycleResult，保持 UI 事件流（daily:complete 的 result）与回退路径一致。
-func (dllc *App) mapOrchestratorResult(r *agents.OrchestratorResult) *harness.DailyCycleResult {
+func (dllc *App) mapOrchestratorResult(r *port.OrchestratorResult) *harness.DailyCycleResult {
 	result := &harness.DailyCycleResult{
 		Date:            r.Date,
 		StartTime:       r.StartTime,
@@ -1642,7 +1647,7 @@ func (dllc *App) mapOrchestratorResult(r *agents.OrchestratorResult) *harness.Da
 		Errors:          r.Errors,
 		AgentSessions:   r.Sessions,
 		Trajectories:    r.Trajectories,
-		TokenUsage:      agents.TokenUsage{TotalTokens: r.TotalTokens},
+		TokenUsage:      port.TokenUsage{TotalTokens: r.TotalTokens},
 		UseOrchestrator: true,
 	}
 	if s, ok := r.Sessions["PLANNER"]; ok {
@@ -1659,6 +1664,50 @@ func (dllc *App) mapOrchestratorResult(r *agents.OrchestratorResult) *harness.Da
 	}
 	result.PortfolioPlan = r.Decision
 	return result
+}
+
+// flattenTeamTools 将 agentTeam 中所有 Agent 的真实工具按名称去重扁平化，
+// 供 agent.dll 决策路径绑定（与 harness.flattenRealTools 同构）。
+func (dllc *App) flattenTeamTools() []port.ToolExecutor {
+	var out []port.ToolExecutor
+	seen := map[string]bool{}
+	for _, agent := range dllc.agentTeam {
+		if agent == nil {
+			continue
+		}
+		for _, t := range agent.Tools {
+			if t == nil {
+				continue
+			}
+			if seen[t.Name()] {
+				continue
+			}
+			seen[t.Name()] = true
+			out = append(out, t)
+		}
+	}
+	return out
+}
+
+// teamToolsByRole 按角色（小写标签）组织 agentTeam 的真实工具，
+// 供 agent.dll 决策路径构建工具目录（BuildCatalog，与 harness.toolsByRole 同构）。
+func (dllc *App) teamToolsByRole() map[string][]port.ToolExecutor {
+	out := make(map[string][]port.ToolExecutor)
+	for role, agent := range dllc.agentTeam {
+		if agent == nil {
+			continue
+		}
+		var tools []port.ToolExecutor
+		for _, t := range agent.Tools {
+			if t != nil {
+				tools = append(tools, t)
+			}
+		}
+		if len(tools) > 0 {
+			out[strings.ToLower(string(role))] = tools
+		}
+	}
+	return out
 }
 
 func (a *App) WindowMinimise() {

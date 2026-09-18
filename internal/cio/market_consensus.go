@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/quantpilot/quantpilot/internal/brain/sixdim"
+	"github.com/quantpilot/quantpilot/internal/marketsixdim"
 )
 
 // MarketConsensus 市场共识提炼：由六维判势的确定性规则派生"共识方向/主要分歧/次日待验证条件"。

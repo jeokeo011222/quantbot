@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
+	llm "github.com/quantpilot/quantpilot/internal/port"
 )
 
 // Client MCP 客户端
@@ -121,24 +121,10 @@ func (c *Client) Chat(ctx context.Context, messages []llm.Message, tools []llm.T
 		log.Printf("[MCP Client] Failed to parse LLM response as JSON: %v, using plain text", err)
 		// 如果解析失败，构造一个简单的结果
 		return &llm.ChatResult{
-			Choices: []struct {
-				Index   int `json:"index"`
-				Message struct {
-					Content          string             `json:"content"`
-					Role             string             `json:"role"`
-					ReasoningContent string             `json:"reasoning_content,omitempty"`
-					ToolCalls        []llm.ToolCallInfo `json:"tool_calls,omitempty"`
-				} `json:"message"`
-				FinishReason string `json:"finish_reason"`
-			}{
+			Choices: []llm.ChatChoice{
 				{
 					Index: 0,
-					Message: struct {
-						Content          string             `json:"content"`
-						Role             string             `json:"role"`
-						ReasoningContent string             `json:"reasoning_content,omitempty"`
-						ToolCalls        []llm.ToolCallInfo `json:"tool_calls,omitempty"`
-					}{
+					Message: llm.ChoiceMessage{
 						Content: textContent,
 						Role:    "assistant",
 					},

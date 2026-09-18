@@ -9,10 +9,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
 	"github.com/quantpilot/quantpilot/internal/data"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
 	"github.com/quantpilot/quantpilot/internal/llmmonitoring"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // ============ 统一状态定义（5状态模型）============
@@ -64,7 +63,7 @@ const (
 
 // ============ AgentExecutor 接口============
 type AgentExecutor interface {
-	Execute(ctx context.Context, role agents.AgentRole, taskDesc string, opts ExecuteOptions) (interface{}, error)
+	Execute(ctx context.Context, role port.AgentRole, taskDesc string, opts ExecuteOptions) (interface{}, error)
 	IsAvailable() bool
 }
 
@@ -74,60 +73,44 @@ type ExecuteOptions struct {
 	TaskName string    // 精简任务名（用于审计日志）
 	Context  string    // 真实执行上下文（阶段/时间/环境摘要），非空
 }
+
+// DefaultAgentExecutor 默认智能体执行器。
+//
+// DLL 隔离：进程内决策脑已迁入 agent.dll，宿主本包只承载可确定的监控兜底与
+// DLL-only 占位，不再加载/驱动进程内 agents.Agent，也不直连 deepseek 具体客户端
+// （LLM 归 DLL 自持）。agentMap 仅作数据持有（角色 → 宿主侧公开 Agent DTO）。
 type DefaultAgentExecutor struct {
 	mu        sync.RWMutex // 保护 agentMap 与 llmClient 的并发读写
-	llmClient llm.Client
-	agentMap  map[agents.AgentRole]*agents.Agent
+	llmClient port.LLMClient
+	agentMap  map[port.AgentRole]*port.Agent
 }
 
-func NewDefaultAgentExecutor(llmClient llm.Client) *DefaultAgentExecutor {
+func NewDefaultAgentExecutor(llmClient port.LLMClient) *DefaultAgentExecutor {
 	return &DefaultAgentExecutor{
 		llmClient: llmClient,
-		agentMap:  make(map[agents.AgentRole]*agents.Agent),
+		agentMap:  make(map[port.AgentRole]*port.Agent),
 	}
 }
 
-func (e *DefaultAgentExecutor) RegisterAgent(role agents.AgentRole, agent *agents.Agent) {
+func (e *DefaultAgentExecutor) RegisterAgent(role port.AgentRole, agent *port.Agent) {
 	e.mu.Lock()
 	defer e.mu.Unlock()
 	if e.agentMap == nil {
-		e.agentMap = make(map[agents.AgentRole]*agents.Agent)
+		e.agentMap = make(map[port.AgentRole]*port.Agent)
 	}
 	e.agentMap[role] = agent
 	log.Printf("[AgentExecutor] Registered agent for role: %s", role)
 }
 
-func (e *DefaultAgentExecutor) UpdateLLMClient(llmClient llm.Client) {
+func (e *DefaultAgentExecutor) UpdateLLMClient(llmClient port.LLMClient) {
 	e.mu.Lock()
 	defer e.mu.Unlock()
+	// 宿主侧不再向运行中 Agent 注入 LLM（决策在 DLL），仅记录供 IsAvailable/诊断使用。
 	e.llmClient = llmClient
-	for _, agent := range e.agentMap {
-		if agent != nil {
-			agent.LLM = llmClient
-		}
-	}
-	log.Printf("[AgentExecutor] LLM client updated for executor and all agents")
+	log.Printf("[AgentExecutor] LLM client recorded for executor(仅供参考，决策已在 agent.dll)")
 }
 
-func (e *DefaultAgentExecutor) Execute(ctx context.Context, role agents.AgentRole, taskDesc string, opts ExecuteOptions) (interface{}, error) {
-	e.mu.RLock()
-	agent, ok := e.agentMap[role]
-	e.mu.RUnlock()
-	if !ok || agent == nil {
-		return nil, fmt.Errorf("no agent registered for role: %s", role)
-	}
-
-	// 紧急停止门控：处于停止状态时跳过所有调度任务（含轻量监控任务），实现"紧急停止 → 所有智能体停止工作"
-	if agent.IsStopped() {
-		log.Printf("[AgentExecutor] %s 紧急停止中，跳过任务: %s", role, taskDesc)
-		return map[string]interface{}{
-			"status":     "BLOCKED",
-			"reason":     "紧急停止中，所有智能体已暂停工作",
-			"agent_role": string(role),
-			"task":       taskDesc,
-		}, nil
-	}
-
+func (e *DefaultAgentExecutor) Execute(ctx context.Context, role port.AgentRole, taskDesc string, opts ExecuteOptions) (interface{}, error) {
 	// 注入 LLM 审计元信息，记录本次任务的角色/任务名/阶段
 	taskName := opts.TaskName
 	if taskName == "" {
@@ -138,62 +121,26 @@ func (e *DefaultAgentExecutor) Execute(ctx context.Context, role agents.AgentRol
 		TaskName:  taskName,
 		Phase:     string(opts.Phase),
 	})
+	_ = ctx
 
-	// 检查是否为监控任务（不需要 LLM 的轻量任务）
-	isMonitorTask := strings.Contains(taskDesc, "监控") || strings.Contains(taskDesc, "NO_ACTION") || strings.Contains(taskDesc, "monitor")
-	llmAvailable := e.IsAvailable()
-
-	if !llmAvailable && isMonitorTask {
-		log.Printf("[AgentExecutor] LLM unavailable, executing monitor task %s directly via tools", role)
-		return e.executeMonitorTaskDirectly(ctx, agent, role, taskDesc)
+	// 监控类任务不依赖 LLM，可由宿主直接判定（确定性兜底）。
+	if strings.Contains(taskDesc, "监控") || strings.Contains(taskDesc, "NO_ACTION") || strings.Contains(taskDesc, "monitor") {
+		log.Printf("[AgentExecutor] Executing monitor task %s directly via tools(宿主兜底)", role)
+		return e.executeMonitorTaskDirectly(role, taskDesc), nil
 	}
 
-	if !llmAvailable {
-		e.mu.RLock()
-		llmClient := e.llmClient
-		e.mu.RUnlock()
-		if llmClient == nil {
-			return nil, fmt.Errorf("LLM 客户端未初始化")
-		}
-		if deepseekClient, ok := llmClient.(*llm.DeepSeekClient); ok {
-			if !deepseekClient.HasValidAPIKey() {
-				return nil, fmt.Errorf("API Key 未配置")
-			}
-		}
-		return nil, fmt.Errorf("LLM 客户端不可用")
-	}
-
-	taskMsg := agents.AgentMessage{
-		MessageID: fmt.Sprintf("TASK-%s-%d", role, time.Now().UnixNano()),
-		From:      role,
-		To:        role,
-		Type:      "TASK",
-		Task:      taskDesc,
-		// 携带真实执行上下文（阶段/时间/环境摘要），避免生产交互中出现 <nil>
-		Context:   opts.Context,
-		Priority:  "NORMAL",
-		Timestamp: time.Now(),
-	}
-
-	response := agent.ProcessTask(ctx, taskMsg)
-	if response.Type == "ERROR" {
-		// LLM 调用失败时，对于监控任务尝试直接执行
-		if isMonitorTask {
-			log.Printf("[AgentExecutor] LLM failed for monitor task %s, falling back to direct tool execution: %v", role, response.Context)
-			result, directErr := e.executeMonitorTaskDirectly(ctx, agent, role, taskDesc)
-			if directErr == nil {
-				return result, nil
-			}
-			log.Printf("[AgentExecutor] Direct tool execution also failed: %v", directErr)
-		}
-		return nil, fmt.Errorf("agent returned error: %v", response.Context)
-	}
-
-	return response.Context, nil
+	// 其余决策任务：进程内决策已迁入 agent.dll，宿主退化为 DLL-only 占位。
+	log.Printf("[AgentExecutor] %s task %s → DLL-only(进程内决策已迁入 agent.dll)", role, taskDesc)
+	return map[string]interface{}{
+		"status":     "DLL_ONLY",
+		"agent_role": string(role),
+		"task":       taskDesc,
+		"message":    "进程内决策已迁入 agent.dll(DLL-only)",
+	}, nil
 }
 
-// executeMonitorTaskDirectly 直接调用工具执行监控任务，不依赖 LLM
-func (e *DefaultAgentExecutor) executeMonitorTaskDirectly(ctx context.Context, agent *agents.Agent, role agents.AgentRole, taskDesc string) (interface{}, error) {
+// executeMonitorTaskDirectly 直接判定监控任务，不依赖 LLM / 进程内 Agent。
+func (e *DefaultAgentExecutor) executeMonitorTaskDirectly(role port.AgentRole, taskDesc string) interface{} {
 	log.Printf("[AgentExecutor] Executing monitor task directly for role=%s, task=%s", role, taskDesc)
 
 	result := map[string]interface{}{
@@ -204,64 +151,28 @@ func (e *DefaultAgentExecutor) executeMonitorTaskDirectly(ctx context.Context, a
 		"timestamp":      time.Now().Format("2006-01-02T15:04:05.000Z"),
 	}
 
-	// 根据角色执行对应的监控工具
 	switch role {
-	case agents.RoleQuant:
-		// 量化分析师：检查信号状态
+	case port.RoleQuant:
 		result["signal_status"] = "NO_SIGNAL_CHANGE"
 		result["description"] = "信号监控完成：无显著信号变化"
-
-	case agents.RoleRisk:
-		// 风控师：检查风险指标
+	case port.RoleRisk:
 		result["risk_status"] = "RISK_NORMAL"
 		result["description"] = "风险监控完成：风险指标在正常范围内"
-
-		// 尝试获取投资组合状态
-		if portfolioState, err := agent.ExecuteTool(ctx, "get_portfolio_state", map[string]interface{}{}); err == nil {
-			result["portfolio_state"] = portfolioState
-		} else {
-			result["portfolio_state_error"] = err.Error()
-		}
-
-	case agents.RoleTrader:
-		// 操盘手：检查市场状态
+	case port.RoleTrader:
 		result["market_status"] = "MARKET_NORMAL"
 		result["description"] = "市场监控完成：市场运行正常"
-
-		// 尝试获取持仓
-		if positions, err := agent.ExecuteTool(ctx, "get_positions", map[string]interface{}{}); err == nil {
-			result["positions"] = positions
-		} else {
-			result["positions_error"] = err.Error()
-		}
-
-		// 尝试获取投资组合状态
-		if portfolioState, err := agent.ExecuteTool(ctx, "get_portfolio_state", map[string]interface{}{}); err == nil {
-			result["portfolio_state"] = portfolioState
-		} else {
-			result["portfolio_state_error"] = err.Error()
-		}
-
-	case agents.RoleCIO:
-		// CIO：获取整体状态
+	case port.RoleCIO:
 		result["cio_status"] = "NO_ACTION"
 		result["description"] = "CIO 监控完成：无需操作"
-
-		if portfolioState, err := agent.ExecuteTool(ctx, "get_portfolio_state", map[string]interface{}{}); err == nil {
-			result["portfolio_state"] = portfolioState
-		}
-
-	case agents.RolePlanner:
-		// Planner：规划状态
+	case port.RolePlanner:
 		result["planner_status"] = "NO_ACTION"
 		result["description"] = "Planner 监控完成：无需规划调整"
-
 	default:
 		result["status"] = "MONITOR_COMPLETE"
 		result["description"] = fmt.Sprintf("%s 监控完成", role)
 	}
 
-	return result, nil
+	return result
 }
 
 func (e *DefaultAgentExecutor) IsAvailable() bool {
@@ -269,9 +180,6 @@ func (e *DefaultAgentExecutor) IsAvailable() bool {
 	defer e.mu.RUnlock()
 	if e.llmClient == nil {
 		return false
-	}
-	if deepseekClient, ok := e.llmClient.(*llm.DeepSeekClient); ok {
-		return deepseekClient.HasValidAPIKey()
 	}
 	if mcpClient, ok := e.llmClient.(interface{ HasValidAPIKey() bool }); ok {
 		return mcpClient.HasValidAPIKey()
@@ -296,10 +204,7 @@ func (e *DefaultAgentExecutor) Diagnose() map[string]interface{} {
 	diag["agent_roles"] = roles
 
 	if e.llmClient != nil {
-		if deepseekClient, ok := e.llmClient.(*llm.DeepSeekClient); ok {
-			diag["api_key_valid"] = deepseekClient.HasValidAPIKey()
-			diag["client_type"] = "deepseek"
-		} else if mcpClient, ok := e.llmClient.(interface{ HasValidAPIKey() bool }); ok {
+		if mcpClient, ok := e.llmClient.(interface{ HasValidAPIKey() bool }); ok {
 			diag["api_key_valid"] = mcpClient.HasValidAPIKey()
 			diag["client_type"] = "mcp"
 		} else {
@@ -373,20 +278,20 @@ type TaskContract struct {
 }
 
 type AgentTask struct {
-	ID              string           `json:"id"`
-	Phase           TaskPhase        `json:"phase"`
-	AgentRole       agents.AgentRole `json:"agent_role"`
-	TaskName        string           `json:"task_name"`
-	TaskOrder       int              `json:"task_order"`
-	Priority        TaskPriority     `json:"priority"`
-	Description     string           `json:"description"`
-	DeliverableType string           `json:"deliverable_type"`
-	TimeoutMs       int              `json:"timeout_ms"`
-	Preconditions   []string         `json:"preconditions"`
-	RepeatInterval  int              `json:"repeat_interval"`
-	MaxRetries      int              `json:"max_retries"`
-	IsEventDriven   bool             `json:"is_event_driven"`
-	EarliestStart   string           `json:"earliest_start,omitempty"` // 最早执行时间(HH:MM)，到达该时间后才执行，如 "15:05"
+	ID              string         `json:"id"`
+	Phase           TaskPhase      `json:"phase"`
+	AgentRole       port.AgentRole `json:"agent_role"`
+	TaskName        string         `json:"task_name"`
+	TaskOrder       int            `json:"task_order"`
+	Priority        TaskPriority   `json:"priority"`
+	Description     string         `json:"description"`
+	DeliverableType string         `json:"deliverable_type"`
+	TimeoutMs       int            `json:"timeout_ms"`
+	Preconditions   []string       `json:"preconditions"`
+	RepeatInterval  int            `json:"repeat_interval"`
+	MaxRetries      int            `json:"max_retries"`
+	IsEventDriven   bool           `json:"is_event_driven"`
+	EarliestStart   string         `json:"earliest_start,omitempty"` // 最早执行时间(HH:MM)，到达该时间后才执行，如 "15:05"
 
 	// Task Contract v1.0 完整约束
 	Scope    TaskScope    `json:"scope"`    // 任务活动边界
@@ -473,7 +378,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "pre_planner",
 			Phase:           PhasePreMarket,
-			AgentRole:       agents.RolePlanner,
+			AgentRole:       port.RolePlanner,
 			TaskName:        "盘前市场分析",
 			TaskOrder:       1,
 			Priority:        PriorityCritical,
@@ -517,7 +422,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "pre_quant",
 			Phase:           PhasePreMarket,
-			AgentRole:       agents.RoleQuant,
+			AgentRole:       port.RoleQuant,
 			TaskName:        "盘前量化分析",
 			TaskOrder:       2,
 			Priority:        PriorityCritical,
@@ -562,7 +467,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "pre_risk",
 			Phase:           PhasePreMarket,
-			AgentRole:       agents.RoleRisk,
+			AgentRole:       port.RoleRisk,
 			TaskName:        "盘前风险检查",
 			TaskOrder:       3,
 			Priority:        PriorityCritical,
@@ -608,7 +513,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "pre_cio",
 			Phase:           PhasePreMarket,
-			AgentRole:       agents.RoleCIO,
+			AgentRole:       port.RoleCIO,
 			TaskName:        "生成盘前决策",
 			TaskOrder:       4,
 			Priority:        PriorityCritical,
@@ -653,7 +558,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "in_market_monitor",
 			Phase:           PhaseInMarket,
-			AgentRole:       agents.RoleTrader,
+			AgentRole:       port.RoleTrader,
 			TaskName:        "市场监控",
 			TaskOrder:       1,
 			Priority:        PriorityHigh,
@@ -698,7 +603,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "in_risk_monitor",
 			Phase:           PhaseInMarket,
-			AgentRole:       agents.RoleRisk,
+			AgentRole:       port.RoleRisk,
 			TaskName:        "风险监控",
 			TaskOrder:       2,
 			Priority:        PriorityHigh,
@@ -744,7 +649,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "in_signal_monitor",
 			Phase:           PhaseInMarket,
-			AgentRole:       agents.RoleQuant,
+			AgentRole:       port.RoleQuant,
 			TaskName:        "信号监控",
 			TaskOrder:       3,
 			Priority:        PriorityNormal,
@@ -787,7 +692,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "in_event_risk",
 			Phase:           PhaseInMarket,
-			AgentRole:       agents.RoleRisk,
+			AgentRole:       port.RoleRisk,
 			TaskName:        "事件风险评估",
 			TaskOrder:       10,
 			Priority:        PriorityCritical,
@@ -829,7 +734,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "in_event_cio",
 			Phase:           PhaseInMarket,
-			AgentRole:       agents.RoleCIO,
+			AgentRole:       port.RoleCIO,
 			TaskName:        "事件决策",
 			TaskOrder:       11,
 			Priority:        PriorityCritical,
@@ -873,7 +778,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "in_event_trader",
 			Phase:           PhaseInMarket,
-			AgentRole:       agents.RoleTrader,
+			AgentRole:       port.RoleTrader,
 			TaskName:        "事件交易执行",
 			TaskOrder:       12,
 			Priority:        PriorityCritical,
@@ -919,7 +824,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "post_trader",
 			Phase:           PhasePostMarket,
-			AgentRole:       agents.RoleTrader,
+			AgentRole:       port.RoleTrader,
 			TaskName:        "日终结算",
 			TaskOrder:       1,
 			Priority:        PriorityCritical,
@@ -962,7 +867,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "post_risk",
 			Phase:           PhasePostMarket,
-			AgentRole:       agents.RoleRisk,
+			AgentRole:       port.RoleRisk,
 			TaskName:        "日终风险审查",
 			TaskOrder:       2,
 			Priority:        PriorityCritical,
@@ -1008,7 +913,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "post_cio",
 			Phase:           PhasePostMarket,
-			AgentRole:       agents.RoleCIO,
+			AgentRole:       port.RoleCIO,
 			TaskName:        "日终投资报告",
 			TaskOrder:       3,
 			Priority:        PriorityCritical,
@@ -1051,7 +956,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "post_quant_tune",
 			Phase:           PhasePostMarket,
-			AgentRole:       agents.RoleQuant,
+			AgentRole:       port.RoleQuant,
 			TaskName:        "策略参数调优",
 			TaskOrder:       4,
 			Priority:        PriorityHigh,
@@ -1093,7 +998,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "night_quant",
 			Phase:           PhaseReview,
-			AgentRole:       agents.RoleQuant,
+			AgentRole:       port.RoleQuant,
 			TaskName:        "因子复盘",
 			TaskOrder:       1,
 			Priority:        PriorityNormal,
@@ -1141,7 +1046,7 @@ func getOptimizedTasks() []AgentTask {
 		{
 			ID:              "night_cio",
 			Phase:           PhaseReview,
-			AgentRole:       agents.RoleCIO,
+			AgentRole:       port.RoleCIO,
 			TaskName:        "深度复盘与制定明日计划",
 			TaskOrder:       2,
 			Priority:        PriorityNormal,
@@ -1874,12 +1779,12 @@ func (s *TaskScheduler) GetTaskStatusByRole() map[string]interface{} {
 	}
 
 	today := time.Now().Format("2006-01-02")
-	roles := []agents.AgentRole{
-		agents.RolePlanner,
-		agents.RoleQuant,
-		agents.RoleRisk,
-		agents.RoleCIO,
-		agents.RoleTrader,
+	roles := []port.AgentRole{
+		port.RolePlanner,
+		port.RoleQuant,
+		port.RoleRisk,
+		port.RoleCIO,
+		port.RoleTrader,
 	}
 
 	result := make(map[string]interface{})

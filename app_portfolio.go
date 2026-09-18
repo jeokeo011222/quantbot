@@ -26,14 +26,6 @@ func (a *App) EmergencyStop() error {
 
 	a.cioEngine.EmergencyStop()
 
-	// 停止 AI 团队全部智能体（CIO引擎内部 Agent 已由上面的 EmergencyStop 停止）
-	for role, agent := range a.agentTeam {
-		if agent != nil {
-			agent.EmergencyStop()
-			log.Printf("[QuantBot] Agent %s emergency stopped", role)
-		}
-	}
-
 	if a.auditService != nil {
 		a.auditService.LogAuditEvent(
 			data.AuditEventOrder,
@@ -60,14 +52,6 @@ func (a *App) ResumeTrading() error {
 	}
 
 	a.cioEngine.ResumeTrading()
-
-	// 恢复 AI 团队全部智能体（CIO引擎内部 Agent 已由上面的 ResumeTrading 恢复）
-	for role, agent := range a.agentTeam {
-		if agent != nil {
-			agent.Resume()
-			log.Printf("[QuantBot] Agent %s resumed", role)
-		}
-	}
 
 	if a.auditService != nil {
 		a.auditService.LogAuditEvent(

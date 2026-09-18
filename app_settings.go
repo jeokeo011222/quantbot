@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
-	"github.com/quantpilot/quantpilot/internal/brain/planner"
-	"github.com/quantpilot/quantpilot/internal/brain/sixdim"
+	"github.com/quantpilot/quantpilot/internal/llmhost"
+	"github.com/quantpilot/quantpilot/internal/plannerhost"
+	"github.com/quantpilot/quantpilot/internal/marketsixdim"
 	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
 	"github.com/quantpilot/quantpilot/internal/cio"
 	"github.com/quantpilot/quantpilot/internal/config"
@@ -303,16 +303,6 @@ func (a *App) reinitAILayer() {
 		a.cioEngine.SetLiveBroker(a.broker)
 		a.cioEngine.SetAutoExecutionEnabled(cfg.QMTApplyAutoExecution)
 		log.Printf("[QuantBot] CIO Engine reinitialized with new AI config")
-	}
-
-	// 更新 Agent Team 中所有 Agent 的 LLM 客户端
-	if a.agentTeam != nil {
-		for _, agent := range a.agentTeam {
-			if agent != nil {
-				agent.LLM = llmClient
-			}
-		}
-		log.Printf("[QuantBot] Agent team LLM client updated for all roles")
 	}
 
 	// 更新 TaskExecutor 的 LLM 客户端

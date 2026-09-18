@@ -8,9 +8,8 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
-	"github.com/quantpilot/quantpilot/internal/brain/planner"
-	"github.com/quantpilot/quantpilot/internal/brain/port"
+	"github.com/quantpilot/quantpilot/internal/plannerhost"
+	"github.com/quantpilot/quantpilot/internal/port"
 	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
 	"github.com/quantpilot/quantpilot/internal/data"
 	"github.com/quantpilot/quantpilot/internal/screener"
@@ -210,7 +209,7 @@ func (a *App) runGeneratePlan() (result interface{}, retErr error) {
 	today := time.Now().Format("2006-01-02")
 	var taskLog *data.AgentTaskLog
 	if a.agentTaskLogger != nil {
-		taskLog = a.agentTaskLogger.LogTaskStart(today, "PRE_MARKET", string(agents.RolePlanner), "投资规划 - 生成投资方案", 1)
+		taskLog = a.agentTaskLogger.LogTaskStart(today, "PRE_MARKET", string(port.RolePlanner), "投资规划 - 生成投资方案", 1)
 	}
 	// 记录失败到任务日志（供上方提前 return 复用）
 	failLog := func(err error) {

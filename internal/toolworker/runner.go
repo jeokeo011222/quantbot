@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
 // runEnvelope 统一解析 DLL 的 {ok,error,data} 响应。
@@ -20,13 +20,24 @@ type runEnvelope struct {
 //
 //	catalog: 非空则作为 AgentInit.catalog（角色→工具目录），空则 DLL 建空团队（会优雅失败）。
 //	date:    目标交易日（如 "2026-09-18"）。
+//	llmCfg:  LLM 配置（经 AgentInit.config.llm 传给 DLL，DLL 据此自建 llm.Client）；
+//	         空值字段由 DLL 侧按 provider 取默认。
 //	deadline:轮询总超时（不含 AgentInit/RunDaily 本身）。
 //
-// 返回决策脑结果（*agents.OrchestratorResult）与 host 兑现统计。任一步硬失败/超时返回 error。
-func RunAgentCycle(agent *Agent, host *Host, catalog []map[string]interface{}, date string, deadline time.Duration) (*agents.OrchestratorResult, map[string]int, error) {
+// 返回决策脑结果（*port.OrchestratorResult）与 host 兑现统计。任一步硬失败/超时返回 error。
+func RunAgentCycle(agent *Agent, host *Host, catalog []map[string]interface{}, date string, llmCfg port.LLMConfig, deadline time.Duration) (*port.OrchestratorResult, map[string]int, error) {
 	// 1. AgentInit（携带 config + catalog）
 	initReq := map[string]interface{}{
-		"config":  map[string]interface{}{"market": "", "date": date},
+		"config": map[string]interface{}{
+			"market": "",
+			"date":   date,
+			"llm": map[string]interface{}{
+				"provider": llmCfg.Provider,
+				"api_key":  llmCfg.APIKey,
+				"base_url": llmCfg.BaseURL,
+				"model":    llmCfg.Model,
+			},
+		},
 		"catalog": catalog,
 	}
 	initJSON, _ := json.Marshal(initReq)
@@ -73,7 +84,7 @@ func RunAgentCycle(agent *Agent, host *Host, catalog []map[string]interface{}, d
 
 	// 3. 拉模式轮询：awaiting_request → host 兑现 → Respond；done → 解析结果。
 	start := time.Now()
-	var final *agents.OrchestratorResult
+	var final *port.OrchestratorResult
 	for {
 		if time.Since(start) > deadline {
 			return nil, nil, fmt.Errorf("DLL 每日周期轮询超时（%s）", deadline)

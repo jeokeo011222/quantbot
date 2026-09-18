@@ -1,9 +1,9 @@
 // Package toolworker 宿主侧封装 agent.dll 的拉模式 RPC 总线，并承载确定性的
-// 工具/持久化/上下文/LLM 兑现 handler，用于在无 API key / 无数据库环境下证明
-// 「DLL 内决策脑（internal/brain）的每次副作用都经总线由宿主兑现」。
+// 工具/持久化/上下文兑现 handler，用于在无 API key / 无数据库环境下证明
+// 「DLL 内决策脑的每次面板副作用都经总线由宿主兑现」。
 //
-// 本包属于开源宿主侧，可 import internal/brainhost、internal/brain/llm 等宿主包；
-// 但绝不 import dll 包（避免任何宿主包进入 DLL binary）。
+// 本包属于开源宿主侧，只依赖开源 internal/port 契约，绝不 import dll 包
+// （避免任何宿主包进入 DLL binary）。LLM 由 DLL 自持，宿主不再经总线兑现。
 package toolworker
 
 import (

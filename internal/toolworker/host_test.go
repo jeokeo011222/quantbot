@@ -6,13 +6,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
-	"github.com/quantpilot/quantpilot/internal/brain/port"
-	"github.com/quantpilot/quantpilot/internal/brain/toolkit"
+	"github.com/quantpilot/quantpilot/internal/port"
 )
 
-// ---- 记录型真实实现（实现决策脑抽象，证明「真实绑定」路由生效）----
+// ---- 记录型真实实现（实现开源抽象，证明「真实绑定」路由生效）----
 
 // recTool 记录调用并返回固定结果的真实工具执行器。
 type recTool struct {
@@ -23,10 +20,10 @@ type recTool struct {
 
 func (t *recTool) Name() string        { return t.name }
 func (t *recTool) Description() string { return "真实绑定工具 " + t.name }
-func (t *recTool) GetDefinition() toolkit.ToolDefinition {
-	return toolkit.ToolDefinition{
+func (t *recTool) GetDefinition() port.ToolDefinition {
+	return port.ToolDefinition{
 		Type: "function",
-		Function: toolkit.ToolFunction{
+		Function: port.ToolFunction{
 			Name:        t.name,
 			Description: t.Description(),
 			Parameters:  map[string]interface{}{"type": "object", "properties": map[string]interface{}{}},
@@ -64,53 +61,6 @@ func (s *recStore) SaveCIODecision(decisionID, portfolioID, decision, reason, ri
 	return nil
 }
 
-// recLLM 记录调用的真实 llm.Client。
-type recLLM struct {
-	chatCalled    bool
-	embedCalled   bool
-	assistToolUse bool // 首轮返回 tool_call，随后返回决策（模拟 ReAct 收敛）
-}
-
-func (l *recLLM) Chat(_ context.Context, messages []llm.Message, tools []llm.Tool) (*llm.ChatResult, error) {
-	l.chatCalled = true
-	toolName := ""
-	if len(tools) > 0 {
-		toolName = tools[0].Function.Name
-	}
-	var choices interface{}
-	if !hasAssistantToolCall(messages) && toolName != "" {
-		l.assistToolUse = true
-		choices = []interface{}{map[string]interface{}{
-			"index": 0,
-			"message": map[string]interface{}{
-				"role": "assistant",
-				"tool_calls": []interface{}{map[string]interface{}{
-					"id": "r1", "type": "function",
-					"function": map[string]interface{}{"name": toolName, "arguments": `{"instrument_id":"600000"}`},
-				}},
-			},
-			"finish_reason": "tool_calls",
-		}}
-	} else {
-		choices = []interface{}{map[string]interface{}{
-			"index":         0,
-			"message":       map[string]interface{}{"role": "assistant", "content": `{"action":"BUY","summary":"真实LLM决策"}`},
-			"finish_reason": "stop",
-		}}
-	}
-	jb, _ := json.Marshal(map[string]interface{}{"id": "r", "model": "rec", "choices": choices})
-	var res llm.ChatResult
-	_ = json.Unmarshal(jb, &res)
-	return &res, nil
-}
-func (l *recLLM) StreamChat(ctx context.Context, messages []llm.Message, tools []llm.Tool) (*llm.StreamReader, error) {
-	return nil, nil
-}
-func (l *recLLM) Embedding(_ context.Context, text string) ([]float64, error) {
-	l.embedCalled = true
-	return []float64{1, 2, 3}, nil
-}
-
 // TestBindRealRoutesToReal 验证 BindReal 后各维度请求由真实实现兑现（非确定性兜底）。
 func TestBindRealRoutesToReal(t *testing.T) {
 	tool := &recTool{name: "get_positions"}
@@ -123,13 +73,9 @@ func TestBindRealRoutesToReal(t *testing.T) {
 		}
 		return ""
 	}
-	llmc := &recLLM{}
-
-	ag := agents.NewAgent("cio", agents.RoleCIO, nil, nil, nil)
-	ag.RegisterTool(tool)
 
 	host := &Host{}
-	host.BindReal(map[agents.AgentRole]*agents.Agent{agents.RoleCIO: ag}, store, ctxProvider, llmc)
+	host.BindReal([]port.ToolExecutor{tool}, store, ctxProvider)
 
 	// tool → 真实执行器被调用，且返回它的结果（含 "realm" 标记，非确定性 "status ok" note）
 	tr := host.HandleRequest("tool", `{"name":"get_positions","args":{"instrument_id":"600000"}}`)
@@ -170,16 +116,6 @@ func TestBindRealRoutesToReal(t *testing.T) {
 	if !ctxFlag {
 		t.Fatal("注入的 context provider 未被调用")
 	}
-
-	// llm embedding → 真实 llm 被调用
-	lr := host.HandleRequest("llm", `{"op":"embedding","text":"hello"}`)
-	var vec []float64
-	if err := json.Unmarshal([]byte(lr), &vec); err != nil || len(vec) != 3 {
-		t.Fatalf("真实 embedding 未被正确兑现: %v (%s)", vec, lr)
-	}
-	if !llmc.embedCalled {
-		t.Fatal("真实 llm.Embedding 未被调用")
-	}
 }
 
 // TestDeterministicFallback 验证未绑定真实实现时各维度仍走确定性兜底。
@@ -204,19 +140,15 @@ func TestDeterministicFallback(t *testing.T) {
 	}
 	// 第二次递增
 	host.HandleRequest("store", `{"op":"log_task_start","task_date":"d"}`)
-	if host.Counters()["tool_real"] != 0 || host.Counters()["store_real"] != 0 ||
-		host.Counters()["context_real"] != 0 || host.Counters()["llm_real"] != 0 {
+	if c := host.Counters(); c["tool_real"] != 0 || c["store_real"] != 0 || c["context_real"] != 0 {
 		t.Fatalf("确定性路径不应有 real 计数")
 	}
 }
 
-// TestBuildCatalogFromTeam 验证真实团队能生成 DLL catalog（role 小写 + 工具元数据）。
-func TestBuildCatalogFromTeam(t *testing.T) {
+// TestBuildCatalog 验证真实工具集合能生成 DLL catalog（role 小写 + 工具元数据）。
+func TestBuildCatalog(t *testing.T) {
 	tool := &recTool{name: "get_positions"}
-	ag := agents.NewAgent("cio", agents.RoleCIO, nil, nil, nil)
-	ag.RegisterTool(tool)
-	team := map[agents.AgentRole]*agents.Agent{agents.RoleCIO: ag}
-	catalog := BuildCatalogFromTeam(team)
+	catalog := BuildCatalog(map[string][]port.ToolExecutor{"cio": {tool}})
 	if len(catalog) != 1 {
 		t.Fatalf("期望 1 个角色目录, got %d", len(catalog))
 	}

@@ -3,9 +3,9 @@ package brainhost
 import (
 	"context"
 
-	"github.com/quantpilot/quantpilot/internal/brain/port"
 	"github.com/quantpilot/quantpilot/internal/data"
 	"github.com/quantpilot/quantpilot/internal/marketinfo"
+	"github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/thssdk"
 )
 

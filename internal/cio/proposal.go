@@ -22,11 +22,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
 	"github.com/quantpilot/quantpilot/internal/factors"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
+	sixdim "github.com/quantpilot/quantpilot/internal/marketsixdim"
+	agents "github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/portfolio"
-	"github.com/quantpilot/quantpilot/internal/brain/sixdim"
 )
 
 // rankByPreferred 在因子排序前优先提升 LLM 偏好的标的（仅影响候选排序，不绕过后续风控/可执行性门）。
@@ -103,7 +102,7 @@ func drawdownEvidence(ddPct float64, ddLevel string) string {
 }
 
 // riskEvidence 风控报告摘要
-func riskEvidence(r *agents.RiskReport) string {
+func riskEvidence(r *RiskReport) string {
 	if r == nil {
 		return "无"
 	}
@@ -204,7 +203,7 @@ func (c *CIOEngine) genDecisionProposal(ctx context.Context, proposalInput propo
 	ctx2, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
 
-	resp, err := c.agent.LLM.Chat(ctx2, []llm.Message{
+	resp, err := c.agent.LLM.Chat(ctx2, []agents.Message{
 		{Role: "system", Content: proposalSystemPrompt},
 		{Role: "user", Content: prompt},
 	}, nil)
@@ -304,7 +303,7 @@ func (c *CIOEngine) debateProposal(ctx context.Context, in proposalInput, prop *
 
 	ctx2, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	resp, err := c.agent.LLM.Chat(ctx2, []llm.Message{
+	resp, err := c.agent.LLM.Chat(ctx2, []agents.Message{
 		{Role: "system", Content: debateSystemPrompt},
 		{Role: "user", Content: prompt},
 	}, nil)
@@ -528,7 +527,7 @@ func (c *CIOEngine) challengeProposal(ctx context.Context, in proposalInput, pro
 
 	ctx2, cancel := context.WithTimeout(ctx, 60*time.Second)
 	defer cancel()
-	resp, err := c.agent.LLM.Chat(ctx2, []llm.Message{
+	resp, err := c.agent.LLM.Chat(ctx2, []agents.Message{
 		{Role: "system", Content: skepticSystemPrompt},
 		{Role: "user", Content: prompt},
 	}, nil)

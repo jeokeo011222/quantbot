@@ -7,7 +7,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
+	llm "github.com/quantpilot/quantpilot/internal/port"
 )
 
 // CallMeta 调用来源元信息（通过 context 从上层层层传递，用于标注角色/任务/阶段）
@@ -58,13 +58,13 @@ type Sink func(Record)
 
 // Client 包装原始 LLM 客户端，可开关地记录输入/输出内容
 type Client struct {
-	inner   llm.Client
+	inner   llm.LLMClient
 	enabled func() bool
 	sink    Sink
 }
 
 // NewClient 创建监控包装客户端
-func NewClient(inner llm.Client, enabled func() bool, sink Sink) *Client {
+func NewClient(inner llm.LLMClient, enabled func() bool, sink Sink) *Client {
 	return &Client{inner: inner, enabled: enabled, sink: sink}
 }
 

@@ -5,17 +5,18 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
-	"github.com/quantpilot/quantpilot/internal/brain/port"
-	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
+	"github.com/quantpilot/quantpilot/internal/brainhost"
 	"github.com/quantpilot/quantpilot/internal/config"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/tools"
+	"github.com/quantpilot/quantpilot/internal/toolworker"
 	"github.com/quantpilot/quantpilot/internal/transparency"
 )
 
@@ -81,12 +82,18 @@ func buildAgentContext(ctx context.Context, sqliteManager *data.SQLiteManager, d
 	return strings.Join(parts, "\n\n")
 }
 
+// OrchestratorBridge 编排桥：宿主侧仅暴露给上层（App）读取上下文构建器等公开能力。
+// DLL 隔离后进程内 agents.Orchestrator 已迁入 agent.dll，宿主仅保留此数据侧桥。
+type OrchestratorBridge struct {
+	ContextProvider port.ContextProvider
+}
+
 // QuantHarness 量化交易系统核心
 type QuantHarness struct {
 	configManager *config.ConfigManager
 	sqliteManager *data.SQLiteManager
 	duckdbManager *data.DuckDBManager
-	llmClient     llm.Client
+	llmClient     port.LLMClient
 	tracker       *transparency.Tracker
 
 	// TDX 数据服务管理器（支持多数据源）
@@ -101,33 +108,37 @@ type QuantHarness struct {
 	// 巨潮资讯网信息披露工具（中国证监会指定上市公司信息披露平台）
 	cninfoTool *tools.CninfoInfoTool
 
-	// 新架构：编排器
-	orchestrator *agents.Orchestrator
+	// 新架构：编排桥（仅数据/上下文能力；进程内决策已迁入 agent.dll）
+	orch *OrchestratorBridge
+
+	// 真实工具集合（按角色分组，供 BindReal / BuildCatalog 供给 agent.dll）
+	toolsByRole map[string][]port.ToolExecutor
+	store       port.Persistence
 
 	// 状态
 	mu               sync.RWMutex
 	running          bool
 	currentCycle     *DailyCycleResult
-	currentOrchCycle *agents.OrchestratorResult
+	currentOrchCycle *port.OrchestratorResult
 }
 
 // DailyCycleResult 每日运行结果
 type DailyCycleResult struct {
-	Date            string                          `json:"date"`
-	StartTime       time.Time                       `json:"start_time"`
-	EndTime         time.Time                       `json:"end_time"`
-	MarketView      interface{}                     `json:"market_view"`
-	AlphaSignals    interface{}                     `json:"alpha_signals"`
-	RiskAssessment  interface{}                     `json:"risk_assessment"`
-	PortfolioPlan   interface{}                     `json:"portfolio_plan"`
-	Decision        interface{}                     `json:"decision"`
-	RiskChecks      interface{}                     `json:"risk_checks"`
-	Executed        bool                            `json:"executed"`
-	Errors          []string                        `json:"errors"`
-	AgentSessions   map[string]*agents.SessionState `json:"agent_sessions"`
-	Trajectories    map[string]*agents.Trajectory   `json:"trajectories,omitempty"`
-	TokenUsage      agents.TokenUsage               `json:"token_usage,omitempty"`
-	UseOrchestrator bool                            `json:"use_orchestrator"`
+	Date            string                        `json:"date"`
+	StartTime       time.Time                     `json:"start_time"`
+	EndTime         time.Time                     `json:"end_time"`
+	MarketView      interface{}                   `json:"market_view"`
+	AlphaSignals    interface{}                   `json:"alpha_signals"`
+	RiskAssessment  interface{}                   `json:"risk_assessment"`
+	PortfolioPlan   interface{}                   `json:"portfolio_plan"`
+	Decision        interface{}                   `json:"decision"`
+	RiskChecks      interface{}                   `json:"risk_checks"`
+	Executed        bool                          `json:"executed"`
+	Errors          []string                      `json:"errors"`
+	AgentSessions   map[string]*port.SessionState `json:"agent_sessions"`
+	Trajectories    map[string]*port.Trajectory   `json:"trajectories,omitempty"`
+	TokenUsage      port.TokenUsage               `json:"token_usage,omitempty"`
+	UseOrchestrator bool                          `json:"use_orchestrator"`
 }
 
 // ProgressCallback 进度回调函数类型
@@ -138,7 +149,7 @@ type QuantHarnessOptions struct {
 	ConfigManager *config.ConfigManager
 	SQLiteManager *data.SQLiteManager
 	DuckDBManager *data.DuckDBManager
-	LLMClient     llm.Client
+	LLMClient     port.LLMClient
 }
 
 // NewQuantHarness 创建量化交易系统实例
@@ -162,14 +173,6 @@ func NewQuantHarness(opts ...QuantHarnessOptions) (*QuantHarness, error) {
 	}
 
 	cfg := configManager.GetConfig()
-
-	// 初始化 LLM 客户端（优先使用传入的）
-	var llmClient llm.Client
-	if opt.LLMClient != nil {
-		llmClient = opt.LLMClient
-	} else {
-		llmClient = llm.NewDeepSeekClient(cfg.AIAPIKey, cfg.AIBaseURL, cfg.AIModel)
-	}
 
 	// 初始化透明度追踪器
 	tracker := transparency.NewTracker()
@@ -234,110 +237,39 @@ func NewQuantHarness(opts ...QuantHarnessOptions) (*QuantHarness, error) {
 	// 创建通用工具（回测、组合优化、通用市场数据）
 	backtestTool := tools.NewBacktestTool(sqliteManager, duckdbManager)
 	portfolioTool := tools.NewPortfolioOptimizerTool(duckdbManager)
-	marketDataTool := tools.NewMarketDataTool(duckdbManager)
-	searchMarketTool := tools.NewSearchMarketTool(duckdbManager)
 
-	// ====== 创建编排器 ======
-	orchestrator := agents.NewOrchestrator(brainhost.NewPersistenceAdapter(sqliteManager), llmClient)
+	// ====== 装配真实工具（按角色分组，供给 agent.dll 决策脑） ======
+	adapt := func(t tools.Tool) port.ToolExecutor { return brainhost.AdaptTool(t) }
+
+	toolsByRole := map[string][]port.ToolExecutor{
+		"planner": {adapt(tdxMarketTool), adapt(cninfoTool)},
+		"quant":   {adapt(tdxDataTool), adapt(tdxSearchTool), adapt(backtestTool), adapt(cninfoTool)},
+		"risk":    {adapt(tdxDataTool), adapt(tdxMarketTool)},
+		"cio":     {adapt(tdxMarketTool), adapt(tdxCommonTool), adapt(portfolioTool), adapt(cninfoTool)},
+		"trader":  {adapt(tdxMarketTool)},
+	}
 
 	// 注入真实系统上下文构建器：为盘前分析 Agent 提供大盘行情摘要、组合快照、持仓明细等
 	// 真实数据（来自 DuckDB/SQLite），避免 LLM 反复调用工具取数，提升分析质量与响应速度。
-	orchestrator.ContextProvider = func(ctx context.Context, role string, date string) string {
-		return buildAgentContext(ctx, sqliteManager, duckdbManager, date)
+	orch := &OrchestratorBridge{
+		ContextProvider: func(ctx context.Context, role string, date string) string {
+			return buildAgentContext(ctx, sqliteManager, duckdbManager, date)
+		},
 	}
-
-	// 注册A股工具到工具注册表
-	agents.RegisterAShareTools(orchestrator.ToolReg,
-		brainhost.AdaptTool(tdxDataTool), brainhost.AdaptTool(tdxSearchTool), brainhost.AdaptTool(tdxMarketTool), brainhost.AdaptTool(tdxCommonTool),
-		brainhost.AdaptTool(backtestTool), brainhost.AdaptTool(portfolioTool), brainhost.AdaptTool(marketDataTool), brainhost.AdaptTool(searchMarketTool), brainhost.AdaptTool(cninfoTool))
-
-	// ====== 基于Skill创建各角色Agent ======
-
-	// PLANNER - 投资规划师
-	plannerTools := []port.ToolExecutor{brainhost.AdaptTool(tdxMarketTool), brainhost.AdaptTool(cninfoTool)}
-	plannerSkill := agents.NewAMarketSkill_MarketAnalysis(plannerTools)
-	plannerAgent := agents.NewBaseAgentWithRole("planner", agents.RolePlanner, "")
-	plannerAgent.SetLLMClient(llmClient)
-	plannerAgent.SetToolRegistry(orchestrator.ToolReg)
-	plannerAgent.LoadSkill(plannerSkill)
-	plannerAgent.SetMode(agents.ModePTC)
-	orchestrator.RegisterBaseAgent(plannerAgent)
-	orchestrator.RegisterAgent(agents.NewAgent("planner", agents.RolePlanner, brainhost.NewPersistenceAdapter(sqliteManager), llmClient, tracker))
-	if err := orchestrator.RegisterSkill(plannerSkill); err != nil {
-		log.Printf("[QuantBot] Skill register warning: %v", err)
-	}
-
-	// QUANT - 量化分析师
-	quantTools := []port.ToolExecutor{brainhost.AdaptTool(tdxDataTool), brainhost.AdaptTool(tdxSearchTool), brainhost.AdaptTool(backtestTool), brainhost.AdaptTool(cninfoTool)}
-	quantSkill := agents.NewAMarketSkill_Picker(quantTools)
-	quantAgent := agents.NewBaseAgentWithRole("quant", agents.RoleQuant, "")
-	quantAgent.SetLLMClient(llmClient)
-	quantAgent.SetToolRegistry(orchestrator.ToolReg)
-	quantAgent.LoadSkill(quantSkill)
-	quantAgent.SetMode(agents.ModePTC)
-	orchestrator.RegisterBaseAgent(quantAgent)
-	orchestrator.RegisterAgent(agents.NewAgent("quant", agents.RoleQuant, brainhost.NewPersistenceAdapter(sqliteManager), llmClient, tracker))
-	if err := orchestrator.RegisterSkill(quantSkill); err != nil {
-		log.Printf("[QuantBot] Skill register warning: %v", err)
-	}
-
-	// RISK - 风控师
-	riskTools := []port.ToolExecutor{brainhost.AdaptTool(tdxDataTool), brainhost.AdaptTool(tdxMarketTool)}
-	riskSkill := agents.NewAMarketSkill_Risk(riskTools)
-	riskAgent := agents.NewBaseAgentWithRole("risk", agents.RoleRisk, "")
-	riskAgent.SetLLMClient(llmClient)
-	riskAgent.SetToolRegistry(orchestrator.ToolReg)
-	riskAgent.LoadSkill(riskSkill)
-	riskAgent.SetMode(agents.ModePTC)
-	orchestrator.RegisterBaseAgent(riskAgent)
-	orchestrator.RegisterAgent(agents.NewAgent("risk", agents.RoleRisk, brainhost.NewPersistenceAdapter(sqliteManager), llmClient, tracker))
-	if err := orchestrator.RegisterSkill(riskSkill); err != nil {
-		log.Printf("[QuantBot] Skill register warning: %v", err)
-	}
-
-	// CIO - 首席投资官
-	cioTools := []port.ToolExecutor{brainhost.AdaptTool(tdxMarketTool), brainhost.AdaptTool(tdxCommonTool), brainhost.AdaptTool(portfolioTool), brainhost.AdaptTool(cninfoTool)}
-	cioSkill := agents.NewCIOSkill(cioTools)
-	cioAgent := agents.NewBaseAgentWithRole("cio", agents.RoleCIO, "")
-	cioAgent.SetLLMClient(llmClient)
-	cioAgent.SetToolRegistry(orchestrator.ToolReg)
-	cioAgent.LoadSkill(cioSkill)
-	cioAgent.SetMode(agents.ModePTC)
-	orchestrator.RegisterBaseAgent(cioAgent)
-	orchestrator.RegisterAgent(agents.NewAgent("cio", agents.RoleCIO, brainhost.NewPersistenceAdapter(sqliteManager), llmClient, tracker))
-	if err := orchestrator.RegisterSkill(cioSkill); err != nil {
-		log.Printf("[QuantBot] Skill register warning: %v", err)
-	}
-
-	// TRADER - 操盘手（仅使用市场统计工具，交易执行通过 place_trade 且需合法 DecisionObject）
-	traderTools := []port.ToolExecutor{brainhost.AdaptTool(tdxMarketTool)}
-	traderSkill := agents.NewAMarketSkill_Execution(traderTools)
-	traderAgent := agents.NewBaseAgentWithRole("trader", agents.RoleTrader, "")
-	traderAgent.SetLLMClient(llmClient)
-	traderAgent.SetToolRegistry(orchestrator.ToolReg)
-	traderAgent.LoadSkill(traderSkill)
-	traderAgent.SetMode(agents.ModeStandard)
-	orchestrator.RegisterBaseAgent(traderAgent)
-	orchestrator.RegisterAgent(agents.NewAgent("trader", agents.RoleTrader, brainhost.NewPersistenceAdapter(sqliteManager), llmClient, tracker))
-	if err := orchestrator.RegisterSkill(traderSkill); err != nil {
-		log.Printf("[QuantBot] Skill register warning: %v", err)
-	}
-
-	// 初始化工作流引擎
-	orchestrator.SetWorkflowEngine(nil)
 
 	return &QuantHarness{
 		configManager: configManager,
 		sqliteManager: sqliteManager,
 		duckdbManager: duckdbManager,
-		llmClient:     llmClient,
 		tracker:       tracker,
 		tdxManager:    tdxManager,
 		tdxDataTool:   tdxDataTool,
 		tdxSearchTool: tdxSearchTool,
 		tdxMarketTool: tdxMarketTool,
 		tdxCommonTool: tdxCommonTool,
-		orchestrator:  orchestrator,
+		orch:          orch,
+		toolsByRole:   toolsByRole,
+		store:         brainhost.NewPersistenceAdapter(sqliteManager),
 	}, nil
 }
 
@@ -346,7 +278,7 @@ func (h *QuantHarness) RunDailyCycle(ctx context.Context) (*DailyCycleResult, er
 	return h.RunDailyCycleWithMode(ctx, nil)
 }
 
-// RunDailyCycleWithMode 运行每日分析周期（使用编排器）
+// RunDailyCycleWithMode 运行每日分析周期（经 agent.dll 决策脑；无 DLL 时退化为降级结果）
 func (h *QuantHarness) RunDailyCycleWithMode(ctx context.Context, progressCB ProgressCallback) (*DailyCycleResult, error) {
 	return h.runWithOrchestrator(ctx, progressCB)
 }
@@ -362,7 +294,21 @@ func (p *progressAdapter) send(phase string, progress float64, message string) {
 	}
 }
 
-// runWithOrchestrator 使用编排器运行每日分析
+// dllPath 返回 agent.dll 路径（与 App 同规则：exe 同目录优先，回退 bin/agent.dll）。
+func (h *QuantHarness) dllPath() string {
+	if p := os.Getenv("QUANTBOT_DLL_PATH"); p != "" {
+		return p
+	}
+	if exe, err := os.Executable(); err == nil {
+		cand := filepath.Join(filepath.Dir(exe), "agent.dll")
+		if _, statErr := os.Stat(cand); statErr == nil {
+			return cand
+		}
+	}
+	return filepath.Join("bin", "agent.dll")
+}
+
+// runWithOrchestrator 经 agent.dll 决策脑运行每日分析周期。
 func (h *QuantHarness) runWithOrchestrator(ctx context.Context, progressCB ProgressCallback) (*DailyCycleResult, error) {
 	h.mu.Lock()
 	if h.running {
@@ -379,44 +325,108 @@ func (h *QuantHarness) runWithOrchestrator(ctx context.Context, progressCB Progr
 	}()
 
 	adapter := &progressAdapter{cb: progressCB}
-	adapter.send("init", 0.05, "初始化编排器...")
+	adapter.send("init", 0.05, "初始化 agent.dll 决策脑...")
 
-	orchResult, err := h.orchestrator.RunDailyCycle(ctx)
+	date := time.Now().Format("2006-01-02")
+
+	agent, err := toolworker.Load(h.dllPath())
 	if err != nil {
-		return nil, err
+		log.Printf("[QuantBot] agent.dll 加载失败（harness 降级）: %v", err)
+		return h.degradedResult(date, fmt.Sprintf("agent.dll 加载失败: %v", err)), nil
 	}
+	defer agent.Close()
 
-	result := &DailyCycleResult{
-		Date:            orchResult.Date,
-		StartTime:       orchResult.StartTime,
-		EndTime:         orchResult.EndTime,
-		Errors:          orchResult.Errors,
-		AgentSessions:   orchResult.Sessions,
-		Trajectories:    orchResult.Trajectories,
-		TokenUsage:      agents.TokenUsage{TotalTokens: orchResult.TotalTokens},
-		UseOrchestrator: true,
-	}
+	host := &toolworker.Host{}
+	host.BindReal(h.flattenRealTools(), h.store, h.orch.ContextProvider)
+	catalog := toolworker.BuildCatalog(h.toolsByRole)
 
-	// 映射编排器结果到标准字段
-	if s, ok := orchResult.Sessions["PLANNER"]; ok {
-		result.MarketView = s.Decision
+	adapter.send("dll_init", 0.15, fmt.Sprintf("经 agent.dll 决策脑启动（%d 角色目录）", len(catalog)))
+
+	// LLM：配置经 AgentInit 传入 DLL，由决策脑自建 llm.Client（不再经总线代理）。
+	cfg := h.configManager.GetConfig()
+	llmCfg := port.LLMConfig{
+		Provider: cfg.AIProvider,
+		APIKey:   cfg.AIAPIKey,
+		BaseURL:  cfg.AIBaseURL,
+		Model:    cfg.AIModel,
 	}
-	if s, ok := orchResult.Sessions["QUANT"]; ok {
-		result.AlphaSignals = s.Decision
+	orchResult, counters, err := toolworker.RunAgentCycle(agent, host, catalog, date, llmCfg, 4*time.Minute)
+	if err != nil {
+		log.Printf("[QuantBot] agent.dll 决策路径失败（harness 降级）: %v", err)
+		return h.degradedResult(date, fmt.Sprintf("agent.dll 决策失败: %v", err)), nil
 	}
-	if s, ok := orchResult.Sessions["RISK"]; ok {
-		result.RiskAssessment = s.Decision
-	}
-	if s, ok := orchResult.Sessions["CIO"]; ok {
-		result.Decision = s.Decision
-	}
-	result.PortfolioPlan = orchResult.Decision
+	log.Printf("[QuantBot] agent.dll 决策完成，宿主兑现统计: %v", counters)
+
+	result := h.mapOrchestratorResult(orchResult)
 
 	h.currentCycle = result
 	h.currentOrchCycle = orchResult
 
 	adapter.send("complete", 1.0, fmt.Sprintf("分析完成！耗时 %v", result.EndTime.Sub(result.StartTime)))
 	return result, nil
+}
+
+// flattenRealTools 收集全部真实工具为扁平列表供 Host.BindReal 建立 name→工具映射。
+func (h *QuantHarness) flattenRealTools() []port.ToolExecutor {
+	var out []port.ToolExecutor
+	seen := map[string]bool{}
+	for _, roleTools := range h.toolsByRole {
+		for _, t := range roleTools {
+			if t == nil {
+				continue
+			}
+			if seen[t.Name()] {
+				continue
+			}
+			seen[t.Name()] = true
+			out = append(out, t)
+		}
+	}
+	return out
+}
+
+// degradedResult 构造降级结果（决策脑不可用时保持 DailyCycleResult 形状）。
+func (h *QuantHarness) degradedResult(date, errMsg string) *DailyCycleResult {
+	result := &DailyCycleResult{
+		Date:            date,
+		StartTime:       time.Now(),
+		EndTime:         time.Now(),
+		Errors:          []string{errMsg},
+		AgentSessions:   map[string]*port.SessionState{},
+		Trajectories:    map[string]*port.Trajectory{},
+		UseOrchestrator: false,
+	}
+	h.currentCycle = result
+	return result
+}
+
+// mapOrchestratorResult 把 agent.dll 结果的 orchestrator 结果映射为与历史
+// runWithOrchestrator 同构的 DailyCycleResult，保持 UI 事件流与回退路径一致。
+func (h *QuantHarness) mapOrchestratorResult(r *port.OrchestratorResult) *DailyCycleResult {
+	result := &DailyCycleResult{
+		Date:            r.Date,
+		StartTime:       r.StartTime,
+		EndTime:         r.EndTime,
+		Errors:          r.Errors,
+		AgentSessions:   r.Sessions,
+		Trajectories:    r.Trajectories,
+		TokenUsage:      port.TokenUsage{TotalTokens: r.TotalTokens},
+		UseOrchestrator: true,
+	}
+	if s, ok := r.Sessions["PLANNER"]; ok {
+		result.MarketView = s.Decision
+	}
+	if s, ok := r.Sessions["QUANT"]; ok {
+		result.AlphaSignals = s.Decision
+	}
+	if s, ok := r.Sessions["RISK"]; ok {
+		result.RiskAssessment = s.Decision
+	}
+	if s, ok := r.Sessions["CIO"]; ok {
+		result.Decision = s.Decision
+	}
+	result.PortfolioPlan = r.Decision
+	return result
 }
 
 // GetCurrentCycle 获取当前周期结果
@@ -426,9 +436,9 @@ func (h *QuantHarness) GetCurrentCycle() *DailyCycleResult {
 	return h.currentCycle
 }
 
-// GetOrchestrator 获取编排器
-func (h *QuantHarness) GetOrchestrator() *agents.Orchestrator {
-	return h.orchestrator
+// GetOrchestrator 获取编排桥（仅承载 ContextProvider 等公开能力）。
+func (h *QuantHarness) GetOrchestrator() *OrchestratorBridge {
+	return h.orch
 }
 
 // GetTracker 获取透明度追踪器
@@ -466,7 +476,6 @@ func (h *QuantHarness) Close() {
 
 // UpdateDataProvider 更新数据源
 func (h *QuantHarness) UpdateDataProvider(provider string, cfg config.AppConfig) {
-	// 腾讯财经直接作为实时行情主源：不依赖 TDX，统一注册腾讯实时行情数据源
 	if provider == data.DataProviderTencentName {
 		tencent := tools.NewTencentMarketDataProvider()
 		data.SetDataSource(tencent)
@@ -479,7 +488,6 @@ func (h *QuantHarness) UpdateDataProvider(provider string, cfg config.AppConfig)
 		h.tdxManager.SetMCPConfig(cfg.MCPURL, cfg.MCPAPIKey)
 		log.Printf("[QuantBot] Data provider updated: %s", provider)
 
-		// 统一注册实时行情数据源（TDX），确保 data.GetDataSource() 返回当前选中源
 		tdxProvider := tools.NewTDXMarketDataProvider(h.tdxManager)
 		data.SetDataSource(tdxProvider)
 		log.Printf("[QuantBot] Global market data provider updated to: %s", provider)
@@ -513,19 +521,67 @@ func (h *QuantHarness) TestDataProvider() (map[string]interface{}, error) {
 	return testResult, nil
 }
 
-// GetSkills 获取所有已注册技能
-func (h *QuantHarness) GetSkills() []*agents.Skill {
-	return h.orchestrator.GetSkills()
+// GetSkills 获取所有已注册技能（DLL 决策脑内持有，宿主侧返回空集合）。
+func (h *QuantHarness) GetSkills() []*port.Skill {
+	return nil
 }
 
-// GetTrajectories 获取轨迹列表
-func (h *QuantHarness) GetTrajectories(limit int) []*agents.Trajectory {
-	return h.orchestrator.GetTrajectories(limit)
+// GetTrajectories 获取轨迹列表（最近一次 DLL 决策结果）。
+func (h *QuantHarness) GetTrajectories(limit int) []*port.Trajectory {
+	h.mu.RLock()
+	defer h.mu.RUnlock()
+	if h.currentOrchCycle == nil {
+		return nil
+	}
+	out := make([]*port.Trajectory, 0, len(h.currentOrchCycle.Trajectories))
+	for _, t := range h.currentOrchCycle.Trajectories {
+		out = append(out, t)
+	}
+	if limit > 0 && len(out) > limit {
+		out = out[:limit]
+	}
+	return out
 }
 
-// GetTrajectoryStats 获取轨迹统计
+// GetTrajectoryStats 获取轨迹统计。
 func (h *QuantHarness) GetTrajectoryStats() map[string]interface{} {
-	return h.orchestrator.GetTrajectoryStats()
+	h.mu.RLock()
+	defer h.mu.RUnlock()
+	stats := map[string]interface{}{
+		"total":         0,
+		"trajectories":  []*port.Trajectory{},
+		"byRole":        map[string]int{},
+		"byStatus":      map[string]int{},
+		"avgConfidence": 0.0,
+		"avgTokenUsage": 0.0,
+	}
+	if h.currentOrchCycle == nil {
+		return stats
+	}
+	trajectories := h.currentOrchCycle.Trajectories
+	stats["total"] = len(trajectories)
+	byRole := map[string]int{}
+	byStatus := map[string]int{}
+	var confSum, tokSum float64
+	var list []*port.Trajectory
+	for _, t := range trajectories {
+		if t == nil {
+			continue
+		}
+		list = append(list, t)
+		byRole[string(t.AgentRole)]++
+		byStatus[t.Status]++
+		confSum += t.Confidence
+		tokSum += float64(t.TokenUsage.TotalTokens)
+	}
+	stats["trajectories"] = list
+	stats["byRole"] = byRole
+	stats["byStatus"] = byStatus
+	if len(list) > 0 {
+		stats["avgConfidence"] = confSum / float64(len(list))
+		stats["avgTokenUsage"] = tokSum / float64(len(list))
+	}
+	return stats
 }
 
 // ConnectNativeTDX 连接 Go 原生 TDX 服务

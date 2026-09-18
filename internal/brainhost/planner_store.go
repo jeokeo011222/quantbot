@@ -4,13 +4,13 @@ import (
 	"errors"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/port"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/port"
 	"gorm.io/gorm"
 )
 
 // plannerStoreAdapter 将宿主 internal/data.SQLiteManager 适配为决策脑抽象 port.PlannerStore。
-// 内部做 data ↔ port 同名实体的字段双向映射，使决策脑（internal/brain/planner）不反向依赖宿主数据层。
+// 内部做 data ↔ port 同名实体的字段双向映射，使决策脑规划模块不反向依赖宿主数据层。
 type plannerStoreAdapter struct {
 	sm *data.SQLiteManager
 }

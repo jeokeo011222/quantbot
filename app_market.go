@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
-	"github.com/quantpilot/quantpilot/internal/brain/sixdim"
+	"github.com/quantpilot/quantpilot/internal/llmhost"
+	"github.com/quantpilot/quantpilot/internal/marketsixdim"
 	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
 	"github.com/quantpilot/quantpilot/internal/data"
 	"github.com/quantpilot/quantpilot/internal/version"

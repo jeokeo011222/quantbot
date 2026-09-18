@@ -1,18 +1,17 @@
 // Command dllrunner 是一个独立 e2e Runner：加载 agent.dll，走拉模式 RPC 总线，
-// 用宿主 handler 兑现工具/持久化/上下文/LLM，跑完一个每日决策周期并打印
-// 最终 decision 摘要与「宿主兑现了多少条请求」。
+// 用宿主 handler 兑现工具/持久化/上下文，跑完一个每日决策周期并打印
+// 最终 decision 摘要与「宿主兑现了多少条请求」。LLM 由 DLL 自持。
 //
 // 两种运行模式（由 -real 开关控制）：
 //
 //	默认（确定性兜底）: 不 BindReal，各维度由 Host 的确定性兜底兑现；
 //	                      无需 API key / 数据库即可离线跑通（验证拉模式总线 + DLL 内决策脑）。
 //	-real（真实绑定）:   BindReal 注入内存版真实实现（实现 port.ToolExecutor /
-//	                      port.Persistence / llm.Client / port.ContextProvider），
-//	                      验证「真实 handler 绑定」路径在 DLL 上端到端生效（tool/store/context/llm
+//	                      port.Persistence / port.ContextProvider），
+//	                      验证「真实 handler 绑定」路径在 DLL 上端到端生效（tool/store/context
 //	                      *_real 计数 > 0）。
 //
-// 本 runner 不 import 决策脑装配（不 import internal/harness、internal/brainhost 的
-// CreateDefaultTeam），只 import internal/toolworker 与决策脑窄抽象包，保证可离线自包含运行。
+// 本 runner 只依赖开源 internal/port 契约与 internal/toolworker，保证可离线自包含运行。
 package main
 
 import (
@@ -25,10 +24,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quantpilot/quantpilot/internal/brain/agents"
-	"github.com/quantpilot/quantpilot/internal/brain/llm"
-	"github.com/quantpilot/quantpilot/internal/brain/port"
-	"github.com/quantpilot/quantpilot/internal/brain/toolkit"
+	"github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/toolworker"
 )
 
@@ -101,7 +97,8 @@ func runDeterministicMode(agent *toolworker.Agent, date string) {
 	host := &toolworker.Host{}
 	fmt.Println("=== AgentInit + RunDailyCycle + 拉模式轮询（确定性兜底）===")
 
-	orchResult, counters, err := toolworker.RunAgentCycle(agent, host, deterministicCatalog(), date, 3*time.Minute)
+	// LLM 配置传空：DLL 按 ProviderDefaults 自建 llm.Client（dllrunner 离线验证不依赖真实 key）。
+	orchResult, counters, err := toolworker.RunAgentCycle(agent, host, deterministicCatalog(), date, port.LLMConfig{}, 3*time.Minute)
 	if err != nil {
 		log.Fatalf("DLL 每日周期失败: %v", err)
 	}
@@ -140,22 +137,26 @@ func deterministicCatalog() []map[string]interface{} {
 }
 
 // runRealMode 用内存版真实实现经 BindReal 绑定后跑完整周期，
-// 验证真实 handler 绑定路径（tool/store/context/llm *_real 计数）在 DLL 上生效。
+// 验证真实 handler 绑定路径（tool/store/context *_real 计数）在 DLL 上生效。
 func runRealMode(agent *toolworker.Agent, date string) {
 	store := newMemStore()
-	llmClient := newMemLLM()
 	ctxProvider := func(ctx context.Context, role, d string) string {
 		return fmt.Sprintf("【内存真实上下文】role=%s date=%s\n订阅行情、组合快照与持仓明细均为内存真实实现提供。", role, d)
 	}
 
-	team := buildMemTeam(store, llmClient)
-	catalog := toolworker.BuildCatalogFromTeam(team)
+	team := buildMemTeam()
+	var allTools []port.ToolExecutor
+	for _, tools := range team {
+		allTools = append(allTools, tools...)
+	}
+	catalog := toolworker.BuildCatalog(team)
 
 	host := &toolworker.Host{}
-	host.BindReal(team, store, ctxProvider, llmClient)
+	host.BindReal(allTools, store, ctxProvider)
 
 	fmt.Println("=== AgentInit + RunDailyCycle + 拉模式轮询（绑定内存真实实现）===")
-	orchResult, counters, err := toolworker.RunAgentCycle(agent, host, catalog, date, 3*time.Minute)
+	// LLM 配置传空：DLL 按 ProviderDefaults 自建 llm.Client（-real 模式同样不绑定 memLLM）。
+	orchResult, counters, err := toolworker.RunAgentCycle(agent, host, catalog, date, port.LLMConfig{}, 3*time.Minute)
 	if err != nil {
 		log.Fatalf("DLL 每日周期失败（真实绑定）: %v", err)
 	}
@@ -168,15 +169,15 @@ func runRealMode(agent *toolworker.Agent, date string) {
 	if counters["tool_real"] == 0 || counters["store_real"] == 0 || counters["context_real"] == 0 {
 		log.Fatal("真实绑定模式期望 tool/store/context 的 *_real 计数均 > 0，未满足")
 	}
-	fmt.Println("  → 真实绑定验证通过：DLL 内决策脑的 tool/store/context/llm 请求均由宿主侧真实实现兑现")
+	fmt.Println("  → 真实绑定验证通过：DLL 内决策脑的 tool/store/context 请求均由宿主侧真实实现兑现")
 }
 
 // printCounters 打印宿主兑现计数（含真实实现计数）。
 func printCounters(c map[string]int) {
-	fmt.Printf("=== 宿主兑现统计 ===\n  tool=%d store=%d context=%d llm=%d\n",
-		c["tool"], c["store"], c["context"], c["llm"])
-	fmt.Printf("  其中真实实现兑现: tool_real=%d store_real=%d context_real=%d llm_real=%d\n",
-		c["tool_real"], c["store_real"], c["context_real"], c["llm_real"])
+	fmt.Printf("=== 宿主兑现统计 ===\n  tool=%d store=%d context=%d\n",
+		c["tool"], c["store"], c["context"])
+	fmt.Printf("  其中真实实现兑现: tool_real=%d store_real=%d context_real=%d\n",
+		c["tool_real"], c["store_real"], c["context_real"])
 }
 
 // ---------------- 内存版真实实现 ----------------
@@ -229,17 +230,17 @@ func (m *memStore) SaveCIODecision(decisionID, portfolioID, decision, reason, ri
 	return nil
 }
 
-// memTool 内存版真实工具（实现 toolkit.ToolExecutor，供真实绑定模式证明 tool 维度走真实兑现）。
+// memTool 内存版真实工具（实现 port.ToolExecutor，供真实绑定模式证明 tool 维度走真实兑现）。
 type memTool struct {
 	name string
 }
 
 func (t *memTool) Name() string        { return t.name }
 func (t *memTool) Description() string { return "内存真实实现工具: " + t.name }
-func (t *memTool) GetDefinition() toolkit.ToolDefinition {
-	return toolkit.ToolDefinition{
+func (t *memTool) GetDefinition() port.ToolDefinition {
+	return port.ToolDefinition{
 		Type: "function",
-		Function: toolkit.ToolFunction{
+		Function: port.ToolFunction{
 			Name:        t.name,
 			Description: t.Description(),
 			Parameters:  map[string]interface{}{"type": "object", "properties": map[string]interface{}{}},
@@ -255,93 +256,24 @@ func (t *memTool) Execute(ctx context.Context, args map[string]interface{}) (int
 	}, nil
 }
 
-// buildMemTeam 构造内存版真实 Agent 团队（仅设置 BindReal/BuildCatalogFromTeam 所需的 Role 与 Tools）。
-func buildMemTeam(store port.Persistence, llmClient llm.Client) map[agents.AgentRole]*agents.Agent {
-	roleTools := map[agents.AgentRole][]string{
-		agents.RolePlanner: {"get_market_stats", "get_macro_snapshot"},
-		agents.RoleQuant:   {"get_market_stats", "get_positions"},
-		agents.RoleRisk:    {"get_portfolio_risk"},
-		agents.RoleCIO:     {"get_portfolio_state", "get_market_stats"},
-		agents.RoleTrader:  {"place_trade"},
+// buildMemTeam 按角色构造内存版真实工具集合（供 BuildCatalog / BindReal 使用）。
+func buildMemTeam() map[string][]port.ToolExecutor {
+	roleTools := map[string][]string{
+		"planner": {"get_market_stats", "get_macro_snapshot"},
+		"quant":   {"get_market_stats", "get_positions"},
+		"risk":    {"get_portfolio_risk"},
+		"cio":     {"get_portfolio_state", "get_market_stats"},
+		"trader":  {"place_trade"},
 	}
-	team := make(map[agents.AgentRole]*agents.Agent)
+	team := make(map[string][]port.ToolExecutor)
 	for role, names := range roleTools {
 		var tools []port.ToolExecutor
 		for _, n := range names {
 			tools = append(tools, &memTool{name: n})
 		}
-		team[role] = &agents.Agent{Role: role, Tools: tools}
+		team[role] = tools
 	}
 	return team
-}
-
-// memLLM 内存版真实 LLM 客户端（实现 llm.Client，驱动与确定性兜底一致的 ReAct 收敛）。
-type memLLM struct{}
-
-func newMemLLM() llm.Client { return &memLLM{} }
-
-func (c *memLLM) StreamChat(ctx context.Context, messages []llm.Message, tools []llm.Tool) (*llm.StreamReader, error) {
-	return nil, fmt.Errorf("内存真实 LLM 未实现流式")
-}
-
-func (c *memLLM) Embedding(ctx context.Context, text string) ([]float64, error) {
-	return []float64{0.5, 0.6, 0.7, 0.8}, nil
-}
-
-// Chat 首次（尚无 assistant tool_calls）请求调用 tools[0]；之后返回结构化决策，令 Agent 收尾。
-func (c *memLLM) Chat(ctx context.Context, messages []llm.Message, tools []llm.Tool) (*llm.ChatResult, error) {
-	var toolName string
-	if len(tools) > 0 {
-		toolName = tools[0].Function.Name
-	}
-
-	if !memHasToolCall(messages) && toolName != "" {
-		choice := map[string]interface{}{
-			"index": 0,
-			"message": map[string]interface{}{
-				"role": "assistant",
-				"tool_calls": []interface{}{map[string]interface{}{
-					"id": "call_mem_1", "type": "function",
-					"function": map[string]interface{}{"name": toolName, "arguments": "{}"},
-				}},
-			},
-			"finish_reason": "tool_calls",
-		}
-		return chatResultFromMap("mem-client", choice, 11), nil
-	}
-
-	finalContent, _ := json.Marshal(map[string]interface{}{
-		"action":  "HOLD",
-		"summary": "内存真实绑定下的决策（拉模式总线经真实 handler 兑现）。",
-		"reason":  "真实工具调用已由宿主兑现，决策脑按既定流程收敛。",
-	})
-	choice := map[string]interface{}{
-		"index":         0,
-		"message":       map[string]interface{}{"role": "assistant", "content": string(finalContent)},
-		"finish_reason": "stop",
-	}
-	return chatResultFromMap("mem-client", choice, 35), nil
-}
-
-func memHasToolCall(msgs []llm.Message) bool {
-	for _, m := range msgs {
-		if m.Role == "assistant" && len(m.ToolCalls) > 0 {
-			return true
-		}
-	}
-	return false
-}
-
-func chatResultFromMap(model string, choice map[string]interface{}, completion int) *llm.ChatResult {
-	raw, _ := json.Marshal(map[string]interface{}{
-		"id":      "chat-mem-1",
-		"model":   model,
-		"choices": []interface{}{choice},
-		"usage":   map[string]int{"prompt_tokens": 10, "completion_tokens": completion, "total_tokens": 10 + completion},
-	})
-	var res llm.ChatResult
-	_ = json.Unmarshal(raw, &res)
-	return &res
 }
 
 // pretty 将任意结果规范化输出。
