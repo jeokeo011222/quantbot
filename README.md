@@ -17,6 +17,10 @@
 
 > 下载 → 解压 → 运行 `QuantBot.exe` → 配置 API Key 即可开始。
 
+**🔧 [仅下载决策脑 agent.dll（从源码构建 exe 时使用）](https://github.com/jeokeo011222/quantbot/releases/download/v1.6.0/agent.dll)**
+
+> 源码仓库不含决策脑源码。从源码编译 exe 时，把 `agent.dll` 放到项目根 `bin/` 或 exe 同目录即可。接口与编译调用详见 [agent_dll_guide.md](agent_dll_guide.md)。
+
 <br>
 
 [![Go](https://img.shields.io/badge/Go-1.25-00ADD8?logo=go&logoColor=white)](https://go.dev)
