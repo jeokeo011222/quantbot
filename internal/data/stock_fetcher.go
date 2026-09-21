@@ -301,7 +301,10 @@ func parseTencentStockResponse(text string) []StockSnapshot {
 		high := safeFloat(fields, TENCENT_FIELD_HIGH)
 		low := safeFloat(fields, TENCENT_FIELD_LOW)
 		vol := safeFloat(fields, TENCENT_FIELD_VOLUME)
-		turnover := safeFloat(fields, TENCENT_FIELD_TURNOVER)
+		// 腾讯 qt.gtimg.cn 字段37 为当日成交额，单位为「万元」，需换算为「元」后
+		// 与持仓/下单的名义金额（元）统一，否则单位差 1e4 会把正常股票误判成薄盘
+		// （如：雅克科技日成交额 2.8 亿元被读成 28219 元 → 触发流动性拥挤拦截）。
+		turnover := safeFloat(fields, TENCENT_FIELD_TURNOVER) * 10000
 
 		if current <= 0 || prev <= 0 {
 			continue
