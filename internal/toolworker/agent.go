@@ -58,12 +58,12 @@ func Load(dllPath string) (*Agent, error) {
 	return a, nil
 }
 
-// Close 释放线程资源（不会真正卸载 DLL；宿主进程生命周期内复用）。
-func (a *Agent) Close() {
-	if a.dll != nil {
-		a.dll.Release()
-	}
-}
+// Close 退出决策脑 DLL 使用。注意：**不调用 dll.Release（FreeLibrary）**。
+// c-shared Go DLL 内仍有决策脑遗留的后台 goroutine（LLM/client/上下文等），
+// 若卸载 DLL，这些 goroutine 会执行已释放的代码空间 → 宿主进程随后触发
+// ACCESS_VIOLATION(0xC0000005) 闪退。故令 agent.dll 驻留本进程生命周期即可，
+// 由进程退出时系统统一回收，避免卸载竞态。
+func (a *Agent) Close() {}
 
 // call 调用一个 Proc，并把返回的 *C.char 转为 Go string（由 DLL 侧 AgentFree 释放）。
 func (a *Agent) call(proc *syscall.Proc, args ...uintptr) (string, error) {
