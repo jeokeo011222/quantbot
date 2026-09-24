@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>决定“下多少注”：仓位系数是怎么算出来的 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·决定“下多少注”：仓位系数是怎么算出来的">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch21.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html" class="current"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a><ul class="sub"><li><a href="#sec-21-1">21.1 同一条决策里，出现了两个数字</a></li><li><a href="#sec-21-2">21.2 发动机和限速牌，从来不吵架</a></li><li><a href="#sec-21-3">21.3 不装限速牌，会付出什么代价</a></li><li><a href="#sec-21-4">21.4 近似模型：乘一个系数；严谨版本：取一个最小值</a></li><li><a href="#sec-21-4-1">21.4.1 缩放本身：保方向、不放大敞口</a></li><li><a href="#sec-21-5">21.5 它在系统里长什么样</a></li><li><a href="#sec-21-5-1">21.5.1 硬闸门：该不该建仓，是另一个问题</a></li><li><a href="#sec-21-5-2">21.5.2 盘中：同一把标尺，只量不记账</a></li><li><a href="#sec-21-5-3">21.5.3 把 5 条真实记录摆出来</a></li><li><a href="#sec-21-5-4">21.5.4 前端怎么把这个数露出来</a></li><li><a href="#sec-21-6">21.6 常见误解与纠偏</a></li><li><a href="#sec-21-7">21.7 真实出处</a></li></ul></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch21"><span class="cnum">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</h1>
+
+
+
+
+
+<h2 id="sec-21-1"><span class="hnum">21.1</span>同一条决策里，出现了两个数字</h2>
+
+盘前 09:00，量化分析师把选股结果交上来：一只票因子分排第一，建议买入，预算 10 万元。10 万这个数字听起来很确定，它是按组合规模和单票上限算出来的。
+
+可那天 CIO 的日志里同时打印出另一串数字：总分 25.71（修正后 25.71），冲突数 5，仓位系数 0.06，标签「退潮风险」0.06<sup class="fn-ref"><a id="fnref-ch21-1" href="#fn-ch21-1">1</a></sup>。
+
+10 万，和 0.06。我一开始以为这是打折：0.06 就是打六折吧？六折是 0.6，不是 0.06。0.06 是百分之六。10 万乘以 0.06 等于 6000<sup class="fn-ref"><a id="fnref-ch21-2" href="#fn-ch21-2">2</a></sup> 元。
+
+更让我意外的是后面的结果：那天的成交记录里，连 6000 元这一笔都没有。订单根本没生成。
+
+同一周的另一个交易日，标签是「偏弱」、仓位系数 0.200.20<sup class="fn-ref"><a id="fnref-ch21-3" href="#fn-ch21-3">3</a></sup>，这一天闸门没关，10 万变成了 2 万元<sup class="fn-ref"><a id="fnref-ch21-4" href="#fn-ch21-4">4</a></sup>。
+
+<strong>同一个策略、同一个买入信号，最终的下单量在 0、2 万、6 千之间来回跳。</strong>这一章就是要回答这件事：到底是谁在决定“下多少注”。
+
+第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a> 章，我们把一天的市场压成一个 0 到 100 的分数；第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章，我们追清楚了这六个维度的数字从哪来。现在到了最后一公里——这个分数怎么落到下单量上。
+
+<h2 id="sec-21-2"><span class="hnum">21.2</span>发动机和限速牌，从来不吵架</h2>
+
+<div class="box intuition"><div class="boxbody">
+一辆车的速度由两样东西共同决定：发动机和限速牌。
+
+发动机决定“我<strong>能</strong>跑多快”，你把油门踩到底，它能给你 200。限速牌决定“我<strong>今天允许多快</strong>”，路口写着 60，你就只能跑 60。
+
+关键在于：限速牌<strong>从来不会让车变快</strong>。它只会让车变慢，或者什么也不管。你把发动机换成更强的，限速牌还是 60；你把限速牌从 60 换成 40，发动机再强也得慢下来。
+
+还有一层：这两套系统互不干扰。发动机不会因为看到限速牌就熄火，限速牌也不会因为发动机弱就自动放宽——它们各自独立生效，最后那个“实际速度”取的是两者中更保守的一个。
+
+策略就是发动机：它回答“这个机会值多少注”。六维判势就是限速牌：它回答“今天的市场允许你下多少注”。最后的下单量，取的是更保守的那个。
+</div></div>
+
+策略和判势是两件不同的事，我一开始把它们搅在一起，吃了不少苦头（这件事写在后面的纠偏里）。
+
+<h2 id="sec-21-3"><span class="hnum">21.3</span>不装限速牌，会付出什么代价</h2>
+
+先把“为什么需要”讲清楚，否则“仓位系数”听起来只是程序员多加的一个字段。
+
+<strong>代价一：全市场退潮的时候，你按满仓的力气下注。</strong>
+
+看两条真实记录。2026-09-10 那天，六维判势的技术趋势维度并不差，可市场广度与情绪两个维度同时低迷、彼此冲突，修正后总分 38.43，标签「退潮风险」38.43<sup class="fn-ref"><a id="fnref-ch21-5" href="#fn-ch21-5">5</a></sup>。第二天更差，修正后总分 25.71，标签还是「退潮风险」25.71<sup class="fn-ref"><a id="fnref-ch21-6" href="#fn-ch21-6">6</a></sup>（两天的逐项维度分已在第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章逐条核对）。
+
+这两天，市场自己给出的信号是“退潮”。如果没有限速牌，策略只要发出买入信号，系统就会按 10 万的尺度去建仓——等于在系统自己认定的危险期里把预算一次性押出去。
+
+<strong>代价二：你分不清“信号错了”还是“下注太多”。</strong>
+
+一个策略亏损有两种完全不同的解释：一种是信号本身在这种环境里失效，另一种是信号没错、只是这个环境不该下这么大的注。如果下单量只由策略决定，这两种情况在成交记录里长得一模一样，你永远查不清到底是哪一个。
+
+<strong>代价三：胜负被单一变量决定。</strong>
+
+策略是“什么时候买”，仓位是“买多少”。如果只有前者、没有后者，那么整个系统的收益就完全押在“信号准不准”这一件事上。而限速牌提供的是另一条独立的控制通道：<em>信号可以照发，下注量由市场环境来收缩。</em>
+
+<h2 id="sec-21-4"><span class="hnum">21.4</span>近似模型：乘一个系数；严谨版本：取一个最小值</h2>
+
+<strong>先给一个差不多对的模型。</strong>最省事的做法是“乘一个系数”：
+
+<div class="math-scroll" id="eq:ch21-naive">\[\text{信号仓位}=\text{原始信号仓位}\times \posrate{} . \tag{21.1}\]</div>
+
+这就是系统里 <code class="code">scaleOrdersByPositionRate</code> 那个函数干的事，也是这一章最核心的一句话。\(r_{\mathrm{pos}}\) 越接近 1，限量越松；越接近 0，限量越紧。
+
+<strong>但这个近似在哪里失效？</strong>乘法的缺点是：它<strong>永远乘不到 0</strong>。只要系数是 0.06，10 万还是能买 6 千；系数是 0.01，10 万还是能买 1 千。可“今天根本不该建仓”这件事，用乘法表达不出来——乘法没有“关机”的那一档。
+
+所以严谨版本有两层：
+
+<ul><li><strong>软缩放</strong>：在允许建仓的日子里，用系数把买入量按比例缩小（式 <a class="xref" href="ch21.html#eq:ch21-naive">21.1</a>）；
+  </li><li><strong>硬闸门</strong>：在系统判定“不该建仓”的日子里，<strong>直接不生成买入订单</strong>，而不是把它缩成一个很小的数。
+</li></ul>
+
+这两层的分界线，是本章最有意思的地方，因为它正好是一次真实翻车后补上的（见纠偏一）。
+
+现在把软缩放那层写成严格的数学。生效仓位不是“乘一个数”，而是“在好几个来源里取最小值”。
+
+<div class="thm definition" id="ass:ch21-domain"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">21.1</span>（门控四个输入的取值域）</div>
+本章讨论的四个来源各自归一化到 \([0,1]\)：
+<ol><li>规则门 \(r_0\in[0,1]\)，就是六维判势给出的仓位系数 \(r_{\mathrm{pos}}\)；
+  </li><li>主张 \(a\in[0,1]\)、异议 \(d\in[0,1]\)，二者在进入最小值之前先被夹到 \([0.2,1.0]\)；
+  </li><li>Kelly 缩放系数 \(\kelly\in[0.4,1]\)，它的界由 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 给出，本章先引用；
+  </li><li>任一来源缺失时，把该项<strong>从最小值里移除</strong>，而<strong>不是</strong>填一个默认值。
+</li></ol>
+</div>
+
+<div class="thm plain" id="lem:ch21-min"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">21.2</span>（min 与 clamp 的两个技术性质）</div>
+(i) 对一组固定常数 \(y_1,\dots,y_m\)，映射
+<div class="math-scroll">\[x\longmapsto \min\{x,y_1,\dots,y_m\} \tag{21.2}\]</div>
+关于 \(x\) 非减；并且对任意两组实数，
+<div class="math-scroll" id="eq:ch21-minlip">\[\abs{\min_k x_k-\min_k y_k}\ \le\ \max_k \abs{x_k-y_k}. \tag{21.3}\]</div>
+(ii) 夹取函数 \(\clamp(x,0.2,1.0)=\min\{1,\max\{0.2,x\}\}\) 关于 \(x\) 非减、连续、且是 1-Lipschitz 的；它的值域恰好是闭区间 \([0.2,1.0]\)。
+</div>
+
+这个引理在说什么：\(\min\) 的动作是“就低不就高”，\(\clamp\) 的动作是“卡在下限与上限之间”。两个动作都不可能把数字<strong>抬上去</strong>——这就是整章“只降不升”的机械原理。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i) 非减性。</em>设 \(x\le x'\)。对任意 \(k\)，\(\min\{x,y_k\}\le\min\{x',y_k\}\)，取 \(k\) 上的最小值仍保持不等号，故映射非减。
+
+<em>(i) Lipschitz 界 <a class="xref" href="ch21.html#eq:ch21-minlip">式 (21.3)</a>。</em>记 \(X=\min_k x_k\)、\(Y=\min_k y_k\)，不妨设 \(X\le Y\)（另一情形把 \(x,y\) 互换即可）。设下标 \(j\) 使 \(x_j=X\)。由 \(Y\) 是 \(\{y_k\}\) 的最小值，有 \(Y\le y_j\)；而 \(y_j\le x_j+\abs{x_j-y_j}=X+\abs{x_j-y_j}\le X+\max_k\abs{x_k-y_k}\)。于是 \(\abs{X-Y}=Y-X\le\max_k\abs{x_k-y_k}\)。
+
+<em>(ii) 夹取函数。</em>\(x\mapsto\max\{0.2,x\}\) 是“下界截断”：它非减、连续，且是 1-Lipschitz 的（改变 \(x\) 一单位，输出改变不超过一单位）。\(u\mapsto\min\{1,u\}\) 是“上界截断”，同理非减、连续、1-Lipschitz。两个非减 Lipschitz 函数的复合仍非减、Lipschitz 常数为其常数之积 \(1\cdot1=1\)，且连续。
+
+值域：\(\max\{0.2,x\}\ge0.2\)，故 \(\clamp\ge0.2\)；又 \(\min\{1,\cdot\}\le1\)，故 \(\clamp\le1\)。两端都能取到（\(x\le0.2\) 时输出 \(0.2\)；\(x\ge1\) 时输出 \(1\)），所以值域恰为 \([0.2,1.0]\)。
+</div>
+
+<div class="thm plain" id="thm:ch21-gate"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">21.3</span>（min 门控的“只降不升”）</div>
+在假设 <a class="xref" href="ch21.html#ass:ch21-domain">21.1</a> 下，定义<strong>生效仓位</strong>
+<div class="math-scroll" id="eq:ch21-effective">\[r^\star=\min\bigl\{\,r_0,\ \clamp(a,0.2,1.0),\ \clamp(d,0.2,1.0),\ \kelly\,\bigr\}. \tag{21.4}\]</div>
+则：
+<ol><li><strong>不放大性</strong>：恒有 \(r^\star\le r_0\)；
+  </li><li><strong>逐源单调性</strong>：\(r^\star\) 关于 \(r_0\)、\(a\)、\(d\)、\(\kelly\) 每一个自变量分别<strong>非减</strong>；并且关于 \(\kelly\) 与两个夹取输入是连续的；
+  </li><li><strong>有界性</strong>：\(r^\star\in[0,1]\)；特别地，当四个来源都齐备时 \(r^\star\ge\min\{r_0,\,0.2\}\)；
+  </li><li><strong>缺项的单调性</strong>：记可用来源集合为 \(S\)、相应结果为 \(r^\star_S\)，若 \(S'\subseteq S\)，则 \(r^\star_{S'}\ge r^\star_S\)。
+</li></ol>
+</div>
+
+这个定理在说什么，我翻译成一句人话：<strong>任何一个来源都只能把仓位往下按，没有任何一个来源有资格把它往上抬。</strong>某一路意见转好了，仓位最多是“不那么低”，绝不会因为别人变好而反过来变小；某一路数据缺失了，仓位只会“不减”，系统不会偷偷帮它补一票假票。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(a)</em> 最小值不超过它所比较的任何一个数。把 \(r_0\) 看作被取最小值的成员之一，由 <a class="xref" href="ch21.html#lem:ch21-min">引理 21.2</a>(i)（令 \(x=r_0\)、其余三项为常数）即得 \(r^\star\le r_0\)。
+
+<em>(b) 单调性。</em>把 <a class="xref" href="ch21.html#eq:ch21-effective">式 (21.4)</a> 看成四个输入的函数。对 \(r_0\)：直接由 <a class="xref" href="ch21.html#lem:ch21-min">引理 21.2</a>(i) 得到非减。对 \(a\)：\(\clamp(\cdot,0.2,1.0)\) 由 <a class="xref" href="ch21.html#lem:ch21-min">引理 21.2</a>(ii) 非减，再经 \(\min\)（<a class="xref" href="ch21.html#lem:ch21-min">引理 21.2</a>(i)）复合，非减；\(d\) 同理。对 \(\kelly\)：\(\kelly\mapsto\min\{c_1,c_2,c_3,\kelly\}\)（\(c_i\) 为其余三项）是 \(x\mapsto\min\{x,\text{常数}\}\) 的形式，非减。
+
+<em>(b) 连续性。</em> \(\clamp(\cdot,0.2,1.0)\) 连续（<a class="xref" href="ch21.html#lem:ch21-min">引理 21.2</a>(ii)）；\(\min\) 是有限个连续函数的最小值，连续。于是 \(r^\star\) 作为 \((a,d,\kelly)\) 的函数是连续函数的复合，连续。此外由 <a class="xref" href="ch21.html#eq:ch21-minlip">式 (21.3)</a> 与 <a class="xref" href="ch21.html#lem:ch21-min">引理 21.2</a>(ii) 的 1-Lipschitz 性，\(r^\star\) 关于每一个自变量都是 1-Lipschitz 的——比“连续”更强：任何一路意见变动一小步，生效仓位的变化不会超过同样大小。
+
+<em>(c) 有界性。</em>由假设 <a class="xref" href="ch21.html#ass:ch21-domain">21.1</a>，四项分别落在 \([0,1]\)、\([0.2,1]\)、\([0.2,1]\)、\([0.4,1]\)，都是 \([0,1]\) 的子集。有限多个 \([0,1]\) 内元素的最小值仍落在 \([0,1]\) 内，故 \(r^\star\in[0,1]\)。
+
+下界：后三项分别满足 \(\clamp(a,\cdot)\ge0.2\)、\(\clamp(d,\cdot)\ge0.2\)、\(\kelly\ge0.4\)。对最小值有
+<div class="math-scroll">\[r^\star=\min\{r_0,\ \ge0.2,\ \ge0.2,\ \ge0.4\}\ \ge\ \min\{r_0,0.2,0.2,0.4\}=\min\{r_0,0.2\}. \tag{21.5}\]</div>
+
+<em>(d) 缺项。</em>删掉一个来源，等于从被取最小值的那个有限集合里去掉一个元素。集合 \(T'\) 是 \(T\) 的子集时，\(T'\) 的最小值不小于 \(T\) 的最小值——因为 \(T\) 里多出来的那些元素只会把最小值“拉得更低或持平”。所以 \(S'\subseteq S\Rightarrow r^\star_{S'}\ge r^\star_S\)。
+</div>
+
+这个定理有一个立刻能用的推论，它解释了系统的“硬回退”为什么安全。
+
+<div class="thm plain" id="cor:ch21-floor"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">21.4</span>（谁有资格把仓位压到两折以下）</div>
+在假设 <a class="xref" href="ch21.html#ass:ch21-domain">21.1</a> 下：
+<ol><li>若 LLM 主张层失效（未配置、超时、解析失败），系统退回到 \(S'=\{r_0\}\)，此时 \(r^\star_{S'}=r_0\ge r^\star\)。也就是说，<strong>主张层缺席只会让仓位变大或持平，绝不会更小</strong>——这是一个安全的降级方向；
+  </li><li>若 \(r_0\ge0.2\)，则 \(r^\star\ge0.2\)。主张与异议各自的下界 \(0.2\) 是“LLM 最多只能把仓位砍到两折”的硬底；
+  </li><li>因此，<strong>只有规则门 \(r_0\) 有资格把生效仓位压到 \(0.2\) 以下</strong>，也只有它有资格把仓位压到建仓闸门的那条线（\(0.15\)）之下。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>(a) 由定理 <a class="xref" href="ch21.html#thm:ch21-gate">21.3</a>(d)，取 \(S'=\{r_0\}\subseteq S\) 得 \(r^\star_{S'}\ge r^\star_S\)；而单个来源的最小值就是它本身，\(r^\star_{S'}=r_0\)。
+
+(b) 由定理 <a class="xref" href="ch21.html#thm:ch21-gate">21.3</a>(c) 的 \(r^\star\ge\min\{r_0,0.2\}\)，在 \(r_0\ge0.2\) 时右端等于 \(0.2\)。
+
+(c) 由 (b)：只要 \(r_0\ge0.2\)，无论主张、异议、Kelly 怎么低，\(r^\star\) 都不低于 \(0.2\)。所以要出现 \(r^\star&lt;0.2\)，必要条件就是 \(r_0&lt;0.2\)，即只能由规则门造成。
+</div>
+
+这条推论的工程含义很实在：<strong>别指望 LLM 帮你把关机键。</strong>它最多按到两折，真正的“关机”必须由规则门和闸门完成。
+
+<h3 id="sec-21-4-1"><span class="hnum">21.4.1</span>缩放本身：保方向、不放大敞口</h3>
+
+定理 <a class="xref" href="ch21.html#thm:ch21-gate">21.3</a> 管的是“系数怎么算出来”。还有一个问题：把系数乘到订单上，会不会改变交易的方向？会不会把风险放大？下面这个定理回答它。
+
+先把缩放写清楚。策略生成一批买入订单 \(\{(q_i,p_i)\}_{i=1}^{n}\)，\(q_i&gt;0\) 是数量（股）、\(p_i&gt;0\) 是价格。按 A 股的整手规则，缩放后的数量向下取整到 100 股：
+
+<div class="math-scroll" id="eq:ch21-lot">\[q_i'(r)=100\left\lfloor \frac{q_i\,r}{100}\right\rfloor,\qquad r\in(0,1). \tag{21.6}\]</div>
+
+<div class="thm plain" id="thm:ch21-scale"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">21.5</span>（缩放保方向与敞口单调）</div>
+设 \(r\in(0,1)\)，\(\{(q_i,p_i)\}\) 为一组买入订单。则：
+<ol><li><strong>方向不变</strong>：\(q_i'(r)\ge0\)，缩放的符号永远非负，绝不会把买入翻成卖出；且 \(q_i'(r)\le q_i\)，单笔数量不被放大；
+  </li><li><strong>敞口单调</strong>：组合的名义敞口
+  <div class="math-scroll" id="eq:ch21-notional">\[N(r)=\sum_{i=1}^{n}p_i\,q_i'(r) \tag{21.7}\]</div>
+  关于 \(r\) 非减：\(0&lt;r_1\le r_2&lt;1\Rightarrow N(r_1)\le N(r_2)\)；
+  </li><li><strong>总敞口不放大</strong>：\(N(r)\le\sum_{i=1}^{n}p_i\,q_i\)。
+</li></ol>
+</div>
+
+这个定理在说什么：<strong>缩放只能把“买多买少”往下调，调不动“买还是卖”这个方向，也永远不会让总敞口超过原样下单。</strong>它就是限速牌的定义——限速牌不能给车加油门。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(a)</em> 因为 \(q_i&gt;0\)、\(r&gt;0\)，有 \(q_i r&gt;0\)，故 \(\big\lfloor q_i r/100\big\rfloor\ge0\)，于是 \(q_i'(r)=100\big\lfloor q_i r/100\big\rfloor\ge0\)：符号非负，方向不变。
+
+不放大：\(\big\lfloor q_i r/100\big\rfloor\le q_i r/100\)，两边乘 \(100\) 得 \(q_i'(r)\le q_i r\)；又 \(r&lt;1\)，故 \(q_i'(r)\le q_i r&lt;q_i\)。
+
+顺带一个边界：若 \(q_i r&lt;100\)，则 \(q_i'(r)=0\)——整手取整会让过小的订单直接退化为“不成交”。这不是 bug，是 A 股整手买卖的必然结果（第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章会专门讲整手）。
+
+<em>(b)</em> 设 \(r_1\le r_2\)。因为 \(q_i&gt;0\)，有 \(q_i r_1\le q_i r_2\)；除以正数 \(100\) 后不等号不变，再取整（\(\lfloor\cdot\rfloor\) 非减）得 \(\big\lfloor q_i r_1/100\big\rfloor\le\big\lfloor q_i r_2/100\big\rfloor\)；乘正数 \(100\)、再乘正数 \(p_i\)，每一项都满足 \(p_i q_i'(r_1)\le p_i q_i'(r_2)\)。对 \(i\) 求和，\(N(r_1)\le N(r_2)\)。
+
+（这一步只能是“非减”而不是“严格增”：取整是阶梯函数，在同一个台阶内 \(r\) 变大而 \(N\) 不变。）
+
+<em>(c)</em> 由 (a) 的 \(q_i'(r)\le q_i\) 逐项成立，乘以 \(p_i&gt;0\) 后在 \(i\) 上求和，即得 \(N(r)\le\sum_i p_i q_i\)。
+</div>
+
+定理 <a class="xref" href="ch21.html#thm:ch21-scale">21.5</a> 只在“只对买入订单做缩放”的前提下成立。卖出订单根本不在这个映射的定义域里——这件不对称的事，值得单独说（见纠偏三）。
+
+<h2 id="sec-21-5"><span class="hnum">21.5</span>它在系统里长什么样</h2>
+
+先看那句核心代码。它短到有点不像话。
+
+<figure class="listing" id="{lst:ch21-scale}"><figcaption><span class="lbl">代码 21.1</span>按仓位系数缩放买入订单（节选，<code class="sysfile">internal/cio/cio.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// scaleOrdersByPositionRate 按六维判势仓位系数缩放买入订单（仅 BUY）：</span></span>
+<span class="cl"><span class="com">// 策略信号仓位 = 原始信号仓位 × position_rate，卖出订单不受影响。rate&gt;=1 时原样返回。</span></span>
+<span class="cl"><span class="kw">func</span> scaleOrdersByPositionRate(orders []agents.OrderIntent, rate <span class="kw">float64</span>) []agents.OrderIntent {</span>
+<span class="cl">    <span class="kw">if</span> rate &lt;= 0 || rate &gt;= 1 {</span>
+<span class="cl">        <span class="kw">return</span> orders</span>
+<span class="cl">    }</span>
+<span class="cl">    scaled := make([]agents.OrderIntent, 0, len(orders))</span>
+<span class="cl">    <span class="kw">for</span> _, o := <span class="kw">range</span> orders {</span>
+<span class="cl">        <span class="kw">if</span> o.Side == <span class="str">&quot;BUY&quot;</span> {</span>
+<span class="cl">            o.MaxNotional  = math.Round(o.MaxNotional*rate*100) / 100</span>
+<span class="cl">            o.TargetWeight = math.Round(o.TargetWeight*rate*10000) / 10000</span>
+<span class="cl">            o.Reason += fmt.Sprintf(<span class="str">&quot;（六维判势×%.2f）&quot;</span>, rate)</span>
+<span class="cl">        }</span>
+<span class="cl">        scaled = append(scaled, o)</span>
+<span class="cl">    }</span>
+<span class="cl">    <span class="kw">return</span> scaled</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：遍历订单列表，<strong>只看</strong> <code class="code">Side == "BUY"</code> 的那几笔，把它们的 <code class="field">MaxNotional</code>（最大名义金额）和 <code class="field">TargetWeight</code>（目标权重）各乘一次 <code class="code">rate</code>，并在下单理由后面追加一行“（六维判势×0.20）”，方便事后追溯。卖出订单原样放进结果列表，一个字段都没动。
+
+两个工程细节值得停一下：一是缩放发生在<strong>金额</strong>和<strong>权重</strong>两个字段上，而不是数量字段——数量由后面的整手归一化决定；二是 <code class="code">rate &lt;= 0 || rate &gt;= 1</code> 时直接返回原列表，即“不缩放”。<code class="code">rate &gt;= 1</code> 时不缩放是对的（限速牌高于发动机的能力，不干预）；<code class="code">rate = 0</code> 时不缩放则有风险，所以系统<strong>不靠这个函数</strong>来阻止建仓——靠的是下面那扇硬闸门系统源码 <code class="sysfile">internal/cio/cio.go</code> 的行 1024--1038。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-7" href="#fn-ch21-7">7</a></sup>。
+
+<h3 id="sec-21-5-1"><span class="hnum">21.5.1</span>硬闸门：该不该建仓，是另一个问题</h3>
+
+<figure class="listing" id="{lst:ch21-gate}"><figcaption><span class="lbl">代码 21.2</span>六维判势硬阻断建仓（节选，<code class="sysfile">internal/cio/cio.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 六维判势硬阻断建仓（修复：暂停建仓门控）：</span></span>
+<span class="cl"><span class="com">// 当六维判势给出&quot;退潮风险&quot;或仓位系数极低（&lt;= 0.15）时，判定为&quot;强制暂停建仓&quot;，</span></span>
+<span class="cl"><span class="com">// 直接禁止一切新建仓/加仓（BUY 不生成），但卖出/减仓/止损/调仓不受影响。</span></span>
+<span class="cl">buildBlocked := sixDim != <span class="kw">nil</span> &amp;&amp; (sixDim.MarketTag == <span class="str">&quot;退潮风险&quot;</span> || sixDim.PositionRate &lt;= 0.15)</span></code></pre></figure>
+
+判据只有一行：标签是「退潮风险」，<strong>或者</strong>仓位系数不大于 <code class="code">0.15</code>系统源码 <code class="sysfile">internal/cio/cio.go</code> 的行 1123--1131。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-8" href="#fn-ch21-8">8</a></sup>。一旦命中，<code class="code">buildBlocked</code> 为真，后面所有生成买入订单的分支（建仓、加仓、调仓、防守布局）都被这同一个开关挡住——卖出、减仓、止损、调仓则完全不受影响。
+
+这就是本章开头那天的故事：\(r_{\mathrm{pos}}\)=0.06，命中 <code class="code">0.06 &lt;= 0.15</code>，闸门关闭，10 万那笔订单根本不会生成。所谓“连 6 千都没买成”，来源就是这一行。
+
+<h3 id="sec-21-5-2"><span class="hnum">21.5.2</span>盘中：同一把标尺，只量不记账</h3>
+
+盘前判势会落库，盘中则不一样。交易时段内，调度器周期性调用 <code class="code">MonitorIntradayInvestmentPlan</code>，它<strong>复用</strong>同一次判势，但把落库关掉：
+
+<figure class="listing" id="{lst:ch21-intraday}"><figcaption><span class="lbl">代码 21.3</span>盘中复用判势与告警（节选，<code class="sysfile">internal/cio/cio.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 六维判势（盘中复用，不落库以免覆盖盘前记录）</span></span>
+<span class="cl">sixDim := c.sixDimReport(ctx, false)</span>
+<span class="cl"><span class="kw">if</span> sixDim != <span class="kw">nil</span> {</span>
+<span class="cl">    <span class="kw">if</span> sixDim.PositionRate &lt; 0.2 || sixDim.MarketTag == <span class="str">&quot;退潮风险&quot;</span> {</span>
+<span class="cl">        marketWeak = true</span>
+<span class="cl">        c.addActivity(<span class="str">&quot;CIO&quot;</span>, <span class="str">&quot;SIXDIM_ALERT&quot;</span>,</span>
+<span class="cl">            fmt.Sprintf(<span class="str">&quot;六维判势告警：市场标签「%s」，仓位系数%.2f，建议降低风险敞口、暂缓建仓&quot;</span>,</span>
+<span class="cl">                sixDim.MarketTag, sixDim.PositionRate), sixdimPayload)</span>
+<span class="cl">    }</span>
+<span class="cl">}</span></code></pre></figure>
+
+盘中的阈值是 <code class="code">PositionRate &lt; 0.2</code> 或标签含「退潮」，一旦命中就记一条 <code class="code">SIXDIM_ALERT</code> 告警并转入观望系统源码 <code class="sysfile">internal/cio/cio.go</code> 的行 3925--3940；盘前落库的入口在同文件行 1119 的 <code class="code">c.sixDimReport(ctx, true)</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-9" href="#fn-ch21-9">9</a></sup>。不落库的理由很直接：盘前那条记录是当天的“正式判势”，盘中再写一次会把它覆盖掉，事后复盘就看不到盘前那一刻真实的判断了。
+
+盘前闸门用的是 <code class="code">0.15</code>、盘中告警用的是 <code class="code">0.2</code>，这两个数不一样。我把它照实写在这里（见后面的工程注记）。
+
+<h3 id="sec-21-5-3"><span class="hnum">21.5.3</span>把 5 条真实记录摆出来</h3>
+
+系统库里 <code class="dbtab">market_sixdim_daily</code> 表当时共有 5 条真实记录。把判势结果和缩放结果并排放，这一章的全部机制一眼可见。
+
+<figure class="tbl" id="tab:ch21-records"><div class="tbl-scroll"><table><caption><span class="lbl">表 21.1</span>5 条真实六维判势记录：总分 \(\to\) 仓位系数 \(\to\) 建仓闸门</caption><tbody><tr><td><strong>交易日</strong></td><td class="num"><strong>修正后总分</strong></td><td class="num"><strong>仓位系数</strong></td><td><strong>市场标签</strong></td><td class="num"><strong>10 万订单缩放后</strong></td><td class="num"><strong>是否被闸门拦下</strong></td></tr><tr class="rule"><td colspan="6"></td></tr><tr><td>2026-08-31</td><td class="num">52.30</td><td class="num">0.80</td><td>结构性震荡</td><td class="num">8.00 万</td><td class="num">否</td></tr><tr><td>2026-09-02</td><td class="num">41.82</td><td class="num">0.21</td><td>偏弱</td><td class="num">2.10 万</td><td class="num">否</td></tr><tr><td>2026-09-09</td><td class="num">40.40</td><td class="num">0.20</td><td>偏弱</td><td class="num">2.00 万</td><td class="num">否</td></tr><tr><td>2026-09-10</td><td class="num">38.43</td><td class="num">0.10</td><td>退潮风险</td><td class="num">0（禁止买入）</td><td class="num">是</td></tr><tr><td>2026-09-11</td><td class="num">25.71</td><td class="num">0.06</td><td>退潮风险</td><td class="num">0（禁止买入）</td><td class="num">是</td></tr><tr class="rule"><td colspan="6"></td></tr></tbody></table></div><p class="tabnote">“10 万订单缩放后”一列为本书按系统公式（买入金额 \(\times\) 仓位系数；命中闸门时为 0）在真实系数上的复算；“是否被闸门拦下”依据 <code class="code">MarketTag=="退潮风险" || PositionRate&lt;=0.15</code>。</p>
+<p class="tabsrc">前四列取自系统 <code class="sysfile">data/stock.duckdb</code> 的 <code class="dbtab">market_sixdim_daily</code> 表（真实数据，共 5 条，核对时间 2026-09-24）；后两列为本书按系统实现同公式复算。</p></figure>
+
+表里能看到两件事。第一，缩放是连续可调的：52.30 分给 0.80，41.82 分给 0.21，系数随分数滑。（第一行那个 0.80 是早期版本的记录，与当前 <code class="code">ScoreToPosition</code> 公式给 52.30 分的 0.26<sup class="fn-ref"><a id="fnref-ch21-10" href="#fn-ch21-10">10</a></sup> 不一致，详见第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章的纠偏。）第二，闸门是<strong>离散</strong>的：0.10 和 0.06 这两天，缩放公式本来会给出 1 万和 6 千，但闸门把它们一起变成了 0。
+
+<h3 id="sec-21-5-4"><span class="hnum">21.5.4</span>前端怎么把这个数露出来</h3>
+
+CIO 页面有一张【市场六维判势】卡片。它调用 <code class="code">GetMarketSixDimReports(limit)</code>，参数 <code class="code">limit</code> 默认 7、上限 30系统源码 <code class="sysfile">app_market.go</code> 的行 661--666：<code class="code">limit &lt;= 0</code> 置为 7，<code class="code">limit &gt; 30</code> 置为 30。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-11" href="#fn-ch21-11">11</a></sup>。CIO 页实际传的是 <code class="code">GetMarketSixDimReports(7)</code>，也就是看最近 7 个交易日的判势前端源码 <code class="sysfile">ui/src/pages/CIO.tsx</code> 的行 478。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-12" href="#fn-ch21-12">12</a></sup>。接口侧还有一层 30 秒的短缓存，避免页面反复刷新时反复查库系统源码 <code class="sysfile">app_market.go</code> 的行 628--704：<code class="code">sixDimReportsCache</code> 与 <code class="code">expireAt</code> 组成 30 秒 TTL。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-13" href="#fn-ch21-13">13</a></sup>。
+
+判势结果还会随决策一起持久化：盘中与盘前构造的 <code class="code">CIODecision</code> 都带一个 <code class="field">SixDim</code> 字段，保存的是同一次判势的摘要（总分、修正分、冲突数、仓位系数、标签、来源），所以事后复盘时，“那天为什么只买这么点”能在决策记录里直接找到原文结构体字段 <code class="sysfile">internal/port/agent.go</code> 行 176 的 <code class="code">SixDim interface{}</code>；赋值见 <code class="sysfile">internal/cio/cio.go</code> 行 1121 与行 3982。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-14" href="#fn-ch21-14">14</a></sup>。
+
+<div class="thm remark" id="rem:ch21-threshold"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">21.6</span>（一条我照实写下来的阈值不一致）</div>
+盘前的建仓闸门用的是 <code class="code">PositionRate &lt;= 0.15</code>，盘中的告警用的是 <code class="code">PositionRate &lt; 0.2</code>。这两个数不一样。
+
+它们的任务也不同：盘前 <code class="code">0.15</code> 是<strong>硬阻断</strong>（不生成买入订单），盘中 <code class="code">0.2</code> 是<strong>告警并观望</strong>。于是中间那一段 \([0.15,0.2)\) 会出现一种状态：盘前允许买、盘中却会告警。我没有把它抹平成同一个数，因为<strong>两个阈值服务两个不同动作</strong>——这跟第 <a class="xref" href="ch16.html#ch:ch16">第十六章</a> 章里“接口统一、实现对不齐”的故事属于同一类问题。
+</div>
+
+<h2 id="sec-21-6"><span class="hnum">21.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是我在系统里真实修过的一个 bug，值得完整讲一遍。
+
+最初的实现只有 <code class="code">scaleOrdersByPositionRate</code>。逻辑听着很顺：判势说退潮，我就把订单乘一个小系数，缩小不就行了？
+
+问题在于乘法乘不到 0。判势给 <code class="code">0.06</code> 的时候，那笔买入还是会按原预算的 6%<sup class="fn-ref"><a id="fnref-ch21-15" href="#fn-ch21-15">15</a></sup> 落地；系数再低一点，还是会落地，只是更小。<strong>系统一边告警“退潮风险、建议暂缓建仓”，一边照样建仓</strong>——只不过下注小了一点。这就是源码注释里写的“越权路径”系统源码 <code class="sysfile">internal/cio/cio.go</code> 行 1126：注释原文为“彻底修复‘六维判势已提示退潮/暂停，却仍通过 scaleOrdersByPositionRate 仅缩小仓位、照常建仓’的越权路径”。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-16" href="#fn-ch21-16">16</a></sup>。
+
+补上 <code class="code">buildBlocked</code> 之后，机制才闭环：<strong>软缩放负责“买少一点”，硬闸门负责“今天不买”。</strong>一个管比例，一个管开关；两者不能互相替代。表 <a class="xref" href="ch21.html#tab:ch21-records">21.1</a> 里 0.10 和 0.06 那两天的“0”，是闸门给的，不是缩放给的。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“选股决定买什么，判势决定买多少”——这两件事经常被合成一句话说：“今天市场不好，所以不买。”
+
+听起来对，其实把两个模块混成了一个。市场不好，不等于没有值得买的股票；判势判的是<strong>环境</strong>，不是<strong>标的</strong>。这两件事的正确分工是：
+
+<ul><li>选股（第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a> 章之前那一整套因子与筛选）在几千只票里挑出“买什么”，它给出的是<strong>标的与相对排序</strong>；
+  </li><li>判势（第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a>、<a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章）给整个市场打一个分，它给出的是<strong>当天的仓位尺度</strong>；
+  </li><li>仓位系数把两者接起来：好标的照挑，但今天统一下注小一点；环境太差时，连下注都不允许。
+</li></ul>
+
+混在一起的后果很具体：你会以为“市场不好”这句话已经把选股结果也否掉了，于是不再去看选股输出；或者反过来，你以为选出了好票就一定要买满。分开之后，系统里“选股一条链、判势一条链、缩放在中间”的结构才立得起来——表 <a class="xref" href="ch21.html#tab:ch21-records">21.1</a> 里同一个“10 万订单”，只在“下多少注”这一栏上不同表 <a class="xref" href="ch21.html#tab:ch21-records">21.1</a> 的修正后总分、仓位系数与标签三项取自 <code class="dbtab">market_sixdim_daily</code>，真实数据，核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-17" href="#fn-ch21-17">17</a></sup>。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+读完 代码 21.1 的第一反应通常是这个：凭什么只缩放买入，卖出不动？
+
+因为它<strong>本来就不该对称</strong>。买入和卖出在风险上的地位完全不同：
+
+<strong>买入是增加风险敞口</strong>。你判断错了，损失是“新加进去的那部分”乘上后面的跌幅。
+<strong>卖出是减少风险敞口</strong>。你判断错了，代价只是“少赚”或者“卖早了”，而不是“多亏”。
+
+所以在市场环境转差的时候，唯一需要收紧的方向是买入；卖出方向反而应该尽量放行。这条不对称设计在系统里出现了不止一处：六维判势的硬闸门只拦买入系统源码 <code class="sysfile">internal/cio/cio.go</code> 行 1124--1125 的注释：“直接禁止一切新建仓/加仓（BUY 不生成），但卖出/减仓/止损/调仓不受影响。”核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-18" href="#fn-ch21-18">18</a></sup>；盘中的六维保护与早盘保护同样“只拦截买入/新建仓/加仓，策略卖出/回撤熔断等离场风控不受影响”系统源码 <code class="sysfile">internal/cio/cio.go</code> 行 3944--3945 的注释。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch21-19" href="#fn-ch21-19">19</a></sup>；策略驱动的减仓更是明确“优先于市场状态机，且不受六维仓位系数缩放影响”。<strong>离场永远比进场更该被放行</strong>——这条原则，第 <a class="xref" href="ch22.html#ch:ch22">第二十二章</a> 章讲三层风控时还会再遇到一次。
+</div></div>
+
+<h2 id="sec-21-7"><span class="hnum">21.7</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>缩放函数 <code class="code">scaleOrdersByPositionRate</code>（只缩放 BUY 的 <code class="field">MaxNotional</code> 与 <code class="field">TargetWeight</code>）：<code class="sysfile">internal/cio/cio.go</code> 行 1024--1038
+  </li><li>生效仓位 <code class="code">Effective = min(ruleRate, clamp(主张,0.2,1.0), clamp(异议,0.2,1.0), KellyScale)</code> 与主张层：<code class="sysfile">internal/cio/proposal.go</code>；调用点 <code class="sysfile">internal/cio/cio.go</code> 行 1283
+  </li><li>建仓硬闸门 <code class="code">buildBlocked</code>（<code class="code">退潮风险</code> 或 <code class="code">PositionRate&lt;=0.15</code>）：<code class="sysfile">internal/cio/cio.go</code> 行 1123--1131、行 1223/1231/1262 的买入分支
+  </li><li>盘中复用判势与 <code class="code">SIXDIM_ALERT</code>（<code class="code">PositionRate&lt;0.2</code> 或 <code class="code">退潮风险</code>）：<code class="sysfile">internal/cio/cio.go</code> 行 3925--3952；入口 <code class="code">MonitorIntradayInvestmentPlan</code> 行 3849
+  </li><li>判势落库与读取：<code class="sysfile">internal/marketsixdim/persist.go</code> 的 <code class="code">LatestReports</code>、<code class="code">SaveReport</code>；表 <code class="dbtab">market_sixdim_daily</code>
+  </li><li>生效仓位持久化：<code class="code">CIODecision.SixDim</code>，字段定义 <code class="sysfile">internal/port/agent.go</code> 行 176，赋值 <code class="sysfile">internal/cio/cio.go</code> 行 1121、行 3982
+  </li><li>前端接口与卡片：<code class="code">GetMarketSixDimReports(limit)</code>（默认 7、上限 30）<code class="sysfile">app_market.go</code> 行 648--707；CIO 页调用 <code class="sysfile">ui/src/pages/CIO.tsx</code> 行 478
+  </li><li>分数到系数的映射 <code class="code">ScoreToPosition</code>（修正后分数 \(\to\) 仓位系数 + 标签）：<code class="sysfile">internal/marketsixdim/sixdim.go</code> 行 221--237
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（二十分钟）</div><div class="boxbody">
+<ol><li>手算一次门控。取 \(r_0=0.6\)、主张 \(a=0.9\)、异议 \(d=0.4\)、\(\kelly=0.78\)，按 <a class="xref" href="ch21.html#eq:ch21-effective">式 (21.4)</a> 算 \(r^\star=\min\{0.6,\ \clamp(0.9,0.2,1.0),\ \clamp(0.4,0.2,1.0),\ 0.78\}\)。答案应当是 \(0.4\)。再留意一件事：就算你把异议 \(d\) 从 \(0.4\) 一路提到 \(0.9\)，\(r^\star\) 也只是从 \(0.4\) 升到 \(0.6\)——永远不会超过规则门 \(0.6\)。这就是定理 <a class="xref" href="ch21.html#thm:ch21-gate">21.3</a>(a)。
+  </li><li>核对“只缩放买入”。打开 <code class="sysfile">internal/cio/cio.go</code>，在 <code class="code">scaleOrdersByPositionRate</code> 里找到 <code class="code">if o.Side == "BUY"</code> 这一行。把 <code class="code">SELL</code> 的订单从头到尾看一遍，你会确认它除了被追加进结果列表，一个字段都没被改动。
+  </li><li>亲手算一遍表 <a class="xref" href="ch21.html#tab:ch21-records">21.1</a>。挑 2026-09-02 那天：10 万 \(\times\) 0.21 \(=\) 2.10 万；再挑 2026-09-10：10 万 \(\times\) 0.10 \(=\) 1 万，但标签是「退潮风险」，按闸门判据 <code class="code">MarketTag=="退潮风险" || PositionRate&lt;=0.15</code> 应当拦下，结果是 0。两笔对不上，说明你对闸门的理解还差一点。
+  </li><li>在系统里看六维卡片。打开 CIO 页，找到【市场六维判势】卡片，它显示的是最近 7 个交易日的判势。把卡片上的仓位系数和标签，跟本章表 <a class="xref" href="ch21.html#tab:ch21-records">21.1</a> 的 5 条记录对一遍。
+  </li><li>验证“缺数据即少投票”。在源码里搜 <code class="code">Effective = ruleRate</code>，找到主张层失败时的硬回退分支。按推论 <a class="xref" href="ch21.html#cor:ch21-floor">21.4</a>(a)，这个回退是“不减”的：它只会让仓位变大或持平，绝不变小。
+</li></ol>
+</div></div>
+
+到这一步，一整套“今天能不能下注、下多少注”的链路就通了：选股决定买什么，判势决定允许多快，min 门控保证没有任何一路意见能把仓位抬上去，硬闸门保证环境太差时干脆不下注。
+
+可是还有一个问题悬在半空。这套机制全建立在“判断是对的”这个前提上——万一判势错了呢？万一买进去以后行情反向呢？
+
+<strong>风控不是一堵墙，是三层走廊。</strong>下一章就来讲，当判断本身出错时，系统靠什么兜底。
+</article>
+<nav class="pager"><a class="prev" href="ch20.html"><span class="dir">上一页</span>第二十章 今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a><a class="next" href="ch22.html"><span class="dir">下一页</span>第二十二章 风控不是一堵墙，是三层走廊</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch21-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch21-1">↩</a></li><li id="fn-ch21-2"><strong>复算数据</strong> 该数字为本书按系统实现中的同一公式、在系统的真实数据上重新计算所得；公式出处已在正文标注。 <a class="fn-back" href="#fnref-ch21-2">↩</a></li><li id="fn-ch21-3"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch21-3">↩</a></li><li id="fn-ch21-4"><strong>复算数据</strong> 该数字为本书按系统实现中的同一公式、在系统的真实数据上重新计算所得；公式出处已在正文标注。 <a class="fn-back" href="#fnref-ch21-4">↩</a></li><li id="fn-ch21-5"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch21-5">↩</a></li><li id="fn-ch21-6"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch21-6">↩</a></li><li id="fn-ch21-7"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的行 1024--1038。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-7">↩</a></li><li id="fn-ch21-8"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的行 1123--1131。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-8">↩</a></li><li id="fn-ch21-9"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的行 3925--3940；盘前落库的入口在同文件行 1119 的 <code class="code">c.sixDimReport(ctx, true)</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-9">↩</a></li><li id="fn-ch21-10"><strong>复算数据</strong> 该数字为本书按系统实现中的同一公式、在系统的真实数据上重新计算所得；公式出处已在正文标注。 <a class="fn-back" href="#fnref-ch21-10">↩</a></li><li id="fn-ch21-11"><strong>数据来源</strong> 系统源码 <code class="sysfile">app_market.go</code> 的行 661--666：<code class="code">limit &lt;= 0</code> 置为 7，<code class="code">limit &gt; 30</code> 置为 30。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-11">↩</a></li><li id="fn-ch21-12"><strong>数据来源</strong> 前端源码 <code class="sysfile">ui/src/pages/CIO.tsx</code> 的行 478。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-12">↩</a></li><li id="fn-ch21-13"><strong>数据来源</strong> 系统源码 <code class="sysfile">app_market.go</code> 的行 628--704：<code class="code">sixDimReportsCache</code> 与 <code class="code">expireAt</code> 组成 30 秒 TTL。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-13">↩</a></li><li id="fn-ch21-14"><strong>数据来源</strong> 结构体字段 <code class="sysfile">internal/port/agent.go</code> 行 176 的 <code class="code">SixDim interface{}</code>；赋值见 <code class="sysfile">internal/cio/cio.go</code> 行 1121 与行 3982。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-14">↩</a></li><li id="fn-ch21-15"><strong>复算数据</strong> 该数字为本书按系统实现中的同一公式、在系统的真实数据上重新计算所得；公式出处已在正文标注。 <a class="fn-back" href="#fnref-ch21-15">↩</a></li><li id="fn-ch21-16"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 行 1126：注释原文为“彻底修复‘六维判势已提示退潮/暂停，却仍通过 scaleOrdersByPositionRate 仅缩小仓位、照常建仓’的越权路径”。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-16">↩</a></li><li id="fn-ch21-17"><strong>数据来源</strong> 表 <a class="xref" href="ch21.html#tab:ch21-records">21.1</a> 的修正后总分、仓位系数与标签三项取自 <code class="dbtab">market_sixdim_daily</code>，真实数据，核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-17">↩</a></li><li id="fn-ch21-18"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 行 1124--1125 的注释：“直接禁止一切新建仓/加仓（BUY 不生成），但卖出/减仓/止损/调仓不受影响。”核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-18">↩</a></li><li id="fn-ch21-19"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 行 3944--3945 的注释。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch21-19">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

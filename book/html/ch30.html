@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>研究与调参：选股、策略、回测、每日策略 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·研究与调参：选股、策略、回测、每日策略">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch30.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html" class="current"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a><ul class="sub"><li><a href="#sec-30-1">30.1 我想自己动手改点东西</a></li><li><a href="#sec-30-2">30.2 实验室里的旋钮</a></li><li><a href="#sec-30-3">30.3 第一档：选股引擎（立刻出读数）</a></li><li><a href="#sec-30-4">30.4 第二档：策略管理与指标刷新（几分钟）</a></li><li><a href="#sec-30-5">30.5 第三档：回测与网格扫描（几十分钟）</a></li><li><a href="#sec-30-6">30.6 第四档：每日策略（每天一次）</a></li></ul></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch30"><span class="cnum">第三十章</span>研究与调参：选股、策略、回测、每日策略</h1>
+
+
+
+
+
+<h2 id="sec-30-1"><span class="hnum">30.1</span>我想自己动手改点东西</h2>
+
+用了两周之后，我开始不满足了。
+
+系统自己挑的股票没什么大毛病，可我总觉得“价值”那一项权重给得太轻——我是一个偏保守的人，更愿意为便宜和稳健付钱，而不是为势头付钱。
+
+问题在于：<strong>我该从哪儿下手？</strong>
+
+页面上的输入框有十几个：策略模板、市场范围、因子权重、策略参数、回测区间……它们看起来都差不多，改起来都一样容易。可它们有一个巨大的区别，这个区别第一次用的人完全看不出来：
+
+<strong>有的旋钮，你动一下，五秒钟后就能看到读数变了；有的旋钮，你动一下，四十分钟后才知道结果。</strong>
+
+如果不管这个区别，你就会不自觉得只去拧那些反馈快的旋钮——而它们恰恰不是最重要的那些。
+
+<h2 id="sec-30-2"><span class="hnum">30.2</span>实验室里的旋钮</h2>
+
+<div class="box intuition"><div class="boxbody">
+实验室里有一排旋钮。有的连着示波器，你一拧，屏幕上的波形立刻变；有的连着恒温箱，你一拧，要等二十分钟箱内温度才稳定下来。
+
+有经验的人调试设备时有一个固定习惯：<strong>先拧那个立刻能看到读数的。</strong>
+
+不是为了省时间，而是因为<strong>它的因果关系是清楚的</strong>。你拧了一格，波形动了，你就知道这个旋钮管什么。而恒温箱那个旋钮，你二十分钟后才看到结果，中间可能已经有别的东西变了——你没法确定是旋钮起作用了，还是恰好天气凉了。
+
+调参最怕的就是这个：<strong>你改了三样东西，结果变好了，你不知道是哪一样起了作用。</strong>
+</div></div>
+
+所以本章按“反馈速度”把旋钮分成三档，从快到慢。
+
+<h2 id="sec-30-3"><span class="hnum">30.3</span>第一档：选股引擎（立刻出读数）</h2>
+
+进“选股”页，最上面是三个<strong>策略模板</strong>：
+
+<figure class="tbl" id="tab:ch30-templates"><div class="tbl-scroll"><table><caption><span class="lbl">表 30.1</span>三种选股模板</caption><tbody><tr><td><strong>模板</strong></td><td><strong>代码名</strong></td><td><strong>它偏向什么</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>均衡</td><td><code class="code">balanced</code></td><td>六因子按默认权重配，不特别偏</td></tr><tr><td>防御</td><td><code class="code">defensive</code></td><td>更看重质量、低波动、盈利稳定</td></tr><tr><td>成长</td><td><code class="code">growth</code></td><td>更看重动量、盈利增长</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabsrc">系统事实清单第 9 节；系统源码 <code class="sysfile">internal/screener/smart_composer.go</code> 的智能组合因子模型与三种模板；核对时间 2026-09-24。</p></figure>
+
+模板选中之后，下面有两个输入区：<strong>市场范围</strong>和<strong>因子权重</strong>。
+
+因子面板上有六个因子（外加盘口），每个后面跟一个权重输入框。你可以把权重改成任何值——页面会用公式的形式把它渲染出来，形如
+
+<div class="math-scroll">\[\text{Score} \;=\; 30\%\times\text{价值}+20\%\times\text{质量}+15\%\times\text{动量}+\cdots \tag{30.1}\]</div>
+
+改完之后点“开始选股”，结果列表就出来了。这是<strong>反馈最快的一档</strong>：你不必等回测，几秒钟就能看到名次怎么变。
+
+<div class="box keybox"><div class="boxtitle">关于自定义权重的一条硬约束</div><div class="boxbody">
+自定义权重会先过一道校验（<code class="code">ValidateCustomWeights</code>），不合法就不放行。<br>
+
+这一道校验防的不是“算错”，而是<strong>“算出来但不可解释”</strong>——比如权重之和不为一、出现了负权重、或者某一项被写成 \(0\) 却仍在公式里占位。因为这些情况下的分数仍然能算出来，只是它不再是一张可以被读懂的排行榜了。
+</div></div>
+
+结果列表支持分页，点开任意一只股票可以看到它八个因子的分数条（一个因子一条进度条），另外还有一块 <strong>AI 评分拆解</strong>，把利好因子和风险因子分两栏列出来。
+
+<div class="box pitfall"><div class="boxbody">
+“我把权重调到让历史排名最靠前的那一组，就是最优权重。”
+
+不是。自定义权重是<strong>表达你的观点</strong>的地方，不是优化器的输入。
+
+这两件事的区别很具体：如果你按“历史表现最好”去找权重，那么你找到的是<strong>在历史上最好</strong>的权重——它精确地记住了这段时间里哪些因子有效，而下一段时期，因子有效性会轮换（第 <a class="xref" href="ch14.html#ch:ch14">第十四章</a> 章讲的因子衰减就是这个）。
+
+正确用法是这样的：<strong>先写下你的理由，再调数字。</strong>比如“我本金小、承受回撤能力弱，所以我把低波动和质量的权重调高、动量的权重调低”。这个理由是可以在三个月后拿出来复核的——如果它错了，你知道该改的是理由，不是数字。
+
+系统里其实已经给了你三个“带着理由”的模板（均衡、防御、成长）。除非你有额外的理由，否则<strong>用模板比调数字更安全</strong>。
+</div></div>
+
+选股引擎的操作界面是一段三步流程。
+
+<figure class="fig" id="fig:ch30-screener"><img class="shot" style="width:100%" src="assets/ui/ui-screener.png" alt=""><figcaption><span class="lbl">图 30.1</span>选股引擎：三步流程与三个策略模板（每个模板下方写着它真实的加权公式）</figcaption></figure>
+
+<h2 id="sec-30-4"><span class="hnum">30.4</span>第二档：策略管理与指标刷新（几分钟）</h2>
+
+“策略管理”页是一张表格，每行一条策略，列出：夏普、最大回撤、胜率。行尾有启用/停止的切换按钮；页面顶部有一个“刷新”按钮。
+
+这里要讲清楚一件容易混淆的事：<strong>这个“刷新”不是在重新读数据库，而是在真的跑一遍回测。</strong>
+
+<figure class="listing" id="{lst:ch30-refresh}"><figcaption><span class="lbl">代码 30.1</span>策略指标刷新按钮的真实行为（节选自 <code class="sysfile">ui/src/pages/Strategies.tsx</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 刷新：触发后台真实回测刷新指标（而非仅重读 DB），</span></span>
+<span class="cl"><span class="com">// 紧接着重拉列表展示最新值</span></span></code></pre></figure>
+
+这段话在说什么：点一下“刷新”，后台会启动一次<strong>样本池回测</strong>（第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章讲的那套：优先取当前持仓为样本池、每样本 \(1500\) 根 K 线、有界 worker 池并行、胜率按所有样本的已平仓交易聚合），跑完之后把夏普、最大回撤、总收益、胜率、换手这几个数写回策略表。所以：
+
+<ul><li>它是<strong>慢</strong>的，因为真的在算；
+  </li><li>它是<strong>会被自动执行</strong>的——每天盘后系统会自己刷一次；
+  </li><li>它和“回测页”用同一套撮合与成本口径，所以两边数字应当一致。
+</li></ul>
+
+为什么不让它每次打开页面就算一遍？因为那会让页面卡住。这也是事故 #10 的教训：早期版本回测要跑约 \(2\) 小时，根因是<strong>约 420 万次逐根 K 线的财报查询</strong>——其中绝大多数是无意义查询。修复方式是<strong>条件注入</strong>：只有策略实现了”需要财务数据“这个接口、且声明确实需要时，才去查财报。
+
+<div class="box keybox"><div class="boxtitle">从事故 #10 学到的一条工程判断</div><div class="boxbody">
+“慢”几乎从来不是数量问题，而是<strong>“不该算的算了”</strong>。<br>
+
+看到一次回测要两小时，第一反应不应该是“换个更快的机器”，而是“这 420 万次查询里，有几次是必须的”。
+</div></div>
+
+<h2 id="sec-30-5"><span class="hnum">30.5</span>第三档：回测与网格扫描（几十分钟）</h2>
+
+“回测”页给的结果最多，也最容易被误读。
+
+<strong>（一）六个数。</strong>年化收益、夏普比率、最大回撤、胜率、盈亏比、交易次数。
+
+<strong>（二）权益曲线。</strong>以及基于真实权益曲线算出来的三个诊断：<strong>月度收益矩阵</strong>（按月聚合区间收益）、<strong>滚动夏普</strong>（窗口 \(25\) 根 K 线、年化）、<strong>Calmar 比率</strong>（总收益除以最大回撤的绝对值，用于横向对比）。
+
+<strong>（三）参数网格扫描。</strong>选一个目标（<code class="code">sharpe</code> 或 <code class="code">return</code>），它会按 walk-forward 切分跑一组组参数，然后给出<strong>样本内最优参数</strong>和<strong>这组参数在样本外的表现</strong>两个数。
+
+这里我要把第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章那个结论用另一种方式再讲一遍，因为它是“调参”这件事的全部方法论。
+
+<div class="thm plain" id="prop:ch30-oos"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">30.1</span>（样本外报告的无偏性）</div>
+设有 \(K\) 组候选参数 \(\theta_1,\dots,\theta_K\)。记第 \(i\) 组在<strong>样本内</strong>的估计为 \(I_i\)、在<strong>样本外</strong>的真实表现为 \(O_i\)，并设 \(\{(O_i)\}\) 独立同分布、均值 \(\mu\)、且<strong>与选择过程独立</strong>（即样本外数据没有参与选参）。若按样本内最优选参
+<div class="math-scroll">\[\widehat\theta=\theta_{\widehat i},\qquad \widehat i=\argmax_{1\le i\le K}I_i , \tag{30.2}\]</div>
+则
+<ol><li>样本外报告的期望无偏：\(\E\bigl[O_{\widehat\theta}\bigr]=\mu\)；
+  </li><li>样本内报告的期望<strong>有正偏</strong>：\(\E\bigl[I_{\widehat\theta}\bigr]=\E\bigl[\max_i I_i\bigr]\ge\max_i\E[I_i]\)；
+  </li><li>因此“用样本内数字报成绩”与“用样本外数字报成绩”得到的期望<strong>一般不同</strong>，差就是选择偏置。
+</li></ol>
+</div>
+
+这个命题在说什么：它给出了一条操作规则——<strong>选参可以用样本内，报成绩必须用样本外。</strong>这不是道德要求，是期望值的要求。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由 \(I\) 与 \(O\) 独立，随机指标 \(\widehat i=\argmax_i I_i\) 是 \(I\) 的可测函数，故 \(\widehat i\perp O\)。于是
+<div class="math-scroll">\[\E\bigl[O_{\widehat\theta}\bigr]
+=\sum_{i=1}^{K}\E\bigl[O_i\,\ind{\widehat i=i}\bigr]
+=\sum_{i=1}^{K}\E[O_i]\,\Prob(\widehat i=i)
+=\mu\sum_{i=1}^{K}\Prob(\widehat i=i)=\mu .\]</div>
+
+<em>(ii)</em> \(\max_i(\cdot)\) 是凸函数（作为线性函数的逐点上确界），由 Jensen 不等式 \(\E[\max_i I_i]\ge\max_i\E[I_i]\)。取 \(\iota=\argmax_i\E[I_i]\)，则 \(\max_i\E[I_i]=\E[I_\iota]\)，即“样本内期望最好的那一组”的期望；而 \(\E[\max_i I_i]\) 是“按每组自己的样本内读数挑出最优”的期望。两者之差即为选择偏置，非负。\(\blacksquare\)
+</div>
+
+<div class="box keybox"><div class="boxtitle">安全调参的四步法</div><div class="boxbody">
+<ol><li><strong>一次只动一个旋钮</strong>。动两个你就不知道是谁起作用了。
+  </li><li><strong>记下改动前的样本内 + 样本外两个数</strong>（回测页都有）。
+  </li><li><strong>改动后,先看样本内变没变</strong>——没变说明这个旋钮对这条策略无关，直接放弃,别浪费时间跑样本外。
+  </li><li><strong>只有样本外改善了,才算这笔改动的收益</strong>。样本内改善而样本外恶化,是命题 <a class="xref" href="ch30.html#prop:ch30-oos">30.1</a> 说的那种偏置在现形。
+</li></ol>
+</div></div>
+
+回测页把“跑过什么、结果如何”一次列全。
+
+<figure class="fig" id="fig:ch30-backtest"><img class="shot" style="width:100%" src="assets/ui/ui-backtest.png" alt=""><figcaption><span class="lbl">图 30.2</span>回测页：回测配置与最近结果列表（累计 73 次，表中数值为系统真实回测输出）</figcaption></figure>
+
+<h2 id="sec-30-6"><span class="hnum">30.6</span>第四档：每日策略（每天一次）</h2>
+
+最后一块，是把上面所有研究的结果<strong>接进第二天的工作流</strong>。
+
+每天盘后，量化分析师会调用一个工具 <code class="tool">select_next_day_strategy</code>。它的作用只有一个：<strong>决定明天用哪条策略来管现有持仓</strong>。
+
+如果你不指定，它会自动打分选优：
+
+<div class="math-scroll" id="eq:ch30-select">\[\text{StrategySelectionScore} \;=\; 0.4\times\text{总收益}+0.3\times\text{夏普}+0.3\times\text{胜率}. \tag{30.3}\]</div>
+
+注意这个打分有一个限制条件：<strong>只在“活跃”的策略里选，且要求三项指标不全为 0</strong>。为什么要有这个限制？因为一个从未跑出过任何成交的策略，三项都是 0，它的“0 分”不代表它不好，只代表<strong>没有数据</strong>。把它排除在外，是为了避免“零成交的策略因为恰好并列最低而被选中”这种荒谬的结果——这和第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章网格扫描里那条“\(0\) 成交的一律排到最后”是同一条思路。
+
+选出来的结果写进 <code class="dbtab">daily_strategy_plans</code>（以交易日唯一），字段包括状态、已执行卖出数、以及<strong>来源</strong>：
+
+<ul><li><code class="code">source = quant</code>：量化分析师显式指定；
+  </li><li><code class="code">source = auto</code>：系统按式 <a class="xref" href="ch30.html#eq:ch30-select">(30.3)</a> 自动兜底选优。
+</li></ul>
+
+这个字段的价值在于<strong>归因</strong>。三个月后你回看某一天，能立刻知道“那天用的这条策略，是我特意选的，还是系统自己兜底挑的”。这两种情况的含义完全不同：前者代表一次主动判断，后者代表一次默认行为。
+
+这份计划怎么被使用？第二天盘前，操盘手会读当天的活跃计划，对每一只持仓取最近 <strong>60 根</strong>日 K，跑一遍该策略的信号；若最新信号是卖出，就生成清仓卖单。而且这条卖出路径有两条特权（第 <a class="xref" href="ch21.html#ch:ch21">第二十一章</a> 章讲过）：
+
+<ul><li><strong>策略卖出信号优先于市场状态机</strong>——判势再差也不会拦卖出；
+  </li><li><strong>不受六维仓位系数缩放</strong>——缩放只作用于买入。
+</li></ul>
+
+<div class="box pitfall"><div class="boxbody">
+这是调参这件事上最常见、也最难自察的错。
+
+看命题 <a class="xref" href="ch30.html#prop:ch30-oos">30.1</a>(ii)：你按样本内指标挑参数，挑出来的那个读数<strong>天然带正偏</strong>。你改得越多、试得越多，偏得越多。所以在样本内看到的“更漂亮”，有相当一部分是你自己制造出来的，而不是参数带来的。
+
+真正的裁决只有一个：<strong>样本外。</strong>
+
+而样本外还有一个更严格的要求——<strong>它必须没有被你反复看过</strong>。如果你反复用同一段样本外来做选择，那段样本外就退化成了样本内，偏置会重新长回来。这是量化里一个没有完美解的问题（称为“多重检验”），但至少有一条底线：<strong>每次改动都要记下来，包括那些你试了又放弃的。</strong>因为“试了多少组”决定了偏置有多大（第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章命题 <a class="xref" href="ch17.html#prop:ch17-selection">17.8</a>(iii)）。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“我给策略加上十个参数，拟合得更准。”
+
+参数越多，你在历史上能拟合得越准，同时在样本外的<strong>方差</strong>越大。这是同一件事的两面。
+
+对这个问题，本书能给的实用建议只有一条：<strong>优先选参数少的策略</strong>。在系统内置的十七条策略里，双均线只有两个参数，超级趋势也是两个（周期、倍数）。它们不可能在回测里刷出惊人的数字，但它们也很难在实盘里给你惊吓。
+
+第 <a class="xref" href="ch16.html#ch:ch16">第十六章</a> 章那句“策略没有好坏，只有适用环境”，调参版的说法是：<strong>参数没有最优，只有“你有没有理由相信它”。</strong>
+</div></div>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>选股页（三种模板、市场范围、六因子面板、自定义权重校验、分页与因子详情、AI 评分拆解、因子进度条）：<code class="sysfile">ui/src/pages/StockScreener.tsx</code>
+  </li><li>权重校验：<code class="sysfile">internal/screener</code> 的 <code class="code">ValidateCustomWeights</code>；模板与权重逻辑在 <code class="sysfile">internal/screener/smart_composer.go</code>
+  </li><li>策略管理页（列表、夏普/回撤/胜率、启停、刷新）：<code class="sysfile">ui/src/pages/Strategies.tsx</code>
+  </li><li>指标刷新（样本池回测、\(1500\) 根回看、worker 池、指标回写）：<code class="sysfile">internal/strategy/service.go</code> 的 <code class="code">RefreshStrategyMetrics</code>
+  </li><li>回测页（六指标、权益曲线、月度收益矩阵、滚动夏普、Calmar）：<code class="sysfile">ui/src/pages/Backtest.tsx</code>
+  </li><li>网格扫描与 walk-forward：<code class="sysfile">internal/backtest/grid.go</code>
+  </li><li>每日策略选择与打分：<code class="sysfile">internal/tools/daily_strategy_tool.go</code>、<code class="dbtab">daily_strategy_plans</code>
+  </li><li>事故 #10（\(420\) 万次财报查询导致回测约 \(2\) 小时）、#6（<code class="code">symbol</code> 前缀口径不一致导致配对策略 \(0\) 成交）
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（三十分钟，按反馈由快到慢）</div><div class="boxbody">
+<ol><li><strong>（快）</strong>在选股页选“均衡”模板跑一次，把前五名抄下来。
+  </li><li><strong>（快）</strong>换成“防御”模板再跑一次。对比两份名单：哪几只换了？它们主要在哪几个因子上不同？（点开因子详情看进度条。）
+  </li><li><strong>（快）</strong>把“低波动”权重从默认值手动调高一大截，再跑一次。观察名单变化，并<strong>写下你调它的理由</strong>。
+  </li><li><strong>（中）</strong>切到策略管理页，点一次“刷新”。然后去做别的事，过几分钟回来看夏普/回撤/胜率有没有变化。
+  </li><li><strong>（慢）</strong>切到回测页，对同一条策略跑一次参数网格扫描。把 <code class="code">BestIsSharpe</code>（样本内）和 <code class="code">OosSharpe</code>（样本外）抄下来并排比较。两个数差多少，就是这次调参的“水分”。
+  </li><li><strong>（每天）</strong>在 AI 决策页的【今日交易策略】卡片上，看今天用的是哪条策略、它的 <code class="code">source</code> 是 <code class="code">quant</code> 还是 <code class="code">auto</code>。
+</li></ol>
+</div></div>
+
+到这里，你会读、会算、也会动手改了。但我一直绕开了一个问题没有正面回答：<strong>如果改错了，能撤回吗？</strong>
+
+下一章讲安全开关。那里有三个长得很像、但按错任何一个后果都不同的按钮：模拟/实盘、暂停建仓、紧急停止。还有一个很容易被忽略的事实——<strong>模拟盘和实盘不是“参数区别”，是两套执行路径</strong>。
+
+</article>
+<nav class="pager"><a class="prev" href="ch29.html"><span class="dir">上一页</span>第二十九章 我的投资：持仓、成交与“以数据库为准”的盈亏</a><a class="next" href="ch31.html"><span class="dir">下一页</span>第三十一章 安全开关：模拟、实盘、暂停建仓与紧急停止</a></nav>
+
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

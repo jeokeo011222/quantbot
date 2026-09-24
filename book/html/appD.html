@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>十七种策略的信号逻辑与默认参数 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·十七种策略的信号逻辑与默认参数">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="appD.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html" class="current"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a><ul class="sub"><li><a href="#sec-D-1">D.1 十七个策略一览（完整版）</a></li><li><a href="#sec-D-2">D.2 后六个指标的公式</a></li><li><a href="#sec-D-2-1">D.2.1 ATR：平均真实波幅</a></li><li><a href="#sec-D-2-2">D.2.2 WMA 与 HMA：把滞后压下去</a></li><li><a href="#sec-D-2-3">D.2.3 Aroon：离新高有多远</a></li><li><a href="#sec-D-2-4">D.2.4 CMF：资金往哪边流</a></li><li><a href="#sec-D-2-5">D.2.5 SuperTrend：ATR 画出的动态止损线</a></li><li><a href="#sec-D-3">D.3 可调参数的扫描范围</a></li><li><a href="#sec-D-4">D.4 成本模型：回测里那笔被扣掉的钱</a></li><li><a href="#sec-D-5">D.5 回测口径</a></li></ul></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="app:appD"><span class="cnum">附录 D</span>十七种策略的信号逻辑与默认参数</h1>
+
+
+
+
+
+第 16 章说过一句话：这十七个策略看着五花八门，其实只做一件事——把「比较两条线」或「和阈值比」翻译成买与卖。这一章把它们连同<strong>真实默认参数、可调范围、以及后六个指标的计算公式</strong>一起摊开，供你对照代码。
+
+<h2 id="sec-D-1"><span class="hnum">D.1</span>十七个策略一览（完整版）</h2>
+
+数据只有一个来源：<code class="code">BuiltinStrategies</code> 这个切片。第 16 章的表只列了「族」与「信号」，这里补上每个策略的<strong>私有参数</strong>与<strong>止损止盈</strong>。
+
+<figure class="tbl" id="tab:appD-strategies"><div class="tbl-scroll"><table><caption><span class="lbl">表 D.1</span>17 个内置策略：类型、私有默认参数、止损/止盈与信号逻辑</caption><tbody><tr><td><strong>类型</strong></td><td><strong>私有默认参数</strong></td><td><strong>止损 / 止盈</strong></td><td><strong>信号逻辑（买 \(\to\) 卖）</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td><code class="code">ma_cross</code></td><td><code class="code">fast_ma=15</code>、<code class="code">slow_ma=20</code></td><td>0.05 / 0.20</td><td>MA15 上穿 MA20 \(\to\) 下穿</td></tr><tr><td><code class="code">expma_cross</code></td><td><code class="code">fast_ema=12</code>、<code class="code">slow_ema=50</code></td><td>0.05 / 0.20</td><td>EMA12 上穿 EMA50 \(\to\) 下穿</td></tr><tr><td><code class="code">bollinger_breakout</code></td><td><code class="code">period=20</code>、<code class="code">std_dev=2</code></td><td>0.05 / 0.20</td><td>收盘跌破下轨 \(\to\) 突破上轨</td></tr><tr><td><code class="code">rsi_reversal</code></td><td><code class="code">period=14</code>、<code class="code">oversold=30</code>、<code class="code">overbought=70</code></td><td>0.05 / 0.20</td><td>RSI \(&lt;30\) \(\to\) RSI \(&gt;70\)</td></tr><tr><td><code class="code">kdj_golden</code></td><td><code class="code">k_period=9</code>、<code class="code">d_period=3</code>、<code class="code">j_oversold=30</code>、<code class="code">j_overbought=70</code></td><td>0.05 / 0.20</td><td>K 上穿 D 且 \(J&lt;30\) \(\to\) K 下穿 D 且 \(J&gt;70\)</td></tr><tr><td><code class="code">turtle_breakout</code></td><td><code class="code">entry_period=40</code>、<code class="code">exit_period=5</code></td><td>0.05 / 0.20</td><td>破 40 日高点 \(\to\) 破 5 日低点</td></tr><tr><td><code class="code">mfi_volume</code></td><td><code class="code">period=14</code>、<code class="code">oversold=30</code>、<code class="code">overbought=70</code></td><td>0.05 / 0.20</td><td>MFI \(&lt;30\) \(\to\) MFI \(&gt;70\)</td></tr><tr><td><code class="code">mtm_momentum</code></td><td><code class="code">mtm_ma_period=30</code></td><td>0.05 / 0.20</td><td>MTM 上穿 0 \(\to\) 下穿 0</td></tr><tr><td><code class="code">dmi_trend</code></td><td><code class="code">adx_period=14</code>、<code class="code">trend_threshold=25</code></td><td>0.05 / 0.20</td><td>PDI \(&gt;\) MDI 且 ADX \(&gt;25\) \(\to\) 反向</td></tr><tr><td><code class="code">cci_breakout</code></td><td><code class="code">period=14</code>、<code class="code">overbought=100</code>、<code class="code">oversold=-100</code></td><td>0.05 / 0.20</td><td>CCI 上穿 \(+100\) \(\to\) 下穿 \(-100\)</td></tr><tr><td><code class="code">trix_cross</code></td><td><code class="code">period=12</code></td><td>0.05 / 0.20</td><td>TRIX 上穿自身均线 \(\to\) 下穿</td></tr><tr><td><code class="code">zhuoyao_momentum</code></td><td><code class="code">short=20</code>、<code class="code">mid=90</code>、<code class="code">long=180</code></td><td>0.05 / 0.20</td><td>多周期共振转强 \(\to\) 转弱</td></tr><tr><td><code class="code">ml_model</code></td><td><code class="code">model_names</code>（5 模型）、<code class="code">ensemble_method=probability</code>、<code class="code">buy_threshold=0.5</code>、<code class="code">sell_threshold=0.3</code></td><td>0.08 / 0.25</td><td>集成概率 \(\ge0.5\) \(\to\) 不高于 \(0.3\)（\(0.3\sim0.5\) 为观望带）</td></tr><tr><td><code class="code">super_trend</code></td><td><code class="code">period=10</code>、<code class="code">multiplier=3.0</code></td><td>0.05 / 0.20</td><td>方向由空翻多 \(\to\) 由多翻空</td></tr><tr><td><code class="code">aroon</code></td><td><code class="code">period=25</code></td><td>0.05 / 0.20</td><td>AroonUp 上穿 AroonDown \(\to\) 下穿</td></tr><tr><td><code class="code">hma</code></td><td><code class="code">period=20</code></td><td>0.05 / 0.20</td><td>收盘上穿 HMA \(\to\) 下穿</td></tr><tr><td><code class="code">cmf</code></td><td><code class="code">period=20</code>、<code class="code">buy_threshold=0.05</code>、<code class="code">sell_threshold=-0.05</code></td><td>0.05 / 0.20</td><td>CMF 上穿 \(+0.05\) \(\to\) 跌破 \(-0.05\)</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">除下表的私有参数外，每个策略的 <code class="code">ConfigJSON</code> 还共同携带 <code class="code">capital=100000</code>、<code class="code">max_position=10</code>；止损止盈两列即 <code class="code">stop_loss</code> 与 <code class="code">take_profit</code>，全部以「比例」书写（0.05 即 \(5\%\)）。<code class="code">ml_model</code> 的五个模型依次为 <code class="code">xgboost_astock_v1</code>、<code class="code">astock_lgbm_v1</code>、<code class="code">astock_rf_v1</code>、<code class="code">astock_logistic_v1</code>、<code class="code">astock_mlp_v1</code>。</p>
+<p class="tabsrc"><code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">BuiltinStrategies</code>（行 1486--1589），逐条抄录 <code class="code">ConfigJSON</code>、<code class="code">StopLossPct</code>、<code class="code">TakeProfitPct</code>；核对时间 2026-09-24。</p></figure>
+
+<div class="box pitfall"><div class="boxbody">
+系统里的参数分三层，常被混为一谈：
+
+<strong>第一层是硬参数</strong>——比如 A 股的涨跌停幅度、整手 100 股。它们不是选的，是规则，改不了。
+
+<strong>第二层是出厂默认值</strong>——就是上表。它们被写进 <code class="code">ConfigJSON</code> 当作起点，作者没有声称它们最优；换一只票、换一段行情，最优值就变了。
+
+<strong>第三层是调优结果</strong>——<code class="code">tune_strategy_params</code> 在<strong>样本内</strong>网格搜索出来的参数，写回策略表的 <code class="code">config_json</code>。它比出厂默认更贴合样本，但正因为它是在样本上挑出来的，<strong>样本外能不能复现要单独验证</strong>（第 17、18 章讲的过拟合）。系统给出的防御手段是 <strong>walk-forward</strong>：前 \(70\%\) 选参、后 \(30\%\) 验证，且输出样本外指标。
+
+所以看到「某策略夏普 2.5」时，先问一句：这是出厂默认跑的，还是调优后跑的？是在样本内还是样本外？三个答案不同，这个 2.5 的含义完全不同。
+</div></div>
+
+<h2 id="sec-D-2"><span class="hnum">D.2</span>后六个指标的公式</h2>
+
+<code class="code">super_trend</code>、<code class="code">aroon</code>、<code class="code">hma</code>、<code class="code">cmf</code> 用到的 ATR、WMA、HMA、Aroon、CMF、SuperTrend 六个指标，系统在 <code class="sysfile">internal/backtest/indicators.go</code> 里<strong>按公开公式自实现</strong>，没有引入那个 AGPL-3.0 的第三方指标库。理由很实际：许可证污染比写几个循环麻烦得多。
+
+记第 \(i\) 根 K 线的开高低收为 \(H_i,L_i,C_i\)，成交量 \(V_i\)。
+
+<h3 id="sec-D-2-1"><span class="hnum">D.2.1</span>ATR：平均真实波幅</h3>
+
+先定义<strong>真实波幅</strong>——它把「跳空」也算进波动里，这是它比「当日振幅」强的地方：
+<div class="math-scroll" id="eq:appD-tr">\[\mathrm{TR}_i=\max\bigl(H_i-L_i,\ \abs{H_i-C_{i-1}},\ \abs{L_i-C_{i-1}}\bigr),\qquad \mathrm{TR}_0=H_0-L_0 . \tag{D.1}\]</div>
+再从第 \(p\) 根起做 Wilder 平滑（首值为前 \(p\) 根的简单平均）：
+<div class="math-scroll" id="eq:appD-atr">\[\mathrm{ATR}_p=\frac{1}{p}\sum_{j=1}^{p}\mathrm{TR}_j,\qquad
+\mathrm{ATR}_i=\frac{\mathrm{ATR}_{i-1}\,(p-1)+\mathrm{TR}_i}{p}\quad(i&gt;p). \tag{D.2}\]</div>
+这个递推的等价形式是 \(\mathrm{ATR}_i=(1-\tfrac1p)\mathrm{ATR}_{i-1}+\tfrac1p\mathrm{TR}_i\)——一个权重 \(\alpha=1/p\) 的指数平滑。\([0,p]\) 区间因数据不足一律留 \(0\)，策略应等 \(i\ge p\) 再取用。
+
+<h3 id="sec-D-2-2"><span class="hnum">D.2.2</span>WMA 与 HMA：把滞后压下去</h3>
+
+<strong>线性加权移动平均</strong>让最近一根权重最大（为 \(p\)），依次递减到 \(1\)：
+<div class="math-scroll" id="eq:appD-wma">\[\mathrm{WMA}_p(i)=\frac{\sum_{j=0}^{p-1}(p-j)\,v_{i-j}}{\sum_{j=0}^{p-1}(p-j)}
+=\frac{2}{p(p+1)}\sum_{j=0}^{p-1}(p-j)\,v_{i-j}. \tag{D.3}\]</div>
+（末式用了 \(\sum_{j=0}^{p-1}(p-j)=p(p+1)/2\)。）<strong>赫尔均线</strong>在 WMA 之上再套一层：先用两个不同窗口的差把滞后抵消，再用 \(\sqrt{p}\) 窗口的 WMA 把噪声磨平。令
+<div class="math-scroll" id="eq:appD-hma">\[\tilde v_i=2\,\mathrm{WMA}_{\lfloor p/2\rfloor}(v)\big|_i-\mathrm{WMA}_{p}(v)\big|_i,
+\qquad
+\mathrm{HMA}_p(i)=\mathrm{WMA}_{\lfloor\sqrt p\rfloor}(\tilde v)\big|_i . \tag{D.4}\]</div>
+第一式把 \(\lfloor p/2\rfloor\) 窗口对 \(p\) 窗口的超前量放大成两倍，补掉滞后；第二式按 \(\sqrt p\) 加权把补出来的超调抹平。\(p=20\) 时三个窗口分别是 \(10\)、\(20\)、\(4\)（\(\sqrt{20}\approx4.47\) 圆整为 \(4\)）。
+
+<h3 id="sec-D-2-3"><span class="hnum">D.2.3</span>Aroon：离新高有多远</h3>
+
+Aroon 不看「创没创新高」，只看<strong>距上一次新高过了多久</strong>。设
+<div class="math-scroll" id="eq:appD-aroon-idx">\[\iota_i^{\mathrm{hi}}=\max\Bigl\{j\in[i-p,\,i]:\ H_j=\max_{k\in[i-p,i]}H_k\Bigr\},\qquad
+\iota_i^{\mathrm{lo}}=\max\Bigl\{j\in[i-p,\,i]:\ L_j=\min_{k\in[i-p,i]}L_k\Bigr\}, \tag{D.5}\]</div>
+则
+<div class="math-scroll" id="eq:appD-aroon">\[\mathrm{AroonUp}_i=\frac{p-(\,i-\iota_i^{\mathrm{hi}}\,)}{p}\times100,\qquad
+\mathrm{AroonDown}_i=\frac{p-(\,i-\iota_i^{\mathrm{lo}}\,)}{p}\times100 . \tag{D.6}\]</div>
+两者都落在 \([0,100]\)。注意 <a class="xref" href="appD.html#eq:appD-aroon-idx">式 (D.5)</a> 取的是<strong>并列中最近的一个</strong> \(j\)（源码用 \(\ge\)、\(\le\) 扫描，后出现的赢）——所以只要最新一根就是最高价，\(\mathrm{AroonUp}_i\) 立刻取到 \(100\)。策略信号是「AroonUp 上穿 AroonDown」买、「下穿」卖。
+
+<h3 id="sec-D-2-4"><span class="hnum">D.2.4</span>CMF：资金往哪边流</h3>
+
+每根 K 线先算<strong>资金流量乘数</strong>，再看它加权成交量后在窗口里占多大比重：
+<div class="math-scroll" id="eq:appD-mfm">\[\mathrm{MFM}_i=\frac{(C_i-L_i)-(H_i-C_i)}{H_i-L_i}\quad(H_i&gt;L_i),\qquad \mathrm{MFM}_i=0\quad(H_i=L_i), \tag{D.7}\]</div>
+<div class="math-scroll" id="eq:appD-cmf">\[\mathrm{CMF}_p(i)=\frac{\sum_{j=i-p+1}^{i}\mathrm{MFM}_j\,V_j}{\sum_{j=i-p+1}^{i}V_j}\in[-1,1]. \tag{D.8}\]</div>
+\(\mathrm{MFM}\) 的几何含义是「收盘在当日区间里的相对位置」：收在最高（\(C=H\)）给 \(+1\)，收在最低（\(C=L\)）给 \(-1\)，正中给 \(0\)。窗口内放量且收在高位，CMF 就为正。策略阈值 \(\pm0.05\)。
+
+<h3 id="sec-D-2-5"><span class="hnum">D.2.5</span>SuperTrend：ATR 画出的动态止损线</h3>
+
+设中线 \(m_i=(H_i+L_i)/2\)，带宽 \(m_i\pm\lambda\,\mathrm{ATR}_i\)（默认 \(\lambda=3.0\)）。上下轨不是当根就算，而是<strong>只能朝收紧方向走</strong>：
+<div class="math-scroll" id="eq:appD-st-upper">\[\mathrm{U}_i=
+\begin{cases}
+m_i+\lambda\,\mathrm{ATR}_i, &amp; \text{若 } m_i+\lambda\,\mathrm{ATR}_i&lt;\mathrm{U}_{i-1}\ \text{或}\ C_{i-1}&gt;\mathrm{U}_{i-1},\\[2pt]
+\mathrm{U}_{i-1}, &amp; \text{否则},
+\end{cases} \tag{D.9}\]</div>
+<div class="math-scroll" id="eq:appD-st-lower">\[\mathrm{L}_i=
+\begin{cases}
+m_i-\lambda\,\mathrm{ATR}_i, &amp; \text{若 } m_i-\lambda\,\mathrm{ATR}_i&gt;\mathrm{L}_{i-1}\ \text{或}\ C_{i-1}&lt;\mathrm{L}_{i-1},\\[2pt]
+\mathrm{L}_{i-1}, &amp; \text{否则}.
+\end{cases} \tag{D.10}\]</div>
+方向 \(\tau_i\in\{+1,-1\}\) 按下式翻转（\(\tau_0=+1\)）：
+<div class="math-scroll" id="eq:appD-st">\[\tau_i=
+\begin{cases}
+-1, &amp; \tau_{i-1}=+1\ \text{且}\ C_i&lt;\mathrm{L}_i,\\
++1, &amp; \tau_{i-1}=-1\ \text{且}\ C_i&gt;\mathrm{U}_i,\\
+\tau_{i-1}, &amp; \text{否则},
+\end{cases}
+\qquad
+\mathrm{ST}_i=\begin{cases}\mathrm{L}_i,&amp;\tau_i=+1,\\ \mathrm{U}_i,&amp;\tau_i=-1.\end{cases} \tag{D.11}\]</div>
+\(\mathrm{ST}_i\) 就是那条跟踪线——多头时贴在下方当止损，空头时贴在上方当压力。方向翻转即买卖点。\([0,p]\) 区间 ATR 未稳定，调用方须延后取信号。
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">D.1</span>（为什么这几条公式值得单独抄一遍）</div>
+因为它们<strong>没有一处是「差不多」的</strong>。<a class="xref" href="appD.html#eq:appD-atr">式 (D.2)</a> 的首值取前 \(p\) 根简单平均、<a class="xref" href="appD.html#eq:appD-aroon-idx">式 (D.5)</a> 并列取最近、<a class="xref" href="appD.html#eq:appD-st-upper">式 (D.9)</a> 的上轨「只降不升」——每一处都会改变信号。你按别的教材写一版「意思差不多」的实现，回测结果就能差出一大截：不是策略变了，是同一个名字底下的公式变了。这正是第 16 章开头那句话的注脚。
+</div>
+
+<h2 id="sec-D-3"><span class="hnum">D.3</span>可调参数的扫描范围</h2>
+
+每个策略还带一份<strong>默认调参网格</strong>（播种时写进策略表的 <code class="code">tune_ranges_json</code>）。<code class="code">tune_strategy_params</code> 就在这些区间里遍历。
+
+<figure class="tbl" id="tab:appD-tune"><div class="tbl-scroll"><table><caption><span class="lbl">表 D.2</span>17 个策略的默认调参范围（最小值 \(\to\) 最大值，步长）</caption><tbody><tr><td><strong>类型</strong></td><td><strong>可调参数与扫描范围</strong></td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td><code class="code">ma_cross</code></td><td><code class="code">fast_ma</code> \(3\to21\) 步 \(2\)；<code class="code">slow_ma</code> \(20\to140\) 步 \(20\)</td></tr><tr><td><code class="code">expma_cross</code></td><td><code class="code">fast_ema</code> \(5\to25\) 步 \(5\)；<code class="code">slow_ema</code> \(30\to150\) 步 \(15\)</td></tr><tr><td><code class="code">bollinger_breakout</code></td><td><code class="code">period</code> \(10\to30\) 步 \(5\)；<code class="code">std_dev</code> \(1.5\to3.0\) 步 \(0.5\)</td></tr><tr><td><code class="code">rsi_reversal</code></td><td><code class="code">period</code> \(5\to20\) 步 \(3\)；<code class="code">oversold</code> \(15\to35\) 步 \(5\)；<code class="code">overbought</code> \(65\to85\) 步 \(5\)</td></tr><tr><td><code class="code">kdj_golden</code></td><td><code class="code">k_period</code> \(5\to15\) 步 \(2\)；<code class="code">d_period</code> \(2\to5\) 步 \(1\)；<code class="code">j_oversold</code> \(15\to35\) 步 \(5\)；<code class="code">j_overbought</code> \(65\to85\) 步 \(5\)</td></tr><tr><td><code class="code">turtle_breakout</code></td><td><code class="code">entry_period</code> \(20\to60\) 步 \(10\)；<code class="code">exit_period</code> \(5\to20\) 步 \(5\)</td></tr><tr><td><code class="code">mfi_volume</code></td><td><code class="code">period</code> \(10\to20\) 步 \(2\)；<code class="code">oversold</code> \(20\to40\) 步 \(5\)；<code class="code">overbought</code> \(60\to80\) 步 \(5\)</td></tr><tr><td><code class="code">mtm_momentum</code></td><td><code class="code">mtm_ma_period</code> \(10\to30\) 步 \(5\)</td></tr><tr><td><code class="code">dmi_trend</code></td><td><code class="code">adx_period</code> \(10\to20\) 步 \(2\)</td></tr><tr><td><code class="code">cci_breakout</code></td><td><code class="code">period</code> \(10\to20\) 步 \(2\)</td></tr><tr><td><code class="code">trix_cross</code></td><td><code class="code">period</code> \(10\to20\) 步 \(2\)</td></tr><tr><td><code class="code">zhuoyao_momentum</code></td><td><code class="code">short_period</code> \(10\to30\) 步 \(5\)；<code class="code">mid_period</code> \(40\to120\) 步 \(20\)；<code class="code">long_period</code> \(90\to240\) 步 \(30\)；<code class="code">trend_period</code> \(10\to30\) 步 \(5\)</td></tr><tr><td><code class="code">ml_model</code></td><td><code class="code">buy_threshold</code> \(0.45\to0.65\) 步 \(0.05\)；<code class="code">sell_threshold</code> \(0.25\to0.45\) 步 \(0.05\)</td></tr><tr><td><code class="code">super_trend</code></td><td><code class="code">period</code> \(8\to20\) 步 \(2\)；<code class="code">multiplier</code> \(2.0\to4.0\) 步 \(0.5\)</td></tr><tr><td><code class="code">aroon</code></td><td><code class="code">period</code> \(15\to40\) 步 \(5\)</td></tr><tr><td><code class="code">hma</code></td><td><code class="code">period</code> \(10\to40\) 步 \(5\)</td></tr><tr><td><code class="code">cmf</code></td><td><code class="code">period</code> \(10\to30\) 步 \(5\)；<code class="code">buy_threshold</code> \(0.03\to0.10\) 步 \(0.01\)；<code class="code">sell_threshold</code> \(-0.10\to-0.03\) 步 \(0.01\)</td></tr><tr class="rule"><td colspan="2"></td></tr></tbody></table></div><p class="tabsrc"><code class="sysfile">internal/backtest/strategy_config.go</code> 的 <code class="code">defaultTuneRanges</code>（行 52--123），逐条抄录。核对时间 2026-09-24。</p></figure>
+
+<h2 id="sec-D-4"><span class="hnum">D.4</span>成本模型：回测里那笔被扣掉的钱</h2>
+
+回测不是「买卖价差 \(\times\) 仓位」这么简单，每笔都要扣三样：
+<div class="math-scroll" id="eq:appD-cost">\[\mathrm{cost}(x)=a\abs{x}+b\,\sigma\,\frac{\abs{x}^{1.5}}{\sqrt V}+c\,x, \tag{D.12}\]</div>
+其中 \(x\) 是单笔成交额（元）、\(V\) 是当日成交额（元）、\(\sigma\) 是日波动率（trailing 60 根 K 线的收益标准差）。三项分别是：
+
+<ul><li>\(a\abs x\)：<strong>比例费用</strong>。佣金率 \(a=0.0003\)（万三，买卖都收，单笔最低 \(5\) 元）；卖出另外收印花税 \(0.0005\)（\(0.05\%\)）。买入不收印花税。
+  </li><li>\(b\sigma\abs x^{1.5}/\sqrt V\)：<strong>市场冲击</strong>，即 Almgren--Chriss 的平方根冲击律。\(b=1.0\)、指数 \(1.5\)。
+  </li><li>\(cx\)：<strong>收盘 bias</strong>，默认 \(c=0\)——因为成交口径是「收盘价成交 + close-to-close 收益」，两者一致时无需修正。
+</li></ul>
+
+<a class="xref" href="appD.html#eq:appD-cost">式 (D.12)</a> 里最该记住的是冲击项的量纲：\(\abs x\) 的指数是 \(1.5\)，除以 \(\sqrt V\)。这意味着<strong>单笔规模翻倍，冲击成本涨 \(\sqrt2\approx1.41\) 倍</strong>，而不是 \(2\) 倍；而把同一笔拆成 \(k\) 份、每份只是原来的 \(1/k\)，总冲击按 \(k\cdot k^{-1.5}=k^{-0.5}\) 下降到原来的 \(1/\sqrt k\)。第 17 章证明过这条——它就是「大单要拆」的数学依据。
+
+<h2 id="sec-D-5"><span class="hnum">D.5</span>回测口径</h2>
+
+三条口径，任何一条坏了，回测数字就失效：
+
+<ol><li><strong>次日开盘成交</strong>（<code class="code">ExecNextOpen</code>）。信号在第 \(i\) 根收盘产生，成交在第 \(i+1\) 根开盘。这消除了「用当天收盘的信号、以当天收盘价成交」这种看起来很美的前视偏差。
+  </li><li><strong>按标的自适应涨跌停</strong>。不同板块涨跌停幅度不同（主板 \(10\%\)、创业板/科创板 \(20\%\)、北交所 \(30\%\)、ST 另计），回测按标的规则判定，涨停买不进、跌停卖不出。
+  </li><li><strong>财务数据按披露日注入</strong>。基本面因子取数用 <code class="code">ann_date</code>（公告日）而非 <code class="code">report_date</code>（报告期），防止「用还没公布的财报选股」这种未来函数。
+</li></ol>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>17 个策略的元数据（默认参数、止损止盈、描述）：<code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">BuiltinStrategies</code>
+  </li><li>调参网格：<code class="sysfile">internal/backtest/strategy_config.go</code> 的 <code class="code">defaultTuneRanges</code>
+  </li><li>指标公式：<code class="sysfile">internal/backtest/indicators.go</code> 的 <code class="code">ATR</code>、<code class="code">WMA</code>、<code class="code">HMA</code>、<code class="code">Aroon</code>、<code class="code">CMF</code>、<code class="code">SuperTrend</code>
+  </li><li>成本模型：<code class="sysfile">internal/backtest/cost_model.go</code> 的 <code class="code">DefaultCostModel</code>、<code class="code">BuyCost</code>、<code class="code">SellCost</code>、<code class="code">impact</code>
+  </li><li>回测口径与 walk-forward：<code class="sysfile">internal/backtest/service.go</code>、<code class="sysfile">internal/backtest/grid.go</code>
+  </li><li>策略表指标写入：<code class="sysfile">internal/strategy/service.go</code> 的 <code class="code">RefreshStrategyMetrics</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试</div><div class="boxbody">
+<ol><li><strong>抄一遍 ATR</strong>。按 <a class="xref" href="appD.html#eq:appD-tr">式 (D.1)</a> 与 <a class="xref" href="appD.html#eq:appD-atr">式 (D.2)</a> 手算 5 根 K 线的 ATR（取 \(p=3\)），再和代码里 <code class="code">ATR()</code> 的输出对比。首值取前 \(p\) 根平均这一步最容易写错。
+  </li><li><strong>验证冲击项的读数</strong>。取 \(\sigma=0.02\)、\(V=10^8\) 元、\(x=10^6\) 元，按 <a class="xref" href="appD.html#eq:appD-cost">式 (D.12)</a> 算冲击项 \(b\sigma x^{1.5}/\sqrt V\)；再把 \(x\) 改成 \(2\times10^6\)，看它涨了几倍。是不是 \(\sqrt2\)？
+  </li><li><strong>查一个默认参数</strong>。在策略页打开 <code class="code">super_trend</code>，看它的 <code class="code">period</code> 与 <code class="code">multiplier</code> 是不是 \(10\) 与 \(3.0\)；再点「调参」，看扫描范围是不是 \(8\to20\) 与 \(2.0\to4.0\)。
+  </li><li><strong>对一遍十七</strong>。在代码里数 <code class="code">BuiltinStrategies</code> 的条目数，看是不是 17；顺便确认最近新增的四个（<code class="code">super_trend</code>、<code class="code">aroon</code>、<code class="code">hma</code>、<code class="code">cmf</code>）都注册进了 <code class="code">GetStrategyByType</code> 与 <code class="code">strategyParamFieldMap</code>。
+</li></ol>
+</div></div>
+
+</article>
+<nav class="pager"><a class="prev" href="appC.html"><span class="dir">上一页</span>附录 C 工具清单与可用角色</a><a class="next" href="appE.html"><span class="dir">下一页</span>附录 E 六维判势的数据源与降级矩阵</a></nav>
+
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>读懂仪表盘：控制中心、AI 团队与实时活动 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·读懂仪表盘：控制中心、AI 团队与实时活动">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch27.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html" class="current"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a><ul class="sub"><li><a href="#sec-27-1">27.1 屏幕上全是数字，先看哪一个</a></li><li><a href="#sec-27-2">27.2 先看故障灯，再看速度，最后看油量</a></li><li><a href="#sec-27-3">27.3 三个页面，三个问题</a></li><li><a href="#sec-27-3-1">27.3.1 控制中心：钱还剩多少</a></li><li><a href="#sec-27-3-2">27.3.2 AI 团队：谁在干活、谁有权干什么</a></li><li><a href="#sec-27-3-3">27.3.3 实时活动：现在跑到哪一步</a></li><li><a href="#sec-27-4">27.4 近似模型 \(\to\) 严谨版本：刷新间隔决定陈旧度</a></li><li><a href="#sec-27-5">27.5 它在系统里长什么样</a></li><li><a href="#sec-27-6">27.6 常见误解与纠偏</a></li><li><a href="#sec-27-7">27.7 真实出处</a></li></ul></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch27"><span class="cnum">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</h1>
+
+
+
+
+
+<h2 id="sec-27-1"><span class="hnum">27.1</span>屏幕上全是数字，先看哪一个</h2>
+
+第 <a class="xref" href="ch26.html#ch:ch26">第二十六章</a> 章结束时，系统里已经有一份属于你的投资方案和一个股票池。第二天我打开程序，落在了控制中心。
+
+我数了一下那一屏：五张指标卡、一句 CIO 今日状态、四张小头像、三个风险数字、一张持仓表、一列决策卡片。十几个数字同时在动。
+
+我当时的做法很没出息：我盯着“今日盈亏”看。因为它是红的，因为它最像“成绩单”，因为我唯一看得懂它。
+
+接下来的半小时里我做了三件蠢事。第一件，我看见 AI 团队页里操盘手那张卡写着“待命”，立刻以为它挂了。第二件，我看见实时活动页整页写着“休市中，等待下一交易日”，更确信系统坏了。第三件，我盯着那个不动的“今日盈亏”来回刷新，想让它动起来。
+
+三件事的根因是同一个：<strong>我默认这三个页面是同一份数字的三个视图。它们不是。</strong>它们回答三个完全不同的问题，而且刷新节奏不同——所以同一时刻，三个页面上的数字本来就可以对不上。
+
+本章要做的，就是把这三个页面按“先看什么”的顺序摆清楚。
+
+<h2 id="sec-27-2"><span class="hnum">27.2</span>先看故障灯，再看速度，最后看油量</h2>
+
+<div class="box intuition"><div class="boxbody">
+坐进车里的第一眼，我看的是仪表盘上那一排故障灯：机油、水温、电瓶、刹车。灯亮了，速度表和油表都别看了——先靠边停车。
+
+灯全灭，我再看速度：车在动吗，动得快不快，有没有超速。
+
+最后才看油量：还能跑多远，什么时候该进加油站。
+
+这个顺序不是习惯，是被逼出来的逻辑。故障灯回答的是“<em>还能不能继续</em>”，它决定后面两类数字还有没有意义；速度回答的是“<em>正在发生什么</em>”；油量回答的是“<em>存量还剩多少</em>”。
+
+存量类的数字永远最后看。因为它变化最慢，也最不紧急——它是前两者长期累积出来的结果，你盯着它看，它也不会因为你看得快而涨得快。
+</div></div>
+
+三个页面正好对上这三层。先看图 <a class="xref" href="ch27.html#fig:ch27-layers">27.1</a>。
+
+<figure class="fig" id="fig:ch27-layers"><img class="tikz" src="assets/tikz/tikz-15.svg" alt="示意图"><figcaption><span class="lbl">图 27.1</span>看板信息的三层结构。每一层回答一个不同的问题，而且只有上层的答案是“好”的时候，下层的数字才值得读。</figcaption></figure>
+
+“故障灯层”在界面上长得不像灯：它是控制中心顶栏那个绿色“正常”圆点（或黄色“停止”）、风险监控面板最后那行“风控规则正常”、AI 团队卡片上的红色“异常”徽章、实时活动右上那个红色“执行器不可用”。它们散在三个页面里，但回答的是同一件事：<strong>这套系统现在还能不能干活。</strong>
+
+所以真正的操作顺序是：<em>先把三个页面各自扫一眼有没有红黄的东西，确认绿灯之后再谈收益。</em> 这一条听起来像废话，可在真实事故里，绝大多数“亏钱”都发生在用户还没看故障灯的时候。
+
+<h2 id="sec-27-3"><span class="hnum">27.3</span>三个页面，三个问题</h2>
+
+<h3 id="sec-27-3-1"><span class="hnum">27.3.1</span>控制中心：钱还剩多少</h3>
+
+控制中心是默认页。它在 <code class="sysfile">ui/src/App.tsx</code> 的路由 switch 里对应那个 <code class="code">default</code> 分支——也就是说，地址栏里的 hash 是空的、或者写了任何页面都不认识的值，落到的都是它。
+
+它的第一行是五张卡片，从左到右：
+
+<ol><li><strong>总资产</strong>（存量总量）；
+  </li><li><strong>今日盈亏</strong>（带百分比，当日增量）；
+  </li><li><strong>累计收益</strong>（把当日视角拉到全周期）；
+  </li><li><strong>持仓市值</strong>（钱有多少在股票里）；
+  </li><li><strong>持仓/现金</strong>（“N 只”加一行“现金 …”，钱有多少在账上）。
+</li></ol>
+
+这个顺序是“从结果到构成”：前两张是我最想知道的答案，第三张告诉我这个答案在过去一段时间里是什么形状，最后两张回答“它是由什么拼出来的”。如果我把第四、五张挪到第一张的位置，我会先看到一个几千几万的数字，却不知道它是赚来的还是亏出来的。
+
+这五个数字的具体取值，本书不引用。它们由你按下刷新键那一刻数据库里的快照决定，本书不是某一天的运行记录——按本书的数据规范，这里留白<sup class="fn-ref"><a id="fnref-ch27-1" href="#fn-ch27-1">1</a></sup>。
+
+第二行两块面板。左边是 <strong>CIO 今日状态</strong>：一句话（源码里就是 <code class="code">cioStatus.todayMessage</code>），加四张小卡。
+
+这里有个我照实写下来的细节：四张小卡是 <strong>CIO、QUANT、RISK、TRADER</strong>，没有 PLANNER系统源码 <code class="sysfile">ui/src/pages/Dashboard.tsx</code> 的 <code class="code">teamStatus</code> 数组（4 条记录），以及第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章讨论过的五个角色定义 <code class="sysfile">internal/agentworkflow/models.go</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-2" href="#fn-ch27-2">2</a></sup>。这是排版取舍：投资规划师的活是“每天一次”的目标与方案维护，不是盘中状态；控制中心这块要的是“此刻谁在盯盘”。五个角色是完整的组织，四个头像只是“值班表”。
+
+右边是 <strong>风险监控</strong>：持仓集中度（取所有持仓权重的绝对值最大值，超过 30 标成黄色——与硬限制里的单票 30% 是同一个口径）、最大单票名字、未实现盈亏，最后一行是风控规则状态。它属于第一层：这行字一变黄变红，上面的收益数字就先别看了。
+
+第三行是 <strong>持仓分布</strong>表和 <strong>AI 今日决策</strong>列表。持仓表每页 5 条（源码里 <code class="code">HOLDINGS_PAGE_SIZE = 5</code>），三列：股票名称（代码）、持仓量、盈亏。分的不是“重要不重要”，是“屏幕高度有限”：持仓数按资金规模动态调整，5 万资金推荐 5 只，钱多了就不止 5 只。
+
+AI 今日决策读的是 <code class="code">GetCIOJournal(7)</code>——最近 7 天的 CIO 决策日志，屏上最多展示 5 条。每条上有三样东西值得看：决策类型的中文标签（建仓、加仓、减仓、调仓、观望、持有、买入、卖出、暂停）、风控审批的那三个符号（通过 / 否决 / 审核中）、以及理由那一行字。第 <a class="xref" href="ch28.html#ch:ch28">第二十八章</a> 章会把这一行字逐块拆开，这里只需要知道它在这个页面上是“摘要版”。
+
+最后是刷新。控制中心的自动刷新间隔是 5 分钟系统源码 <code class="sysfile">ui/src/pages/Dashboard.tsx</code>：轮询函数末尾 <code class="code">timer = window.setTimeout(poll, 300000)</code>，即 300&#8201;000&#8201;ms \(=5\) 分钟；且是“顺序轮询”——本次刷新跑完才安排下一次。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-3" href="#fn-ch27-3">3</a></sup>。而且它不是单纯重读一遍数字，每一轮先调 <code class="code">RefreshPrices</code> 拉一次最新价，再读组合状态、再读决策日志。这一句很重要，本章第四节会用它解释“为什么这个页面不敢刷新得太快”。
+
+控制中心还有简洁/详细两种显示模式（右上角那个“简洁/详细”按钮切换），简洁模式只留总资产、今日盈亏、累计收益加一行状态。它是给“我每天只看一眼”的那类用户留的。
+
+本节起，界面部分的说明都配一张实拍截图。这些截图取自系统真实运行时的界面（深色主题，原始分辨率约 \(2.6\)K），未作美化、未作裁剪；图中出现的股票代码与金额，就是那一刻数据库里的真实记录。
+
+<figure class="fig" id="fig:ch27-dashboard"><img class="shot" style="width:100%" src="assets/ui/ui-dashboard1.png" alt=""><figcaption><span class="lbl">图 27.2</span>控制中心（驾驶舱）：顶部五张卡片、CIO 今日状态、风险监控、持仓分布与 AI 今日决策</figcaption></figure>
+
+
+<h3 id="sec-27-3-2"><span class="hnum">27.3.2</span>AI 团队：谁在干活、谁有权干什么</h3>
+
+AI 团队的地址是 <span class="mono">/#ai-team</span>。它问的问题是：“此刻这五个智能体在干什么，而且它们各自被允许干什么。”
+
+第一屏最上面不是卡片，是一行时段指示：<code class="code">phaseLabels[currentPhase]</code>，也就是“上午交易 (09:30-11:30)”这类中文时段名，右边跟着当前时间。为什么把时段放在第一屏？因为这个页面上几乎所有的“状态”都是<em>时段推导出来的</em>，不是查出来的。
+
+下面那五张智能体卡片，每张有三样：一个三色状态标签（正常=绿、工作中=黄、异常=红）、一句“当前动作”、一个任务状态徽章（执行中 / 已完成 / 有错误 / 等待中，后面跟“N 项”）。
+
+状态是怎么来的，值得一句一句说清楚，因为“AI 在休息”这个误解就是从这儿长出来的：
+
+<ul><li>开盘前（准备段）：一排“盘前准备，等待开盘”；
+  </li><li>盘前竞价段：一排“盘前准备中”；
+  </li><li>上午、下午交易段：按分工分道——操盘手“执行交易中”，风控师“盘中风险监控”，首席投资官“决策评估中”，量化分析师“等待交易信号”，规划师“监控市场变化”；
+  </li><li>午休：整排“午休中”（源码里的状态常量是 <code class="code">RESTING</code>）；
+  </li><li>盘后：一排“盘后确认交易中”；
+  </li><li>复盘段：17 点之后（或 16 点之前）显示“今日任务已完成”，首席投资官换成“今日投资报告已生成”；16 点到 17 点之间显示“执行盘后任务中”；
+  </li><li>休市：一排“休市中，等待下一交易日”。
+</li></ul>
+
+也就是说，<strong>“休息”和“完成”是这个系统设计好的状态，不是故障。</strong> 它直接呼应第 <a class="xref" href="ch05.html#ch:ch05">第五章</a> 章那张市场时段表和“每三十秒醒一次”的调度循环。
+
+再往下是 <strong>任务规格清单</strong>：五个角色各一行，点开有左“可以做”、右“不能做”两张清单，下面是任务 ID 清单。清单里的条目是真实的：五个角色合计 17 项任务 ID（规划师 2 项、量化 4 项、首席投资官 4 项、风控 4 项、操盘手 3 项）系统源码 <code class="sysfile">ui/src/pages/AITeam.tsx</code> 的 <code class="code">agentTasks</code> 逐条计数；同一段代码上方的注释写的是“与后台 getOptimizedTasks 一一对应，共16任务”，与清单实际条数不一致，本书照实记录。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-4" href="#fn-ch27-4">4</a></sup>。同一份代码里，注释说 16，清单是 17——我没改它，因为这类“注释漂移”正是第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章讲过的同一件事：<strong>判断权限和职责，要看表里写了什么，不要看注释写了什么。</strong>
+
+这一页的第三样东西是 <strong>权限矩阵</strong>：8 个操作权限 × 5 个角色，绿色表示可执行、灰色表示不可执行。本节把其中最要紧的 8 条抽出来排成表 <a class="xref" href="ch27.html#tab:ch27-perm">27.1</a>。
+
+<figure class="tbl" id="tab:ch27-perm"><div class="tbl-scroll"><table><caption><span class="lbl">表 27.1</span>8 个操作级权限 × 5 个角色（默认矩阵中“恰好只有一个角色可执行”的那些条目）</caption><tbody><tr><td><strong>权限项</strong></td><td><strong>中文</strong></td><td><strong>规划师</strong></td><td><strong>量化</strong></td><td><strong>风控</strong></td><td><strong>CIO</strong></td><td><strong>操盘手</strong></td></tr><tr class="rule"><td colspan="7"></td></tr><tr><td><code class="code">CREATE_INVESTMENT_PLAN</code></td><td>创建投资方案</td><td>可</td><td>---</td><td>---</td><td>---</td><td>---</td></tr><tr><td><code class="code">GENERATE_STOCK_CANDIDATES</code></td><td>生成候选池</td><td>---</td><td>可</td><td>---</td><td>---</td><td>---</td></tr><tr><td><code class="code">SELECT_ASSET</code></td><td>选股</td><td>---</td><td>---</td><td>---</td><td>可</td><td>---</td></tr><tr><td><code class="code">SET_TARGET_WEIGHT</code></td><td>设定目标权重</td><td>---</td><td>---</td><td>---</td><td>可</td><td>---</td></tr><tr><td><code class="code">APPROVE_INVESTMENT</code></td><td>批准投资</td><td>---</td><td>---</td><td>---</td><td>可</td><td>---</td></tr><tr><td><code class="code">RISK_REJECT</code></td><td>风险否决</td><td>---</td><td>---</td><td>可</td><td>---</td><td>---</td></tr><tr><td><code class="code">EMERGENCY_FREEZE</code></td><td>紧急冻结</td><td>---</td><td>---</td><td>可</td><td>---</td><td>---</td></tr><tr><td><code class="code">SUBMIT_ORDER</code></td><td>提交订单</td><td>---</td><td>---</td><td>---</td><td>---</td><td>可</td></tr><tr class="rule"><td colspan="7"></td></tr></tbody></table></div><p class="tabnote">这 8 行是本书从代码里的默认矩阵里挑出的“操作级”条目；矩阵本身按角色分行、条目更多（首席投资官一行就有 9 条）。矩阵里还写着负向权限：规划师、量化、风控三行都挂着“禁止批准投资”与“禁止执行订单”，操盘手一行挂着“禁止选股”“禁止修改目标权重”“禁止绕过风控”。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/agentworkflow/models.go</code> 的 <code class="code">PermissionMatrix</code> 与权限常量区（第 49--143 行）；前端渲染口径见 <code class="sysfile">docs/用户操作手册.md</code> 第 5 节与本书系统事实清单第 3 节。核对时间 2026-09-24。</p></figure>
+
+读这张表有一个技巧：<strong>先横着看，再竖着看。</strong> 横着看，每一行只有一个“可”——说明这 8 件事互不重叠，没有一个人能自己走完流程。竖着看，风控那一列全是“可”，却一条订单类权限都没有；操盘手那一列只有订单——它能买能卖，但不知道买什么。
+
+最后是刷新：这一页的任务状态每 30 秒刷一次（源码里 <code class="code">setInterval(loadAgentTasks, 30000)</code>），时段状态每 60 秒重算一次系统源码 <code class="sysfile">ui/src/pages/AITeam.tsx</code>：任务轮询 30&#8201;000&#8201;ms，时段与状态重算 60&#8201;000&#8201;ms。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-5" href="#fn-ch27-5">5</a></sup>。它比控制中心快 10 倍，第四节会解释为什么它<em>敢</em>这么快。
+
+<figure class="fig" id="fig:ch27-aiteam"><img class="shot" style="width:100%" src="assets/ui/ui-ai-team.png" alt=""><figcaption><span class="lbl">图 27.3</span>AI 团队页：五智能体架构（<code class="code">PROPOSE</code> \(\to\) <code class="code">EVIDENCE</code> \(\to\) <code class="code">VETO</code> \(\to\) <code class="code">DECIDE</code> \(\to\) <code class="code">EXECUTE</code>）与 Agent 任务规格清单</figcaption></figure>
+
+
+<h3 id="sec-27-3-3"><span class="hnum">27.3.3</span>实时活动：现在跑到哪一步</h3>
+
+实时活动的地址是 <span class="mono">/#activity</span>；如果你用的是旧地址 <span class="mono">/#workflow</span>，也会落到同一页——路由表里这两个分支返回的是同一个组件系统源码 <code class="sysfile">ui/src/App.tsx</code> 的路由 switch：<code class="code">case '/workflow'</code> 与 <code class="code">case '/activity'</code> 都返回 <code class="code">Activity</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-6" href="#fn-ch27-6">6</a></sup>。这一页问的问题是：“<em>现在</em>跑到哪一步了。”
+
+第一块是 <strong>投资流水线</strong>：五格横排，PLANNER → QUANT → RISK → CIO → TRADER，每格下面写着它在这条链上唯一被允许推进的那一步——提出方案、提供证据、风险否决、最终决策、执行交易（PROPOSE、EVIDENCE、VETO、DECIDE、EXECUTE）。正在干活的那格有一条进度条，干完的打勾，午休那种“休息中”显示黄字“休息中”。
+
+为什么用进度条，而不是像下面那块一样直接铺日志？因为这两个东西回答的问题不同：日志回答“之前发生过什么”，进度条回答“<em>此时此刻</em>卡在链条的哪一环”。我在开头那半小时里，就是缺了这一格：我盯着日志从下往上翻，翻到“午休中”才反应过来，其实最上面那排格子早就告诉我全队都在休息。
+
+第二块是 <strong>活跃任务详情</strong>：从五个角色里找出当前状态属于“工作中 / 执行中 / 监控中”的那一个，显示它的进度百分比、当前任务名、以及今日任务的前三条。如果一个活跃的都没有，它就按时段给两句不同的话——交易时段说“当前无活跃任务 · 交易时段 Agent 正在监控市场”，非交易时段说“当前无活跃任务 · 非交易时段 Agent 自动进入休眠”。
+
+第三块是 <strong>活动日志</strong>：可以按角色筛（全部 / CIO / Planner / Quant / Risk / Trader），记录按五类着色（研究分析、决策、风控检查、执行交易、警报），最多保留 200 条，最新一条加个“NEW”的高亮。这条流的上游是两处：今日的团队活动，加最新一批智能体任务日志。
+
+再往下是 <strong>5 个 Agent 工作明细</strong>：五张小卡各带一条进度条，点一张卡，下面就是这位智能体今天的任务日志。
+
+还有两块小东西：一块是 <strong>市场指数卡</strong>，只留上证指数、深证成指、创业板指——这就是 AI 实际读到的实时行情；另一块是右上角的 <strong>调度器状态徽章</strong>，绿色“调度器运行中”，或者红色“执行器不可用”。后面这个属于故障灯层，看见了就得去查，别等它自己好。
+
+一定要说清楚的是自动刷新，因为它在三个页面里最特殊：它的间隔不是写死的 5 分钟，而是从设置里读一个数（<code class="code">activity_refresh_minutes</code>，取值范围 1--60 分钟，默认 5）系统源码 <code class="sysfile">ui/src/pages/Activity.tsx</code> 与 <code class="sysfile">AIQuant/internal/config/config.go</code>（<code class="code">ActivityRefreshMinutes</code> 字段）；设置项见「设置-通用」。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-7" href="#fn-ch27-7">7</a></sup>；而且它<em>只在交易时段刷新</em>，非交易时段整页就是静止的；右上角还能把自动刷新整个暂停。所以这一页上的时间戳“最近刷新：…”是判断它有没有在干活的最快办法。
+
+最后，我要为一条手册里写了、但代码里还没接上的功能留一句实话：用户手册把“今日交易记录”（今日买入/卖出笔数与明细）列为这一页的功能，但当前代码里负责转换交易记录的那个函数带下划线前缀（<code class="code">_convertTradeToActivity</code>），也就是没有被调用系统源码 <code class="sysfile">ui/src/pages/Activity.tsx</code>：<code class="code">TodayTrade</code> 接口与 <code class="code">_convertTradeToActivity</code> 均存在，但函数未被任何组件引用；对照 <code class="sysfile">docs/用户操作手册.md</code> 第 7 节“今日交易记录”。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-8" href="#fn-ch27-8">8</a></sup>。这种“文档说有了、代码里是预留”的地方，我不替它圆场——你去看页面，看不到那张表，就是没接上。
+
+<figure class="fig" id="fig:ch27-activity"><img class="shot" style="width:100%" src="assets/ui/ui-activity.png" alt=""><figcaption><span class="lbl">图 27.4</span>实时活动页：投资流水线五格（提出方案 \(\to\) 提供证据 \(\to\) 风险否决 \(\to\) 最终决策 \(\to\) 执行交易）、AI 实际读取到的市场指数，与可按角色筛选的活动日志</figcaption></figure>
+
+
+<h2 id="sec-27-4"><span class="hnum">27.4</span>近似模型 \(\to\) 严谨版本：刷新间隔决定陈旧度</h2>
+
+到这里，“三个页面各自回答什么”已经清楚了。剩最后一件事，也是我在开头那半小时里真正困惑的事：为什么控制中心 5 分钟刷一次，AI 团队 30 秒刷一次？为什么不能都设成 1 秒？
+
+先给一个差不多对的模型：<strong>刷新越快，你看到的越新。</strong>
+
+这个模型在“越快越好”的方向上是对的，但它漏了两件事：一是你看到的永远是<em>过去某个时刻</em>的值，“实时”是不存在的；二是每次刷新是有成本的，而且成本还不一样。把这两件事写下来，就成了下面这个命题。
+
+先约定记号。设某个看板指标的真实取值随时间变化，写成函数 \(x(t)\)；看板每隔 \(\Delta\) 秒刷新一次，所以你看到的是 \(x\) 在<em>上一次刷新时刻</em>的值。两次刷新之间隔了多久，取决于你什么时候抬眼——把这个“相位”记成 \(\delta(t)\)，它落在 \([0,\Delta)\) 里。于是你看到的陈旧程度是
+
+<div class="math-scroll" id="eq:ch27-stale">\[e(t)=x(t)-x\bigl(t-\delta(t)\bigr), \tag{27.1}\]</div>
+
+\(\abs{e(t)}\) 越大，说明屏上的数字离真相越远。这个 \(e\) 就是陈旧度（<em>staleness</em>）。
+
+<div class="thm definition" id="ass:ch27-lip"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">27.1</span>（指标变化率的 Lipschitz 界）</div>
+存在常数 \(M\ge0\)，使得对一切 \(t,s\) 都有
+<div class="math-scroll" id="eq:ch27-lip">\[\abs{x(t)-x(s)}\le M\,\abs{t-s}. \tag{27.2}\]</div>
+称 \(M\) 为该指标的最大变化率。
+</div>
+
+这个假设在讲什么：\(x\) 不会有“瞬间跳变”。一秒之内它最多变 \(M\)。真实的总资产、盈亏都满足它（价格是有限变化率的量）；它失效的情形是“瞬时跳变”——比如 15:00 收盘价入库那一下快照口径切换，那一刻属于离散事件，不属于本章讨论的连续过程。
+
+<div class="thm plain" id="prop:ch27-refresh"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">27.2</span>（刷新间隔、陈旧度与成本的三方权衡）</div>
+设指标 \(x\) 满足假设 <a class="xref" href="ch27.html#ass:ch27-lip">27.1</a>，刷新间隔为 \(\Delta&gt;0\)，刷新时刻取 \(\tau_k=k\Delta\)（\(k\in\mathbb{Z}\)），相位 \(\delta(t)=t-\Delta\lfloor t/\Delta\rfloor\)。则：
+
+<em>(a)（陈旧度上界）</em> 对一切 \(t\)，
+<div class="math-scroll" id="eq:ch27-bound">\[\abs{e(t)}\le M\Delta . \tag{27.3}\]</div>
+
+<em>(b)（上界是紧的）</em> 取 \(x(t)=Mt\)（\(M&gt;0\)），则 \(\sup_t\abs{e(t)}=M\Delta\)，即 <a class="xref" href="ch27.html#eq:ch27-bound">式 (27.3)</a> 不能再收紧。
+
+<em>(c)（给定陈旧度上限的最小刷新频率）</em> 若要求对一切 \(t\) 有 \(\abs{e(t)}\le\varepsilon\)（\(\varepsilon&gt;0\)），则必须
+<div class="math-scroll" id="eq:ch27-rate">\[\Delta\le\frac{\varepsilon}{M},
+\qquad\text{也就是}\qquad
+\frac1\Delta\ge\frac{M}{\varepsilon}. \tag{27.4}\]</div>
+
+<em>(d)（成本）</em> 设单次刷新的成本为 \(c&gt;0\)（它可以是钱，也可以是接口配额或电量），单位时间成本预算为 \(\hat C&gt;0\)。则预算约束等价于
+<div class="math-scroll" id="eq:ch27-cost">\[\Delta\ge\frac{c}{\hat C}, \tag{27.5}\]</div>
+可行区间为 \(\bigl[c/\hat C,\ \varepsilon/M\bigr]\)，它非空当且仅当
+<div class="math-scroll" id="eq:ch27-feasible">\[M c\le \hat C\,\varepsilon . \tag{27.6}\]</div>
+在可行时，最不陈旧的刷新间隔是 \(\Delta^\ast=c/\hat C\)。
+</div>
+
+这个命题在说什么：<strong>精度给刷新间隔一个上限，成本给它一个下限。</strong> 你想看得更准，就得刷得更频繁；你不想花更多成本，就不得不刷得更慢。两头一夹，剩下的就是你能挑的区间；这个区间可能空——空的时候，你只能放宽对“准”的要求，或者加预算，没有第三条路。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>先把相位的取值范围算实。设 \(k(t)=\lfloor t/\Delta\rfloor\)，则按下取整的定义 \(k(t)\Delta\le t&lt;(k(t)+1)\Delta\)。三段同减 \(k(t)\Delta\)，得 \(0\le\delta(t)&lt;\Delta\)。
+
+<em>(a)</em> 注意 \(t-\delta(t)=k(t)\Delta\) 恰好是一个刷新时刻，所以可以直接把假设 <a class="xref" href="ch27.html#ass:ch27-lip">27.1</a> 用在 \(t\) 与 \(t-\delta(t)\) 这组点上：
+<div class="math-scroll">\[\abs{e(t)}=\abs{x(t)-x\bigl(t-\delta(t)\bigr)}
+\le M\,\abs{t-\bigl(t-\delta(t)\bigr)}=M\,\delta(t)&lt;M\Delta . \tag{27.7}\]</div>
+最后一步用了 \(\delta(t)&lt;\Delta\)，于是 <a class="xref" href="ch27.html#eq:ch27-bound">式 (27.3)</a> 成立（取 \(\le\) 是因为要的是上界）。
+
+<em>(b)</em> 取 \(x(t)=Mt\)。先算它的 Lipschitz 常数：\(\abs{x(t)-x(s)}=M\abs{t-s}\)，所以 \(M\) 正是它的最大变化率，假设 <a class="xref" href="ch27.html#ass:ch27-lip">27.1</a> 被恰好取等。代入 <a class="xref" href="ch27.html#eq:ch27-stale">式 (27.1)</a>：
+<div class="math-scroll">\[e(t)=Mt-M\bigl(t-\delta(t)\bigr)=M\,\delta(t). \tag{27.8}\]</div>
+现在取一串 \(t_\eta=\Delta-\eta\)，让 \(\eta\) 从正的一侧趋近于 \(0\)。因为 \(t_\eta\in(0,\Delta)\)，它落在第一个刷新周期里，\(\delta(t_\eta)=t_\eta=\Delta-\eta\)，于是 \(\abs{e(t_\eta)}=M(\Delta-\eta)\)。令 \(\eta\to0^+\)，得到 \(\sup_t\abs{e(t)}\ge M\Delta\)；结合 (a) 的 \(\le M\Delta\)，两边相等。上界取到，所以它是紧的。
+
+<em>(c)</em> 用反证。设 \(\Delta&gt;\varepsilon/M\)。取 \(t=\varepsilon/M+\eta\)，其中 \(\eta&gt;0\) 取得足够小，使 \(t&lt;\Delta\)（这样的 \(\eta\) 存在，因为 \(\varepsilon/M&lt;\Delta\)）。此时 \(t\in(0,\Delta)\)，故 \(\delta(t)=t\)，代回 (b) 里算过的那条等式：
+<div class="math-scroll">\[\abs{e(t)}=M\,t=M\Bigl(\frac{\varepsilon}{M}+\eta\Bigr)=\varepsilon+M\eta&gt;\varepsilon . \tag{27.9}\]</div>
+这与“对一切 \(t\) 有 \(\abs{e(t)}\le\varepsilon\)”矛盾。所以必须 \(\Delta\le\varepsilon/M\)，两边取倒数（都是正数，不等号反向）得 \(1/\Delta\ge M/\varepsilon\)，即 <a class="xref" href="ch27.html#eq:ch27-rate">式 (27.4)</a>。
+
+<em>(d)</em> 单位时间里发生的刷新次数是 \(1/\Delta\)，所以单位时间成本是 \(c/\Delta\)。要求它不超过预算：
+<div class="math-scroll">\[\frac{c}{\Delta}\le\hat C
+\ \Longleftrightarrow\
+c\le\hat C\,\Delta
+\ \Longleftrightarrow\
+\Delta\ge\frac{c}{\hat C}, \tag{27.10}\]</div>
+第二个等价号两边同除以正数 \(\hat C\)，第三个等价号两边同除以正数 \(\Delta\) 并移项——每一步都是同解变形，不等号方向不变。这就是 <a class="xref" href="ch27.html#eq:ch27-cost">式 (27.5)</a>。
+
+把它和 (c) 的 \(\Delta\le\varepsilon/M\) 合并，\(\Delta\) 必须同时落在两个区间里，故可行集为 \(\bigl[c/\hat C,\ \varepsilon/M\bigr]\)。实数区间非空当且仅当下端点不超过上端点，即 \(c/\hat C\le\varepsilon/M\)，两边同乘正数 \(\hat C M\) 得 \(Mc\le\hat C\varepsilon\)，即 <a class="xref" href="ch27.html#eq:ch27-feasible">式 (27.6)</a>。
+
+最后，在可行集里“最不陈旧”等于取最小的 \(\Delta\)（由 (a)，\(M\Delta\) 关于 \(\Delta\) 单调增），故 \(\Delta^\ast=c/\hat C\)；此时上界 \(M\Delta^\ast=Mc/\hat C\le\varepsilon\)，恰好不超过允许值。
+</div>
+
+<div class="thm remark" id="rem:ch27-delta0"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">27.3</span>（数据自己的节奏：有效刷新间隔）</div>
+命题 <a class="xref" href="ch27.html#prop:ch27-refresh">27.2</a> 里的 \(x\) 是连续的。真实系统里还有第二道闸门：<strong>数据源本身多久产生一次新值。</strong>
+
+调度器是每 30 秒醒一次的，六维判势的实时快照也是 30 秒去抖一次系统事实清单第 6 节（<code class="code">AutoScheduler</code> 主循环 30 秒 ticker）与第 8 节（六维实时快照 30 秒缓存去抖）；源码 <code class="sysfile">internal/scheduler/auto_scheduler.go</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch27-9" href="#fn-ch27-9">9</a></sup>。设数据每隔 \(\Delta_0\) 秒才可能变一次。当 \(\Delta&lt;\Delta_0\) 时，相邻两次刷新之间 \(x\) 根本取同一个值，\(e(t)\) 一点也没变小，而成本 \(c/\Delta\) 却按比例上升。
+
+所以实用的选择不是 \(\Delta^\ast\)，而是
+<div class="math-scroll">\[\Delta_{\text{eff}}=\max\bigl\{\Delta^\ast,\ \Delta_0\bigr\}. \tag{27.11}\]</div>
+
+这解释了 AI 团队页为什么是 30 秒而不是 1 秒：它的数据本来就被后端每 30 秒写一次，刷得再快也只能重复读到同一个值。
+</div>
+
+现在把三个页面代进命题 <a class="xref" href="ch27.html#prop:ch27-refresh">27.2</a> 的 (d)。
+
+控制中心的 \(c\) 很大：它每一轮先 <code class="code">RefreshPrices</code> 拉一次实时行情（要走进数据源、可能走外部网络），再重算一遍组合状态。\(c\) 大，则 \(\Delta^\ast=c/\hat C\) 大，所以它的 5 分钟不是“慢”，是“贵”换来的。
+
+AI 团队的 \(c\) 很小：它只调一次 <code class="code">GetAllAgentTasks</code>，查本地数据库。\(c\) 小，\(\Delta^\ast\) 就小，于是 30 秒在预算内是合理的——再加上它的数据节奏 \(\Delta_0\) 本来就是 30 秒，按前述备注，\(\Delta_{\text{eff}}\) 恰好就是 30 秒。
+
+实时活动介于两者之间：它要读本地库（便宜）、要拉指数行情（贵），所以它给用户一个 1--60 分钟的可调旋钮，默认 5 分钟，并且只在交易时段刷。<strong>把“多久刷一次”做成用户可调，等于把命题里的 \(\hat C\) 交给用户自己填。</strong>
+
+这一节想说的最后一句话是：<em>看板上的“实时”不是一个形容词，是一个被两个数字夹住的区间。</em> 上端是 \(M/\varepsilon\)，下端是 \(c/\hat C\)。
+
+<h2 id="sec-27-5"><span class="hnum">27.5</span>它在系统里长什么样</h2>
+
+先把三个页面摆成一张表。
+
+<figure class="tbl" id="tab:ch27-pages"><div class="tbl-scroll"><table><caption><span class="lbl">表 27.2</span>三个页面的路由、回答的问题与刷新节奏</caption><tbody><tr><td><strong>页面</strong></td><td><strong>路由</strong></td><td><strong>回答的问题与关键区块</strong></td><td><strong>刷新</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>控制中心</td><td><span class="mono">#/</span>（默认）</td><td>钱还剩多少 / 系统健不健康：五张指标卡、CIO 今日状态、风险监控、持仓分布、AI 今日决策</td><td>5 分钟</td></tr><tr><td>AI 团队</td><td><span class="mono">#/ai-team</span></td><td>谁在干活、谁有权干什么：5 张智能体卡、市场时段指示、任务规格清单、8\(\times\)5 权限矩阵</td><td>30 秒（任务）/ 60 秒（时段）</td></tr><tr><td>实时活动</td><td><span class="mono">#/activity</span>（旧 <span class="mono">#/workflow</span>）</td><td>现在跑到哪一步：投资流水线、活跃任务详情、活动日志、5 个 Agent 工作明细、市场指数</td><td>默认 5 分钟，1--60 分钟可调，可暂停，非交易时段不刷</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">路由名采自源码里的 hash 值；“关键区块”只列每一页最上面的几块，不含全部控件。</p>
+<p class="tabsrc"><code class="sysfile">ui/src/App.tsx</code> 的路由 switch、<code class="sysfile">ui/src/pages/Dashboard.tsx</code>、<code class="sysfile">ui/src/pages/AITeam.tsx</code>、<code class="sysfile">ui/src/pages/Activity.tsx</code>；刷新节奏见各文件内的定时器与 <code class="sysfile">internal/config/config.go</code> 的 <code class="code">activity_refresh_minutes</code>。核对时间 2026-09-24。</p></figure>
+
+三件事要单独说。
+
+第一件是路由：这套前端用的是 hash 路由——地址栏里 <span class="mono">#</span> 后面那段就是页面名，改它不会重新加载整个应用。<span class="mono">#/workflow</span> 这种旧地址被保留成指向实时活动的别名，所以你看的老教程里的链接不会 404。
+
+第二件是数字的来路。看板上每一个“现价”，最后都落在行情库上：本书核对时那张 <code class="code">stock.ohlc</code> 表里有 10&#8201;041&#8201;343<sup class="fn-ref"><a id="fnref-ch27-10" href="#fn-ch27-10">10</a></sup> 行 K 线，覆盖 9&#8201;584 个代码。看板不是自己算价，它只是把库里最近的一条读出来。
+
+第三件是一位老朋友：三个页面的“数字在不在动”，取决于<em>时段</em>，而时段的判定只有一处实现——<code class="sysfile">internal/util/trading_hours.go</code>。控制中心不等时段也照刷（它会拉行情，非交易时段拿回来的是上一笔），AI 团队按 30 秒刷任务、按 60 秒重算时段，实时活动则干脆在非交易时段停手。同一件事在三个页面里有三种处理，原因都在命题 <a class="xref" href="ch27.html#prop:ch27-refresh">27.2</a> 的 (d) 那一项成本里。
+
+<h2 id="sec-27-6"><span class="hnum">27.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+不是。它读的是数据库里的快照。
+
+这句话解释了一类很常见的困惑：“我手动加了一下持仓市值，和页面上那个总资产对不上，差了几十块。” 差的那几十块，来自快照的时间点与你心算的时间点不同。
+
+系统在这个地方的取舍是明确的：持仓状态以数据库为准，而后端每次被问到时，会先拿<em>最近一次收盘快照</em>加上<em>快照之后的成交</em>做一次强制对账，再把结果返回给前端。也就是说，屏幕上的数字永远是“某一次对账的结果”，不是“此刻的算账结果”。
+
+这条规矩在第 <a class="xref" href="ch29.html#ch:ch29">第二十九章</a> 章还会再出现一次，而且会更刺眼：当日盈亏以<em>交易日</em>为界，15:00 之后它就不再刷新了——你晚上盯着它看，它当然不动。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+我开头那半小时，就是想当然地掉进了这个坑。
+
+真实情况是：非交易时段它本来就该睡。AI 团队页在休市时把五个角色都标成“休市中，等待下一交易日”；午休时整排“午休中”；实时活动页在非交易时段写着“当前无活跃任务 · 非交易时段 Agent 自动进入休眠”，而且那一页干脆停止自动刷新。
+
+这套设计不是“偷懒省算力”这么简单。它对应第 <a class="xref" href="ch05.html#ch:ch05">第五章</a> 章那张时段表：一个每 30 秒醒一次的状态机，醒来第一件事是看时段——午休那一个半小时里多算一次纯属浪费，晚上八点算出来的也不是“现在”，是“明天”。
+
+所以判断“是不是坏了”，不要看<em>动作</em>有没有在动，要看三处硬证据：控制中心顶栏的状态徽章是不是黄的“停止”、实时活动右上是不是红的“执行器不可用”、以及智能体卡片上有没有红色的“异常”。这三个都不亮，它就是睡着了。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+不是。它们的刷新节奏不一样（5 分钟 / 30 秒 / 可暂停），所以同一时刻，三个页面上的数字<em>本来就可以不一致</em>。
+
+这与命题 <a class="xref" href="ch27.html#prop:ch27-refresh">27.2</a> 说的是一件事：两个页面的陈旧度上界分别是 \(M\Delta_1\) 和 \(M\Delta_2\)，只要 \(\Delta_1\ne\Delta_2\)，它们的读数就不可能时时相同。
+
+更要紧的是数据来源也不同：控制中心的决策列表读的是最近 7 天的决策日志（屏上只显示 5 条）；实时活动的日志读的是今日团队活动加最新任务日志（最多 200 条，最新一条标“NEW”）。同一个上午发生的同一件事，在这两页上可能一处早就刷过去了、另一处还停在两分钟前。
+
+正确的用法是：<strong>判断“要不要动手”看故障灯层，“现在怎么了”看实时活动，“最后亏了多少”再看控制中心。</strong> 想让三页同步，只有一个办法——把实时活动那个刷新旋钮调到和你想看的节奏一致。
+</div></div>
+
+<h2 id="sec-27-7"><span class="hnum">27.7</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>控制中心页面（五张指标卡、CIO 今日状态、风险监控、持仓分布分页、AI 今日决策、5 分钟顺序轮询、简洁/详细两模式）：<code class="sysfile">ui/src/pages/Dashboard.tsx</code>
+  </li><li>AI 团队页面（5 张智能体卡、时段驱动的状态映射、任务规格清单、8\(\times\)5 权限矩阵、30 秒任务轮询）：<code class="sysfile">ui/src/pages/AITeam.tsx</code>
+  </li><li>实时活动页面（投资流水线、活跃任务详情、活动日志筛选、5 个 Agent 工作明细、市场指数卡、调度器徽章、可暂停的自动刷新）：<code class="sysfile">ui/src/pages/Activity.tsx</code>
+  </li><li>旧工作流页与编排视图（活跃工作流、工作流模板、智能体待办）：<code class="sysfile">ui/src/pages/Workflow.tsx</code>
+  </li><li>hash 路由与 <span class="mono">#/workflow</span> 到实时活动的重定向：<code class="sysfile">ui/src/App.tsx</code>
+  </li><li>前端角色名、状态标签、角色职责的“可做 / 不可做”清单：<code class="sysfile">ui/src/types/index.ts</code>
+  </li><li>角色定义、任务类型与状态、默认权限矩阵与权限常量：<code class="sysfile">internal/agentworkflow/models.go</code>、<code class="sysfile">internal/agentworkflow/permissions.go</code>
+  </li><li>市场时段枚举与判定（<code class="code">GetMarketPhase</code>、<code class="code">PhaseLabels</code>）：<code class="sysfile">internal/util/trading_hours.go</code>
+  </li><li>30 秒调度扫描与盘中 300 秒重复间隔：<code class="sysfile">internal/scheduler/auto_scheduler.go</code>（另见本书系统事实清单第 6 节）
+  </li><li>实时活动刷新分钟数的配置项：<code class="sysfile">internal/config/config.go</code>（<code class="code">ActivityRefreshMinutes</code>）
+  </li><li>页面功能对照（控制中心 5 分钟刷新的用户侧口径、AI 团队 30 秒、实时活动可暂停）：<code class="sysfile">docs/用户操作手册.md</code> 第 4--7 节
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十五分钟）</div><div class="boxbody">
+<ol><li>依次打开三个页面，每页停留三分钟。用的方法是<em>只记“哪些数字在动”</em>：控制中心里“今日盈亏”和“总资产”会在刷新时一起跳一下；AI 团队的当前动作会在时段切换那一刻整排改口；实时活动的日志会从上往下推。记完把三页的“在动的数字”列成三行，你会发现三行的长度差别很大——那就是 \(\Delta\) 的差别。
+  </li><li>回到 AI 团队页，展开风控师那一行，把“不能做”清单读一遍；再对照表 <a class="xref" href="ch27.html#tab:ch27-perm">27.1</a> 的“风险否决”那一行横着看。然后回答一句话：谁能下单？写完再去操盘手那一行核对——只有它的“可以”里没有决策类动作。
+  </li><li>把系统时间（或挑一个非交易时段）调到休市状态，观察三处：AI 团队整排“休市中，等待下一交易日”、实时活动“非交易时段 Agent 自动进入休眠”、控制中心的状态徽章。确认这三处都不亮红黄之后，你就学会了“睡着”和“坏了”的分辨法。
+  </li><li>在实时活动页右上角点一下，把自动刷新暂停，盯着“最近刷新：…”那行字看它不再变；再点回来。顺便把设置里的刷新分钟数改小一格（比如从 5 改成 3），回到页面确认徽章上的文字跟着变了——这就是命题 <a class="xref" href="ch27.html#prop:ch27-refresh">27.2</a> 里那个 \(\hat C\) 被你亲手调了一次。
+  </li><li>打开 <code class="sysfile">ui/src/pages/Dashboard.tsx</code>，搜 <code class="code">300000</code>。你会看到它只出现一次，就是那一句等待下一轮的代码。把三个页面的这个数字都搜一遍，对照表 <a class="xref" href="ch27.html#tab:ch27-pages">27.2</a> 的最后一列。
+</li></ol>
+</div></div>
+
+到这里，你已经会读这三块表了：故障灯告诉你还能不能开，流水线告诉你车正在哪一段，油表告诉你还剩多少。可是控制中心右下那一列“AI 今日决策”里，每一条都只给了你一行理由——那一行字的背后，藏着信心度、风控审批、多空辩论、仓位系数和一整条证据链。
+
+<strong>下一章我们把其中一条决策拆到字。</strong> 一份写成 <code class="code">BUY｜信心 72｜风控审批通过｜仓位系数 0.55｜辩论：看多 3 / 看空 2，共识 61</code> 的记录，到底每一段是谁写的、按什么规则写出来的。
+</article>
+<nav class="pager"><a class="prev" href="ch26.html"><span class="dir">上一页</span>第二十六章 生成属于你的第一份投资方案</a><a class="next" href="ch28.html"><span class="dir">下一页</span>第二十八章 读懂决策：CIO 决策中心里的每一行字</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch27-1"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch27-1">↩</a></li><li id="fn-ch27-2"><strong>数据来源</strong> 系统源码 <code class="sysfile">ui/src/pages/Dashboard.tsx</code> 的 <code class="code">teamStatus</code> 数组（4 条记录），以及第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章讨论过的五个角色定义 <code class="sysfile">internal/agentworkflow/models.go</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-2">↩</a></li><li id="fn-ch27-3"><strong>数据来源</strong> 系统源码 <code class="sysfile">ui/src/pages/Dashboard.tsx</code>：轮询函数末尾 <code class="code">timer = window.setTimeout(poll, 300000)</code>，即 300&#8201;000&#8201;ms \(=5\) 分钟；且是“顺序轮询”——本次刷新跑完才安排下一次。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-3">↩</a></li><li id="fn-ch27-4"><strong>数据来源</strong> 系统源码 <code class="sysfile">ui/src/pages/AITeam.tsx</code> 的 <code class="code">agentTasks</code> 逐条计数；同一段代码上方的注释写的是“与后台 getOptimizedTasks 一一对应，共16任务”，与清单实际条数不一致，本书照实记录。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-4">↩</a></li><li id="fn-ch27-5"><strong>数据来源</strong> 系统源码 <code class="sysfile">ui/src/pages/AITeam.tsx</code>：任务轮询 30&#8201;000&#8201;ms，时段与状态重算 60&#8201;000&#8201;ms。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-5">↩</a></li><li id="fn-ch27-6"><strong>数据来源</strong> 系统源码 <code class="sysfile">ui/src/App.tsx</code> 的路由 switch：<code class="code">case '/workflow'</code> 与 <code class="code">case '/activity'</code> 都返回 <code class="code">Activity</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-6">↩</a></li><li id="fn-ch27-7"><strong>数据来源</strong> 系统源码 <code class="sysfile">ui/src/pages/Activity.tsx</code> 与 <code class="sysfile">AIQuant/internal/config/config.go</code>（<code class="code">ActivityRefreshMinutes</code> 字段）；设置项见「设置-通用」。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-7">↩</a></li><li id="fn-ch27-8"><strong>数据来源</strong> 系统源码 <code class="sysfile">ui/src/pages/Activity.tsx</code>：<code class="code">TodayTrade</code> 接口与 <code class="code">_convertTradeToActivity</code> 均存在，但函数未被任何组件引用；对照 <code class="sysfile">docs/用户操作手册.md</code> 第 7 节“今日交易记录”。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-8">↩</a></li><li id="fn-ch27-9"><strong>数据来源</strong> 系统事实清单第 6 节（<code class="code">AutoScheduler</code> 主循环 30 秒 ticker）与第 8 节（六维实时快照 30 秒缓存去抖）；源码 <code class="sysfile">internal/scheduler/auto_scheduler.go</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch27-9">↩</a></li><li id="fn-ch27-10"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch27-10">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

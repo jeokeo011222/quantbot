@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>机器学习的陷阱：五个模型为什么常常输给三条均线 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·机器学习的陷阱：五个模型为什么常常输给三条均线">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch18.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html" class="current"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a><ul class="sub"><li><a href="#sec-18-1">18.1 五个模型，打不过一条均线</a></li><li><a href="#sec-18-2">18.2 用历年真题训练出来的学生</a></li><li><a href="#sec-18-3">18.3 泄漏是从哪儿漏进去的</a></li><li><a href="#sec-18-4">18.4 五个模型合起来，为什么不一定更稳</a></li><li><a href="#sec-18-5">18.5 它在系统里长什么样</a></li><li><a href="#sec-18-6">18.6 最后一句：它失败了会怎样</a></li></ul></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch18"><span class="cnum">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</h1>
+
+
+
+
+
+<h2 id="sec-18-1"><span class="hnum">18.1</span>五个模型，打不过一条均线</h2>
+
+九月十日，我在策略管理页上按下「刷新」。
+
+那条叫做 <code class="code">ml_model</code> 的策略跑完了。结果页写着五个模型集成——XGBoost、LightGBM、随机森林、逻辑回归、多层感知机。名字排成一列，像一份简历。
+
+同一张表里，紧挨着它的是 <code class="code">ma_cross</code>（双均线交叉），全部参数只有两个数：短周期、长周期。
+
+那次的表现是：集成模型没有赢。它输得也不算难看，只是<strong>平平淡淡地输</strong>——五个模型、一堆超参数、一整套训练流程，换来的是一条“股价上穿 20 日均线就买”也能拿到的成绩，有时还不如。
+
+我盯着这个结果想了很久。因为“机器学习没用”和“机器学习有用、但我用错了”这两个结论，在结果页上长得一模一样。
+
+后来我确认是后者。而且错的地方不在模型里，在<strong>模型外面那圈管道</strong>上。
+
+<h2 id="sec-18-2"><span class="hnum">18.2</span>用历年真题训练出来的学生</h2>
+
+<div class="box intuition"><div class="boxbody">
+你给学生十年的历年真题，让他反复练。练完之后，你拿同一套卷子考他。他满分。
+
+你会说“他学会了”吗？不会。你只会说“他把答案背下来了”。
+
+要判断他到底有没有学会，唯一的办法是给他<strong>一套他没见过的题</strong>。
+
+机器学习在量化里的全部困难，都压缩在这句话里：<strong>什么叫“没见过”？</strong>
+</div></div>
+
+金融数据有两个和图像、文本完全不同的性质。
+
+<strong>第一，它有时间顺序。</strong>打乱它，就制造出了一个不可能存在的世界——在那个世界里，你可以用下个月的新闻解释这个月的价格。
+
+<strong>第二，它的信噪比极低。</strong>手写数字识别里，像素和标签的关系几乎是确定的；而日频收益预测里，能被解释的那部分方差常常只有几个百分点。信噪比越低，“背答案”越容易发生，也越难被发现。
+
+这两条合起来，就指向机器学习在量化里最容易走的那条岔路：<strong>不是模型过拟合，是管道泄漏。</strong>
+
+<h2 id="sec-18-3"><span class="hnum">18.3</span>泄漏是从哪儿漏进去的</h2>
+
+先说一个“差不多对”的说法：过拟合就是参数太多、模型太复杂。
+
+这个说法对图像模型基本成立。但在量化里，真正致命的泄漏往往发生在<strong>模型还没开始训练之前</strong>——在你造特征的那一步。
+
+系统的真实事故清单第 #26 条把症状写得很全：
+
+<div class="box keybox"><div class="boxtitle">真实事故 #26（摘录自系统事实清单）</div><div class="boxbody">
+<strong>症状</strong>：模型指标虚高、实盘失效。<br>
+
+<strong>根因</strong>：跨股票滚动窗口污染 + 无效标签混入 + 随机 <code class="code">train_test_split</code> + <code class="code">scaler</code> 用全量 <code class="code">fit</code>（测试泄漏）。<br>
+
+<strong>修复</strong>：按 <code class="code">symbol</code> 分组、时间切分、<code class="code">scaler</code> 仅训练集 <code class="code">fit</code>。
+</div></div>
+
+四件事里，后两件是同一个病：<strong>测试集的信息提前进入了训练过程</strong>。先把它定义清楚。
+
+<div class="thm definition" id="def:ch18-leak"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">18.1</span>（泄漏）</div>
+设数据按时间排序为 \(T_1&lt;\dots&lt;T_n\)。学习流程是“预处理 \(\varphi\)（造特征、算统计量）\(\to\) 在训练集 \(S_{\text{tr}}\) 上拟合模型，输出规则 \(h\)”。若 \(h\) 对某个样本 \(i\) 的取值依赖<strong>晚于第 \(i\) 个样本</strong>的数据，或依赖<strong>测试集自身</strong>的标签，就说这个流程存在<strong>数据泄漏</strong>。
+</div>
+
+<div class="thm plain" id="prop:ch18-split"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">18.2</span>（随机切分必然泄漏，时间切分不泄漏）</div>
+对时间有序数据 \(T_1&lt;\dots&lt;T_n\)：
+<ol><li>若把下标集合 \(\{1,\dots,n\}\) <strong>随机</strong>分成训练集 \(S_{\text{tr}}\) 与测试集 \(S_{\text{te}}\)，两边都非空，则泄漏事件
+  <div class="math-scroll">\[\mathcal L=\bigl\{\min S_{\text{te}}&lt;\max S_{\text{tr}}\bigr\} \tag{18.1}\]</div>
+  的概率为
+  <div class="math-scroll" id="eq:ch18-PL">\[\Prob(\mathcal L)=1-\frac{1}{\binom{n}{m}},\qquad m=\abs{S_{\text{tr}}}, \tag{18.2}\]</div>
+  它随 \(n\to\infty\)（\(m/n\) 趋于常数 \(p\in(0,1)\)）而趋于 \(1\)；
+  </li><li>若按<strong>时间切分</strong> \(S_{\text{tr}}=\{1,\dots,m\}\)、\(S_{\text{te}}=\{m+1,\dots,n\}\)，则 \(\min S_{\text{te}}&gt;\max S_{\text{tr}}\)，\(\mathcal L\) 不可能发生；预处理只使用 \(S_{\text{tr}}\) 时，\(h\) 对任意测试样本的取值仅依赖 \(T_m\) 之前的信息，无泄漏。
+</li></ol>
+</div>
+
+这个命题在说什么：随机切分在“样本独立同分布”的前提下是合法的，在<strong>时间有序</strong>的数据上不合法。(i) 说泄漏几乎必然发生，而且发生概率可以精确写成 \(1-1/\binom{n}{m}\)；(ii) 说按时间切分是关掉它的最直接办法。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 事件 \(\mathcal L\) 的补集是 \(\{\min S_{\text{te}}&gt;\max S_{\text{tr}}\}\)，即“\(S_{\text{te}}\) 的每一个元素都大于 \(S_{\text{tr}}\) 的每一个元素”。在时间顺序下，这等价于“存在唯一的切分点 \(m\)，使 \(S_{\text{tr}}=\{1,\dots,m\}\)、\(S_{\text{te}}=\{m+1,\dots,n\}\)”。
+
+从 \(\{1,\dots,n\}\) 中随机取 \(m\) 个作为 \(S_{\text{tr}}\)，共有 \(\binom{n}{m}\) 种等可能取法（这里 \(|S_{\text{tr}}|=m\) 固定）。满足上述条件的取法只有 \(1\) 种，即 \(S_{\text{tr}}=\{1,\dots,m\}\)。故
+<div class="math-scroll">\[\Prob\bigl(\{\min S_{\text{te}}&gt;\max S_{\text{tr}}\}\bigr)=\frac{1}{\binom{n}{m}},
+\qquad
+\Prob(\mathcal L)=1-\frac{1}{\binom{n}{m}}.\]</div>
+当 \(m=\lfloor pn\rfloor\)、\(p\in(0,1)\) 固定时，\(\binom{n}{m}\) 随 \(n\) 指数增长，故 \(\Prob(\mathcal L)\to1\)。
+
+<em>(ii)</em> 时间切分下，对任意 \(j\in S_{\text{tr}}\) 有 \(j\le m\)；对任意 \(i\in S_{\text{te}}\) 有 \(i\ge m+1&gt;m\ge j\)。因为时间是递增的 (\(T_1&lt;\dots&lt;T_n\))，所以 \(T_j&lt;T_i\) 恒成立，从而 \(\min S_{\text{te}}\ge m+1&gt;m\ge\max S_{\text{tr}}\)，\(\mathcal L\) 为不可能事件。
+
+若 \(\varphi\) 的输入仅为 \(S_{\text{tr}}\)，则 \(\varphi\) 的全部统计量都是 \(T_1,\dots,T_m\) 的函数；\(h\) 对测试样本 \(i\) 的取值只额外用到第 \(i\) 个样本自身的同期特征。二者合起来不含任何 \(T_{&gt;m}\) 的信息，故无泄漏。\(\blacksquare\)
+</div>
+
+下面看泄漏能把成绩“修”得多漂亮。这个例子只有两行数学，但它就是事故 #26 的内核。
+
+<div class="thm plain" id="prop:ch18-targetenc"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">18.3</span>（目标编码泄漏：没有信号也能做出满分）</div>
+设有 \(n\) 个样本 \((X_i,Y_i)\)，\(Y_i\in\{0,1\}\)，且 \(Y\perp X\)（即 \(X\) 对 \(Y\) 毫无预测力）。把样本 \(i\) 所属的类别记为 \(c(i)\)，类别总数为 \(k\)，第 \(c\) 类的样本数记为 \(n_c\)。用<strong>全样本</strong>做目标编码
+<div class="math-scroll">\[\varphi_S(x_i)\;=\;\bar Y_{c(i)}\;:=\;\frac{1}{n_{c(i)}}\sum_{j:\,c(j)=c(i)}Y_j , \tag{18.3}\]</div>
+再随手配一个阈值规则 \(h(x)=\ind{\varphi_S(x)&gt;1/2}\)。则
+<ol><li>若 \(k=n\)（每个样本自成一类），则 \(\varphi_S(x_i)=Y_i\) 对一切 \(i\) 成立，\(h\) 在<strong>任意</strong>测试集（包括被随机划出去的那一半）上精确率都等于 \(100\%\)；
+  </li><li>若 \(k\) 固定而 \(n\to\infty\)，则 \(\varphi_S(x_i)\to\E[Y_i]\)，规则退化为无信息，泄漏自行消失。
+</li></ol>
+</div>
+
+这个命题在说什么：第 (i) 条是一条<strong>完美的骗局</strong>——一个和结果毫无关系的特征，只要它的粒度足够细，就能让任何模型拿到满分。第 (ii) 条给出诊断口径：<strong>泄漏的严重程度，正比于“类别粒度相对于样本量的大小”</strong>。这也解释了为什么“按 <code class="code">symbol</code> 分组”是关键修复：只要一只股票不跨越训练集与测试集，粒度就被摁住了。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 若 \(k=n\)，则每个类别只含一个样本，即 \(c(i)\) 类中唯一的元素就是 \(i\) 本身，故 \(n_{c(i)}=1\)，求和式只有一项 \(j=i\)：
+<div class="math-scroll">\[\varphi_S(x_i)=\frac{Y_i}{1}=Y_i .\]</div>
+于是 \(h(x_i)=\ind{Y_i&gt;1/2}=\ind{Y_i=1}=Y_i\)，预测恒等于真值，在任意测试集上精确率都是 \(1\)。
+
+<em>(ii)</em> 由 \(Y\perp X\)，同一类别内的 \(Y_j\) 与类别无关，是均值 \(\mu=\E[Y]\)、方差有限的独立同分布序列（样本随机抽取且 \(X\) 与 \(Y\) 独立）。当 \(n\to\infty\) 且各类样本数 \(n_{c(i)}\to\infty\) 时，由强大数定律 \(\bar Y_{c(i)}\to\mu\)。于是 \(\varphi_S(x_i)\to\mu\)，阈值规则不再随 \(X\) 变化，退化为常数预测。\(\blacksquare\)
+</div>
+
+<div class="box pitfall"><div class="boxbody">
+这是机器学习在量化里最常见的一号自伤。
+
+<strong>指标好看有四个来源</strong>：真实信号、泄漏、过拟合、样本太少。其中只有第一个是真的。而泄漏恰恰是唯一一个会让你<strong>越改进管道越严重</strong>的来源——特征工程做得越精细、粒度越细，漏得越狠。
+
+所以看一个 ML 策略的结果，第一件事不是看准确率，而是问三句话：<strong>训练和测试是怎么切的？标准化统计量是在哪一段上算的？有没有任何一项特征是用全样本或未来算出来的？</strong>这三句里只要有一句答不上来，那个指标就不必看。
+
+系统的做法是把它们全部钉死在代码里：按 <code class="code">symbol</code> 分组、按时间切分、<code class="code">scaler</code> 只在训练集上 <code class="code">fit</code>、无效标签直接过滤。
+</div></div>
+
+<h2 id="sec-18-4"><span class="hnum">18.4</span>五个模型合起来，为什么不一定更稳</h2>
+
+泄漏讲完了，还有第二个问题：集成。
+
+“五个模型投票”听起来天然比一个好。但集成能不能提高，取决于一件很少被明说的事：<strong>这五个模型彼此有多像。</strong>
+
+<div class="thm plain" id="prop:ch18-ensemble"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">18.4</span>（等权集成的方差缩减与它的天花板）</div>
+设 \(k\) 个模型的预测误差为 \(e_1,\dots,e_k\)，满足
+<div class="math-scroll">\[\Var(e_i)=\sigma^2&gt;0,\qquad \Corr(e_i,e_j)=\rho\ \ (\forall\,i\ne j),\quad \rho\in[0,1]. \tag{18.4}\]</div>
+则等权平均预测误差 \(\bar e=\frac1k\sum_{i=1}^k e_i\) 的方差为
+<div class="math-scroll" id="eq:ch18-ensemble">\[\Var(\bar e)\;=\;\rho\,\sigma^2+\frac{1-\rho}{k}\,\sigma^2 . \tag{18.5}\]</div>
+于是
+<ol><li>\(\Var(\bar e)\) 关于 \(k\) 单调不增，下确界为 \(\rho\sigma^2\)（\(\rho&lt;1\) 时取不到）；
+  </li><li>若 \(\rho=1\)（所有模型完全相同），\(\Var(\bar e)=\sigma^2\)，集成<strong>不带来任何收益</strong>；
+  </li><li>若 \(\rho=0\)（误差不相关），\(\Var(\bar e)=\sigma^2/k\)，收益随 \(k\) 线性放大；
+  </li><li>集成<strong>只能降低方差，不能降低偏差</strong>。
+</li></ol>
+</div>
+
+这个命题在说什么：第 (i) 条是最该记住的一句——<strong>集成的效果有一个天花板，天花板就是 \(\rho\sigma^2\)</strong>。模型从 5 个加到 500 个也突破不了它。(ii) 说明为什么“把同一个模型训练五遍、换个随机种子”几乎没有用；(iii) 说明真正有用的集成，需要让模型<strong>犯不同的错</strong>。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>先算两两协方差：对 \(i=j\)，\(\Cov(e_i,e_j)=\Var(e_i)=\sigma^2\)；对 \(i\ne j\)，由相关系数定义 \(\Cov(e_i,e_j)=\rho\sqrt{\Var(e_i)\Var(e_j)}=\rho\sigma^2\)。于是
+<div class="math-scroll">\[\Var(\bar e)
+=\frac{1}{k^2}\sum_{i=1}^{k}\sum_{j=1}^{k}\Cov(e_i,e_j)
+=\frac{1}{k^2}\Bigl[\,k\sigma^2+k(k-1)\rho\sigma^2\Bigr].\]</div>
+把括号内第二项拆开 \(k(k-1)=k^2-k\)：
+<div class="math-scroll">\[\Var(\bar e)=\frac{k\sigma^2+k^2\rho\sigma^2-k\rho\sigma^2}{k^2}
+=\rho\sigma^2+\frac{1-\rho}{k}\sigma^2,\]</div>
+即式 <a class="xref" href="ch18.html#eq:ch18-ensemble">(18.5)</a>。
+
+<em>(i)</em> 把 \(k\) 视作连续变量求导：
+<div class="math-scroll">\[\frac{\partial}{\partial k}\Var(\bar e)=-\frac{(1-\rho)\sigma^2}{k^2}\le0,\]</div>
+故关于 \(k\) 单调不增；等号成立当且仅当 \(\rho=1\)。又 \(\frac{1-\rho}{k}\sigma^2\to0\)（\(k\to\infty\)），故下确界为 \(\rho\sigma^2\)；\(\rho&lt;1\) 时该项对每个有限 \(k\) 都严格为正，下确界取不到。
+
+<em>(ii)</em> 代入 \(\rho=1\)：\(\Var(\bar e)=1\cdot\sigma^2+\frac{0}{k}\sigma^2=\sigma^2\)，与单个模型相同。
+
+<em>(iii)</em> 代入 \(\rho=0\)：\(\Var(\bar e)=\frac{\sigma^2}{k}\)。
+
+<em>(iv)</em> 期望是线性算子，故
+<div class="math-scroll">\[\E[\bar e]=\frac1k\sum_{i=1}^{k}\E[e_i],\]</div>
+即各模型偏差的等权平均。无论 \(k\) 取何值，这个平均值都等于各偏差的算术平均，不可能因 \(k\) 增大而变为 \(0\)。\(\blacksquare\)
+</div>
+
+<div class="box keybox"><div class="boxtitle">把两件事放在一起看</div><div class="boxbody">
+集成的收益取决于 \(\rho\)；而 \(\rho\) 又取决于<strong>五个模型有没有吃同一个泄漏</strong>。<br>
+
+若五个模型共享同一份被污染的特征、同一段被随机切分的数据，它们的错误就高度同向（\(\rho\to1\)）。<br>
+
+于是你得到的是：<strong>五个模型，同一个错误，抄了五遍。</strong>——这正好解释了本章开头那张表。
+</div></div>
+
+<h2 id="sec-18-5"><span class="hnum">18.5</span>它在系统里长什么样</h2>
+
+系统里的 ML 策略叫 <code class="code">ml_model</code>，注册在策略目录的单一数据源 <code class="code">BuiltinStrategies</code> 里。它的配置原文是：
+
+<figure class="listing" id="{lst:ch18-mlcfg}"><figcaption><span class="lbl">代码 18.1</span>ML 策略的默认配置（节选自 <code class="sysfile">internal/backtest/strategies.go</code>）</figcaption><pre class="code"><code><span class="cl">{</span>
+<span class="cl">    Name: <span class="str">&quot;机器学习策略&quot;</span>, StrategyType: <span class="str">&quot;ml_model&quot;</span>,</span>
+<span class="cl">    Description: &quot;基于机器学习的AI选股策略：5模型集成（XGBoost/LightGBM/随机森林/</span>
+<span class="cl">                  逻辑回归/MLP）概率平均选股，纯Go本地推理无需Python；</span>
+<span class="cl">                  不可用时回退到多因子本地评分模型。&quot;,</span>
+<span class="cl">    ConfigJSON: `{<span class="str">&quot;capital&quot;</span>:100000,<span class="str">&quot;max_position&quot;</span>:10,<span class="str">&quot;stop_loss&quot;</span>:0.08,</span>
+<span class="cl">        <span class="str">&quot;take_profit&quot;</span>:0.25,</span>
+<span class="cl">        <span class="str">&quot;model_names&quot;</span>:[<span class="str">&quot;xgboost_astock_v1&quot;</span>,<span class="str">&quot;astock_lgbm_v1&quot;</span>,<span class="str">&quot;astock_rf_v1&quot;</span>,</span>
+<span class="cl">                       <span class="str">&quot;astock_logistic_v1&quot;</span>,<span class="str">&quot;astock_mlp_v1&quot;</span>],</span>
+<span class="cl">        <span class="str">&quot;ensemble_method&quot;</span>:<span class="str">&quot;probability&quot;</span>,</span>
+<span class="cl">        <span class="str">&quot;buy_threshold&quot;</span>:0.5,<span class="str">&quot;sell_threshold&quot;</span>:0.3}`,</span>
+<span class="cl">    StopLossPct: 0.08, TakeProfitPct: 0.25,</span>
+<span class="cl">},</span></code></pre></figure>
+
+这段话在说什么：<code class="code">ensemble_method = "probability"</code> 就是命题 <a class="xref" href="ch18.html#prop:ch18-ensemble">18.4</a> 里那个“等权平均”——五个模型各自给出一个上涨概率，取平均，高于 <code class="code">buy_threshold</code>\(=0.5\) 买，低于 <code class="code">sell_threshold</code>\(=0.3\) 卖。中间那一段（\(0.3\) 到 \(0.5\)）是<strong>观望带</strong>，不产生任何信号。<strong>阈值不对称</strong>是刻意的：买入比卖出需要更高的把握，和第一部分讲的“只降不升”是同一条纪律。
+
+第二个细节更值得单独说：描述里那句“<strong>纯 Go 本地推理无需 Python</strong>”。这不是技术炫耀，而是一个部署决定——若推理依赖一个 Python 服务，那么回测、实盘、策略刷新三条路径就得同时维护一套 Python 环境；一旦某条路径的模型文件路径不一致，就会出现事故 #25 那种情况：<strong>你重训了模型，但系统加载的还是旧的。</strong>
+
+<figure class="tbl" id="tab:ch18-ml"><div class="tbl-scroll"><table><caption><span class="lbl">表 18.1</span>ML 策略在系统里的四个工程要点</caption><tbody><tr><td><strong>环节</strong></td><td><strong>做法</strong></td><td><strong>它防的错</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>特征与标签</td><td>按 <code class="code">symbol</code> <strong>分组</strong>内单独计算</td><td>跨股票滚动窗口污染（一只票的信息漏进另一只）</td></tr><tr><td>训练/测试切分</td><td><strong>时间切分</strong>，不随机划分</td><td>命题 <a class="xref" href="ch18.html#prop:ch18-split">18.2</a>(i) 的泄漏</td></tr><tr><td>标准化</td><td><code class="code">scaler</code> <strong>只在训练集</strong>上 <code class="code">fit</code></td><td>测试集统计量泄漏</td></tr><tr><td>标签</td><td>过滤掉<strong>无效标签</strong>后再训练</td><td>用不可交易日的样本训练</td></tr><tr><td>集成</td><td>5 模型概率平均 + 观望带</td><td>命题 <a class="xref" href="ch18.html#prop:ch18-ensemble">18.4</a> 的方差缩减（有天花板）</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabsrc">系统事实清单第 15 节事故 #26；系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">ml_model</code>；核对时间 2026-09-24。</p></figure>
+
+还有一条纯粹是“版本兼容坑”，但它花掉的时间一点不少。Python 侧训练脚本用的是 <code class="code">sklearn</code> 1.7.2，而这一版的 <code class="code">MLPClassifier</code> <strong>不支持</strong> <code class="code">class_weight</code> 参数，直接写会抛 <code class="code">TypeError</code>。修法是把类别权重换算成<strong>逐样本</strong>权重，改用 <code class="code">fit(..., sample_weight=train_sw)</code>。这两件事在数学上等价，在接口上一个能跑一个不能——而它们造成的现象（训练脚本报错退出）和模型问题（指标虚高）完全不同，容易被混为一谈。
+
+<div class="box pitfall"><div class="boxbody">
+“用了 XGBoost，所以比均线强”——这个推论在量化里几乎总是错的。
+
+均线策略是一个<strong>低方差、有偏</strong>的估计器：它的假设很硬（趋势会延续），所以容易在特定环境下系统性犯错，但很少给出荒诞结果。ML 模型是一个<strong>高方差、低偏</strong>的估计器：理论上能拟合任意形状，代价是它对管道里的每一处细节都极度敏感——包括那些你自己都没意识到的泄漏。
+
+在信噪比极低的日频数据上，这个组合的典型结果就是：ML 在回测里赢，在实盘里输。原因不是 ML 不行，而是<strong>它的高方差特性正好会放大你管道里的每一个瑕疵</strong>。
+
+本书不反对用 ML。它反对的是：<strong>在没把时间切分、分组、标准化、标签过滤这四件事做完之前，就去看 ML 的指标。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“我训练十个模型平均一下，肯定更稳。”
+
+回到命题 <a class="xref" href="ch18.html#prop:ch18-ensemble">18.4</a>(ii)(iii)：如果这十个模型用同一份数据、同一套特征、同一个标签定义，只是换了随机种子或树的棵数，那么它们犯的错高度同向，\(\rho\to1\)，方差几乎不下降。你付出的是十倍的训练时间，换来的是一个几乎相同的预测。
+
+真正能降低 \(\rho\) 的做法，是让模型<strong>从不同的角度看同一件事</strong>：不同的信息子集、不同的损失函数、不同的预测目标。系统里那五个模型（树模型、线性模型、神经网络）之所以被放在一起，正是因为它们的归纳偏置确实不同——但如果你给它们的特征完全一样、标签完全一样，这份差异就会被压扁。
+
+<strong>判断集成有没有用，不看模型数量，看它们预测的相关性。</strong>
+</div></div>
+
+<h2 id="sec-18-6"><span class="hnum">18.6</span>最后一句：它失败了会怎样</h2>
+
+补一句容错。<code class="code">ml_model</code> 的描述里有一句容易被跳过的话：<strong>“不可用时回退到多因子本地评分模型”。</strong>
+
+意思是：如果模型文件加载失败，这条策略<strong>不会静默返回“今天没有信号”</strong>，而是退到一个可解释的、由多因子加权构成的本地评分模型上。
+
+这和第一部分第 <a class="xref" href="ch09.html#ch:ch09">第九章</a> 章是同一条原则：<strong>AI 的单点故障不得阻断交易</strong>。区别只在于，第 9 章讲的是“整个 AI 决策层失联”，这里讲的是“其中一个模型加载不出来”。处理方式一样——<strong>换一条已知的、确定性的路走，而不是停在原地，也不是编一个结果出来。</strong>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>ML 策略定义、五模型清单、集成方式与买卖阈值：<code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">BuiltinStrategies</code> 中 <code class="code">ml_model</code> 条目
+  </li><li>策略构造与模型加载路径：<code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">GetStrategyByType</code>；模型加载 <code class="code">models.LoadMLModelByName</code>
+  </li><li>数据泄漏四项修复（按 symbol 分组、时间切分、scaler 仅训练集 fit、无效标签过滤）：系统事实清单第 15 节事故 #26
+  </li><li><code class="code">sklearn</code> 1.7.2 的 <code class="code">class_weight</code> 兼容坑与 <code class="code">sample_weight</code> 替代：事故 #24
+  </li><li>训练产物命名与加载路径必须一致：事故 #25
+  </li><li>回测撮合与成本口径：<code class="sysfile">internal/backtest/service.go</code>、<code class="sysfile">internal/backtest/cost_model.go</code>（见第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章）
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十五分钟）</div><div class="boxbody">
+<ol><li>打开<strong>策略管理</strong>页，找到 <code class="code">ml_model</code> 那一行，展开参数。数一数 <code class="code">model_names</code> 里有几个名字，核对是不是 5 个。
+  </li><li>看 <code class="code">buy_threshold</code> 与 <code class="code">sell_threshold</code> 两个数：\(0.5\) 与 \(0.3\)。自己回答：\(0.3\) 到 \(0.5\) 之间会发生什么？（提示：那是一个不产生信号的观望带。）
+  </li><li>对同一条 <code class="code">ml_model</code> 和一个简单的 <code class="code">ma_cross</code>，各跑一次同区间回测，把<strong>样本外</strong>指标抄下来并排看。不要看样本内。
+  </li><li>做一道手算题：设五个模型的误差方差都是 \(\sigma^2=1\)，两两相关系数 \(\rho=0.9\)。用式 <a class="xref" href="ch18.html#eq:ch18-ensemble">(18.5)</a> 算集成后方差；再把 \(\rho\) 换成 \(0.1\) 算一遍。两次之差，就是“让模型犯不同的错”值多少钱。
+  </li><li>最后回答一个判断题：把 5 个模型换成 50 个，集成方差能不能降到 \(0\)？回到命题 <a class="xref" href="ch18.html#prop:ch18-ensemble">18.4</a>(i) 说出理由。
+</li></ol>
+</div></div>
+
+到这里，单只股票上的事——因子、权重、检验、策略、成本、回测、模型——都讲完了。可是上面所有结论都建立在一个隐含前提上：<strong>今天这个市场，值不值得下注。</strong>
+
+同一只股票、同一个信号，在牛市该买，在退潮期就不该买。下一章我们去看系统怎么把“今天”本身也算成一个数——市场六维判势。它也是全书里我唯一能给你看<strong>五条完整真实记录</strong>的地方：从原始分到冲突修正，再到最终仓位系数，每一步都可以手工验算。
+
+</article>
+<nav class="pager"><a class="prev" href="ch17.html"><span class="dir">上一页</span>第十七章 回测到底在验证什么？—— 成本、前视与样本池</a><a class="next" href="ch19.html"><span class="dir">下一页</span>第十九章 今天能不能下注？（上）—— 市场六维判势怎么打分</a></nav>
+
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

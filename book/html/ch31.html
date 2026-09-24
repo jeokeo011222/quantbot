@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>安全开关：模拟、实盘、暂停建仓与紧急停止 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·安全开关：模拟、实盘、暂停建仓与紧急停止">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch31.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html" class="current"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a><ul class="sub"><li><a href="#sec-31-1">31.1 三个长得一样的开关</a></li><li><a href="#sec-31-2">31.2 手刹、熄火键、空挡</a></li><li><a href="#sec-31-3">31.3 第一件事：模拟和实盘不是“参数区别”</a></li><li><a href="#sec-31-4">31.4 第二件事：暂停建仓，只拦买、放行卖</a></li><li><a href="#sec-31-5">31.5 第三件事：紧急停止</a></li><li><a href="#sec-31-6">31.6 第四件事：还有多少道门</a></li><li><a href="#sec-31-7">31.7 第五件事：合规的两道防线</a></li></ul></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch31"><span class="cnum">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</h1>
+
+
+
+
+
+<h2 id="sec-31-1"><span class="hnum">31.1</span>三个长得一样的开关</h2>
+
+在设置页和风控页上，有三个开关或按钮，长得很像，位置也离得不远：
+
+<ul><li>一个叫<strong>启用弹窗</strong>（它的另一面就是交易模式：开 = 模拟，关 = 实盘）；
+  </li><li>一个叫<strong>暂停建仓</strong>；
+  </li><li>一个叫<strong>紧急停止</strong>。
+</li></ul>
+
+我第一次进设置页的时候，把它们当成同一类东西——都是“停下来”的开关。差别无非是停得多彻底。
+
+这个理解是错的，而且错得挺危险。它们对应的是三件完全不同的事：<strong>一个是“这些单子到底发不发到真实世界”，另两个是“发出去之前拦不拦”。</strong>
+
+按错其中一个的后果也不一样：按错了“启用弹窗”，你可能会在毫无提示的情况下真的下单；按错了“暂停建仓”，你会以为系统停了，其实它还在卖；按错了“紧急停止”，你可能会以为只停了买入，结果连止损都停了。
+
+这一章把这三个开关分开讲清楚。
+
+<h2 id="sec-31-2"><span class="hnum">31.2</span>手刹、熄火键、空挡</h2>
+
+<div class="box intuition"><div class="boxbody">
+开车的人知道有三个动作长得有点像，但用途完全不同：
+
+<strong>拉手刹</strong>——车还能发动、还能挂挡，但它不走了。松开就恢复。这是“暂时不让它动”。
+
+<strong>挂空挡</strong>——车在滑，发动机在转，但动力传不到轮子上。这是“切断连接”。
+
+<strong>熄火</strong>——整台车停下来。想再走，得重新点火，还要重新走一遍检查。
+
+你要是把手刹当空挡用，或者把空挡当熄火用，大多数时候不会出事——直到某一次，你需要的是熄火，而你拉的是手刹。
+</div></div>
+
+三个开关的对应关系是这样的：
+
+<figure class="tbl" id="tab:ch31-switches"><div class="tbl-scroll"><table><caption><span class="lbl">表 31.1</span>三个安全开关的精确含义</caption><tbody><tr><td><strong>开关</strong></td><td><strong>系统标识</strong></td><td><strong>对应</strong></td><td><strong>它到底做什么</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>交易模式</td><td><code class="code">simulated</code> / <code class="code">live</code></td><td>挂空挡</td><td>决定订单发往<strong>模拟撮合</strong>还是<strong>真实券商通道</strong></td></tr><tr><td>暂停建仓</td><td><code class="code">buyGate</code></td><td>拉手刹</td><td>在<strong>执行终层</strong>拦下所有买入，<strong>卖出与止损照常</strong></td></tr><tr><td>紧急停止</td><td><code class="code">emergencyGate</code></td><td>熄火</td><td>停止系统的交易活动</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabsrc">系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">SetBuyGate</code> / <code class="code">SetEmergencyGate</code>；<code class="sysfile">app_settings.go</code> 的 <code class="code">SetTradingMode</code>；核对时间 2026-09-24。</p></figure>
+
+<h2 id="sec-31-3"><span class="hnum">31.3</span>第一件事：模拟和实盘不是“参数区别”</h2>
+
+先破除一个最贵的误解。
+
+<strong>模拟盘和实盘不是“同一个流程换了个参数”，它们是两条不同的执行路径。</strong>
+
+模拟模式下，订单交给内部的撮合与记账引擎；实盘模式下，订单要经过券商通道（QMT）发到交易所。两条路径的差别不只是“真假”，还有成交价、成交时点、部分成交的可能性、以及失败重试——这些在模拟盘里都被简化掉了。
+
+而这里藏着一个真实事故。系统的第 #8 条：
+
+<div class="box keybox"><div class="boxtitle">真实事故 #8（摘录自系统事实清单）</div><div class="boxbody">
+<strong>症状</strong>：切换交易模式后，实盘开关“静默失效”。<br>
+
+<strong>根因</strong>：<code class="code">SetTradingMode</code> 重建执行桥之后，<strong>没有同步 CIO 引擎持有的 broker 引用</strong>。<br>
+
+<strong>修复</strong>：重建执行桥后同步 broker 引用。
+</div></div>
+
+这个事故值得慢慢讲，因为它是“配置与运行时状态不一致”这一类错误的教科书样例。
+
+系统里有两个对象持有一个“往哪儿下单”的引用：
+
+<ul><li><strong>执行桥</strong>（负责真的把订单发出去）；
+  </li><li><strong>CIO 引擎</strong>（负责决策，并在决策之后调用执行桥）。
+</li></ul>
+
+切模式的时候，代码重建了执行桥——新桥指向实盘。可是 CIO 引擎手里那个引用，还指着<strong>旧桥</strong>。于是从界面上看，模式已经是 <code class="code">live</code>；从行为上看，CIO 把订单交给了那个还指向模拟撮合的旧桥。
+
+结果就是：<strong>你按下的是实盘，走的是模拟。</strong>而它<strong>不报错</strong>——因为它确实执行了，只是执行到了另一个地方。
+
+修复只有一行：重建执行桥之后，把新引用同步给 CIO。
+
+<div class="box keybox"><div class="boxtitle">这一类错误的通用形态</div><div class="boxbody">
+<strong>症状</strong>：开关拨了，但行为没变。<br>
+
+<strong>根因</strong>：开关改的是“配置”，而真正干活的对象持有的是“配置的一个拷贝”，拷贝没有跟着更新。<br>
+
+<strong>自查方法</strong>：任何“切换状态”的操作，都要问一句——<strong>有几个人持有了旧状态？它们都更新了吗？</strong>
+</div></div>
+
+顺带说一件界面上的事。设置页把交易模式呈现为一个叫“<strong>启用弹窗</strong>”的开关，它是这样映射的：
+
+<ul><li>开启 = <strong>模拟交易</strong>：下单需要弹窗确认；
+  </li><li>关闭 = <strong>实盘交易</strong>：不再弹窗，自动执行。
+</li></ul>
+
+这个界面上的映射同时兼容了旧版本里叫 <code class="code">paper</code> 的模式名。用“弹窗”而不是“模拟/实盘”作为界面语言，是一个刻意的选择：<strong>它把“安全性”翻译成了一个人能立刻感觉到的动作——多一次点击。</strong>
+
+<h2 id="sec-31-4"><span class="hnum">31.4</span>第二件事：暂停建仓，只拦买、放行卖</h2>
+
+现在讲第二个开关，它是最常用、也最容易被误解的一个。
+
+<div class="thm definition" id="def:ch31-buygate"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">31.1</span>（暂停建仓门控）</div>
+设 <code class="code">buyGate</code> 是一个返回布尔的函数。当它返回真（处于暂停建仓状态）时，一切<strong>买入</strong>成交被拒绝，返回结构化错误；<strong>卖出与止损不受影响</strong>。
+</div>
+
+这段话在说什么：注意“只拦买、放行卖”这六个字。这不是权衡，这是设计。系统的实现注释把它写得很直白：
+
+<figure class="listing" id="{lst:ch31-buygate}"><figcaption><span class="lbl">代码 31.1</span>buyGate 的实现意图（节选自 <code class="sysfile">internal/portfolio/engine.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// buyGate 强制暂停建仓门控：返回 true 时禁止一切买入成交（卖出不受影响）。</span></span>
+<span class="cl"><span class="com">// 由 App 接线到 Policy 暂停建仓开关，作为买入最终执行层防线。</span></span>
+<span class="cl"><span class="kw">func</span> (e *Engine) SetBuyGate(fn <span class="kw">func</span>() <span class="kw">bool</span>) { ... }</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 注意：buyGate 仅拦截买入，不影响卖出，</span></span>
+<span class="cl"><span class="com">// 从而实现&quot;强制暂停建仓但允许离场/止损&quot;的业务诉求。</span></span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 强制暂停建仓门控：暂停建仓期间禁止一切买入（最终执行层防线）。</span></span>
+<span class="cl"><span class="kw">if</span> e.buyStopped() {</span>
+<span class="cl">    <span class="kw">return</span> <span class="kw">nil</span>, fmt.Errorf(<span class="str">&quot;强制暂停建仓中，禁止买入: %s&quot;</span>, instrumentID)</span>
+<span class="cl">}</span></code></pre></figure>
+
+为什么必须这样设计？因为<strong>一个也会拦卖出的“暂停”，等于把所有风险敞口锁死在市场里</strong>。设想某天你担心市场，按下“暂停”——如果你需要一个能立刻离场的机制，而暂停把卖出也拦住了，那你就亲手给自己造了一个无法退出的仓位。这在 A 股还要叠加 T+1（第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章）：当日买入当日不能卖，如果再加一层“暂停连卖出也拦”，你就彻底被锁住了。
+
+所以“只拦买、放行卖”这条不对称，和第一部分第 <a class="xref" href="ch21.html#ch:ch21">第二十一章</a> 章讲的“只缩放买入、不缩放卖出”是同一条原则的两种实现：
+
+<div class="box keybox"><div class="boxtitle">贯穿全书的一条不对称</div><div class="boxbody">
+<strong>进场需要理由，离场不需要。</strong><br>
+
+所以：仓位系数只缩放买入；暂停建仓只拦买入；风控的白名单只拦买入。<br>
+
+所有“收紧”的机制，都不许收在卖出的方向上。
+</div></div>
+
+<h2 id="sec-31-5"><span class="hnum">31.5</span>第三件事：紧急停止</h2>
+
+第三个开关是紧急停止，它比暂停建仓更彻底。系统里它和暂停建仓是<strong>两条独立的线路</strong>：
+
+<ul><li><code class="code">SetBuyGate</code>：暂停建仓，只拦买入；
+  </li><li><code class="code">SetEmergencyGate</code>：紧急停止，独立的门控函数。
+</li></ul>
+
+为什么要分成两个而不是一个？因为它们的<strong>使用场景不同</strong>：
+
+<strong>暂停建仓</strong>是“我先不买新的，但持仓继续被管理”——比如你判断今天市场不好，或者你正在观察某个新策略。此时卖出、止损、策略减仓全部照常，系统仍然在替你防守。
+
+<strong>紧急停止</strong>是“这整套东西现在别动了”——比如你发现数据明显不对（行情库没更新、判势的输入是错的），此时你要的不是“少买一点”，而是<strong>先让它停下来，别做出任何基于错误数据的动作</strong>。
+
+在界面上，这两种状态显示得也不一样：CIO 决策中心右上角的徽章把<strong>“紧急停止”显示为红色</strong>，“<strong>已暂停</strong>”显示为黄色。这个颜色差异是给你在三十厘米之外一眼分辨用的。
+
+<h2 id="sec-31-6"><span class="hnum">31.6</span>第四件事：还有多少道门</h2>
+
+除了这三个开关，一个买入指令还要穿过好几道门。我把它们按从“决策层”到“执行层”的顺序排出来。
+
+<figure class="tbl" id="tab:ch31-gates"><div class="tbl-scroll"><table><caption><span class="lbl">表 31.2</span>一笔买入要穿过的门（自上而下）</caption><tbody><tr><td><strong>层级</strong></td><td><strong>门</strong></td><td><strong>拦什么</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>决策层</td><td>股票池白名单</td><td>不在可交易池里的标的被剔除；<strong>池为空或读取失败则拒绝建仓</strong>（fail-closed）</td></tr><tr><td>决策层</td><td>六维建仓闸门</td><td>判势为“退潮风险”或 \(\posrate\le 0.15\) 时<strong>禁止生成新买入</strong></td></tr><tr><td>主张层</td><td>主张 / 异议 / Kelly / 集成</td><td>各自给出上界，生效仓位取 \(u^\star=\min\{\cdots\}\)（第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章）</td></tr><tr><td>规则层</td><td>风控硬限制</td><td>单票权重 \(\le 30\%\)、组合最大回撤容忍 \(10\%\)</td></tr><tr><td>执行层</td><td><code class="code">buyRiskGate</code></td><td>下单前复核集中度 + <strong>买入流动性拥挤度</strong>门控</td></tr><tr><td>执行层</td><td>盘口拦截</td><td>涨停封死买不进（排队）；买入拦截跌停板</td></tr><tr><td>终层</td><td><code class="code">buyGate</code> / <code class="code">emergencyGate</code></td><td>暂停建仓 / 紧急停止</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">自上而下经过；任何一道返回拒绝，这笔买入就不成立。注意所有道门<strong>只作用于买入</strong>，卖出只受“跌停封死卖不掉”这一条盘口拦截。</p>
+<p class="tabsrc">系统事实清单第 7、8、11 节；系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyRiskGate</code>、<code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code>；核对时间 2026-09-24。</p></figure>
+
+这张表里有一处工程细节值得单独拎出来，它是本章唯一一条“形式化”的东西。
+
+<div class="thm plain" id="prop:ch31-terminal"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">31.2</span>（终层门控的覆盖性）</div>
+设“买入”这一动作在代码中只通过唯一一个汇聚点 \(B\)（即 <code class="code">Engine.Buy</code>）落到账本上。若在 \(B\) 的入口处放置门控 \(g\)（返回真则拒绝），则
+<ol><li>任何一条上层的买入路径（自动决策、策略减仓的反向、手动交易、再平衡、QMT 通道）都必须经过 \(B\)，因此都受 \(g\) 约束；
+  </li><li>在不修改 \(B\) 的前提下，上层无法通过新增路径绕过 \(g\)；
+  </li><li>新增门控只会让“许可集合”变小：若 \(g_1,g_2\) 都是拒绝型门控，则
+  <div class="math-scroll">\[\{\text{通过}\}_{g_1\wedge g_2}\;\subseteq\;\{\text{通过}\}_{g_1}\;\cap\;\{\text{通过}\}_{g_2}\;\subseteq\;\{\text{通过}\}_{g_1}. \tag{31.1}\]</div>
+</li></ol>
+</div>
+
+这个命题在说什么：第 (i)(ii) 条解释了为什么这道门要放在<strong>最下面的执行层</strong>，而不是放在上面某一层——放在汇聚点，它才覆盖全部路径。第 (iii) 条是“只降不升”在最底层的形式：门只能加、不能减，多一道门只会让能通过的更少。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由假设，“落到账本上的买入”与“调用 \(B\)”是同一件事（\(B\) 是唯一汇聚点）。任一条买入路径若要真的产生持仓，都必须调用 \(B\)，故经过 \(g\)。
+
+<em>(ii)</em> 由 (i)，绕过 \(g\) 等价于绕过 \(B\)。而绕过 \(B\) 意味着不经过唯一汇聚点就能落账——与 \(B\) 是唯一汇聚点的假设矛盾。
+
+<em>(iii)</em> 设 \(\mathcal U\) 为全部可能的上层买入请求。对 \(\omega\in\mathcal U\)，\(\omega\) 通过 \(g_1\wedge g_2\) 当且仅当 \(g_1(\omega)=\text{否}\) 且 \(g_2(\omega)=\text{否}\)（“否”表示不拒绝，即许可），这蕴含 \(g_1(\omega)=\text{否}\)，即 \(\omega\) 通过 \(g_1\)。故 \(\{\text{通过}\}_{g_1\wedge g_2}\subseteq\{\text{通过}\}_{g_1}\)；同理 \(\subseteq\{\text{通过}\}_{g_2}\)；取交即得。\(\blacksquare\)
+</div>
+
+<div class="box keybox"><div class="boxtitle">这条命题的实用版本</div><div class="boxbody">
+<strong>门要放在“所有路都必须从这儿过”的那个地方。</strong><br>
+
+放在决策层，你防的是“AI 想不想买”；放在执行层，你防的是“钱能不能出去”。<br>
+
+两个都要，但<strong>只有执行层那道是兜底的</strong>——因为决策层可能被绕过（新加一条路径、换一个调用方），执行层不会。
+</div></div>
+
+<h2 id="sec-31-7"><span class="hnum">31.7</span>第五件事：合规的两道防线</h2>
+
+最后补两条“拦的是别的东西”的防线，它们也是只拦买入：
+
+<strong>第一道，股票池白名单。</strong>买入必须过池；标的不在 <code class="dbtab">tradeable_stocks</code> 里就被剔除。而池子<strong>为空或读取失败时，系统拒绝自主建仓</strong>——这叫 fail-closed，第 <a class="xref" href="ch24.html#ch:ch24">第二十四章</a> 章的命题 <a class="xref" href="ch24.html#prop:ch24-fc">24.5</a> 已经证明过它为什么在期望意义上严格更优。
+
+为什么这里要用 fail-closed 而不是“池子读不到就放行”？因为这两种情况的含义完全不同：<strong>池子读不到</strong>意味着你要么根本没做研究、要么数据出了问题；而“放行”会让系统在一个未知的宇宙里下单。
+
+<strong>第二道，信号来源留痕。</strong>每一笔买入订单都会记录它的 <code class="code">SignalSource</code>（这条信号是哪个策略给的）。这不是拦，是<strong>记账</strong>——它让你在三个月后能回答“这笔买入是谁的主意”。
+
+两道防线合起来回应了同一个问题：<strong>这笔买入，是系统自己有依据地做的吗？</strong>池子回答“这个标的你有没有研究过”，信号来源回答“这次买入是哪个策略触发的”。
+
+<div class="box pitfall"><div class="boxbody">
+这是本章开头那个误解的正面版本。
+
+它们不是参数，是<strong>两套执行路径</strong>。最直接的证据就是事故 #8：切模式的时候，如果只改了配置、没同步运行时引用，界面显示实盘而实际走模拟——它不会报错，因为你确实成交了，只是成交在另一个地方。
+
+所以判断“现在到底是不是实盘”，不要看那个开关的位置，要看<strong>成交记录落在哪里</strong>。模拟盘的成交只进本地账本；实盘的成交会出现在券商侧。
+
+一个更根本的建议：<strong>在真正切到实盘之前，先确认你对“这个开关现在是什么状态”有独立于界面的验证方式。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“我就投一万块试试，亏了也不心疼。”
+
+问题不在于亏多少钱，而在于<strong>你试的是流程，不是收益</strong>。而你恰恰要用实盘去试的，是那些只有实盘才会暴露的东西：订单是不是真的发出去了、模式切换有没有生效、盘口拦截在不同涨跌停状态下是不是按预期工作、收盘后快照有没有正确落库。
+
+这些环节，在模拟盘上会被简化掉。所以“小仓位实盘试”试不出来它们，它只是把风险从“大额”降到“小额”，同时把“流程缺陷”暴露在一个你更不希望它出现的地方。
+
+正确的做法是：<strong>先用模拟盘跑满一个完整周期</strong>——包含一次盘前、一次盘中、一次盘后结算、以及一次夜间复盘。然后把这份记录的每一个时间点，和你的预期核对一遍。全对了，再谈实盘。
+</div></div>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>交易模式设置与执行桥重建：<code class="sysfile">app_settings.go</code> 的 <code class="code">SetTradingMode</code>、<code class="code">SetBrokerConfig</code>、<code class="code">SetQMTConfig</code>
+  </li><li>暂停建仓门控与紧急停止门控：<code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">SetBuyGate</code>、<code class="code">SetEmergencyGate</code>、<code class="code">buyStopped</code>、<code class="code">Engine.Buy</code> 终层阻断
+  </li><li>执行端风控：<code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyRiskGate</code>（集中度复核 + 流动性拥挤度门控）
+  </li><li>盘口五态与买卖拦截：<code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code>
+  </li><li>合规两道防线：<code class="dbtab">tradeable_stocks</code> 白名单（fail-closed）、每笔买入的 <code class="code">SignalSource</code>
+  </li><li>风控硬限制统一口径：单票 \(0.30\)、回撤 \(0.10\)（第 <a class="xref" href="ch22.html#ch:ch22">第二十二章</a> 章）
+  </li><li>事故 #8（切模式未同步 broker 引用）、#7（硬限制三处数值不一致）
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十分钟，建议在模拟盘状态下做）</div><div class="boxbody">
+<ol><li>打开设置页，找到“<strong>启用弹窗</strong>”开关。确认它的位置，并且记住：它的<strong>反面</strong>就是交易模式。切换前，先在心里回答一次“我现在要的是模拟还是实盘”。
+  </li><li>打开风控页或 CIO 页，找到“暂停建仓”。开启它。
+  </li><li>回到持仓页，手动提交一笔<strong>买入</strong>：你应该被拒绝，并且看到一条明确的错误信息（而不是“静默失败”）。
+  </li><li>在同一状态下提交一笔<strong>卖出</strong>：它应当被<strong>放行</strong>。这一步是本章最关键的实验——它验证了“暂停建仓只拦买、放行卖”。
+  </li><li>关闭“暂停建仓”，确认买入恢复正常。
+  </li><li>最后做一个判断题：如果某天你要出门一整天，既不希望它开新仓、又希望持仓能正常止损离场，你会按哪个开关？请说出理由。
+</li></ol>
+</div></div>
+
+到这里，你已经能装、能读、能改、也能紧急刹住了。
+
+剩下最后一个话题，也是我个人认为这套系统里最像“活物”的一部分：它<strong>每天会把自己的经验写回明年的行为里</strong>。今天亏了，明天它不会用同一套权重；今天某个因子失效了，明天它的名字会自动往后排。
+
+下一章讲这个闭环：复盘 \(\to\) 改权重 \(\to\) 换策略。以及一件很重要的事——<strong>如果复盘结论不影响它明天的行为，那复盘就只是写日记</strong>。
+
+</article>
+<nav class="pager"><a class="prev" href="ch30.html"><span class="dir">上一页</span>第三十章 研究与调参：选股、策略、回测、每日策略</a><a class="next" href="ch32.html"><span class="dir">下一页</span>第三十二章 每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></nav>
+
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的投资：持仓、成交与“以数据库为准”的盈亏 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·我的投资：持仓、成交与“以数据库为准”的盈亏">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch29.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html" class="current"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a><ul class="sub"><li><a href="#sec-29-1">29.1 差了三块五</a></li><li><a href="#sec-29-2">29.2 记账本的三样东西</a></li><li><a href="#sec-29-3">29.3 持仓明细：八列</a></li><li><a href="#sec-29-4">29.4 交易记录：六列，和一个容易看漏的“净额”</a></li><li><a href="#sec-29-5">29.5 盈亏分析：为什么“今日盈亏”以交易日为界</a></li><li><a href="#sec-29-6">29.6 “以数据库为准”到底是什么意思</a></li><li><a href="#sec-29-7">29.7 手动交易与“连续交易”</a></li></ul></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch29"><span class="cnum">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</h1>
+
+
+
+
+
+<h2 id="sec-29-1"><span class="hnum">29.1</span>差了三块五</h2>
+
+九月十一日收盘后，我做了件很无聊的事：打开行情软件，把手里几只票的收盘价乘上数量，加了一遍；再把现金加进去，减掉前一天的总资产。
+
+我算出来的今日亏损是 \(312.4\) 元。
+
+软件上写的是 \(315.9\) 元。
+
+差了 \(3.5\) 元。
+
+我第一反应是“软件算错了”。第二反应是“我算错了”。来回核对了三遍之后我才明白：<strong>两个数都没错，是我们算的不是同一件事。</strong>我算的是“价格变动”，软件算的是“权益变动”——中间隔着一层我完全没想起来的东西：<strong>今天有一笔卖出，而卖出要交印花税和佣金</strong>。
+
+那 \(3.5\) 元，正好是那笔卖出的费用。
+
+这一章讲的就是这本账：持仓是什么、成交是什么、盈亏是怎么算出来的，以及为什么系统的口径是<strong>“以数据库为准”，而不是“以我脑子里的算术为准”</strong>。
+
+<h2 id="sec-29-2"><span class="hnum">29.2</span>记账本的三样东西</h2>
+
+<div class="box intuition"><div class="boxbody">
+一个家庭记账，本子上其实只有三样东西：
+
+<strong>余额</strong>——你现在手里有多少钱、有多少存货（这是<strong>持仓</strong>）；
+<strong>流水</strong>——每一笔进出（这是<strong>成交记录</strong>）；
+<strong>结账</strong>——每天（或每月）把当时的值固定下来，写一行“截至今日”（这是<strong>快照</strong>）。
+
+结账那一步最容易被人忽略，但它才是三样里最重要的一样。因为没有它，你三个月后翻开本子，只能看到一堆流水，得从头重算一遍才知道当时有多少钱。
+
+一个常见的错法是：把“余额”当成可以随时手算的东西。它不能——<strong>余额只在你结账的那一刻被固定下来；在那之后，它由“最近一次结账 + 之后的所有流水”决定。</strong>
+</div></div>
+
+系统里这三样东西的落点是这样的：
+
+<figure class="tbl" id="tab:ch29-ledger"><div class="tbl-scroll"><table><caption><span class="lbl">表 29.1</span>账本的三样东西在系统里的位置</caption><tbody><tr><td><strong>记账本上的东西</strong></td><td><strong>系统里的落点</strong></td><td><strong>它回答什么问题</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>余额（持仓）</td><td><code class="dbtab">position_snapshots</code> 的最近一条收盘快照</td><td>那天收盘时，我手里有什么</td></tr><tr><td>流水（成交）</td><td>交易记录表</td><td>每一笔买卖：方向、数量、价格、费用</td></tr><tr><td>结账（每日结算）</td><td><code class="dbtab">portfolio_daily_stats</code></td><td>那天收盘时，总资产、累计盈亏、今日盈亏是多少</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabsrc">系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">RecordDailySnapshot</code>；系统事实清单第 12、13 节；核对时间 2026-09-24。</p></figure>
+
+界面上对应的三个 Tab 是：<strong>持仓明细</strong>、<strong>交易记录</strong>、<strong>盈亏分析</strong>。下面一个一个读。
+
+<h2 id="sec-29-3"><span class="hnum">29.3</span>持仓明细：八列</h2>
+
+持仓表从左到右一共八列，每一列都有它防的那种错：
+
+<figure class="tbl" id="tab:ch29-pos"><div class="tbl-scroll"><table><caption><span class="lbl">表 29.2</span>持仓明细的八列</caption><tbody><tr><td><strong>列</strong></td><td><strong>为什么要有它</strong></td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td>代码 / 名称</td><td>名称缺失时会退化为代码占位（事故 #14 的教训：不要用代码冒充名称）</td></tr><tr><td>持仓量</td><td>整手归一化之后的实际持股数（A 股必须凑 100 股的整数倍）</td></tr><tr><td>现价</td><td>来自实时刷新；刷新间隔在设置页里可改</td></tr><tr><td>成本</td><td><strong>加权平均成本</strong>，含买入时的佣金</td></tr><tr><td>市值</td><td>持仓量 \(\times\) 现价</td></tr><tr><td>盈亏</td><td>市值与成本之差，并给出百分比</td></tr><tr><td>权重</td><td>该标的市值占总资产的比例；风控的“单票 \(\le 30\%\)”看的就是这一列</td></tr><tr class="rule"><td colspan="2"></td></tr></tbody></table></div><p class="tabsrc">前端 <code class="sysfile">ui/src/pages/Portfolio.tsx</code> 的持仓明细表头；成本口径见 <code class="sysfile">internal/portfolio/engine.go</code>；核对时间 2026-09-24。</p></figure>
+
+其中“成本”那一列最容易被想简单。它不是“我买入的价格”，而是<strong>含费用的加权平均成本</strong>。把它写清楚：
+
+<div class="thm definition" id="def:ch29-cost"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">29.1</span>（加权平均成本与已实现盈亏）</div>
+设某标的当前持有 \(Q&gt;0\) 股，加权平均单位成本为 \(c\)。发生一笔买入：数量 \(q&gt;0\)、成交价 \(p\)、买入费用 \(f_{\text{buy}}\)（佣金 + 冲击；A 股买入不收印花税）。则新的加权平均成本为
+<div class="math-scroll" id="eq:ch29-cost">\[c' \;=\; \frac{Q\,c+q\,p+f_{\text{buy}}}{Q+q}. \tag{29.1}\]</div>
+发生一笔卖出：数量 \(q'\in(0,Q]\)、成交价 \(p'\)、卖出费用 \(f_{\text{sell}}\)（佣金 + 印花税 + 冲击）。则<strong>已实现盈亏</strong>为
+<div class="math-scroll" id="eq:ch29-realized">\[R_{\text{realized}} \;=\; q'\bigl(p'-c\bigr)-f_{\text{sell}} . \tag{29.2}\]</div>
+</div>
+
+<div class="thm plain" id="prop:ch29-identity"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">29.2</span>（两条会计恒等式）</div>
+沿用定义 <a class="xref" href="ch29.html#def:ch29-cost">29.1</a> 的记号。
+<ol><li><strong>买入不产生盈亏</strong>：买入后持仓市值与成本的差额，恰好等于买入费用的相反数，即 \(q(p-c')=-f_{\text{buy}}+\bigl[Q c-q'(\dots)\bigr]\) 中的一次项被吸收，等价地
+  <div class="math-scroll">\[(Q+q)c'-(Qc+qp)=f_{\text{buy}} . \tag{29.3}\]</div>
+  也就是说，<strong>买入的那一刻你付出的是费用，而不是“浮亏”</strong>；
+  </li><li><strong>受价者口径下的现金账</strong>：买入时现金减少 \(qp+f_{\text{buy}}\)；卖出时现金增加 \(q'p'-f_{\text{sell}}\)。整个持仓周期的权益变化为
+  <div class="math-scroll">\[\Delta E \;=\; q'\bigl(p'-c\bigr)-f_{\text{sell}}\;-\;\underbrace{(Q_{\text{终}}\cdot p_{\text{末}}-Q_{\text{末}}\cdot c)}_{\text{剩余持仓浮盈}} , \tag{29.4}\]</div>
+  对已清仓（\(Q_{\text{终}}=0\)）的情形，\(\Delta E=R_{\text{realized}}\)，即式 <a class="xref" href="ch29.html#eq:ch29-realized">(29.2)</a>。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由式 <a class="xref" href="ch29.html#eq:ch29-cost">(29.1)</a> 两边乘以 \(Q+q\)：
+<div class="math-scroll">\[(Q+q)c'=Qc+qp+f_{\text{buy}} .\]</div>
+把 \(Qc+qp\) 移到左边：\((Q+q)c'-(Qc+qp)=f_{\text{buy}}\)。左边正是“新成本总额减旧成本总额加本次买入金额”，也就是买入导致了成本基准被抬高了多少——抬高的量恰为买入费用。故买入本身不产生交易盈亏，只产生费用。
+
+<em>(ii)</em> 买入支付 \(qp+f_{\text{buy}}\)，卖出收到 \(q'p'-f_{\text{sell}}\)。若买入 \(q\) 股、卖出 \(q'=q\) 股，则净现金流为
+<div class="math-scroll">\[-qp-f_{\text{buy}}+q p'-f_{\text{sell}}=q(p'-p)-f_{\text{buy}}-f_{\text{sell}} .\]</div>
+另一方面，按加权平均成本法，卖出部分的账面成本为 \(q'c\)，故
+<div class="math-scroll">\[R_{\text{realized}}=q'(p'-c)-f_{\text{sell}}=q'(p'-p)+q'(p-c)-f_{\text{sell}} .\]</div>
+当把买入费用 \(f_{\text{buy}}\) 摊入 \(c\) 时（式 <a class="xref" href="ch29.html#eq:ch29-cost">(29.1)</a> 正是这么做的，故 \(q'c\) 已含摊入的 \(f_{\text{buy}}\)），两式相差的恰是剩余持仓的成本项。对全清仓 \(Q_{\text{终}}=0\)，\(q'=Q\)，剩余项消失，\(\Delta E=q'(p'-c)-f_{\text{sell}}=R_{\text{realized}}\)。\(\blacksquare\)
+</div>
+
+这个命题在说什么：第 (i) 条解释了一个新手最常见的困惑——“我刚买完怎么就浮亏了？”因为你付出的是费用，不是亏损。第 (ii) 条给了你一个<strong>可以自己核对的口径</strong>：全清仓之后，账户权益的变化应当等于已实现盈亏，一分不差。
+
+现在把第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章算过的那笔成本放进来，你就能手算一个小例子。
+
+<div class="thm definition" id="ex:ch29-roundtrip"><div class="thmhead"><span class="thmname">例</span> <span class="thmnum">29.3</span>（一笔 50,000 元的往返，账面上到底差多少）</div>
+沿用第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章的参数：佣金率 \(0.0003\)、最低佣金 \(5\) 元、印花税 \(0.0005\)（仅卖出）、冲击按平方根律。取标的 <code class="code">sh600519</code>、当日收盘 1251.24<sup class="fn-ref"><a id="fnref-ch29-1" href="#fn-ch29-1">1</a></sup> 元、\(\sigma=\) \(0.014433\)<sup class="fn-ref"><a id="fnref-ch29-2" href="#fn-ch29-2">2</a></sup>、当日成交金额 \(1.33222\times10^{9}\)<sup class="fn-ref"><a id="fnref-ch29-3" href="#fn-ch29-3">3</a></sup> 元。
+
+买入 50,000 元：佣金 \(15.00\)、冲击 \(4.42\)，合计 \(19.42\)；
+卖出 50,000 元：佣金 \(15.00\)、印花税 \(25.00\)、冲击 \(4.42\)，合计 \(44.42\)。
+
+若价格一个来回没有变化（\(p'=p\)），则 \(R_{\text{realized}}=0-44.42=-44.42\) 元；而现金账的变化是 \(-19.42-44.42=-63.84\) 元。两个数的差 \(19.42\) 元，正是被摊进了成本基准里的那笔买入费用。
+
+<strong>也就是说：如果你以相同的价格买回又卖出，你会实打实地付出 63.84 元。</strong>这就是“交易本身是一种消耗”的确切数额。
+</div>
+
+持仓表在屏幕上的完整样子如下。
+
+<figure class="fig" id="fig:ch29-portfolio"><img class="shot" style="width:100%" src="assets/ui/ui-portfolio.png" alt=""><figcaption><span class="lbl">图 29.1</span>组合交易中心：顶部四项指标卡与持仓明细表（图中的 5 只持仓与权重均为库中真实记录）</figcaption></figure>
+
+<h2 id="sec-29-4"><span class="hnum">29.4</span>交易记录：六列，和一个容易看漏的“净额”</h2>
+
+交易记录表列出每一笔成交：方向、数量、价格、<strong>佣金</strong>、<strong>净额</strong>、<strong>已实现盈亏</strong>。
+
+前四列很好懂。真正容易看漏的是“净额”。
+
+<div class="box keybox"><div class="boxtitle">账户里真实发生的费用口径（系统口径）</div><div class="boxbody">
+<ul><li><strong>买入</strong>：只收<strong>佣金</strong>（万三，最低 5 元），<strong>不</strong>收印花税；
+  </li><li><strong>卖出</strong>：佣金（万三，最低 5 元）<strong>加</strong>印花税 \(0.05\%\)。
+</li></ul>
+所以<strong>净额 \(\ne\) 成交额</strong>：买入的净额高于成交额（多花的佣金），卖出的净额低于成交额（扣掉的佣金与印花税）。
+</div></div>
+
+为什么要单列一列“净额”？因为它是<strong>你和券商之间真实结算的那个数</strong>。成交额是名义上的，净额是钱。长期看，这一列的求和就是你为这套系统付出的摩擦总额。
+
+上表那笔 50,000 元的买入，成交额是 \(50{,}000\)，净额是 \(50{,}015.00\) 元——多出来的 15 元，就是佣金。这个差额小到不会引起任何人的注意，而它每天发生。
+
+<h2 id="sec-29-5"><span class="hnum">29.5</span>盈亏分析：为什么“今日盈亏”以交易日为界</h2>
+
+这是本章开头那个 \(3.5\) 元的完整答案。
+
+在<strong>盈亏分析</strong> Tab 里，有收益历史、最新日统计，以及一条每日盈亏明细（时间倒序分页）。
+
+这套数据来自一个每天收盘后自动执行的动作。它的触发时机有一个硬性规定：
+
+<div class="box keybox"><div class="boxtitle">收盘价入库的触发规则</div><div class="boxbody">
+每日 <strong>15:00 之后</strong>自动执行收盘价入库，写入两张表：<code class="dbtab">position_snapshots</code>（持仓快照）与 <code class="dbtab">portfolio_daily_stats</code>（每日结算）。
+</div></div>
+
+“15:00 之后”这四个字，决定了“今日盈亏”这个数的一个性质：<strong>它是以交易日为界的，不是以自然日为界的。</strong>
+
+<div class="thm plain" id="prop:ch29-day"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">29.4</span>（为什么“今日盈亏”在收盘后不应该继续刷新）</div>
+设收盘价为 \(P_t^{\mathrm{close}}\)，当日结算的“今日盈亏”为
+<div class="math-scroll">\[\Pi_t \;=\; E_t-E_{t-1},
+\qquad
+E_t=\sum_{i} Q_i P_{i,t}^{\mathrm{close}}+\text{现金}_t . \tag{29.5}\]</div>
+若在 \(15{:}00\) 之后继续以“最新价”刷新 \(E_t\)，而市场已无新成交价，则 \(P_{i,t}^{\mathrm{close}}\) 不再变化，\(\Pi_t\) 也不会变化；此时任何“刷新”要么得到同一个数（无意义），要么会引入<strong>下一交易日</strong>的价格而污染 \(t\) 日的结算。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>\(15{:}00\) 之后 A 股不再撮合（第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章的交易时段），故对一切 \(i\) 与一切刷新时刻 \(\tau&gt;15{:}00\)，可得的最新价格恒为 \(P_{i,t}^{\mathrm{close}}\)，刷新不改变 \(\{P_{i,t}^{\mathrm{close}}\}\)，因此 \(E_t\) 与 \(\Pi_t\) 都不变。
+
+若此时改用<strong>下一个交易日</strong>的实时价 \(P_{i,t+1}^{\mathrm{real}}\)，则计算出的 \(\sum_i Q_i P^{\mathrm{real}}_{i,t+1}\) 属于第 \(t+1\) 日的权益，把它写进第 \(t\) 日的 \(\Pi_t\)，等价于把 \(t+1\) 日的波动提前计入 \(t\) 日——这正是第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章定义 <a class="xref" href="ch17.html#def:ch17-filtration">17.5</a> 意义上的前视污染：\(\Pi_t\) 用到了 \(\mathcal F_{t+1}\) 的信息。\(\blacksquare\)
+</div>
+
+这个命题在说什么：它把“15:00 之后今日盈亏不再变化”这件看起来像 bug 的现象，解释成了一条纪律。你在晚上十点打开软件，看到“今日盈亏”还是下午收盘那个数——这是对的。它不该变。
+
+<h2 id="sec-29-6"><span class="hnum">29.6</span>“以数据库为准”到底是什么意思</h2>
+
+现在讲这一章真正的方法论。
+
+在持仓页的刷新逻辑里，有一条注释是这样写的：每次读取之前，都要<strong>以 SQLite 里的权威数据强制对账内存持仓</strong>——权威数据是“<code class="dbtab">position_snapshots</code> 最近一条收盘快照，加上快照之后的所有新成交”。
+
+这句话对应一个具体的设计决定：
+
+<div class="box keybox"><div class="boxtitle">权威口径</div><div class="boxbody">
+<strong>内存里的持仓不是权威，数据库里的是。</strong><br>
+
+每次展示之前，都用“最近一次结账 + 之后的全部流水”重算一遍余额，把内存状态强行对齐到数据库。<br>
+
+并且实时刷新是<strong>每 30 秒从 SQLite 权威数据重建组合状态</strong>（含持仓、成交、盈亏），不依赖手动刷新。
+</div></div>
+
+这套设计防的是两类错：
+
+<strong>第一类，长期运行的漂移。</strong>一个程序连续跑几周，内存里维护的持仓数字会因为浮点累积、竞态写入、异常中断而慢慢偏离真实值。内存不会报警——它只是越来越不准。所以要让数据库定期“纠正”内存，而不是反过来。
+
+<strong>第二类，结算值被覆盖。</strong>每日结算写入的 <code class="field">daily_pnl</code> 是含当日新开仓与手续费的；若展示层用自己的口径重算，就会和数据库那一行对不上。系统里对这一点有明确注释（“那会忽略当日新开仓/手续费影响导致与数据库结算值不一致”）——结论就是：<strong>展示层不许自己算，去读数据库那一行。</strong>
+
+<div class="box pitfall"><div class="boxbody">
+这是本章开头那 \(3.5\) 元的另一种版本。
+
+很多人习惯性地认为“今天”指的是零点到零点。那么在晚上十一点打开软件时，如果“今日盈亏”没变，就会怀疑软件坏了。
+
+不是的。这个数字的分界线是<strong>15:00 收盘</strong>，不是午夜。它之所以是这样，还有一条制度原因：A 股是 T+1，当日买入不可当日卖出；收盘之后，当天的交易已经彻底封闭，任何改动都只能属于下一个交易日。
+
+所以正确的心理模型是：<strong>“今日盈亏”是一张日结单，不是一块实时仪表。</strong>想看实时波动，去看持仓明细里的“现价”和“盈亏”两列，那两列会随实时价刷新。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“我买了 50,000 块，成交额就是 50,000，所以扣 50,000。”
+
+成交额确实是 \(50{,}000\)，但<strong>从账户上划走的是净额 \(50{,}015\)</strong>。这个差额在单笔上看不出什么，在一年几百笔之后就很可观了——它和佣金率、笔数、以及“每次买卖的金额大小”直接相关（第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章命题 <a class="xref" href="ch17.html#prop:ch17-floor">17.1</a> 讲的“最低佣金”就藏在这里）。
+
+系统把这个差额单独列成一列，就是为了让你在复盘的时候能一眼看到它。<strong>把佣金和印花税跟在成交额后面单独列出来看，是长期用这套系统唯一能坚持下去的记账习惯。</strong>
+</div></div>
+
+<h2 id="sec-29-7"><span class="hnum">29.7</span>手动交易与“连续交易”</h2>
+
+除了 AI 自动决策，持仓页上也提供了一个<strong>交易操作</strong>入口，包含一个手动交易表单：代码、方向、数量、价格、<strong>原因</strong>。
+
+“原因”这个字段值得说一句：它默认填的是“手动交易”，但它是可改的。为什么一个手动操作还需要填原因？
+
+因为这本账是<strong>给未来的你</strong>看的。三个月后你回看这笔交易，如果没有原因，你只能看到“在某个价格买了某个数量”——那和抛硬币没有区别。有原因，你至少知道当时在想什么，才有可能判断是“判断错了”还是“执行错了”。
+
+页面另外还有一个<strong>实时持仓监控</strong>开关（默认开启），按设置页里的刷新间隔自动更新持仓行情；旁边是一个“立即获取实时行情并更新持仓价格”的按钮，用来做一次手动刷新。
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>持仓 / 交易记录 / 盈亏分析三个 Tab、手动交易表单、实时持仓监控开关、30 秒权威重建：<code class="sysfile">ui/src/pages/Portfolio.tsx</code>
+  </li><li>持仓快照与每日结算：<code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">RecordDailySnapshot</code>、<code class="dbtab">position_snapshots</code>、<code class="dbtab">portfolio_daily_stats</code>
+  </li><li>权威对账（最近收盘快照 + 其后新成交）：<code class="sysfile">internal/portfolio/engine.go</code> 的持仓重建逻辑
+  </li><li>费用口径与净额：<code class="code">OrderCostTool</code>、<code class="sysfile">internal/backtest/cost_model.go</code>（第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章）
+  </li><li>交易时段与 T+1：<code class="sysfile">internal/util/trading_hours.go</code>（第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章）
+  </li><li>事故 #14（名称字段被错误赋值为代码）：系统事实清单第 15 节
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十五分钟，最好在收盘后做）</div><div class="boxbody">
+<ol><li>打开“我的投资”页，切到<strong>持仓明细</strong>。把“权重”这一列加起来，应该等于“持仓市值 \(\div\) 总资产”。若某一只超过 \(30\%\)，那就是一条需要解释的记录。
+  </li><li>切到<strong>交易记录</strong>，找一笔卖出，把“成交额”和“净额”相减。这个差应当约等于“佣金 + 印花税”。计算一下：成交额 \(\times 0.0003 +\) 成交额 \(\times 0.0005\)，和实际差对得上吗？
+  </li><li>切到<strong>盈亏分析</strong>。找到“今日盈亏”，记下它。等十分钟再看一次——如果现在是收盘后，这个数<strong>不应该变</strong>。
+  </li><li>做一道手算题：用定义 <a class="xref" href="ch29.html#def:ch29-cost">29.1</a> 的式 <a class="xref" href="ch29.html#eq:ch29-cost">(29.1)</a>，假设你以 \(10.00\) 元买入 1,000 股（佣金按最低 5 元），算一算新的加权平均成本是多少。（答案应略高于 \(10.00\)。）
+  </li><li>最后回答：如果你在同一个价格把这 1,000 股全部卖出，这一趟你一共付出了多少费用？请用式 <a class="xref" href="ch29.html#eq:ch29-realized">(29.2)</a> 和例 <a class="xref" href="ch29.html#ex:ch29-roundtrip">29.3</a> 的口径分别算一遍，核对两个数是否一致。
+</li></ol>
+</div></div>
+
+账本读懂了：持仓是余额，成交是流水，结账每天 15:00 之后写一次，权威永远在数据库那一侧。
+
+可是上面的东西大多是被动地“看”。如果你想把旋钮拧一拧——换一个策略模板、改一改因子权重、看看某个参数到底让回测变了多少——那就得进实验室。下一章讲研究与调参：哪些旋钮能立刻看到读数，哪些要跑很久，以及改完之后必须做的那件事——<strong>看样本外</strong>。
+
+</article>
+<nav class="pager"><a class="prev" href="ch28.html"><span class="dir">上一页</span>第二十八章 读懂决策：CIO 决策中心里的每一行字</a><a class="next" href="ch30.html"><span class="dir">下一页</span>第三十章 研究与调参：选股、策略、回测、每日策略</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch29-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch29-1">↩</a></li><li id="fn-ch29-2"><strong>复算数据</strong> 该数字为本书按系统实现中的同一公式、在系统的真实数据上重新计算所得；公式出处已在正文标注。 <a class="fn-back" href="#fnref-ch29-2">↩</a></li><li id="fn-ch29-3"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch29-3">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

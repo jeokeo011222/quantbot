@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>投票能不能比专家更靠谱？——多提案集成 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·投票能不能比专家更靠谱？——多提案集成">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch08.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html" class="current"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a><ul class="sub"><li><a href="#sec-8-1">8.1 四个人，四个说法</a></li><li><a href="#sec-8-2">8.2 直觉：陪审团不改变上限，它只防止一个人说了算</a></li><li><a href="#sec-8-3">8.3 不引入投票，会怎样</a></li><li><a href="#sec-8-4">8.4 一个差不多对的模型：数人头</a></li><li><a href="#sec-8-5">8.5 严谨版本：把四个说法折成一个数</a></li><li><a href="#sec-8-6">8.6 它在系统里长什么样</a></li><li><a href="#sec-8-7">8.7 常见误解与纠偏</a></li></ul></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch08"><span class="cnum">第八章</span>投票能不能比专家更靠谱？——多提案集成</h1>
+
+
+
+
+
+<h2 id="sec-8-1"><span class="hnum">8.1</span>四个人，四个说法</h2>
+
+二零二六年九月十日，星期四。
+
+那一天系统自己留下了记录：六维判势算出的修正总分是 38.43<sup class="fn-ref"><a id="fnref-ch08-1" href="#fn-ch08-1">1</a></sup>，标签定为“退潮风险”，建议的仓位系数只有 0.10<sup class="fn-ref"><a id="fnref-ch08-2" href="#fn-ch08-2">2</a></sup>。这是系统里最保守的那一档。
+
+然后，决策层的另外三个来源也表了态。把它们和规则来源摆在同一张纸上，是这样的：
+
+<ul><li><strong>主张官</strong>：看多。理由是“技术趋势维度给了 85 分，指数还站在 MA20 上方”。
+  </li><li><strong>异议审查官</strong>：<code class="code">RISK</code>。理由是“市场广度只有 8.69 分——指数在涨，可真正在涨的股票少得可怜”。
+  </li><li><strong>辩论裁决官</strong>：中性，共识度 50。多空各摆三条论据，谁也压不倒谁。
+  </li><li><strong>规则来源</strong>：偏空。因为它读到的标签里有“退潮”两个字。
+</li></ul>
+
+四个来源，两个说空，一个说多，一个说不知道。
+
+我盯着这张纸想了很久。这不是我编出来的困境，注意看前两条：技术趋势的 85 分和市场广度的 8.69 分，<strong>是同一天、同一份行情算出来的两个数，谁都没有算错</strong>。它们只是互相不同意。
+
+真正的问题是：这四个说法，最后应该变成哪一个决定？
+
+这里要先说清楚一件不体面的事。上面四条里，“规则”那一条来自系统真实记录；另外三条表态，是为了把机制讲清楚而设的<strong>示意</strong>值。系统确实会把它们随决策一并落库（第 <a class="xref" href="ch10.html#ch:ch10">第十章</a> 章会讲这件事），但我手上没有可以引用的运行期决策库。所以：算例是示意的，<strong>下面要走的公式和参数，是代码里的真公式和真参数</strong>。
+
+<h2 id="sec-8-2"><span class="hnum">8.2</span>直觉：陪审团不改变上限，它只防止一个人说了算</h2>
+
+<div class="box intuition"><div class="boxbody">
+法庭上那个陪审团，是十二个普通人，不是十二个法律专家。
+
+如果你问“十二个普通人加起来，会不会比法官更懂法条”，答案显然是不会。可陪审团的意义从来不在那儿。它的意义在于：<strong>要让判决错，得让十二个人同时错。</strong>
+
+董事会表决也是同一个道理，不过多了一个细节：董事长的票比普通董事重。这叫加权。但请注意加权的能力边界——<strong>它只能把票往大家已经说出来的那些方向上加，不能让结论跑到所有人意见的范围之外去。</strong>哪怕董事长一个人的票重到能压过全场，结论也只能停在“最看多的那个人”和“最看空的那个人”之间，越不出去。
+</div></div>
+
+这两件事合起来，就是本章全部的分量：
+
+<strong>投票不提高上限，它只降低单点错误。</strong>
+
+最聪明的那个来源有多聪明，加权的投票并不能让它更聪明；但“某一个来源犯了错”这件事，从此不再等于“整个系统犯了错”。
+
+<h2 id="sec-8-3"><span class="hnum">8.3</span>不引入投票，会怎样</h2>
+
+不用投票，系统照样能跑。因为主张官本来就给出方向，规则门本来就给出仓位上限。它少掉的是三样东西。
+
+<strong>第一，方向失去了独立复核。</strong>主张官说看多，没有人用另一种方式再问一遍“真的偏多吗”。一个来源的一次幻觉，就是一个方向。
+
+<strong>第二，少了一个“整队一起偏空”的收敛点。</strong>收紧仓位的路径本来就很多（主张官的保守建议、异议官的降仓、Kelly 系数），但它们都挂在同一条链上。缺少一个把多个来源的方向合起来看的环节，就没有“所有人都觉得不对”这种集体信号。
+
+<strong>第三，分歧没有被变成一个数。</strong>回头看一下本章开头那张纸：四个人四个说法。如果没有净多分，这张纸就只是一段争论；有了净多分，它就变成一行可以落库、可以复核的记录（这一点第 <a class="xref" href="ch10.html#ch:ch10">第十章</a> 章会接着讲）。
+
+我要把话说得再老实一点：这个机制的力量是有限的。它<strong>不改变方向、不抬高上限</strong>，唯一的动作是“当多数来源整体偏空时，把仓位上限再收紧一档”。为什么要为一个“只能往下压”的东西写一整章？因为在一个已经处处往下压的系统里，<strong>唯一被允许的动作方向就是保守</strong>，而值得讨论的从来不是“能不能加码”，而是“这一档该压到多低、以及凭什么”。
+
+<h2 id="sec-8-4"><span class="hnum">8.4</span>一个差不多对的模型：数人头</h2>
+
+最粗糙、也最符合直觉的模型是这样的：每个来源一票，多者胜，平票算中性。
+
+这个模型抓住了核心——<strong>决定不再由一个人做出</strong>。但它太粗，漏掉了四件事。
+
+<strong>漏掉的第一件：一票不等于一票。</strong>主张官说看多、信心 90，和主张官说看多、信心 30，在这个模型里是同一票。可它们显然不是同一件事：前者是“我很确定”，后者是“我倾向这样，但你别太当真”。
+
+<strong>漏掉的第二件：人数不等于分量。</strong>三个来源两票看多，和四个来源两票看多（另一个弃权），在这个模型里也是一回事。前者是“多数”，后者是“相对多数里的一方”。
+
+<strong>漏掉的第三件：平票没有定义。</strong>两个看多、两个看空，谁赢？这个模型在这里会卡住，或者说不出理由。
+
+<strong>漏掉的第四件：它会跳变。</strong>从“一半对一半”到“多一票”，结论突然翻面。中间没有一段过渡区，告诉我们“今天其实很接近，别太用力”。
+
+把这四件事补上，就得到本章的严谨版本。
+
+<h2 id="sec-8-5"><span class="hnum">8.5</span>严谨版本：把四个说法折成一个数</h2>
+
+先说这个模型想干什么：把每一路意见既能“表态”、又能“表明自己有多重”，最后合成一个落在 \(-1\) 与 \(+1\) 之间的分数。分数为正表示整体偏多，为负表示整体偏空，接近 \(0\) 表示双方拉平。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">8.1</span>（来源表态与权重）</div>
+设有 \(n\) 个来源。第 \(i\) 个来源给出一个<strong>表态分</strong> \(v_i \in [-1,1]\)：\(+1\) 表示明确看多，\(0\) 表示中性，\(-1\) 表示明确看空；同时给出一个<strong>权重</strong> \(w_i \ge 0\)，表示这一路意见该占多大分量。系统里 \(n\) 最多为 4：主张、异议、辩论、规则。
+</div>
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">8.2</span>（净多分）</div>
+记 \(S = \sum_{i=1}^{n} w_i\)。当 \(S &gt; 0\) 时，定义
+<div class="math-scroll" id="eq:net-score">\[\mathrm{net} \;=\; \frac{\sum_{i=1}^{n} w_i\, v_i}{\sum_{i=1}^{n} w_i}. \tag{8.1}\]</div>
+当 \(S = 0\)（一个来源都没有，或所有来源的权重都是 \(0\)）时，<strong>约定</strong> \(\mathrm{net} = 0\)。
+</div>
+
+这个约定需要一句解释。\(S=0\) 意味着“没有任何来源参与表决”，此时分子分母都没有意义，式 <a class="xref" href="ch08.html#eq:net-score">式 (8.1)</a> 是一张写不出答案的空表。这种情况下的正确做法不是猜一个方向，而是<strong>承认自己没有方向</strong>：\(0\) 恰好就是“中性”，它同时会让后续的仓位收敛失效（后面会看到，只有净多分为负时才会动手），于是规则门原样生效。一句话：<strong>没票就等于弃权，不等于投一张假票。</strong>
+
+<div class="thm plain" id="thm:net-bound"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">8.3</span>（净多分的有界性）</div>
+
+在定义 8.1、8.2 下，恒有 \(\mathrm{net} \in [-1,1]\)。更进一步，\(\mathrm{net}\) 落在所有表态分的最小值与最大值之间：
+<div class="math-scroll" id="eq:between">\[\min_i v_i \;\le\; \mathrm{net} \;\le\; \max_i v_i . \tag{8.2}\]</div>
+</div>
+
+这个定理在说什么：不管权重怎么分配、怎么加权，投票的结果都<strong>跑不出大家意见的范围</strong>。加权能改变结果落在区间里的位置，但改变不了区间的边界。这正是前面那句“董事长的票再重，也越不出全场意见”的数学版本。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>先证下界。对每个来源，由 \(v_i \ge -1\) 与 \(w_i \ge 0\)，在不等式两边同乘 \(w_i\)（乘一个非负数，不等号方向不变）得
+<div class="math-scroll">\[-w_i \;\le\; w_i v_i .\]</div>
+对 \(i\) 从 \(1\) 到 \(n\) 求和，得
+<div class="math-scroll">\[\sum_{i=1}^{n} w_i \cdot (-1) \;=\; -\sum_{i=1}^{n} w_i \;\le\; \sum_{i=1}^{n} w_i v_i .\]</div>
+
+再证上界。同理由 \(v_i \le 1\) 与 \(w_i \ge 0\) 得 \(w_i v_i \le w_i\)，求和得
+<div class="math-scroll">\[\sum_{i=1}^{n} w_i v_i \;\le\; \sum_{i=1}^{n} w_i \cdot 1 \;=\; \sum_{i=1}^{n} w_i .\]</div>
+
+两式合起来：
+<div class="math-scroll">\[-\sum_{i=1}^{n} w_i \;\le\; \sum_{i=1}^{n} w_i v_i \;\le\; \sum_{i=1}^{n} w_i .\]</div>
+
+当 \(S = \sum_i w_i &gt; 0\) 时，三边同除以 \(S\)。\(S\) 是正数，除以正数不改变不等号方向，于是
+<div class="math-scroll">\[-1 \;\le\; \frac{\sum_i w_i v_i}{\sum_i w_i} \;=\; \mathrm{net} \;\le\; 1 ,\]</div>
+即 \(\mathrm{net} \in [-1,1]\)。
+
+当 \(S = 0\) 时，按定义 8.2 的约定 \(\mathrm{net} = 0\)，而 \(0 \in [-1,1]\)，结论同样成立。
+
+把上界证明里的 \(1\) 换成 \(\max_i v_i\)、把下界证明里的 \(-1\) 换成 \(\min_i v_i\)，\(w_i \ge 0\) 这一条保证乘除不改变不等号方向，两步可以照抄一遍，即得不等式 <a class="xref" href="ch08.html#eq:between">式 (8.2)</a>。
+</div>
+
+<div class="thm plain" id="lem:majority"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">8.4</span>（多数方向与净多分的符号一致）</div>
+
+把来源按表态分成三组：看多组（\(v_i = +1\)）、看空组（\(v_i = -1\)）、中性组（\(v_i = 0\)）。记
+<div class="math-scroll">\[W_{+} = \sum_{v_i = +1} w_i , \qquad W_{-} = \sum_{v_i = -1} w_i , \qquad W_{0} = \sum_{v_i = 0} w_i .\]</div>
+若 \(W_{+} + W_{-} + W_{0} &gt; 0\)，则
+<div class="math-scroll">\[\sign(\mathrm{net}) = \sign(W_{+} - W_{-}).\]</div>
+特别地，\(W_{+} = W_{-}\) 时 \(\mathrm{net} = 0\)。
+</div>
+
+这个引理在说什么：净多分的<strong>符号</strong>，和“偏多票的权重和 减去 偏空票的权重和”的符号，是同一件事。也就是说，加权平均并没有发明一种新的判决方式——它就是把“数人头”这件事写成了一个连续的分数，顺便把“这部分人有多重”也算进去了。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>由定义，每个表态分只取 \(+1\)、\(0\)、\(-1\) 三个值之一。于是
+<div class="math-scroll">\[\sum_{i=1}^{n} w_i v_i
+= \sum_{v_i = +1} w_i \cdot (+1) + \sum_{v_i = -1} w_i \cdot (-1) + \sum_{v_i = 0} w_i \cdot 0
+= W_{+} - W_{-},\]</div>
+最后一项因为乘 \(0\) 而消失。记分母 \(D = W_{+} + W_{-} + W_{0} = \sum_i w_i &gt; 0\)。代入式 <a class="xref" href="ch08.html#eq:net-score">式 (8.1)</a>：
+<div class="math-scroll">\[\mathrm{net} = \frac{W_{+} - W_{-}}{D}.\]</div>
+\(D &gt; 0\)，除以正数不改变符号，故 \(\sign(\mathrm{net}) = \sign(W_{+} - W_{-})\)。当 \(W_{+} = W_{-}\) 时分子为 \(0\)，于是 \(\mathrm{net} = 0\)。
+</div>
+
+最后一步，把这个分数变成对仓位的约束。设 \(\mathrm{rate} \in [0,1]\) 是<strong>当前已经生效的仓位系数</strong>（它可能来自六维判势，也可能已经被主张官、异议官、Kelly 系数压过好几轮）。
+
+<div class="thm plain" id="thm:only-down"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">8.5</span>（只降不升的收敛映射）</div>
+
+定义映射 \(f:[-1,1] \to [0,1]\)：
+<div class="math-scroll" id="eq:convergence">\[f(\mathrm{net}) =
+\begin{cases}
+\min(\mathrm{rate},\, 0.5), &amp; \mathrm{net} &lt; -0.5,\\[2pt]
+\min(\mathrm{rate},\, 0.75), &amp; \mathrm{net} \ge -0.5 .
+\end{cases} \tag{8.3}\]</div>
+则对一切 \(\mathrm{rate} \in [0,1]\) 与一切 \(\mathrm{net} \in [-1,1]\)：
+<ol><li>\(f(\mathrm{net}) \le \mathrm{rate}\)；
+  </li><li>\(f\) 关于 \(\mathrm{net}\) <strong>单调不减</strong>。
+</li></ol>
+</div>
+
+这个定理在说什么，两句话。<strong>第一句：投票不会让仓位变大。</strong>不管净多分多高、多低，出来的仓位永远不超过原来那个数——最多持平。<strong>第二句：不会出现反常。</strong>净多分越高，允许的仓位上限只会越大或不变，绝不会“越看多反而压得越狠”。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>(i) 分情况讨论。</strong>
+
+情况一：\(\mathrm{net} &lt; -0.5\)。此时由式 <a class="xref" href="ch08.html#eq:convergence">式 (8.3)</a> 有 \(f(\mathrm{net}) = \min(\mathrm{rate}, 0.5)\)。对任意实数 \(a,b\)，由 \(\min(a,b)\) 的定义（取两者中较小者）有 \(\min(a,b) \le a\)。取 \(a = \mathrm{rate}\)、\(b = 0.5\)，得 \(\min(\mathrm{rate},0.5) \le \mathrm{rate}\)，即 \(f(\mathrm{net}) \le \mathrm{rate}\)。
+
+情况二：\(\mathrm{net} \ge -0.5\)。此时 \(f(\mathrm{net}) = \min(\mathrm{rate}, 0.75) \le \mathrm{rate}\)，依据同样是 \(\min(a,b) \le a\)。
+
+两种情况的并集覆盖整个 \([-1,1]\)，因此对一切 \(\mathrm{net} \in [-1,1]\) 与一切 \(\mathrm{rate} \in [0,1]\) 都有 \(f(\mathrm{net}) \le \mathrm{rate}\)。这一条不需要用到 \(\mathrm{rate} \le 1\)，它是“\(\min\) 的第一个参数不会被超过”的直接结果。
+
+<strong>(ii) 分段说明单调性。</strong>取任意 \(\mathrm{net}_1 &lt; \mathrm{net}_2\)，需要证明 \(f(\mathrm{net}_1) \le f(\mathrm{net}_2)\)。
+
+在开区间 \((-1, -0.5)\) 上，\(f\) 恒等于常数 \(\min(\mathrm{rate}, 0.5)\)；在区间 \([-0.5, 1]\) 上，\(f\) 恒等于常数 \(\min(\mathrm{rate}, 0.75)\)。常数函数显然单调不减，所以只要 \(\mathrm{net}_1\) 与 \(\mathrm{net}_2\) 落在同一个区间里，结论成立。
+
+剩下的情况只有“跨点”：\(\mathrm{net}_1 &lt; -0.5 \le \mathrm{net}_2\)。此时
+<div class="math-scroll">\[f(\mathrm{net}_1) = \min(\mathrm{rate}, 0.5), \qquad f(\mathrm{net}_2) = \min(\mathrm{rate}, 0.75).\]</div>
+由 \(0.5 \le 0.75\)，且固定 \(\mathrm{rate}\) 时 \(\min(\mathrm{rate}, \cdot)\) 关于第二个参数单调不减（第二个参数变大，取小值的结果不会变小），得
+<div class="math-scroll">\[\min(\mathrm{rate}, 0.5) \;\le\; \min(\mathrm{rate}, 0.75),\]</div>
+即 \(f(\mathrm{net}_1) \le f(\mathrm{net}_2)\)。跨点处 \(f\) 不下降。
+
+综上，\(f\) 在 \([-1,1]\) 上单调不减。
+</div>
+
+<div class="thm remark" id="rem:cap-three"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">8.6</span>（实现里的封顶函数是三段，不是两段）</div>
+
+本章依据的公式与源码核对后有一处差别，必须交代清楚，否则读者会对着代码对不上：<strong>实现只在 \(\mathrm{net} &lt; 0\) 时才动手</strong>。也就是封顶函数实际是
+<div class="math-scroll">\[c(\mathrm{net}) =
+\begin{cases}
+0.5, &amp; \mathrm{net} \le -0.5,\\
+0.75, &amp; -0.5 &lt; \mathrm{net} &lt; 0,\\
+1, &amp; \mathrm{net} \ge 0,
+\end{cases}
+\qquad f_{\text{实现}}(\mathrm{net}) = \min\bigl(\mathrm{rate},\, c(\mathrm{net})\bigr).\]</div>
+它与式 <a class="xref" href="ch08.html#eq:convergence">式 (8.3)</a> 的差别只出现在 \(\mathrm{net} \ge 0\) 那一段：两段式版本会把仓位封到 \(0.75\)，实现版本不封顶。
+
+定理 <a class="xref" href="ch08.html#thm:only-down">8.5</a> 的结论对实现版本同样成立，理由只有两步：\(c\) 单调不减（\(0.5 \le 0.75 \le 1\)），\(\min(\mathrm{rate}, \cdot)\) 也单调不减，复合之后 \(f_{\text{实现}}\) 单调不减；而 \(\min(\mathrm{rate}, c(\mathrm{net})) \le \mathrm{rate}\) 是恒成立的。所以“只降不升”这条纪律没有打折。
+
+差别在于性格。两段式是“只要不是明显看多，就一律压一档”；实现是“<strong>只有集成方向真的转空，我才伸手</strong>”。后者更弱，也更符合这个环节的定位：<strong>它是用来发现问题的，不是用来表达赞同的。</strong>
+</div>
+
+<h2 id="sec-8-6"><span class="hnum">8.6</span>它在系统里长什么样</h2>
+
+四个来源怎么变成权重，权重怎么变成净多分，源码在 <code class="sysfile">internal/cio/ensemble.go</code> 一个函数里，名字叫 <code class="code">ensembleVote</code>。
+
+<figure class="listing" id="{lst:ch08-vote}"><figcaption><span class="lbl">代码 8.1</span>多提案集成投票（节选，<code class="sysfile">internal/cio/ensemble.go</code>；为便于阅读合并了分支赋值）</figcaption><pre class="code"><code><span class="cl"><span class="kw">func</span> ensembleVote(prop *llmDecisionProposal, sk *skepticVerdict,</span>
+<span class="cl">                  db *debateVerdict, regime <span class="kw">string</span>) *ensembleVerdict {</span>
+<span class="cl">    votes := make(<span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">string</span>)</span>
+<span class="cl">    net := 0.0</span>
+<span class="cl"></span>
+<span class="cl">    <span class="kw">if</span> prop != <span class="kw">nil</span> {                       <span class="com">// 来源一：主张官</span></span>
+<span class="cl">        votes[<span class="str">&quot;主张&quot;</span>] = prop.MarketDirection</span>
+<span class="cl">        net += dirScoreStr(prop.MarketDirection) *</span>
+<span class="cl">               clampF(<span class="kw">float64</span>(prop.Confidence)/100, 0, 1)</span>
+<span class="cl">    }</span>
+<span class="cl">    <span class="kw">if</span> sk != <span class="kw">nil</span> {                         <span class="com">// 来源二：异议评审</span></span>
+<span class="cl">        <span class="kw">switch</span> strings.ToUpper(sk.Verdict) {</span>
+<span class="cl">        <span class="kw">case</span> <span class="str">&quot;AGREE&quot;</span>:  votes[<span class="str">&quot;异议&quot;</span>] = <span class="str">&quot;AGREE&quot;</span>;   net += 0.3  <span class="com">// 认可 → 偏多</span></span>
+<span class="cl">        <span class="kw">case</span> <span class="str">&quot;RISK&quot;</span>:   votes[<span class="str">&quot;异议&quot;</span>] = <span class="str">&quot;RISK&quot;</span>;    net -= 0.7  <span class="com">// 明显风险 → 偏空</span></span>
+<span class="cl">        <span class="kw">default</span>:       votes[<span class="str">&quot;异议&quot;</span>] = <span class="str">&quot;CAUTION&quot;</span>; net -= 0.2  <span class="com">// 需留意 → 轻偏空</span></span>
+<span class="cl">        }</span>
+<span class="cl">    }</span>
+<span class="cl">    <span class="kw">if</span> db != <span class="kw">nil</span> {                         <span class="com">// 来源三：多空辩论</span></span>
+<span class="cl">        votes[<span class="str">&quot;辩论&quot;</span>] = db.Direction</span>
+<span class="cl">        net += dirScoreStr(db.Direction) *</span>
+<span class="cl">               clampF(<span class="kw">float64</span>(db.Agreement)/100, 0, 1)</span>
+<span class="cl">    }</span>
+<span class="cl">    <span class="kw">if</span> rt := strings.TrimSpace(regime); rt != <span class="str">&quot;&quot;</span> {   <span class="com">// 来源四：六维规则信号</span></span>
+<span class="cl">        <span class="kw">if</span> strings.Contains(rt, <span class="str">&quot;强势&quot;</span>) { votes[<span class="str">&quot;规则&quot;</span>] = <span class="str">&quot;BULLISH&quot;</span>; net += 0.3 }</span>
+<span class="cl">        <span class="kw">if</span> strings.Contains(rt, <span class="str">&quot;退潮&quot;</span>) || strings.Contains(rt, <span class="str">&quot;弱势&quot;</span>) {</span>
+<span class="cl">            votes[<span class="str">&quot;规则&quot;</span>] = <span class="str">&quot;BEARISH&quot;</span>; net -= 0.3</span>
+<span class="cl">        }</span>
+<span class="cl">    }</span>
+<span class="cl"></span>
+<span class="cl">    net = clampF(net, -1, 1)               <span class="com">// 截断到 [-1,1]</span></span>
+<span class="cl">    dir := <span class="str">&quot;NEUTRAL&quot;</span></span>
+<span class="cl">    <span class="kw">if</span> net &gt; 0.25 { dir = <span class="str">&quot;BULLISH&quot;</span> } <span class="kw">else</span> <span class="kw">if</span> net &lt; -0.25 { dir = <span class="str">&quot;BEARISH&quot;</span> }</span>
+<span class="cl">    <span class="kw">return</span> &amp;ensembleVerdict{Direction: dir, Votes: votes,</span>
+<span class="cl">        NetScore: math.Round(net*100) / 100}</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么，四件事。
+
+<strong>第一，每个来源的表态都有一个配套的分量。</strong>主张官看多，加的分是“看多”这一个方向分乘上它的信心；辩论裁决官看多，乘的是共识度；它们都是 \([-1,1]\) 里的数。异议审查官不谈方向，它谈的是<strong>立场</strong>：认可、需要留意、还是明显有风险，对应 \(+0.3\)、\(-0.2\)、\(-0.7\) 三个固定分。规则来源最干脆：标签里有“强势”就 \(+0.3\)，有“退潮”或“弱势”就 \(-0.3\)。
+
+<strong>第二，权重全都在 \([0,1]\) 里，但每一路的“量纲”并不统一。</strong>这一点非常重要，也是本章必须老实交代的地方：主编的权重是“信心除以 100”，辩论的权重是“共识度除以 100”，异议和规则则是三个写死的常数。这四路权重加起来，可能远大于 \(1\)。
+
+<strong>第三，最后一步不是除以权重和，而是截断。</strong>源码里写的是 <code class="code">clampF(net, -1, 1)</code>，不是定义 8.2 的除法。这两者在“来源方向一致”时结果相同（四个都说多，加权求和与加权平均都饱和到 \(+1\)），但在“方向分歧”时结果不同。差别有多大，下一节的表格会给一个真实算例。
+
+<strong>第四，方向判定有一圈“死区”。</strong>净多分大于 \(0.25\) 才算看多，小于 \(-0.25\) 才算看空，中间算中性。所以严格按引理 <a class="xref" href="ch08.html#lem:majority">8.4</a> 说，实现是“符号判定”的加宽版。
+
+表 <a class="xref" href="ch08.html#tab:ch08-weights">8.1</a> 把四个来源的权重规则整理成一张表。
+
+<figure class="tbl" id="tab:ch08-weights"><div class="tbl-scroll"><table><caption><span class="lbl">表 8.1</span>四路来源的表态分与权重</caption><tbody><tr><td><strong>来源</strong></td><td><strong>表态分 \(v_i\)</strong></td><td><strong>权重 \(w_i\)</strong></td><td><strong>它代表什么</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>主张 <code class="code">prop</code></td><td>看多 \(+1\) / 中性 \(0\) / 看空 \(-1\)</td><td>\(\mathrm{confidence}/100\)</td><td>主张官对自己方向判断的把握</td></tr><tr><td>异议 <code class="code">sk</code></td><td>固定分（见右）</td><td>写死的 \(0.3\) / \(0.2\) / \(0.7\)</td><td><code class="code">AGREE</code> 偏多、<code class="code">CAUTION</code> 轻偏空、<code class="code">RISK</code>\(\,\)明显偏空</td></tr><tr><td>辩论 <code class="code">db</code></td><td>看多 \(+1\) / 中性 \(0\) / 看空 \(-1\)</td><td>\(\mathrm{agreement}/100\)</td><td>多空双方对“发生了什么”的一致程度</td></tr><tr><td>规则 <code class="code">regime</code></td><td>强势 \(+1\) / 其他 \(0\) / 退潮·弱势 \(-1\)</td><td>写死的 \(0.3\)</td><td>六维判势标签的规则化读法</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">四路权重之和没有归一化：主张与辩论的权重在 \([0,1]\) 内，异议的权重是 \(0.7\) 或 \(0.2\) 或 \(0.3\)，规则的权重是 \(0.3\)。因此加权和可能超出 \([-1,1]\)，由 <code class="code">clampF</code> 截断。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/cio/ensemble.go</code>，函数 <code class="code">ensembleVote</code>；核对时间 2026-09-24。</p></figure>
+
+系统自带的单元测试里有三个真实算例，输入和输出都是可复算的。表 <a class="xref" href="ch08.html#tab:ch08-cases">8.2</a> 把它们算了一遍。
+
+<figure class="tbl" id="tab:ch08-cases"><div class="tbl-scroll"><table><caption><span class="lbl">表 8.2</span>三个可复算的算例：从四路表态到净多分与方向</caption><tbody><tr><td><strong>场景</strong></td><td><strong>主张</strong></td><td><strong>异议</strong></td><td><strong>辩论</strong></td><td><strong>加权求和</strong></td><td><strong>净多分 / 方向</strong></td></tr><tr class="rule"><td colspan="6"></td></tr><tr><td>全看多、信心高</td><td>看多，信心 90</td><td>缺</td><td>看多，共识 85</td><td>\(+0.90+0.85+0.30\)</td><td>\(+1.00\) / 看多</td></tr><tr><td>看多遇反对</td><td>看多，信心 80</td><td><code class="code">RISK</code></td><td>看空，共识 90</td><td>\(+0.80-0.70-0.90-0.30\)</td><td>\(-1.00\) / 看空</td></tr><tr><td>中性遇空头</td><td>中性，信心 60</td><td>缺</td><td>看空，共识 70</td><td>\(0-0.70\)</td><td>\(-0.70\) / 看空</td></tr><tr class="rule"><td colspan="6"></td></tr></tbody></table></div><p class="tabnote">第一行三路来源的加权和为 \(2.05\)；第二行为 \(-1.10\)；第三行为 \(-0.70\)。前两行都被 <code class="code">clampF</code> 截断到 \(\pm 1\)，第三行未越界。按式 <a class="xref" href="ch08.html#eq:convergence">式 (8.3)</a>，第二、三行的净多分都不高于 \(-0.5\)，仓位上限各被压到 \(0.5\)；第一行净多分为正，仓位不受影响。</p>
+<p class="tabsrc">输入取自系统单元测试 <code class="sysfile">internal/cio/ensemble_test.go</code>；加权求和与方向由本章按 <code class="sysfile">internal/cio/ensemble.go</code> 的同一公式复算（核对时间 2026-09-24）。此处输入并非市场真实数据，只用于演示公式。</p></figure>
+
+第二行那个算例值得停一下。它的加权和是 \(-1.10\)，被截断成 \(-1.00\)：<strong>四路来源全部反对主张官一个人</strong>，集成给出的净多分直接压到最低。这就是本章开头那个“四个人四个说法”的极端情形——只不过这个例子里不是两两对半分，而是四比一。
+
+现在来看前面留的那个悬念：归一化与截断到底差多少。同一个算例，如果用定义 8.2 的加权平均，权重和是 \(0.8+0.7+0.9+0.3 = 2.7\)，于是
+<div class="math-scroll">\[\mathrm{net}_{\text{归一化}} = \frac{-1.10}{2.7} \approx -0.407 .\]</div>
+两个口径给出两个答案：实现口径 \(-1.00\)（\(\le -0.5\)，仓位压到 \(0.5\)），归一化口径 \(-0.407\)（\(&gt; -0.5\)，仓位只压到 \(0.75\)）。
+
+<strong>这不是谁算错了。</strong>归一化口径把“四路来源意见分歧”这件事摊薄了：权重和越大，分歧越被稀释；实现口径选择让分歧饱和到 \(-1\)，因此更保守。用一句话记住这个差别：<strong>加权平均告诉你“平均而言大家怎么想”，加权求和加截断告诉你“到底有没有人强烈反对”。</strong>这个系统选的是后者——因为它要的不是平均值，是一个“该收手了”的信号。
+
+这个结果最后去了哪里？它被写进决策记录里。Phase5 的那几行是这样：
+
+<figure class="listing" id="{lst:ch08-gate}"><figcaption><span class="lbl">代码 8.2</span>集成结果如何收敛仓位（节选，<code class="sysfile">internal/cio/proposal.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// Phase5 多提案集成投票</span></span>
+<span class="cl">res.Ensemble = ensembleVote(prop, res.Skeptic, res.Debate, in.Regime)</span>
+<span class="cl"><span class="kw">if</span> res.Ensemble.NetScore &lt; 0 {</span>
+<span class="cl">    <span class="kw">if</span> res.Ensemble.NetScore &lt;= -0.5 {</span>
+<span class="cl">        gate = math.Min(gate, 0.5)   <span class="com">// 明显偏空 → 仓位收敛到 &lt;= 0.5</span></span>
+<span class="cl">    } <span class="kw">else</span> {</span>
+<span class="cl">        gate = math.Min(gate, 0.75)  <span class="com">// 轻度偏空 → 仓位收敛到 &lt;= 0.75</span></span>
+<span class="cl">    }</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：<code class="code">gate</code> 就是“当前生效的仓位系数”。整个 Phase5 只有两个动作，都写在 <code class="code">math.Min</code> 里——要么把它压到不超过 \(0.5\)，要么压到不超过 \(0.75\)。<strong>没有任何一条分支是把它抬上去的。</strong>
+
+结果被放进 <code class="code">CIODecision.Evidence</code>，随决策一起落库，字段名是 <code class="field">ensemble</code>，里面有方向、<code class="field">net_score</code>、以及四路来源各自的表态 <code class="field">votes</code>。前端的 CIO 页专门有一块【多提案集成】，把它渲染成一行字。事实上，你看到的会是类似这样的一行：
+
+<div class="box keybox"><div class="boxtitle">CIO 页上那一行长什么样</div><div class="boxbody">
+【多提案集成】方向 看空 · 净多 \(-100\%\) · 来源 主张=看多, 异议=<code class="code">RISK</code>, 辩论=看空, 规则=看空
+</div></div>
+
+这一行里，“净多 \(-100\%\)”就是 <code class="field">net_score</code> 乘 100 之后取整。它把本章开头那张四个人四个说法的纸，压缩成了四个字的结论加上一个可核对的数。
+
+<h2 id="sec-8-7"><span class="hnum">8.7</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是最容易想歪的一点。看到“集成投票”，本能反应是“三个臭皮匠顶个诸葛亮”——人多判断更准，判断更准就赚得更多。
+
+前半句在这个系统里是错的，后半句更错。
+
+投票改变的不是判断的<strong>准确度</strong>，是判断的<strong>脆弱度</strong>。请回头看定理 <a class="xref" href="ch08.html#thm:net-bound">8.3</a> 的推论：净多分永远落在所有来源表态的最小值与最大值之间。这句话有一个刺眼的含义——<strong>如果最会判断的那个来源给出了全场最好的意见，投票也变不出比它更好的意见来</strong>。投票的产出，永远被最好的那个来源封顶。
+
+那它买到了什么？买到了“单个来源犯错不再致命”。用统计的话说：在“各路来源的误差相互独立、且都不系统性地偏”这个前提下（这是一个<strong>假设</strong>，不是定理，市场里它常常不成立），取平均不会改变误差的中心，但会降低误差的波动。<strong>它优化的是方差，不是均值。</strong>
+
+所以正确的期待是：投票不会让收益期望变高，它降低的是“被单一错误观点带走”的概率。这两件事在投资里的价值差别很大——你怕的通常不是赚得少，而是在一件自己很确信的事情上亏掉一大块。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+既然讲的是“四路投票”，很自然会想：某一路没拿到意见（模型超时、解析失败），是不是应该补一个“中性”进去，保持四票齐全？
+
+源码的写法正好相反：<code class="code">if prop != nil</code>、<code class="code">if sk != nil</code>、<code class="code">if db != nil</code>——<strong>谁缺席，谁的那一项就整段不执行</strong>，既不加分也不记票。净多分就在剩下的来源上算。
+
+看起来这很“不严谨”，其实这恰恰是严谨。补一张中性票，等于<strong>替一个没说话的来源表了态</strong>；而“中性”这个值会参与加权求和，也就实实在在改变了净多分。你以为你在补齐格式，其实你在伪造意见——而且伪造得很隐蔽，因为下游看到的只是一个数字的微小变化。
+
+系统对这件事的边界处理得很干净。单元测试里专门有一条“全部来源都为空”的用例：四个参数全传 <code class="code">nil</code>、<code class="code">regime</code> 传空串，<code class="code">ensembleVote</code> 依然返回一个非 <code class="code">nil</code> 的结果，净多分 \(0\)、方向 <code class="code">NEUTRAL</code>、<code class="field">votes</code> 为空表，不 panic。而净多分 \(0\) 不是负数，所以按式 <a class="xref" href="ch08.html#eq:convergence">式 (8.3)</a> 它<strong>不会触发任何封顶</strong>——规则门原样生效。
+
+一句话记住：<strong>降级不是缺陷，是设计。缺数据就少投票，而不是补一个假票；没票时系统没有变弱，它只是没有加码。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+<code class="field">net_score</code> 落在 \([-1,1]\)，屏幕上又按百分数显示（“净多 \(-100\%\)”、“净多 \(30\%\)”），很容易被理解成“看多的概率是 \(30\%\)”。
+
+它不是概率。它是一个<strong>加权后的表态分</strong>：\(+1\) 表示所有参会来源都明确看多，\(-1\) 表示都明确看空，\(0\) 表示拉平——或者<strong>根本没有来源参会</strong>。请注意最后这一种，它是这个数最容易骗人的地方：同样的 \(0\)，既可能是“四方激烈对冲到拉平”，也可能是“今天一个来源都没拿到”。这两种情况在数字上完全一样，要区分它们，只能去看同一行里的来源个数和 <code class="field">votes</code> 明细。
+
+<strong>一个分数如果可以被两种完全不同的原因产生，那它就必须和它的解释一起读。</strong>这条规则不只适用于本章，第 <a class="xref" href="ch10.html#ch:ch10">第十章</a> 章会把它升级成整个系统的纪律。
+</div></div>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>集成投票的完整实现（四路来源、权重、截断、方向死区）：<code class="sysfile">internal/cio/ensemble.go</code>，函数 <code class="code">ensembleVote</code> 与 <code class="code">dirScoreStr</code>。
+  </li><li>结果结构 <code class="code">ensembleVerdict</code>（<code class="field">direction</code>、<code class="field">votes</code>、<code class="field">net_score</code>、<code class="field">summary</code>）：同文件。
+  </li><li>Phase5 的调用与仓位封顶：<code class="sysfile">internal/cio/proposal.go</code>，函数 <code class="code">decideProposalGate</code>；封顶动作为 <code class="code">gate = math.Min(gate, 0.5)</code> 或 <code class="code">gate = math.Min(gate, 0.75)</code>。
+  </li><li>落库路径：<code class="code">CIODecision.Evidence</code> 的 <code class="field">ensemble</code> 字段，赋值处为 <code class="code">attachProposal</code> 中的 <code class="code">decisionProposalPayload</code>。
+  </li><li>三个真实算例与“全空来源不 panic”用例：<code class="sysfile">internal/cio/ensemble_test.go</code>，<code class="code">TestEnsembleVote</code> 与 <code class="code">TestEnsembleVoteNilSourcesNoPanic</code>。
+  </li><li>前端展示：CIO 页的【多提案集成】区块（方向 / 净多分 / 来源表态），见 <code class="sysfile">ui/src/pages/CIO.tsx</code>。
+  </li><li>四路来源各自的原始定义：主张官与异议官见第 <a class="xref" href="ch06.html#ch:ch06">第六章</a> 章，辩论见第 <a class="xref" href="ch06.html#ch:ch06">第六章</a> 章，Kelly 系数见第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章，六维标签见第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a> 章。
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十五分钟）</div><div class="boxbody">
+<ol><li>打开系统，进入<strong>首席投资官（CIO）</strong>页，在决策日志里找到最近一条带【多提案集成】的记录。
+  </li><li>抄下它的净多分和四个来源的表态。
+  </li><li>拿一张纸，按表 <a class="xref" href="ch08.html#tab:ch08-weights">8.1</a> 的规则手算一遍：主张官那一项 ＝ 方向分 × 信心；辩论那一项 ＝ 方向分 × 共识度；异议按 <code class="code">AGREE</code>/<code class="code">CAUTION</code>/<code class="code">RISK</code> 取 \(+0.3\)、\(-0.2\)、\(-0.7\)；规则按标签取 \(\pm 0.3\)。四项加起来，再截断到 \([-1,1]\)。
+  </li><li>看它和屏幕上的数对不对得上。对不上的话，多半是某一路来源今天缺席了——去数一数 <code class="field">votes</code> 里有几个来源。
+  </li><li>最后一问：把净多分改成那个“归一化加权平均”的定义，今天这一天的仓位上限会不会不一样？如果不一样，哪一个更合你的脾气？
+</li></ol>
+</div></div>
+
+投票投完了，四路来源也都留了痕。
+
+可是这里有一个问题我一直绕不过去：<strong>这四个来源，本质上都是同一个东西在说话</strong>——它们全都是那一个语言模型的输出。如果那个模型本身没了呢？如果网络断了、接口挂了、进程崩了呢？
+
+系统活不活得下来？这是下一章的事。
+</article>
+<nav class="pager"><a class="prev" href="ch07.html"><span class="dir">上一页</span>第七章 意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a><a class="next" href="ch09.html"><span class="dir">下一页</span>第九章 如果 AI 突然失联，交易还继续吗？</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch08-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch08-1">↩</a></li><li id="fn-ch08-2"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch08-2">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

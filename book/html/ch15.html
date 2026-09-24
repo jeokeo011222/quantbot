@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>怎样识破一个“看起来很厉害”的因子？ · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·怎样识破一个“看起来很厉害”的因子？">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch15.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html" class="current"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a><ul class="sub"><li><a href="#sec-15-1">15.1 一个 0.08 的因子，第二天全崩了</a></li><li><a href="#sec-15-2">15.2 把全班分成两半</a></li><li><a href="#sec-15-3">15.3 不留“反对席”，检验就变成表彰</a></li><li><a href="#sec-15-4">15.4 分半检验：从朴素版本到严谨版本</a></li><li><a href="#sec-15-4-1">15.4.1 怎么分：固定种子的交替分配</a></li><li><a href="#sec-15-4-2">15.4.2 判据，与它判错的概率</a></li><li><a href="#sec-15-4-3">15.4.3 诚实下线：同一个判断，两把尺子</a></li><li><a href="#sec-15-5">15.5 它在系统里长什么样</a></li><li><a href="#sec-15-6">15.6 常见误解与纠偏</a></li><li><a href="#sec-15-7">15.7 真实出处</a></li></ul></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch15"><span class="cnum">第十五章</span>怎样识破一个“看起来很厉害”的因子？</h1>
+
+
+
+
+
+<h2 id="sec-15-1"><span class="hnum">15.1</span>一个 0.08 的因子，第二天全崩了</h2>
+
+我至今记得那个周二。
+
+周一盘后，公式跑完，有一个因子的 RankIC 是 0.08。这个数值在 A 股截面上属于“高得不像话”——按第 <a class="xref" href="ch14.html#ch:ch14">十四</a> 章那张体检表的刻度，\(|\RankIC| = 0.04\) 就已经算满分系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">factorQualityFromItem</code>：<code class="code">absIC/0.04</code> 封顶。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-1" href="#fn-ch15-1">1</a></sup>。0.08 是它的两倍。
+
+我当时的反应是把它加进权重，第二天按它选了一遍股票。
+
+周三收盘，那一批股票的表现是全市场后半段。
+
+我第一反应是“市场变了”。于是我回去看这个因子在更长时间窗口上的表现——它不像是一个坏因子，它在过去三个月里大概七成的时间都为正。这让我更困惑：<strong>一个七成时间为正的因子，为什么偏偏在我相信它的那一天失效？</strong>
+
+那天晚上我才想到一个更要紧的可能：也许它没有失效，只是我从一开始就高估了它。
+
+我用的评价办法是这样的：把最近一段时间每天的 IC 算出来，取平均，看这个平均值。这个办法的问题是，它把一件有三个维度的事压成了一个数——第 <a class="xref" href="ch14.html#ch:ch14">十四</a> 章结尾我提过一次，但它值得单独用一整章来讲，因为<strong>这一步是整条因子流水线上最容易被自己骗过去的地方</strong>。
+
+我需要的不是更好的因子，是一个<strong>能说出“不行”的检验</strong>。
+
+<h2 id="sec-15-2"><span class="hnum">15.2</span>把全班分成两半</h2>
+
+<div class="box intuition"><div class="boxbody">
+假设我要选一个“全班最会做题的人”，但我手上只有一次测验的排名。
+
+我做了一件事：把全班同学按学号奇偶分成两组（A 组和 B 组），然后看 <u></u>——
+
+<strong>如果两组排出来的“前三名”是同一批人</strong>，那这个排名有共同的原因，它大概是真本事。
+
+<strong>如果 A 组的第一名在 B 组排到第三十，B 组的第一名在 A 组排到第二十五</strong>，那么“第一名”这个称号就是抽签抽出来的。不是那个同学不行，而是那次测验量到的全是噪声。
+
+关键就在这里：<em>我并没有增加任何数据</em>，我只是把同一批数据切成两半，然后问它们会不会说同一种话。
+
+还有一个细节非常重要：分组不能由我“看着办”。如果我知道谁成绩好，我就可能不自觉地把他分到同一组去。所以分组必须是<strong>我事先定好、事后不能改</strong>的——一个固定的规则，一个固定的随机种子。
+
+这就是本章全部的技术核心：<strong>用一个固定的规则，把样本撕成两半，看两半段会不会说同一种话。</strong>
+</div></div>
+
+<h2 id="sec-15-3"><span class="hnum">15.3</span>不留“反对席”，检验就变成表彰</h2>
+
+在讲做法之前，我得先说清不这么做的代价，否则没人愿意多跑一遍计算。
+
+<strong>代价一：你会把一个巧合写进权重。</strong>
+
+第 <a class="xref" href="ch13.html#ch:ch13">十三</a> 章讲过，因子质量分会通过 \(\clamp(q/q_{\text{med}},0.5,1.5)\) 影响次日选股的权重。这条链是闭环的：一个因子在昨天看起来好，它明天就自动占更大的权重。如果这个“看起来好”是一次巧合，那么闭环会自动把错误放大——<strong>你没有任何一步会拦住它</strong>。
+
+<strong>代价二：你会以为自己在做研究，其实在做筛选。</strong>
+
+这是我最想纠正的一个自我认知。我在两千多只股票、二十来个时间窗口上反复看同一个因子，总会找到一个窗口里它表现很好。然后我把那个窗口的结果记下来，说“你看，它有效”。
+
+这不是研究，这是筛选。我试了多少次，我从来没数过。
+
+<strong>代价三：你会失去“承认不确定”的能力。</strong>
+
+真正让我警觉的是一件很小的事：我发现我从来没有办法在报告里写“这个因子我判断不了”。报告里要么写“有效”，要么写“无效”。而现实中大量因子的真实状态是“信息不足，无法判断”。如果这句话不许说，那么所有“信息不足”都会被逼成“有效”或者“无效”这两个假答案。
+
+所以系统的做法里有一条我特别看重：<strong>样本不够时不下结论，而不是下个结论再打折</strong>。
+
+<h2 id="sec-15-4"><span class="hnum">15.4</span>分半检验：从朴素版本到严谨版本</h2>
+
+先用一句话说清朴素版本：把当天的截面样本随机分成两半，两半各算一个 RankIC；两个数方向一致、且都不太小，就判“稳定”。
+
+朴素版本是对的，但它有三处需要严谨化，否则它只是把主观判断换成了另一种主观判断：怎么分才算随机？“都不太小”是多小？判错的概率有多大？
+
+<h3 id="sec-15-4-1"><span class="hnum">15.4.1</span>怎么分：固定种子的交替分配</h3>
+
+先说“怎么分”。系统的实现可以完整写成一段流程。
+
+<div class="thm definition" id="def:ch15-split"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">15.1</span>（分半划分）</div>
+设当天的截面样本按输入顺序编号为 \(s_1,\dots,s_n\)。取固定种子 \(\mathrm{seed}=20240701\)，由一个伪随机数发生器生成 \(\{1,\dots,n\}\) 的一个排列 \(\pi=(\pi_1,\dots,\pi_n)\)。定义
+<div class="math-scroll" id="eq:ch15-split">\[A=\bigl\{\,s_{\pi_1},s_{\pi_3},s_{\pi_5},\dots\bigr\},\qquad
+B=\bigl\{\,s_{\pi_2},s_{\pi_4},s_{\pi_6},\dots\bigr\}, \tag{15.1}\]</div>
+即按排列后的次序“隔一个分一个”。于是
+<div class="math-scroll">\[\abs{A}=\Bigl\lceil \tfrac{n}{2}\Bigr\rceil,\qquad \abs{B}=\Bigl\lfloor \tfrac{n}{2}\Bigr\rfloor, \tag{15.2}\]</div>
+两半段样本量最多相差 1。
+</div>
+
+这段话在讲什么：先把样本顺序打乱（打乱的结果由种子 20240701 完全决定），然后像发牌一样一张给 A、一张给 B。系统注释把这一步叫“按固定种子伪随机两分（交替分配到两半，数量均衡）”系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">splitHalfStability</code>：<code class="code">rand.New(rand.NewSource(20240701)).Perm(n)</code> 后按 <code class="code">i mod 2 == 0</code> 分流。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-2" href="#fn-ch15-2">2</a></sup>。
+
+这里有一个必须讲清的“矛盾”：<strong>既然是固定种子，那它到底算不算随机？</strong>
+
+算，也不算。准确地说是：<em>它对同一次输入是确定的，对不同的样本编号顺序是随机的。</em>
+
+<div class="thm plain" id="prop:ch15-unbiased"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">15.2</span>（固定种子交替分配的可复现性与无偏性）</div>
+在 <a class="xref" href="ch15.html#def:ch15-split">定义 15.1</a> 的记号下：
+
+<em>(i)（确定性）</em> 对固定的 \(n\)、固定的种子与固定的输入顺序，划分 \(A,B\) 是一个确定的结果：用同样的输入重跑，得到同样的两半。因此该检验<em>可复现</em>。
+
+<em>(ii)（交换性）</em> 设样本的属性 \(X(s)\) 只依赖于样本自身的取值，与它在输入中的编号无关（假设 <a class="xref" href="ch15.html#asm:ch15-order-free">15.3</a>）。若把输入顺序看作一个均匀随机的排列，则
+<div class="math-scroll">\[\E\bigl[X_A\bigr]=\E\bigl[X_B\bigr], \tag{15.3}\]</div>
+其中 \(X_A\)、\(X_B\) 分别表示 A 半、B 半上属性 \(X\) 的（同一口径的）统计量。
+</div>
+
+<div class="thm definition" id="asm:ch15-order-free"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">15.3</span></div>
+样本在输入序列中的编号顺序，与样本的属性 \(X\) 独立——换句话说，编号顺序里不含信息。
+</div>
+
+这个命题在说什么：分组规则是死的（可复现），但当编号本身不带信息时，分出来的两半在统计上没有系统差别——不会出现“A 半系统性偏爱大票”这种事。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由随机数发生器的定义，<code class="code">NewSource(20240701)</code> 产生的是一个确定的比特流；<code class="code">Perm(n)</code> 是这条流的一个确定的函数。因此 \(\pi\) 是输入长度 \(n\) 的确定函数，<a class="xref" href="ch15.html#eq:ch15-split">式 (15.1)</a> 给出的 \(A,B\) 也是 \((n,\text{输入顺序})\) 的确定函数。同一输入 \(\Rightarrow\) 同一划分。
+
+<em>(ii)</em> 记 \(T\) 为输入顺序所对应的排列（把“第 \(i\) 个位置上是哪个样本”读成一个双射）。\(\pi\) 是种子与 \(n\) 的函数，与 \(T\) 独立。设 \(\tau\) 为交换位置 1 与 2 的对换，考虑映射
+<div class="math-scroll">\[\varphi:\ \pi\ \longmapsto\ \pi\circ\tau . \tag{15.4}\]</div>
+因为对换 \(\tau\) 是双射，\(\varphi\) 是 \(\{1,\dots,n\}\) 上全部排列之集到自身的一个双射；又因 \(\pi\) 在假设下均匀分布，\(\varphi\) 保持均匀性，即 \(\pi\circ\tau\) 与 \(\pi\) 同分布。
+
+现在看这个映射对划分做了什么。\(\pi\circ\tau\) 就是把 \(\pi\) 的第 1 位与第 2 位交换，其余不动。而 <a class="xref" href="ch15.html#eq:ch15-split">式 (15.1)</a> 是按位置奇偶分流，交换第 1、2 位的结果正是<strong>把 \(s_{\pi_1}\) 从 A 挪到 B、把 \(s_{\pi_2}\) 从 B 挪到 A</strong>，其余样本不动。因此若记
+<div class="math-scroll">\[F(\pi)=\bigl(X_A(\pi),\ X_B(\pi)\bigr)\in\R^2, \tag{15.5}\]</div>
+则 \(F(\pi\circ\tau)=\bigl(X_B(\pi),X_A(\pi)\bigr)\)，也就是把两个分量对调。
+
+由于 \(\pi\circ\tau\) 与 \(\pi\) 同分布，随机向量 \(F(\pi)\) 与 \(\bigl(X_B,X_A\bigr)\) 同分布，即 \((X_A,X_B)\) 与 \((X_B,X_A)\) 同分布（<em>交换性</em>）。对同分布的对称向量取期望，两个分量必然相等：
+<div class="math-scroll">\[\E[X_A]=\E[X_B]. \qquad \tag{15.6}\]</div>
+</div>
+
+<div class="thm remark" id="rem:ch15-boundary"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">15.4</span>（两条边界，必须写清）</div>
+第一，命题 <a class="xref" href="ch15.html#prop:ch15-unbiased">15.2</a> 的(ii)完全依赖假设 <a class="xref" href="ch15.html#asm:ch15-order-free">15.3</a>。如果输入顺序本身携带信息——例如样本是“按股票代码字典序”排列的切片——那么固定种子就等价于一个<strong>固定的、隔一个取一个的抽样</strong>。这种抽样一旦与板块或代码段相关，两半就不再可比。这不是理论洁癖：这个项目真实发生过一次“按代码字典序取 300 只，结果样本几乎全落在北交所”的事故系统事实清单第 15 节第 4 条：旧版市场广度按 <code class="code">ORDER BY symbol LIMIT 300</code> 字典序截断，样本几乎全落在北交所与沪 600。<sup class="fn-ref"><a id="fnref-ch15-3" href="#fn-ch15-3">3</a></sup>。所以样本顺序这件事，在统计上和在工程上都要单独盯。
+
+第二，命题里说的是“期望相等”，不是“样本量完全相等”或“方差相等”。两半的样本量由 <a class="xref" href="ch15.html#eq:ch15-split">式 (15.1)</a> 保证最多差 1，但它们的方差并不相同，这在下一个小节会成为一个具体的数字问题。
+</div>
+
+<h3 id="sec-15-4-2"><span class="hnum">15.4.2</span>判据，与它判错的概率</h3>
+
+判据本身很短。系统里的规则是一行：
+
+<div class="math-scroll" id="eq:ch15-rule">\[\text{判“稳定”}\iff
+\sign(\hat\rho_1)=\sign(\hat\rho_2)\ \text{且}\ \abs{\hat\rho_1}\ge 0.02\ \text{且}\ \abs{\hat\rho_2}\ge 0.02, \tag{15.7}\]</div>
+
+其中 \(\hat\rho_1,\hat\rho_2\) 是 A、B 两半段各自算出的 RankIC系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code>：<code class="code">const minStrength = 0.02</code>，判定式为 <code class="code">math.Signbit(ic1)==math.Signbit(ic2) &amp;&amp; math.Abs(ic1)&gt;=minStrength &amp;&amp; math.Abs(ic2)&gt;=minStrength</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-4" href="#fn-ch15-4">4</a></sup>。
+
+三个条件缺一不可。方向必须一致（同号），强度必须各段达标（\(0.02\)）。系统把这两半段的 IC 原样存进 <code class="field">SplitHalfIC</code> 字段，格式是 <code class="code">"ic1/ic2"</code>：用 <code class="code">fmt.Sprintf</code> 把两半段 IC 各保留四位小数、中间以斜杠连接系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">buildFactorItem</code> 中由 <code class="code">halfICKey</code> 拼接两个四位小数的 IC。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-5" href="#fn-ch15-5">5</a></sup>，方便日后审计。
+
+那么问题来了：<strong>如果这个因子根本无效，它有多大概率被判成“稳定”？</strong>
+
+要回答这个问题，我需要把“无效”变成一个可以计算的假设。
+
+<div class="thm definition" id="asm:ch15-null"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">15.5</span></div>
+<em>(i)</em>（无效原假设）该因子真实无效，即母体秩相关为 \(\rho=0\)。
+
+<em>(ii)</em>（渐近正态）两半段的估计量 \(\hat\rho_1,\hat\rho_2\) 在 \(\rho=0\) 下近似服从均值为 \(0\)、方差为 \(1/(m-1)\) 的正态分布，其中 \(m\) 为<em>每半段</em>的样本量。
+
+<em>(iii)</em>（独立）两半段的样本互不重叠，故 \(\hat\rho_1\) 与 \(\hat\rho_2\) 相互独立。
+</div>
+
+<div class="thm plain" id="thm:ch15-fp"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">15.6</span>（分半检验的假阳性概率上界）</div>
+在假设 <a class="xref" href="ch15.html#asm:ch15-null">15.5</a> 下，记
+<div class="math-scroll">\[c = 0.02\sqrt{m-1}, \tag{15.8}\]</div>
+则判据 <a class="xref" href="ch15.html#eq:ch15-rule">式 (15.7)</a> 误判“稳定”的概率满足
+<div class="math-scroll" id="eq:ch15-fp-bound">\[\Prob(\text{误判}) = 2\bigl(1-\Phi(c)\bigr)^2 \;\le\; 4\bigl(1-\Phi(c)\bigr)^2, \tag{15.9}\]</div>
+其中 \(\Phi\) 是标准正态分布函数。进一步，用尾部不等式 \(1-\Phi(c)\le \varphi(c)/c\)（\(c&gt;0\)，\(\varphi\) 为标准正态密度）还可给出
+<div class="math-scroll" id="eq:ch15-fp-mills">\[\Prob(\text{误判}) \;\le\; 4\,\frac{\varphi(c)^2}{c^2}. \tag{15.10}\]</div>
+</div>
+
+这个定理在说什么：它把“我有多容易被骗”变成一个数，而且这个数只取决于每半段样本量 \(m\) 和阈值 \(0.02\)。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>先把单半段的越阈概率算出来。由假设 <a class="xref" href="ch15.html#asm:ch15-null">15.5</a>(ii)，\(\hat\rho_j\) 的标准差是 \(1/\sqrt{m-1}\)，直接把它标准化，令
+<div class="math-scroll">\[Z_j=\hat\rho_j\sqrt{m-1},\qquad j=1,2 . \tag{15.11}\]</div>
+由 (ii)，\(Z_j\) 近似服从 \(N(0,1)\)。于是 \(\abs{\hat\rho_j}\ge 0.02\) 等价于 \(\abs{Z_j}\ge 0.02\sqrt{m-1}=c\)。由标准正态的对称性，
+<div class="math-scroll" id="eq:ch15-tail">\[\Prob\bigl(\abs{\hat\rho_j}\ge 0.02\bigr)
+=\Prob\bigl(\abs{Z_j}\ge c\bigr)
+=2\bigl(1-\Phi(c)\bigr). \tag{15.12}\]</div>
+
+第一步，<em>在同号条件下</em>把两个半段合起来。要把一个事件分解成互斥的几块，才能各自用独立性相乘。判“稳定”这个事件可以拆成两块：
+<div class="math-scroll">\[\{\text{同号且都超阈}\}
+=\underbrace{\{\hat\rho_1\ge 0.02,\ \hat\rho_2\ge 0.02\}}_{\text{两部分正}}
+\ \cup\
+\underbrace{\{\hat\rho_1\le -0.02,\ \hat\rho_2\le -0.02\}}_{\text{两部分负}}, \tag{15.13}\]</div>
+两块互斥。由假设 <a class="xref" href="ch15.html#asm:ch15-null">15.5</a>(iii)（独立）与 <a class="xref" href="ch15.html#eq:ch15-tail">式 (15.12)</a>，
+<div class="math-scroll">\begin{align}\Prob(\text{两部分正})
+&amp;= \Prob(\hat\rho_1\ge 0.02)\,\Prob(\hat\rho_2\ge 0.02)
+= \bigl(1-\Phi(c)\bigr)^2, \tag{15.14}\\
+\Prob(\text{两部分负})
+&amp;= \Prob(\hat\rho_1\le -0.02)\,\Prob(\hat\rho_2\le -0.02)
+= \bigl(1-\Phi(c)\bigr)^2, \tag{15.15}\end{align}</div>
+其中两处都用了“正态分布对称于是 \(\Prob(Z\ge c)=\Prob(Z\le -c)=1-\Phi(c)\)”。相加得
+<div class="math-scroll" id="eq:ch15-exact">\[\Prob(\text{误判})=2\bigl(1-\Phi(c)\bigr)^2 . \tag{15.16}\]</div>
+
+第二步，放宽成 <a class="xref" href="ch15.html#eq:ch15-fp-bound">式 (15.9)</a>。由 \(1-\Phi(c)\le 1\)（分布函数的取值不超过 1）立得
+<div class="math-scroll">\[2\bigl(1-\Phi(c)\bigr)^2 \le 4\bigl(1-\Phi(c)\bigr)^2 . \tag{15.17}\]</div>
+
+第三步，算出 Mills 型上界。对 \(c&gt;0\)，
+<div class="math-scroll">\[1-\Phi(c)=\int_c^{\infty}\varphi(z)\,dz
+\le \int_c^{\infty}\frac{z}{c}\,\varphi(z)\,dz
+=\frac{1}{c}\int_c^{\infty}\bigl(-\varphi'(z)\bigr)\,dz
+=\frac{\varphi(c)}{c}, \tag{15.18}\]</div>
+其中第一个不等号用了 \(z\ge c\) 内的被积变量满足 \(z/c\ge 1\) 且 \(\varphi(z)&gt;0\)，最后一个等号用了 \(\varphi'(z)=-z\varphi(z)\)（与第 <a class="xref" href="ch14.html#ch:ch14">十四</a> 章引理 <a class="xref" href="ch14.html#lem:ch14-trunc">14.7</a> 同一个恒等式）。把它代入 <a class="xref" href="ch15.html#eq:ch15-fp-bound">式 (15.9)</a> 即得 <a class="xref" href="ch15.html#eq:ch15-fp-mills">式 (15.10)</a>。
+</div>
+
+<div class="thm plain" id="cor:ch15-numbers"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">15.7</span>（两个样本量下的实际数值）</div>
+取 \(t=0.02\)，分别代入 \(n=60\)（每半 \(m=30\)）与 \(n=400\)（每半 \(m=200\)）。
+
+<em>\(n=60\)：</em> \(\sqrt{m-1}=\sqrt{29}=5.38516\)，故 \(c=0.02\times 5.38516=0.10770\)；由标准正态表（或级数 \(\Phi(z)\approx 0.5+0.39894z-0.06649z^3\) 在 \(z=0.1077\) 处的值）得 \(\Phi(0.10770)=0.54288\)，故 \(1-\Phi(c)=0.45712\)，
+<div class="math-scroll">\[\Prob(\text{误判})=2\times 0.45712^2=0.41791,\qquad
+4\bigl(1-\Phi(c)\bigr)^2=0.83582 . \tag{15.19}\]</div>
+
+<em>\(n=400\)：</em> \(\sqrt{m-1}=\sqrt{199}=14.10674\)，故 \(c=0.02\times 14.10674=0.28213\)；\(\Phi(0.28213)=0.61106\)，故 \(1-\Phi(c)=0.38894\)，
+<div class="math-scroll">\[\Prob(\text{误判})=2\times 0.38894^2=0.30254,\qquad
+4\bigl(1-\Phi(c)\bigr)^2=0.60509 . \tag{15.20}\]</div>
+</div>
+
+<figure class="tbl" id="tab:ch15-fp"><div class="tbl-scroll"><table><caption><span class="lbl">表 15.1</span>无效因子被判“稳定”的假阳性概率上界（阈值 \(0.02\)）</caption><tbody><tr><td><strong>总样本 \(n\)</strong></td><td><strong>每半 \(m\)</strong></td><td>\(\bm{c}\)</td><td>\(\bm{1-\Phi(c)}\)</td><td><strong>同号版 \(2(\cdot)^2\)</strong></td><td><strong>放宽版 \(4(\cdot)^2\)</strong></td></tr><tr class="rule"><td colspan="6"></td></tr><tr><td>60</td><td>30</td><td>0.1077</td><td>0.4571</td><td>0.4179</td><td>0.8358</td></tr><tr><td>400</td><td>200</td><td>0.2821</td><td>0.3889</td><td>0.3025</td><td>0.6051</td></tr><tr class="rule"><td colspan="6"></td></tr></tbody></table></div><p class="tabnote">表内数值不是系统数据，而是本章按 <a class="xref" href="ch15.html#eq:ch15-fp-bound">式 (15.9)</a> 与 <a class="xref" href="ch15.html#eq:ch15-tail">式 (15.12)</a> 直接代入 \(\Phi\) 的函数值算出的结果，算式已全部写在 <a class="xref" href="ch15.html#cor:ch15-numbers">推论 15.7</a> 中。</p>
+<p class="tabsrc">本章按 <a class="xref" href="ch15.html#thm:ch15-fp">定理 15.6</a> 的公式计算；\(m\) 取 \(\lfloor n/2\rfloor\)；核对时间 2026-09-24。</p></figure>
+
+这张表第一次算出来的时候，我盯着它看了很久，因为它说的是一个我不太愿意接受的事实：<strong>在 \(n=60\) 这种规模上，“稳定”这个标签几乎拦不住任何东西。</strong>
+
+看 \(n=60\) 那一行：一个完全无效的因子，有超过四成的概率被判成“稳定”。原因是 \(0.02\) 这个阈值太小了：每半段的估计量标准差是 \(1/\sqrt{29}=0.1857\)，而门槛只立在 \(0.02\) 处，也就是 \(0.11\) 个标准差的位置。<strong>门槛立在这么近的地方，绝大多数噪声都能跨过去。</strong>
+
+所以这个检验真正在干活的，是另外两件事，我得把它们分清楚，不能糊在一起。
+
+<strong>第一件：同号条件把假阳性正好砍掉一半。</strong>
+
+这一条可以从比较里直接看出来。如果不要求同号，只要求“两半都超阈”，那么四个符号组合（正正、正负、负正、负负）全算数：
+<div class="math-scroll">\[\Prob(\text{两半都超阈})=\bigl[2(1-\Phi(c))\bigr]^2=4\bigl(1-\Phi(c)\bigr)^2, \tag{15.21}\]</div>
+而加了同号条件只保留其中两块，于是
+<div class="math-scroll">\[\frac{\Prob(\text{同号且都超阈})}{\Prob(\text{都超阈})}
+=\frac{2(1-\Phi(c))^2}{4(1-\Phi(c))^2}=\frac{1}{2}. \tag{15.22}\]</div>
+这不是巧合，是因为在原假设下 \(\hat\rho\) 的符号是左右对称的，四个象限各占一份——<strong>要求“两半段说同一个方向”，等于把一半的偶然一致直接排除掉</strong>。
+
+<strong>第二件：\(0.02\) 这个阈值的作用不是“筛强”，而是“筛方向”。</strong>
+
+它低到几乎不筛强度（\(n=60\) 时越阈概率高达 \(0.914\)），它真正排除的是那些“一半为正一半为负”的因子——那种因子的信号连方向都不确定。要让阈值真正起到“筛强度”的作用，样本量必须大得多：看比值 \(t/(1/\sqrt{m-1})=0.02\sqrt{m-1}=c\)，从 \(m=30\) 时的 \(0.108\) 涨到 \(m=200\) 时的 \(0.282\)，阈值才逐渐站出来。
+
+<div class="thm remark" id="rem:ch15-mills"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">15.8</span>（Mills 上界在这里为什么是空的）</div>
+<a class="xref" href="ch15.html#eq:ch15-fp-mills">式 (15.10)</a> 给的是一个“不含 \(\Phi\)、只用密度就能算”的上界。把它代入上面两个数：\(c=0.1077\) 时 \(\varphi(c)=0.39663\)，\(\varphi(c)/c=3.6826\)，于是 \(4\varphi(c)^2/c^2=54.3\)；\(c=0.2821\) 时 \(\varphi(c)=0.38337\)，\(\varphi(c)/c=1.3588\)，于是 \(4\varphi(c)^2/c^2=7.39\)。两个都大于 1，也就是说这条上界在概率的意义上什么也没说。
+
+要让它有意义，需要 \(\dfrac{2\varphi(c)}{c}\le 1\)，即 \(c\ge 0.65\)。在阈值固定为 \(0.02\) 时，这等价于 \(\sqrt{m-1}\ge 32.2\)，也就是每半段样本量要在 \(1000\) 以上。
+
+我把这个失败的推导也写进来，是因为它比成功的推导更能说明问题：<strong>\(0.02\) 这个门槛低到连一个非平凡的理论上界都撑不起来。</strong>它的价值在于“方向一致性”和“给权重侧一个诚实下线的开关”，而不在于它自己有多强的判别力。
+</div>
+
+<figure class="fig" id="fig:ch15-quadrant"><img class="tikz" src="assets/tikz/tikz-10.svg" alt="示意图"><figcaption><span class="lbl">图 15.1</span>判据 <a class="xref" href="ch15.html#eq:ch15-rule">式 (15.7)</a> 的四个象限。深蓝虚线是 \(\pm0.02\) 阈值，绿色两块是“同号且都超阈”。原假设下四个象限各占一份，同号条件只留两块，假阳性正好减半。</figcaption></figure>
+
+<h3 id="sec-15-4-3"><span class="hnum">15.4.3</span>诚实下线：同一个判断，两把尺子</h3>
+
+判“不稳定”之后怎么办，才是这一章真正的重点。因为“发现它不稳”这件事本身不改变任何行为——<strong>一个不影响次日参数的检验，等于没有检验</strong>（这句话在第 <a class="xref" href="ch32.html#ch:ch32">三十二</a> 章还会再出现一次）。
+
+系统里给“不稳定”准备了两道下线，都在 <code class="sysfile">internal/cio/cio.go</code> 与 <code class="sysfile">internal/tools/factor_review_tool.go</code> 中：
+
+<strong>下线一（质量分侧）：IC 贡献减半。</strong>在 <code class="code">factorQualityFromItem</code> 里，IC 那一项的权重本来是 \(0.35\)；如果分半判定不稳定，且<em>总样本量达到 30</em>，就把这一项乘 \(0.5\)，变成 \(0.175\)系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">factorQualityFromItem</code>：<code class="code">if !halfStable &amp;&amp; sampleCount &gt;= 30 { icScore *= 0.5 }</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-6" href="#fn-ch15-6">6</a></sup>。
+
+<strong>下线二（权重侧）：先封顶，再砍半。</strong>在 <code class="code">factorWeightsFor</code> 里，如果这个因子被“真实判定”为不稳定，那么先把它本来的自适应倍数 \(\mathrm{mult}\) 封顶到 \(0.6\)，再乘 \(0.5\)：
+<div class="math-scroll" id="eq:ch15-cap">\[\mathrm{mult} \leftarrow \min\bigl(\mathrm{mult},\,0.6\bigr)\times 0.5 \;\le\; 0.6\times 0.5 = 0.3 . \tag{15.23}\]</div>
+也就是说，一个被判定不稳定的因子，次日最多只能拿到默认权重的三成系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">factorWeightsFor</code>：<code class="code">mult = math.Min(mult, 0.6)</code> 紧接 <code class="code">mult *= 0.5</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-7" href="#fn-ch15-7">7</a></sup>。
+
+为什么要“先封顶再砍半”，而不是直接乘 \(0.5\)？因为 \(\mathrm{mult}\) 本身已经有 \([0.5,1.5]\) 的区间。如果直接乘 \(0.5\)，一个质量分影像特别好的因子会拿到 \(1.5\times 0.5=0.75\)——这仍然不小，“不稳定”三个字就白说了。先封顶到 \(0.6\) 再砍半，保证结果不超过 \(0.3\)，与“它可能只是一次巧合”这个判断相称。
+
+<strong>两道下线共用的前提：不能“无中生有地判不稳定”。</strong>样本不足时，两半段的 IC 主要是噪声，“不稳定”这个结论本身不可靠。系统为此设了两道样本下限：
+
+<ul><li><strong>\(n&lt;8\)：直接返回“不稳定”，且不返回两半段 IC。</strong>这时 <code class="field">SplitHalfIC</code> 是空字符串系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">splitHalfStability</code>：<code class="code">if n &lt; 8 { return nil, false }</code>；以及 <code class="code">if len(sc1) &lt; 3 || len(sc2) &lt; 3 { return nil, false }</code>。<sup class="fn-ref"><a id="fnref-ch15-8" href="#fn-ch15-8">8</a></sup>。
+  </li><li><strong>总样本 \(&lt;30\)：视为“无法判定”。</strong>质量分侧因此不减半——注释写得很清楚：“样本不足的因子其覆盖率/IC 本来就极低，已被 covScore/icScore 自然压低，无需额外减半”。
+</li></ul>
+
+于是“不能判定”与“判定为不稳定”在系统里是两个不同的状态，而且都有落点：前者 <code class="field">SplitHalfIC</code> 为空，后者 <code class="field">SplitHalfIC</code> 是 <code class="code">"ic1/ic2"</code> 这样的两个数。
+
+<div class="thm remark" id="rem:ch15-two-gates"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">15.9</span>（两把尺子的口径差异）</div>
+这里有一处我在读代码时反复确认过的细节，值得写下来，因为它会真实影响权重。
+
+质量分侧的下线用的是“总样本 \(\ge 30\)”这个门槛；权重侧的下线用的是“<code class="field">SplitHalfIC</code> 非空”这个门槛（即 \(n\ge 8\)）。于是在 \(8\le n&lt;30\) 这个区间里，两个门槛给出的答案不一样：<strong>质量分那一项没有被减半，但次日权重照样被砍到不超过 \(0.3\)。</strong>
+
+这不是错误，是两个层次的设计选择（质量分关心“这个数准不准”，权重关心“要不要把风险降下来”），但你在读一个因子的实际权重时必须知道：<em>它可能不是被质量分压低的，而是被权重侧的二次降权压低的。</em>两条路径的出处分别在 <code class="code">factorQualityFromItem</code> 与 <code class="code">factorWeightsFor</code>。
+</div>
+
+<h2 id="sec-15-5"><span class="hnum">15.5</span>它在系统里长什么样</h2>
+
+把上面所有内容对到代码上，只有几个名字。
+
+<strong>检验函数：</strong><code class="code">splitHalfStability(samples []fSample) (halfIC []float64, stable bool)</code>。它返回两半段的 IC（一个长度 2 的切片）与一个布尔判定。实现里有一处工程细节我特别欣赏：种子是写死在函数体内的字面量 \(20240701\)，不是从配置里读的系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code>：<code class="code">rand.New(rand.NewSource(20240701))</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-9" href="#fn-ch15-9">9</a></sup>。这意味着<strong>任何人、任何时间、在任何机器上，对同一批样本都会得到同一个划分</strong>——审计才有可能。
+
+<strong>落库字段：</strong><code class="dbtab">FactorQuality</code> 表的 <code class="field">SplitHalfStable</code>（布尔）与 <code class="field">SplitHalfIC</code>（形如 <code class="code">"0.0312/-0.0104"</code> 的文本）。再加上 <code class="field">Detail</code> 里那一段 <code class="code">half=...</code>\(\checkmark\)稳定 的标记，一共三处记录了这次检验系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">persistFactorQuality</code> 与 <code class="code">stableMark</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-10" href="#fn-ch15-10">10</a></sup>。为什么要记三遍？因为这三个字段的读者不同：<code class="field">SplitHalfStable</code> 给程序读，<code class="field">SplitHalfIC</code> 给权重侧的守卫条件读，<code class="field">Detail</code> 给人读。
+
+<strong>参考基准：</strong><code class="code">medianFactorQuality</code>。“好因子上调、差因子下调”总得有个基准线，系统用的是<strong>中位数</strong>而不是均值系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">medianFactorQuality</code>：排序后取中位，偶数个取中间两个的平均；空映射返回 0。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch15-11" href="#fn-ch15-11">11</a></sup>。原因和第 <a class="xref" href="ch13.html#ch:ch13">十三</a> 章讲过的一致，但在这里更锋利：如果基准用均值，那么一个被诚实下线、质量分被打到很低的不稳定因子，会拉低均值，从而<strong>让其他因子的倍数被动上调</strong>——一次惩罚变成了对所有因子的奖励。
+
+<figure class="listing" id="{lst:ch15-weight}"><figcaption><span class="lbl">代码 15.1</span>权重侧的诚实下线（节选）</figcaption><pre class="code"><code><span class="cl">mult := 1.0</span>
+<span class="cl"><span class="kw">if</span> q, ok := qmap[name]; ok &amp;&amp; meanQ &gt; 0 &amp;&amp; q &gt; 0 {</span>
+<span class="cl">    mult = clampF(q/meanQ, 0.5, 1.5)</span>
+<span class="cl">    <span class="com">// 仅当分半检验「真实可判定」且判定为不稳定(false)时才强力降权</span></span>
+<span class="cl">    <span class="com">// （先封顶 0.6 再砍半 → 总倍数 &lt;= 0.3）</span></span>
+<span class="cl">    <span class="kw">if</span> h, okH := half[name]; okH &amp;&amp; !h.stable &amp;&amp; h.ic != <span class="str">&quot;&quot;</span> {</span>
+<span class="cl">        mult = math.Min(mult, 0.6)</span>
+<span class="cl">        mult *= 0.5</span>
+<span class="cl">    }</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：<code class="code">h.ic != ""</code> 这个判断就是“分半是否真实可判定”的开关。它让“样本不足、无法判定”的因子免于被降权——这正是本章最重要的一条设计原则落到了代码上。
+
+还有一条链要说清，否则读者会以为这套检验只是“多存了几个字段”。它其实是三环相扣的：
+
+<ol><li><code class="code">splitHalfStability</code> 算出 <code class="code">stable</code> 与两半段 IC；
+  </li><li><code class="code">factorQualityFromItem</code> 用 <code class="code">stable</code> 决定 IC 贡献是否减半，得到 \([0,1]\) 的质量分；
+  </li><li><code class="code">factorWeightsFor</code> 用<em>落库后的</em> <code class="field">SplitHalfStable</code> 与 <code class="field">SplitHalfIC</code> 决定次日权重倍数是否被砍到 \(\le 0.3\)。
+</li></ol>
+
+第 (3) 步读的不是内存里的变量，而是<em>数据库里上一次写进去的值</em>。这个细节有意义：<strong>今日的验证结果，明日才生效；而“明日生效”这件事本身可以被回查。</strong>第 <a class="xref" href="ch32.html#ch:ch32">三十二</a> 章会讲这条闭环怎么避开“重启就重跑一遍”的问题。
+
+<h2 id="sec-15-6"><span class="hnum">15.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是对过拟合最流行、也最误导人的一种理解。
+
+真正的过拟合不是“参数多”，而是<strong>你没有给反对证据留位置</strong>。一个只有三个参数、但我试了两千种组合、并且只保留最好的那一种的策略，比一个二十个参数、但从不回头看结果的策略更容易过拟合。
+
+判据很简单：<em>在得到这个结论之前，我有没有一个会被这个结论打败的检验？</em>如果不管结果怎样，我的结论都不会变，那我不是在做研究，我是在做确认。
+
+分半检验之所以放在这一章，就是为了给“反对证据”安排一个固定席位。它有一个事先定好的、不许改的分组规则（种子 \(20240701\)），和一条事先定好的判据（<a class="xref" href="ch15.html#eq:ch15-rule">式 (15.7)</a>）。<strong>“事先”两个字是它全部的价值来源。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+我一开始真的是这么想的：算不出结论就写“数据不足”，这不是把责任推给数据吗？
+
+后来我算清 <a class="xref" href="ch15.html#cor:ch15-numbers">推论 15.7</a> 里那两行数，才明白过来：在 \(n=60\) 的规模上，判据 <a class="xref" href="ch15.html#eq:ch15-rule">式 (15.7)</a> 对一个无效因子的假阳性上界是 \(0.42\)；在 \(n=\text{8}\) 的规模上，这个上界会更接近 1。<strong>在信息不足的时候逼出一个结论，得到的一定是假结论。</strong>
+
+所以“样本不足就不下结论”不是偷懒，是统计诚实：它把“我不确定”这件事保留下来，而不是用一个看起来像答案的数字把它盖住。系统里那个 <code class="code">h.ic != ""</code> 的判断，写的正是这句话。
+
+这条原则全书通用。第 <a class="xref" href="ch19.html#ch:ch19">十九</a> 章会看到同一件事的另一种形态：六维判势的样本数不足 100 时，必须在 <code class="field">sources</code> 里标注低可信度，而不是悄悄给一个正常分数。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+这是我在第一次上线它之后担心的事：如果检验太严，是不是所有因子都会被降权？
+
+算完数就知道这个担心把方向搞反了。真正的机制是<em>相对</em>的：\(\mathrm{mult}\) 是质量分除以<em>中位数</em>。当所有因子都被同等下调时，归一化那一步（把权重总和缩回默认总和）会把它们整体还原——相对排序几乎不变。
+
+所以诚实的问法不是“它会不会惩罚因子”，而是“<strong>它会不会改变因子的相对排序</strong>”。答案是会，而且这正是我们要的：一个稳定、覆盖广、衰减正常的因子，会相对那些“看起来很好但两半段说不到一起”的因子占更大的权重。
+</div></div>
+
+<h2 id="sec-15-7"><span class="hnum">15.7</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>分半稳定性检验（固定种子 \(20240701\)、交替分配、数量均衡、\(\abs{\IC}\ge 0.02\) 阈值、\(n&lt;8\) 直接判不稳定）：<code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">splitHalfStability</code>
+  </li><li>两半段 IC 的格式化与落库：同文件的 <code class="code">buildFactorItem</code>（<code class="field">split_half_ic</code>）、<code class="code">persistFactorQuality</code>、<code class="code">stableMark</code>
+  </li><li>质量分侧的诚实下线（IC 贡献减半，门槛 \(n\ge 30\)）：同文件的 <code class="code">factorQualityFromItem</code>
+  </li><li>权重侧的诚实下线（先封顶 \(0.6\) 再 \(\times 0.5\)，门槛 <code class="field">SplitHalfIC</code> 非空）：<code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">factorWeightsFor</code>
+  </li><li>中位数参考基准：同文件的 <code class="code">medianFactorQuality</code>
+  </li><li>落库表与字段：SQLite <code class="dbtab">FactorQuality</code>（<code class="field">SplitHalfStable</code>、<code class="field">SplitHalfIC</code>、<code class="field">Quality</code>、<code class="field">Detail</code>）
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十五分钟）</div><div class="boxbody">
+<ol><li>查 SQLite 的 <code class="dbtab">FactorQuality</code> 表，只取两列：<code class="field">FactorName</code> 与 <code class="field">SplitHalfIC</code>。
+  </li><li>分类数一下：有几行的 <code class="field">SplitHalfIC</code> 是空字符串（无法判定），有几行是 <code class="code">"ic1/ic2"</code> 这种带斜杠的文本（真实判定）。
+  </li><li>在带斜杠的那些行里，找出两个数<strong>符号相反</strong>的行。这些就是判不出来方向的因子——它们的 <code class="field">SplitHalfStable</code> 应当是 false，去看看是不是。
+  </li><li>拿两个数都为正、且都大于 \(0.02\) 的行，算一下 <code class="field">SplitHalfStable</code> 是不是 true。如果不是，你要检查一下自己的判断和代码里的判据 <a class="xref" href="ch15.html#eq:ch15-rule">式 (15.7)</a> 是不是同一句话。
+  </li><li>最后做一个“反实验”：把 <a class="xref" href="ch15.html#cor:ch15-numbers">推论 15.7</a> 里 \(n=400\) 那一行重新手算一遍，验证 \(c=0.02\sqrt{199}\) 确实落在 \(0.282\) 附近。
+</li></ol>
+</div></div>
+
+到这里，因子的部分就讲完了：它怎么被拆成六栏体检（第 <a class="xref" href="ch14.html#ch:ch14">十四</a> 章），怎么被撕成两半来识破（本章）。可是因子只是“给股票排名”。
+
+下一个问题不一样：<strong>排名之后，谁在决定什么时候买、什么时候卖？</strong>——那些名字听起来很像十八般武艺的“策略”，究竟在做什么。
+</article>
+<nav class="pager"><a class="prev" href="ch14.html"><span class="dir">上一页</span>第十四章 因子也要写体检报告：IC、RankIC、分组与衰减</a><a class="next" href="ch16.html"><span class="dir">下一页</span>第十六章 十七种策略：它们其实只做一件事</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch15-1"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">factorQualityFromItem</code>：<code class="code">absIC/0.04</code> 封顶。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-1">↩</a></li><li id="fn-ch15-2"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">splitHalfStability</code>：<code class="code">rand.New(rand.NewSource(20240701)).Perm(n)</code> 后按 <code class="code">i mod 2 == 0</code> 分流。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-2">↩</a></li><li id="fn-ch15-3"><strong>数据来源</strong> 系统事实清单第 15 节第 4 条：旧版市场广度按 <code class="code">ORDER BY symbol LIMIT 300</code> 字典序截断，样本几乎全落在北交所与沪 600。 <a class="fn-back" href="#fnref-ch15-3">↩</a></li><li id="fn-ch15-4"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code>：<code class="code">const minStrength = 0.02</code>，判定式为 <code class="code">math.Signbit(ic1)==math.Signbit(ic2) &amp;&amp; math.Abs(ic1)&gt;=minStrength &amp;&amp; math.Abs(ic2)&gt;=minStrength</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-4">↩</a></li><li id="fn-ch15-5"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">buildFactorItem</code> 中由 <code class="code">halfICKey</code> 拼接两个四位小数的 IC。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-5">↩</a></li><li id="fn-ch15-6"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">factorQualityFromItem</code>：<code class="code">if !halfStable &amp;&amp; sampleCount &gt;= 30 { icScore *= 0.5 }</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-6">↩</a></li><li id="fn-ch15-7"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">factorWeightsFor</code>：<code class="code">mult = math.Min(mult, 0.6)</code> 紧接 <code class="code">mult *= 0.5</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-7">↩</a></li><li id="fn-ch15-8"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">splitHalfStability</code>：<code class="code">if n &lt; 8 { return nil, false }</code>；以及 <code class="code">if len(sc1) &lt; 3 || len(sc2) &lt; 3 { return nil, false }</code>。 <a class="fn-back" href="#fnref-ch15-8">↩</a></li><li id="fn-ch15-9"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code>：<code class="code">rand.New(rand.NewSource(20240701))</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-9">↩</a></li><li id="fn-ch15-10"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">persistFactorQuality</code> 与 <code class="code">stableMark</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-10">↩</a></li><li id="fn-ch15-11"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">medianFactorQuality</code>：排序后取中位，偶数个取中间两个的平均；空映射返回 0。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch15-11">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

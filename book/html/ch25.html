@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>先把米下锅：数据维护的正确顺序 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·先把米下锅：数据维护的正确顺序">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch25.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html" class="current"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a><ul class="sub"><li><a href="#sec-25-1">25.1 我急着选股，系统却问我“米呢”</a></li><li><a href="#sec-25-2">25.2 下厨之前，先想清楚备料的次序</a></li><li><a href="#sec-25-3">25.3 为什么顺序不能颠倒：六步备料，各自的“跳过会怎样”</a></li><li><a href="#sec-25-3-1">25.3.1 第一步：先把米缸接上——通达信 vipdoc 目录</a></li><li><a href="#sec-25-3-2">25.3.2 第二步：全量导入（近 3 年）</a></li><li><a href="#sec-25-3-3">25.3.3 第三步：一键同步全部（复权因子 + 交易日历）</a></li><li><a href="#sec-25-3-4">25.3.4 第四步：财务数据维护</a></li><li><a href="#sec-25-3-5">25.3.5 第五步：每天 16:00，让它自己下锅</a></li><li><a href="#sec-25-3-6">25.3.6 第六步：收盘后的盘口摘要</a></li><li><a href="#sec-25-4">25.4 一条容易被忽略的硬约束：同一天的多条复权事件</a></li><li><a href="#sec-25-4-1">25.4.1 先给一个“差不多对”的近似，再看它在哪失效</a></li><li><a href="#sec-25-4-2">25.4.2 命题与证明</a></li><li><a href="#sec-25-5">25.5 它在系统里长什么样：真实库容</a></li><li><a href="#sec-25-6">25.6 常见误解与纠偏</a></li><li><a href="#sec-25-7">25.7 真实出处</a></li></ul></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch25"><span class="cnum">第二十五章</span>先把米下锅：数据维护的正确顺序</h1>
+
+
+
+
+
+<h2 id="sec-25-1"><span class="hnum">25.1</span>我急着选股，系统却问我“米呢”</h2>
+
+装好、配好、连好之后，我做的第一件事是点开选股页，想看看这台机器到底能挑出什么股票。
+
+界面上弹出一句话，短短几个字，但把我卡住了：
+
+<div class="center"><code class="code">行情数据库(stock.duckdb)未挂载</code>
+</div>
+
+我当时的反应是“我明明装了”。找了一圈才明白，问题不在装没装，而在<strong>装进去的是空缸</strong>——数据库文件在，里面却没有可用的日 K 线。就像厨房装修得很漂亮，一拧开水龙头，是干的。
+
+我翻回去重看第 <a class="xref" href="ch24.html#ch:ch24">第二十四章</a> 章里那个启动加载界面：几个组件都亮着，“股票时序库”也亮着。可“亮着”只代表组件起来了，<strong>不代表里面有米</strong>。
+
+那天我学到一个必须记住的事：<em>选股是最后一步，数据维护才是第一步。</em>而且<em>顺序</em>也不能随便。
+
+<h2 id="sec-25-2"><span class="hnum">25.2</span>下厨之前，先想清楚备料的次序</h2>
+
+<div class="box intuition"><div class="boxbody">
+你一定见过这种场面：火已经开了，油已经热了，主料还在冰箱里没解冻。
+
+先把米淘好、把菜洗净切好、把调料摆到手边，然后才开火。你要做的是“青椒炒肉”，结果肉还没解冻就下了青椒，那盘菜的名字就应该改成“糊青椒”。
+
+数据维护就是这样一桌备料。行情是米，复权因子是盐，交易日历是灶上的火候表，财务数据是配菜，盘口摘要是出锅前那一勺明油。<strong>它们各有用处，而且有先后。</strong>把复权因子放到行情前面下锅，行不行？也能执行，但后面那道前复权视图会是空的——因为它要去连接的数据还没到。
+
+所以这一章先讲清楚：<strong>这六样料各干什么，少一样会坏哪一步菜。</strong>具体怎么点按钮，最后我有一张清单。
+</div></div>
+
+<h2 id="sec-25-3"><span class="hnum">25.3</span>为什么顺序不能颠倒：六步备料，各自的“跳过会怎样”</h2>
+
+先把顺序整体说一遍，下面再一步一步拆开。系统的「设置 → 数据维护」把这件事拆成了同花顺数据页签下的六件事，正确的次序是：
+
+<ol><li>设置通达信 <code class="code">vipdoc</code> 目录，同步 <code class="code">.day</code> 日线（本地兜底与手工补位）
+  </li><li>全量导入（近 3 年）（同花顺官方全市场日 K）
+  </li><li>一键同步全部（复权因子 + 交易日历）
+  </li><li>财务数据维护（同花顺官方三表）
+  </li><li>每天 16:00 的自动拉取与告警（这一步不用你动手，但要知道它在盯着）
+  </li><li>收盘后的盘口摘要（落 <code class="dbtab">order_book_daily</code>，供次日盘口因子）
+</li></ol>
+
+顺序的道理只有一句：<strong>后一步要读前一步的结果。</strong>复权因子要拿 <code class="dbtab">stock.ohlc</code> 的收盘价去推算比率；前复权视图 <code class="dbtab">stock.ohlc_qfq</code> 又要拿复权因子去连接行情；盘口因子明天要读今天落的盘口摘要。谁先谁后，不是偏好，是依赖。
+
+<h3 id="sec-25-3-1"><span class="hnum">25.3.1</span>第一步：先把米缸接上——通达信 <code class="code">vipdoc</code> 目录</h3>
+
+第一件事是告诉系统“你的本地数据从哪来”。系统会去枚举 <code class="code">vipdoc</code> 下的日线文件，规则写在 <code class="sysfile">internal/data/maintenance.go</code> 里：路径形如
+
+<div class="center"><code class="code">{tdxPath}/vipdoc/{bj|sh|sz}/lday/{market}{code}.day</code>
+</div>
+
+文件名必须是“2 位市场前缀 + 6 位代码 + <code class="code">.day</code>”，也就是 <code class="code">sh600519.day</code> 这种整整 12 个字符的名字；不合规的文件会被直接跳过。文件内容是通达信固定的 32 字节小端记录：日期、开、高、低、收（单位为“分”）、成交额、成交量。解析出来的每根 K 线，被合并进 <code class="dbtab">stock.stock_daily</code>，合并规则是 <code class="code">ANTI JOIN</code>——<strong>只插入库里没有的 <code class="code">(symbol,date)</code>，重复自动跳过</strong>。所以它叫“增量”：再点一次，数据不会翻倍。
+
+<strong>跳过会怎样？</strong>如果你没有通达信本地数据、也没配同花顺官方源，那么 <code class="dbtab">stock.stock_daily</code> 底表就是空的。选股引擎在进 <code class="code">ScreenStock</code> 之前会先校验数据库是否可用，查不到就<strong>直接报错、不返回假数据</strong>系统事实清单第 9 节：<code class="code">ScreenStock(req)</code> 先校验 DuckDB 与 <code class="code">HasStockDB()</code>，否则报错“行情数据库(stock.duckdb)未挂载…”，不返回假数据。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-1" href="#fn-ch25-1">1</a></sup>。“未挂载”这四个字，就是这么来的。
+
+还要如实说明一件事：通达信这条路，<strong>系统已经取消了自动执行</strong>，只保留手工补位系统事实清单第 16 节：通达信数据自动执行已取消，仅在「数据维护-通达信数据」手工补位。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-2" href="#fn-ch25-2">2</a></sup>。它现在的定位是“备用粮仓”——同花顺官方源临时不可用时，你还能手工把最新几天的日 K 补进去。
+
+<h3 id="sec-25-3-2"><span class="hnum">25.3.2</span>第二步：全量导入（近 3 年）</h3>
+
+第二步才是主粮。前端那个按钮的文案是“全量导入（近 3 年）”，不是“全量导入”，括号里三个字很重要。
+
+后端口径就写死在 SQL 里：<code class="code">ImportTHSDailyK(ctx, "full")</code> 只保留 <code class="code">date &gt;= now() - INTERVAL '3 years'</code> 的行系统源码 <code class="sysfile">internal/data/ths_dailyk.go</code>：<code class="code">mode == "full"</code> 时 <code class="code">dateFilter = " AND date &gt;= CAST(now() - INTERVAL '3 years' AS DATE)"</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-3" href="#fn-ch25-3">3</a></sup>。
+
+为什么是 3 年？因为<em>数据多并不等于数据好</em>——你真正会用到的窗口通常就是最近这几年；把十几年前的老黄历塞进来，只会拖慢查询，还容易把制度变迁的断层混进统计。3 年是“够用且不拖累”的折中。
+
+<strong>跳过会怎样？</strong>这一步跳过，<code class="dbtab">stock.ohlc</code> 只有你手工补进来的零星几天，选股样本会少得可怜，任何统计都不可信。两者互补：通达信负责“存量兜底 + 最新补位”，同花顺负责“铺满近 3 年底子”。
+
+<h3 id="sec-25-3-3"><span class="hnum">25.3.3</span>第三步：一键同步全部（复权因子 + 交易日历）</h3>
+
+这一屏里有两个按钮，主按钮是“一键同步全部（复权因子 + 交易日历）”，次按钮是“仅导入复权因子”。点主按钮时，系统按固定次序执行两件事：
+
+<div class="center"><code class="code">ImportTHSAdjFactors</code> &#8201;\(\rightarrow\)&#8201; <code class="code">SyncTHSTradingCalendar</code>
+</div>
+
+结果在界面上<strong>分两行</strong>用 \(\checkmark\) 显示，你一眼就能看出是哪一行没成功系统事实清单第 14 节：一键同步全部依次调用 <code class="code">ImportTHSAdjFactors</code> → <code class="code">SyncTHSTradingCalendar</code>，结果分两行 \(\checkmark\)；「仅导入复权因子」为次级按钮。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-4" href="#fn-ch25-4">4</a></sup>。
+
+<strong>复权因子在做的事</strong>，我留到下一节单独讲，因为它是本章唯一需要证明的东西。这里先说结论：它把 <code class="dbtab">stock.ohlc</code> 和 <code class="dbtab">stock.adj_factor</code> 连起来，生成前复权视图 <code class="dbtab">stock.ohlc_qfq</code>。
+
+<strong>交易日历在做的事</strong>是把“哪天开市”从猜变成查。过去系统靠“周末休市 + 一张内置节假日表”来判断，现在改成从同花顺官方拉近一年的交易日序列，写进 <code class="dbtab">stock.trading_calendar</code>。刷新入口是 <code class="code">util.SyncTHSTradingHoldays</code>，窗口固定为 <code class="code">[今日-1年, 今日]</code>，按 <code class="code">Asia/Shanghai</code> 计算，<strong>没有入参</strong>——你不需要告诉它拉哪一年，它自己按窗口算系统源码 <code class="sysfile">internal/util/trading_calendar.go</code>：<code class="code">SyncTHSTradingHoldays(tradingDays []string)</code> 以 <code class="code">windowStart := today.AddDate(-1,0,0)</code>，逐日对工作日判断是否在交易日列表中。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-5" href="#fn-ch25-5">5</a></sup>。
+
+<strong>跳过会怎样？</strong>分两种：
+
+<ul><li>跳过复权因子：除权那天价格会“凭空”掉一截（比如每 10 股派 2 元现金，前收就少 0.2 元）。均线类策略只看价格形状，会把这<strong>次分红造成的台阶误读成一次真实下跌</strong>，发出完全错误的卖出信号。这不是“精度差 1%”，是<strong>方向错了</strong>。
+  </li><li>跳过交易日历：系统退回“周末休市”的近似假设。碰到国庆、春节这类长假，它会把休市日当成交易日，去判断“上一交易日”“数据是否最新”，判断全错。
+</li></ul>
+
+<h3 id="sec-25-3-4"><span class="hnum">25.3.4</span>第四步：财务数据维护</h3>
+
+行情是价格，财务是“这家公司赚不赚钱”。第四步把同花顺官方的三张表（利润表、资产负债表、现金流量表）拉下来，按报告期对齐、算好同比与各项比率，写进 <code class="dbtab">stock.financial_report</code>。
+
+这一步有一条硬规矩：<strong>没配 API Key，直接拒绝</strong>。<code class="code">NewTHSFinancialFetcher</code> 第一件事就是取官方客户端，取不到就返回错误提示，<strong>不会伪造、也不会跳过</strong>系统源码 <code class="sysfile">internal/data/financial_ths.go</code>：<code class="code">c := thssdk.Default(); if c == nil { return nil, fmt.Errorf("同花顺官方数据源未配置…") }</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-6" href="#fn-ch25-6">6</a></sup>。
+
+全市场几千只股票 × 三张表，是本章最“重”的一步。系统给它配了三层稳压器，全在 <code class="sysfile">internal/thssdk</code> 里：
+
+<ul><li><strong>并发限流：</strong>同时最多 <code class="code">5</code> 个请求在飞（<code class="code">maxInflight = 5</code>）；
+  </li><li><strong>全局速率令牌桶：</strong><code class="code">maxRPS = 15</code>，也就是全局限速 <strong>15 请求/秒</strong>，平均单次请求间隔约 \(67\) 毫秒系统源码 <code class="sysfile">internal/thssdk/ths.go</code>：<code class="code">maxInflight = 5</code>、<code class="code">maxRPS = 15</code>，令牌桶容量与速率均为 15。<code class="code">1000/15</code> 约等于 \(67\)。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-7" href="#fn-ch25-7">7</a></sup>；
+  </li><li><strong>指数退避重试：</strong>只对真正“临时性”的失败重试——HTTP <code class="code">429</code>、<code class="code">5xx</code>，以及业务码 <code class="code">5003</code>（官方数据源临时不可用）。退避等待是 <code class="code">1&lt;&lt;(attempt-1) * 500ms</code>，即 <code class="code">0.5s</code>、<code class="code">1s</code>、<code class="code">2s</code>，加上首次共最多尝试 <code class="code">4</code> 次；其余确定性错误（比如 <code class="code">1002</code> 代码不存在）不重试，直接返回系统源码 <code class="sysfile">internal/thssdk/ths.go</code> 的 <code class="code">get</code>：<code class="code">const maxAttempts = 4</code>，退避 <code class="code">time.Duration(1&lt;&lt;(attempt-1)) * 500 * time.Millisecond</code>，仅当 <code class="code">429</code>、<code class="code">5xx</code> 或 <code class="code">5003</code> 时继续重试。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-8" href="#fn-ch25-8">8</a></sup>。
+</li></ul>
+
+再加一层保险：<strong>断点续传</strong>。同步按 <code class="code">symbol</code> 逐个走，某只失败只记一次失败、继续下一只；重复点“增量”时，起点取该股表内已有的最大报告期 <code class="code">maxFinReportDate</code>，不会重头再来系统源码 <code class="sysfile">internal/data/financial_sync.go</code>：<code class="code">StartFinancialSync</code> 循环内 <code class="code">startReport = dm.maxFinReportDate(sym)</code>，单只失败 <code class="code">failed++; continue</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-9" href="#fn-ch25-9">9</a></sup>。
+
+还有一条本章必须写明的真实事故：<strong>财务表过去只有手动同步才会补数据</strong>——自动调度里根本没带这一步。所以你会看到财务表长时间停在某个旧的报告期，直到你手动点一次系统事实清单第 15 节事故 #12：财务表只有手动同步才补数据，根因是自动调度不含财务同步。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-10" href="#fn-ch25-10">10</a></sup>。价值因子、质量因子都吃这碗饭，这一步空着，它们给出的基本面得分就是<strong>没有依据的</strong>。
+
+<h3 id="sec-25-3-5"><span class="hnum">25.3.5</span>第五步：每天 16:00，让它自己下锅</h3>
+
+前四步是“一次性铺底”，从第五步起是“每天续上”。
+
+系统内置一个每日 16:00 的定时器，只做一件事：把当天（或最近一个交易日）的日 K 拉进来。它只走同花顺官方增量拉取，拉完还会<strong>重新判位</strong>——看数据到底有没有覆盖到目标交易日，而不只是看接口有没有报错系统源码 <code class="sysfile">app_scheduler.go</code>：<code class="code">startTHSDailyKSyncTimer</code> 计算下一个 16:00，触发 <code class="code">syncDailyKlineAuto</code>，返回后由 <code class="code">dailyKlineCaughtUp(want)</code> 判定是否到位。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-11" href="#fn-ch25-11">11</a></sup>。
+
+如果没到位，它会弹窗告警：
+
+<div class="center"><code class="code">同花顺数据同步未成功</code>
+</div>
+
+这不是提醒你“接口又限流了”，而是提醒你：<strong>明天开盘前，你的数据可能还停在昨天之前。</strong>告警里还给了下一步建议（到下个交易日 9 点前补数据）系统源码 <code class="sysfile">app_scheduler.go</code> 的 <code class="code">emitDailyKSyncWarning</code>：消息以“同花顺数据同步未完全成功：”开头，并提示在下个交易日 9 点前补充股票时序数据。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-12" href="#fn-ch25-12">12</a></sup>。
+
+这一步最容易被忽略——<strong>你什么都没按，是它在替你按。</strong>如果你把托盘程序退出了，16:00 就没人拉数据，第二天开盘你会看到“昨天的数据”。
+
+<h3 id="sec-25-3-6"><span class="hnum">25.3.6</span>第六步：收盘后的盘口摘要</h3>
+
+最后一步是收盘后落一份“盘口摘要”到 <code class="dbtab">order_book_daily</code>。它记录的是每只票当天收盘时刻的盘口状态（涨跌停、封单、量比、内外盘等），供<strong>次日</strong>的盘口因子使用。
+
+这里有一条重要的设计原则：<strong>它是收盘后落库的，所以次日用时看到的是“已经发生过的昨天”，没有前视偏差</strong>——你不会用到“今天的收盘盘口”去决定“今天该怎么交易”这种时间倒流的事系统事实清单第 11 节：每日收盘后 <code class="code">OrderBookDailyProcessor.RecordOrderBookDaily</code> 写 <code class="dbtab">order_book_daily</code>，供次日盘口因子，无前视偏差。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-13" href="#fn-ch25-13">13</a></sup>。
+
+而现在要如实说明它的状态：<strong>它是空的</strong>。本书核对时 <code class="dbtab">order_book_daily</code> 没有任何记录0 行<sup class="fn-ref"><a id="fnref-ch25-14" href="#fn-ch25-14">14</a></sup>。所以本章凡提到“今天的盘口因子”，都应理解为“设计上如此、当前数据缺失”。盘口因子权重固定为 <code class="code">0.05</code>，有效样本不足 20 只时整个因子不参与评分——表是空的，它自然不参与。
+
+<h2 id="sec-25-4"><span class="hnum">25.4</span>一条容易被忽略的硬约束：同一天的多条复权事件</h2>
+
+现在回头认真讲第三步里那个“复权因子”。
+
+它要先下载官方全市场复权事件 Parquet，再自己推算日频因子。这里埋着一个系统真实修过的坑：<strong>同一只股票、同一天，官方文件里可能不止一条记录</strong>。比如“每 10 股派 2 元”又叠加“每 10 股送 3 股”，会作为两行落在同一天。
+
+而 <code class="dbtab">stock.adj_event</code> 的主键是 <code class="code">(symbol, ex_date)</code>——两行撞同一个主键，直接冲突。系统当年的报错就出在这里。
+
+修复办法是“先聚合，再写库”。这一聚合，就产生了一个必须证明的命题。
+
+<h3 id="sec-25-4-1"><span class="hnum">25.4.1</span>先给一个“差不多对”的近似，再看它在哪失效</h3>
+
+外行的直觉是这样的：既然同一天有两件事，那就<strong>加起来</strong>不就完了？现金分红相加、送股比例相加、配股比例相加，配股价……平均一下。听起来很自然。
+
+现金、送股、配股比例取和，这三件事是对的（下一节的命题会证明）。<strong>但配股价取“平均”这一步，平均的方式藏着一个陷阱。</strong>直觉上大家会取算术平均 \(\bar p = \frac1k\sum_i p_i\)；可算术平均会<strong>把配股的总募资额改掉</strong>，而募资额恰恰是决定除权参考价的那个量。
+
+用一个构造反例就能看清。设同一天有两条配股事件：
+
+<div class="center">事件一：配股比例 \(r_1=1\)，配股价 \(p_1=5\) 元；
+事件二：配股比例 \(r_2=3\)，配股价 \(p_2=10\) 元。
+</div>
+
+两条事件真实要募集的钱是 \(r_1p_1+r_2p_2 = 1\times5+3\times10 = 35\) 元。总配股比例 \(R=r_1+r_2=4\)。
+
+<ul><li>若取<strong>加权平均</strong> \(\bar p=\dfrac{r_1p_1+r_2p_2}{r_1+r_2}=\dfrac{35}{4}=8.75\)，则 \(R\bar p = 4\times8.75 = 35\)，与真实募资额分毫不差。
+  </li><li>若取<strong>算术平均</strong> \(\bar p_{\text{arith}}=\dfrac{5+10}{2}=7.5\)，则 \(R\bar p_{\text{arith}}=4\times7.5=30\)，<strong>比真实的 35 少了 5 元</strong>，偏差 \(5/35 \approx 14\%\)。
+</li></ul>
+
+同样的道理：用算术平均，等于给“比例大、价格低”的事件派了高价，又给“比例小、价格高”的派了低价，一加权就全歪了。<strong>加权平均不是“更好看的平均”，它是唯一能让募资额守恒的平均。</strong>下面把它写成命题。
+
+<h3 id="sec-25-4-2"><span class="hnum">25.4.2</span>命题与证明</h3>
+
+我要先说明系统实际用的公式，因为本书的一切都以源码为准。推算复权比率的那一行 SQL，分母是 <code class="code">prev_close - d + r * p</code>，分子是 <code class="code">prev_close * (1.0 + s + r)</code>，其中 <code class="code">d</code> 是每股现金红利、<code class="code">s</code> 是每股送股比例、<code class="code">r</code> 是配股比例、<code class="code">p</code> 是配股价，<code class="code">prev_close</code> 是除权日前一交易日收盘价系统源码 <code class="sysfile">internal/data/ths_adjfactor.go</code> 的 <code class="code">ratios</code> CTE：<code class="code">(kp.prev_close * (1.0 + eff.s + eff.r)) / NULLIF(kp.prev_close - eff.d + eff.r * eff.p, 0) AS ratio</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-15" href="#fn-ch25-15">15</a></sup>。等价地，把除权参考价写成
+
+<div class="math-scroll" id="eq:ch25-ref">\[p_{\text{ex}}=\frac{p_{t-1}-d+r\,p}{1+s+r},
+\qquad\text{于是}\qquad
+\text{ratio}=\frac{p_{t-1}}{p_{\text{ex}}}=\frac{p_{t-1}\,(1+s+r)}{p_{t-1}-d+r\,p}. \tag{25.1}\]</div>
+
+聚合的那一段 SQL，正是“求和 + 按 \(r\) 加权平均”：<code class="code">SUM(d)</code>、<code class="code">SUM(s)</code>、<code class="code">SUM(r)</code>，配股价 <code class="code">CASE WHEN SUM(r) &gt; 0 THEN SUM(r * p) / SUM(r) ELSE 0 END</code>。
+
+<div class="thm plain" id="prop:ch25-adj"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">25.1</span>（复权事件按 <code class="code">(symbol, ex_date)</code> 聚合去重的守恒性）</div>
+设某股票在同一除权日 <code class="code">ex_date</code> 上有 \(k\) 条官方事件 \((d_i,s_i,r_i,p_i)\)，\(i=1,\dots,k\)，除权日前一交易日收盘价为 \(p_{t-1}\)（\(p_{t-1}&gt;0\)）。系统按下式把它们聚合成一条事件：
+
+<div class="math-scroll" id="eq:ch25-agg">\[D=\sum_{i=1}^{k}d_i,\qquad
+S=\sum_{i=1}^{k}s_i,\qquad
+R=\sum_{i=1}^{k}r_i,\qquad
+\bar p=\begin{cases}\dfrac{\sum_{i=1}^{k}r_i\,p_i}{R}, &amp; R&gt;0,\\[8pt] 0, &amp; R=0.\end{cases} \tag{25.2}\]</div>
+
+并记单条事件 \((D,S,R,\bar p)\) 的除权参考价为 \(\varphi=p_{\text{ex}}(D,S,R,\bar p)\)（见式 <a class="xref" href="ch25.html#eq:ch25-ref">式 (25.1)</a>）。则：
+
+<em>(i)（现金守恒）</em> \(D=\sum_i d_i\)，聚合后的每股现金红利等于原各条之和；乘上股本，总现金分红分文不差。
+
+<em>(ii)（送股守恒）</em> \(S=\sum_i s_i\)，每股送股比例不变。
+
+<em>(iii)（配股募资守恒 / 配股等价）</em> 当 \(R&gt;0\) 时，\(R\bar p=\sum_i r_i p_i\)：按加权平均配股价算出的总配股募资额，与逐条事件之和完全相等。
+
+<em>(iv)（参考价不变）</em> 聚合后的除权参考价 \(\varphi\)，与“把 \(k\) 条事件视为一个合并事件”（总现金 \(D\)、总送股 \(S\)、总配股 \(R\)、总募资 \(\sum_i r_i p_i\)）算出的参考价完全相同；因此复权比率不变，前复权价格在事件日前后连续、无人工跳空。
+</div>
+
+这个命题在说什么：一句话，<strong>“同一天的多件事”可以放心地合并成“一件事”，只要配股价用加权平均——合并前后，分红、送股、配股募资这三笔账的总额一点不变，除权参考价也不变。</strong>所以前复权序列里不会因为合并，多出一个假的涨跌。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)、(ii)</em> 由式 <a class="xref" href="ch25.html#eq:ch25-agg">式 (25.2)</a> 中 \(D\)、\(S\) 的定义直接得到：它们本来就是各条之和。合并不改变总量，只是把多行写成一行。
+
+<em>(iii)</em> 当 \(R&gt;0\) 时，把 \(\bar p\) 的定义代入：
+<div class="math-scroll">\[R\,\bar p
+=R\cdot\frac{\sum_{i=1}^{k}r_i\,p_i}{R}
+=\sum_{i=1}^{k}r_i\,p_i . \tag{25.3}\]</div>
+分子分母里的 \(R\) 相消，右端正是逐条募资额之和。这就是“配股等价”的全部内容。
+
+作为对照，若改用算术平均 \(\bar p_{\text{arith}}=\frac1k\sum_i p_i\)，则 \(R\bar p_{\text{arith}}=\frac{R}{k}\sum_i p_i\)，一般<strong>不等于</strong> \(\sum_i r_i p_i\)；只有所有 \(r_i\) 相等时才偶然相等。这说明加权平均不是口味问题，而是等式能否成立的前提。
+
+<em>(iv)</em> 先把“合并事件”的参考价写出来：总现金 \(D\)、总送股 \(S\)、总配股 \(R\)、总募资 \(\sum_i r_i p_i\)，代入式 <a class="xref" href="ch25.html#eq:ch25-ref">式 (25.1)</a> 得
+<div class="math-scroll" id="eq:ch25-merged">\[\varphi_{\text{merged}}
+=\frac{p_{t-1}-D+\sum_{i=1}^{k}r_i\,p_i}{1+S+R}. \tag{25.4}\]</div>
+再把聚合事件的参考价写出来。由 (iii) 得 \(R\bar p=\sum_i r_i p_i\)，代入得分子为 \(p_{t-1}-D+R\bar p=p_{t-1}-D+\sum_i r_i p_i\)，分母为 \(1+S+R\)。两式逐项相同，故
+<div class="math-scroll">\[\varphi=\varphi_{\text{merged}} . \tag{25.5}\]</div>
+参考价相同，则由式 <a class="xref" href="ch25.html#eq:ch25-ref">式 (25.1)</a>，\(\text{ratio}=p_{t-1}/\varphi\) 也相同。
+
+最后看“无跳空”。设除权日为该事件生效的有效交易日 \(t^\ast\)。复权因子的构造是“\(t^\ast\) 起累计乘上 \(\text{ratio}\)”（源码里 <code class="code">backward_factor</code> 按 <code class="code">EXP(SUM(LN(ratio)))</code> 在时间轴上累乘，再除以最新日的值归一化得到前复权因子）。记归一化分母为 \(B^\ast\)（与 \(t\) 无关的常数），则相邻两日的前复权价格为
+<div class="math-scroll">\[q_{t^\ast-1}=p_{t^\ast-1}\cdot\frac{B_{t^\ast-1}}{B^\ast},
+\qquad
+q_{t^\ast}=p_{t^\ast}\cdot\frac{B_{t^\ast-1}\cdot\text{ratio}}{B^\ast}, \tag{25.6}\]</div>
+两者相除，\(B_{t^\ast-1}/B^\ast\) 消掉：
+<div class="math-scroll">\[\frac{q_{t^\ast}}{q_{t^\ast-1}}
+=\frac{p_{t^\ast}}{p_{t^\ast-1}}\cdot\text{ratio}
+=\frac{p_{t^\ast}}{p_{t^\ast-1}}\cdot\frac{p_{t^\ast-1}}{\varphi}
+=\frac{p_{t^\ast}}{\varphi}. \tag{25.7}\]</div>
+这个结果正是“剔除了除权机制影响之后的真实涨跌”：若当日实际收盘恰等于理论除权价（\(p_{t^\ast}=\varphi\)），则 \(q_{t^\ast}/q_{t^\ast-1}=1\)，前复权价格<strong>连续、不跳</strong>。也就是说，除权造成的机械台阶被因子精确地补平了；剩下的起伏，才交给策略去看。\(\blacksquare\)
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">25.2</span>（为什么前复权要“归一到最新日为 1”）</div>
+源码里还有一步归一化：<code class="code">forward_factor[t] = backward_factor[t] / backward_factor[最新日]</code>。这一步让最新一天的前复权价等于原始价，你看到的现价不会被缩放。代价是：每来一次新的除权事件，整条历史序列都会被重新缩放一次。所以“复权序列”是<strong>随着最新事件动态变化的</strong>，不是一个固定不变的数表——这也是为什么它建成了<strong>视图</strong>（<code class="dbtab">stock.ohlc_qfq</code>）而不是一张静态表。
+</div>
+
+<h2 id="sec-25-5"><span class="hnum">25.5</span>它在系统里长什么样：真实库容</h2>
+
+把上面的道理落到地上，就是本章最重要的那张表。所有数字都是核对时刻从 <code class="sysfile">data/stock.duckdb</code> 只读查出来的，没有任何估算。
+
+<figure class="tbl" id="tab:ch25-tables"><div class="tbl-scroll"><table><caption><span class="lbl">表 25.1</span>行情库的表与视图及其真实规模</caption><tbody><tr><td><strong>表 / 视图</strong></td><td class="num"><strong>行数</strong></td><td><strong>覆盖与说明</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td><code class="dbtab">stock.ohlc</code></td><td class="num">10,041,343<sup class="fn-ref"><a id="fnref-ch25-16" href="#fn-ch25-16">16</a></sup></td><td>未复权日 K，覆盖 2021-08-02 至 2026-09-24</td></tr><tr><td><code class="dbtab">stock.stock_basic</code></td><td class="num">19,068<sup class="fn-ref"><a id="fnref-ch25-17" href="#fn-ch25-17">17</a></sup></td><td>标的字典；含 ETF/基金，其 <code class="code">name</code> 为 NULL</td></tr><tr><td><code class="dbtab">stock.adj_event</code></td><td class="num">14,172<sup class="fn-ref"><a id="fnref-ch25-18" href="#fn-ch25-18">18</a></sup></td><td>除权事件 <code class="code">(d,s,r,p)</code></td></tr><tr><td><code class="dbtab">stock.adj_factor</code></td><td class="num">9,997,923<sup class="fn-ref"><a id="fnref-ch25-19" href="#fn-ch25-19">19</a></sup></td><td>日频复权因子 <code class="code">backward/forward</code></td></tr><tr><td><code class="dbtab">stock.trading_calendar</code></td><td class="num">248<sup class="fn-ref"><a id="fnref-ch25-20" href="#fn-ch25-20">20</a></sup></td><td>交易日；最新一条为 2026-09-17</td></tr><tr><td><code class="dbtab">stock.financial_report</code></td><td class="num">315,680<sup class="fn-ref"><a id="fnref-ch25-21" href="#fn-ch25-21">21</a></sup></td><td>财务三表对齐结果</td></tr><tr><td><code class="dbtab">order_book_daily</code></td><td class="num">0<sup class="fn-ref"><a id="fnref-ch25-22" href="#fn-ch25-22">22</a></sup></td><td>盘口摘要，当前无任何记录</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td><code class="dbtab">stock.ohlc_qfq</code></td><td class="num">视图</td><td>前复权 K 线，由 <code class="dbtab">stock.ohlc</code> 左连接 <code class="dbtab">stock.adj_factor</code> 生成</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote"><code class="dbtab">stock.ohlc</code> 去重后覆盖 9,584<sup class="fn-ref"><a id="fnref-ch25-23" href="#fn-ch25-23">23</a></sup> 个 symbol；四只基准指数 <code class="code">sh000001</code>、<code class="code">sz399001</code>、<code class="code">sh000300</code>、<code class="code">sh000905</code> 均在库，各 1249<sup class="fn-ref"><a id="fnref-ch25-24" href="#fn-ch25-24">24</a></sup> 根。<code class="dbtab">stock.ohlc_qfq</code> 是无因子的行按因子 \(1\) 返回的视图，故行数为空（不落盘）。</p>
+<p class="tabsrc">库 <code class="sysfile">data/stock.duckdb</code> 的具体表，核对时间 2026-09-24；行数来自系统事实清单第 13.2 节。</p></figure>
+
+这张表里有三处必须展开讲，否则你会看错。
+
+<strong>第一，交易日历是“滞后”的。</strong><code class="dbtab">stock.trading_calendar</code> 最新只到 2026-09-17，而行情库 <code class="dbtab">stock.ohlc</code> 已经覆盖到 2026-09-24。这不是 bug，是两类数据的刷新节奏不同：交易日历按“近一年窗口”整段重建，行情库按日增量。你核对时看到日历“落后几天”，属于正常窗口错位；但真要判断“今天是不是交易日”，最好确认日历已经覆盖到你关心的那天。
+
+<strong>第二，<code class="dbtab">stock.stock_basic</code> 不是“全是个股”。</strong>它里面有 ETF 和基金份额，比如 <code class="code">sz167301</code>、<code class="code">sz200570</code>，这些代码的 <code class="code">name</code> 字段是 <strong>NULL</strong>系统事实清单第 13.2 节：<code class="dbtab">stock_basic</code> 含 ETF/基金类 symbol（如 <code class="code">sz167301</code>、<code class="code">sz200570</code>），其 <code class="code">name</code> 为 NULL。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch25-25" href="#fn-ch25-25">25</a></sup>。所以你做“全市场个股统计”时<strong>必须先过滤</strong>，否则分母里会混进一堆没有名字的基金，广度、涨跌家数之类的指标会被稀释。这是第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a> 章讲市场广度时反复强调过的事。
+
+<strong>第三，唯一一行空的就是盘口摘要。</strong><code class="dbtab">order_book_daily</code> 是 0 行。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，这一格<strong>留白，不填任何估计值</strong>。
+
+“数据从哪来”这件事在界面上只有一个入口：「设置 · 数据源」。下面这张图是它的实际样子。
+
+<figure class="fig" id="fig:ch25-datasource"><img class="shot" style="width:100%" src="assets/ui/ui-datasource.png" alt=""><figcaption><span class="lbl">图 25.1</span>设置·数据源：五个可选数据源，以及“腾讯财经只覆盖实时行情，研究中心仍读本地 DuckDB”的口径说明</figcaption></figure>
+
+<h2 id="sec-25-6"><span class="hnum">25.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是最自然的冲动：我想快点看到结果，为什么不能先跑着？
+因为你跑出来的每一个数字，都会被“数据不全”翻译成一句<strong>看着很确定、其实是假的结论</strong>。选股样本少了一半、复权没做、财务还是两年前的——系统不会告诉你“这些分数可能不可信”，它只会老老实实把分数算出来给你看。而你会信。
+
+系统的态度是相反的：进选股前先校验数据库，查不到就<strong>报错退出</strong>，宁可让你做不成，也不给你一份假结果。这条“fail-closed”的原则，贯穿在它每一次数据不可用的处理里。你也应该用同样的态度对待自己的操作：<strong>数据没备齐，就别开火。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+很多人把复权理解成“让图表好看一点”，于是觉得它是可选的美化。
+它一点都不“锦上添花”。均线类策略只认价格的形状。除权那天，价格会<strong>真实地</strong>掉一个台阶（这就是式 <a class="xref" href="ch25.html#eq:ch25-ref">式 (25.1)</a> 里的 \(p_{\text{ex}}\)）。如果不做复权，这个台阶会被策略当成“一次下跌”，快线随之跌破慢线——一个<strong>方向完全错误</strong>的卖出信号就这么诞生了。
+
+注意错误的量级：这不是“少赚一点”，是“在你根本不该卖的时候卖”。而且分红、送股越频繁的股票，这种假信号越多，恰好会系统性地把<strong>高分红的好公司</strong>从你的候选里筛掉。所以复权因子<em>不是可选项，是数据入口的一部分</em>——它和行情本身同属“米”，不属于“盐”。
+
+还有个相关的坑：复权做成视图、每次除权都会重算整条历史，所以<em>别把“前复权价”当成永远不变的历史事实</em>。它是“以今天为基准回看”的镜头，基准一变，整卷胶片都要重洗。
+</div></div>
+
+<h2 id="sec-25-7"><span class="hnum">25.7</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>通达信 <code class="code">.day</code> 解析、<code class="code">vipdoc</code> 枚举、<code class="code">ANTI JOIN</code> 增量合并：<code class="sysfile">internal/data/maintenance.go</code>
+  </li><li>同花顺官方全市场日 K 导入（<code class="code">ImportTHSDailyK</code>，近 3 年窗口）：<code class="sysfile">internal/data/ths_dailyk.go</code>
+  </li><li>复权事件聚合与日频因子推算、前复权视图：<code class="sysfile">internal/data/ths_adjfactor.go</code>（表 <code class="dbtab">stock.adj_event</code>、<code class="dbtab">stock.adj_factor</code>、视图 <code class="dbtab">stock.ohlc_qfq</code>）
+  </li><li>官方交易日历同步（<code class="code">SyncTHSTradingCalendar</code>）与 <code class="code">util.SyncTHSTradingHoldays</code>：<code class="sysfile">internal/data/ths_calendar.go</code>、<code class="sysfile">internal/util/trading_calendar.go</code>（表 <code class="dbtab">stock.trading_calendar</code>）
+  </li><li>财务数据同步（限流并发 5 / 15 req/s 令牌桶 / 429·5xx·5003 退避 / 断点续传）：<code class="sysfile">internal/thssdk/ths.go</code>、<code class="sysfile">internal/data/financial_sync.go</code>、<code class="sysfile">internal/data/financial_ths.go</code>（表 <code class="dbtab">stock.financial_report</code>）
+  </li><li>每日 16:00 日 K 定时同步与“同花顺数据同步未成功”告警：<code class="sysfile">app_scheduler.go</code> 的 <code class="code">startTHSDailyKSyncTimer</code>、<code class="code">syncDailyKlineAuto</code>、<code class="code">emitDailyKSyncWarning</code>；调度层 <code class="sysfile">internal/scheduler</code>
+  </li><li>盘口摘要落库（表 <code class="dbtab">order_book_daily</code>）：<code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">RecordOrderBookDaily</code>
+  </li><li>真实库容数字：<code class="sysfile">data/stock.duckdb</code>，核对时间 2026-09-24；明细亦见附录 <a class="xref" href="appB.html#app:appB">附录 B</a>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试：按顺序点一遍三项同步</div><div class="boxbody">
+<ol><li>打开「设置 → 数据维护 → 同花顺数据」页签。先确认顶部“同花顺官方金融数据服务”已启用并填好 API Key——没配的话，下面每一步都会直接报错，这是设计如此，不是坏了。
+  </li><li>点“<strong>一键同步全部（复权因子 + 交易日历）</strong>”，盯住结果区：它应当<strong>分两行</strong>各出现一个 \(\checkmark\)，第一行是复权因子、第二行是交易日历。哪一行没有 \(\checkmark\)，就是哪一步没成功。
+  </li><li>点“<strong>全量导入（近 3 年）</strong>”，等它跑完。这一步是把近 3 年的日 K 底子铺满，耗时取决于网络，属于正常的长任务。
+  </li><li>用一条<strong>只读</strong> SQL 核对成果（例如 <code class="code">SELECT COUNT(*) FROM stock.ohlc;</code> 与 <code class="code">SELECT MIN(date), MAX(date) FROM stock.ohlc;</code>）。对照表 <a class="xref" href="ch25.html#tab:ch25-tables">表 25.1</a> 的行数与日期区间：行数应远大于几千，日期区间应覆盖到最近一个交易日。
+  </li><li>再查一次盘口摘要：<code class="code">SELECT COUNT(*) FROM stock.order_book_daily;</code>。核对时它是 0<sup class="fn-ref"><a id="fnref-ch25-26" href="#fn-ch25-26">26</a></sup>——如果是 0，说明它确实还没开始落库，本章里所有依赖它的因子都应视为“数据缺失”。
+</li></ol>
+</div></div>
+
+到这一步，米缸是满的、盐和火候表都摆好了。第 3 步的那个 \(\checkmark\)，不只是“同步成功了”四个字——它背后是命题 <a class="xref" href="ch25.html#prop:ch25-adj">命题 25.1</a> 证明过的守恒性：你接下来看到的每一条均线、每一个前复权价，都不会被一次分红或送股骗过去。
+
+现在数据齐了，可系统还不知道<strong>你是谁</strong>。一个能承受 30% 回撤的年轻人和一个只求跑赢存款的中年人，应该拿到的方案完全不同。第 <a class="xref" href="ch26.html#ch:ch26">第二十六章</a> 章，我们就来回答那个听起来很啰嗦、其实每个字都算数的问题：<strong>该给你生成一份什么样的投资方案？</strong>
+</article>
+<nav class="pager"><a class="prev" href="ch24.html"><span class="dir">上一页</span>第二十四章 第一天：安装、接模型、连数据</a><a class="next" href="ch26.html"><span class="dir">下一页</span>第二十六章 生成属于你的第一份投资方案</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch25-1"><strong>数据来源</strong> 系统事实清单第 9 节：<code class="code">ScreenStock(req)</code> 先校验 DuckDB 与 <code class="code">HasStockDB()</code>，否则报错“行情数据库(stock.duckdb)未挂载…”，不返回假数据。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-1">↩</a></li><li id="fn-ch25-2"><strong>数据来源</strong> 系统事实清单第 16 节：通达信数据自动执行已取消，仅在「数据维护-通达信数据」手工补位。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-2">↩</a></li><li id="fn-ch25-3"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/data/ths_dailyk.go</code>：<code class="code">mode == "full"</code> 时 <code class="code">dateFilter = " AND date &gt;= CAST(now() - INTERVAL '3 years' AS DATE)"</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-3">↩</a></li><li id="fn-ch25-4"><strong>数据来源</strong> 系统事实清单第 14 节：一键同步全部依次调用 <code class="code">ImportTHSAdjFactors</code> → <code class="code">SyncTHSTradingCalendar</code>，结果分两行 \(\checkmark\)；「仅导入复权因子」为次级按钮。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-4">↩</a></li><li id="fn-ch25-5"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/util/trading_calendar.go</code>：<code class="code">SyncTHSTradingHoldays(tradingDays []string)</code> 以 <code class="code">windowStart := today.AddDate(-1,0,0)</code>，逐日对工作日判断是否在交易日列表中。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-5">↩</a></li><li id="fn-ch25-6"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/data/financial_ths.go</code>：<code class="code">c := thssdk.Default(); if c == nil { return nil, fmt.Errorf("同花顺官方数据源未配置…") }</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-6">↩</a></li><li id="fn-ch25-7"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/thssdk/ths.go</code>：<code class="code">maxInflight = 5</code>、<code class="code">maxRPS = 15</code>，令牌桶容量与速率均为 15。<code class="code">1000/15</code> 约等于 \(67\)。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-7">↩</a></li><li id="fn-ch25-8"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/thssdk/ths.go</code> 的 <code class="code">get</code>：<code class="code">const maxAttempts = 4</code>，退避 <code class="code">time.Duration(1&lt;&lt;(attempt-1)) * 500 * time.Millisecond</code>，仅当 <code class="code">429</code>、<code class="code">5xx</code> 或 <code class="code">5003</code> 时继续重试。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-8">↩</a></li><li id="fn-ch25-9"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/data/financial_sync.go</code>：<code class="code">StartFinancialSync</code> 循环内 <code class="code">startReport = dm.maxFinReportDate(sym)</code>，单只失败 <code class="code">failed++; continue</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-9">↩</a></li><li id="fn-ch25-10"><strong>数据来源</strong> 系统事实清单第 15 节事故 #12：财务表只有手动同步才补数据，根因是自动调度不含财务同步。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-10">↩</a></li><li id="fn-ch25-11"><strong>数据来源</strong> 系统源码 <code class="sysfile">app_scheduler.go</code>：<code class="code">startTHSDailyKSyncTimer</code> 计算下一个 16:00，触发 <code class="code">syncDailyKlineAuto</code>，返回后由 <code class="code">dailyKlineCaughtUp(want)</code> 判定是否到位。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-11">↩</a></li><li id="fn-ch25-12"><strong>数据来源</strong> 系统源码 <code class="sysfile">app_scheduler.go</code> 的 <code class="code">emitDailyKSyncWarning</code>：消息以“同花顺数据同步未完全成功：”开头，并提示在下个交易日 9 点前补充股票时序数据。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-12">↩</a></li><li id="fn-ch25-13"><strong>数据来源</strong> 系统事实清单第 11 节：每日收盘后 <code class="code">OrderBookDailyProcessor.RecordOrderBookDaily</code> 写 <code class="dbtab">order_book_daily</code>，供次日盘口因子，无前视偏差。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-13">↩</a></li><li id="fn-ch25-14"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch25-14">↩</a></li><li id="fn-ch25-15"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/data/ths_adjfactor.go</code> 的 <code class="code">ratios</code> CTE：<code class="code">(kp.prev_close * (1.0 + eff.s + eff.r)) / NULLIF(kp.prev_close - eff.d + eff.r * eff.p, 0) AS ratio</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-15">↩</a></li><li id="fn-ch25-16"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-16">↩</a></li><li id="fn-ch25-17"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-17">↩</a></li><li id="fn-ch25-18"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-18">↩</a></li><li id="fn-ch25-19"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-19">↩</a></li><li id="fn-ch25-20"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-20">↩</a></li><li id="fn-ch25-21"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-21">↩</a></li><li id="fn-ch25-22"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch25-22">↩</a></li><li id="fn-ch25-23"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-23">↩</a></li><li id="fn-ch25-24"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch25-24">↩</a></li><li id="fn-ch25-25"><strong>数据来源</strong> 系统事实清单第 13.2 节：<code class="dbtab">stock_basic</code> 含 ETF/基金类 symbol（如 <code class="code">sz167301</code>、<code class="code">sz200570</code>），其 <code class="code">name</code> 为 NULL。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch25-25">↩</a></li><li id="fn-ch25-26"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch25-26">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

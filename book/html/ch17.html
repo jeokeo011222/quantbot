@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>回测到底在验证什么？—— 成本、前视与样本池 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·回测到底在验证什么？—— 成本、前视与样本池">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch17.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html" class="current"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a><ul class="sub"><li><a href="#sec-17-1">17.1 年化 60% 的策略，实盘第一周亏了 3%</a></li><li><a href="#sec-17-2">17.2 台架上的发动机，和装在车上的发动机</a></li><li><a href="#sec-17-3">17.3 把摩擦写成公式：三因子成本模型</a></li><li><a href="#sec-17-3-1">17.3.1 最低佣金：一条给小额交易设的税率</a></li><li><a href="#sec-17-3-2">17.3.2 平方根冲击律：为什么大单必须拆</a></li><li><a href="#sec-17-3-3">17.3.3 把上面两笔账合起来：一次往返要付多少</a></li><li><a href="#sec-17-4">17.4 比成本更贵的错：偷看未来</a></li><li><a href="#sec-17-5">17.5 胜率是怎么被一只股票骗出来的</a></li><li><a href="#sec-17-6">17.6 把参数选好看的代价：walk-forward</a></li><li><a href="#sec-17-7">17.7 它在系统里长什么样</a></li></ul></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch17"><span class="cnum">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</h1>
+
+
+
+
+
+<h2 id="sec-17-1"><span class="hnum">17.1</span>年化 60% 的策略，实盘第一周亏了 3%</h2>
+
+二零二六年九月七日，星期一。我把上一章挑出来的那条双均线策略塞进回测框，按下运行。
+
+四十分钟后，屏幕上给出的成绩单是：<strong>年化收益 61.4%、夏普 2.31、最大回撤 12.0%、胜率 70.8%、总成交 348 笔</strong>。曲线漂亮得像一条被熨过的斜线。
+
+我把它接进了模拟盘。九月八日到九月十二日，五个交易日，账面累计 \(-3.1\%\)。
+
+一根 K 线都没改，一个参数都没动。同一套规则，在“历史”里是印钞机，在“这五天”里是碎钞机。
+
+我一开始的反应很自然：<strong>运气不好</strong>。第二反应更自然：<strong>市场变了</strong>。这两个解释都不可检验，所以都等于没解释。
+
+真正有用的那个解释，是我把回测的账本一栏一栏摊开之后才看出来的。摊开之后我发现，我在“历史”里赚的那 61.4%，有相当一部分来自三笔我从来没付过的钱：
+
+<ol><li><strong>摩擦没算</strong>：我在回测里把成交当成“点一下就成”，没扣佣金、没扣印花税、没扣自己下单把价格顶上去的那部分；
+  </li><li><strong>未来偷看</strong>：我用当天的收盘价算信号，又用当天的收盘价成交——这在 T+1 的市场里根本不可能；
+  </li><li><strong>样本抽歪</strong>：我的“70.8% 胜率”是从一只股票的三笔交易里数出来的。
+</li></ol>
+
+这一章就是把这三句话，一句一句写成可以被检验的东西。
+
+<h2 id="sec-17-2"><span class="hnum">17.2</span>台架上的发动机，和装在车上的发动机</h2>
+
+<div class="box intuition"><div class="boxbody">
+一台发动机在台架上测出 300 马力。装到车上，跑了三个月，车主说“感觉没那么有劲”。
+
+台架错了吗？没有。台架测的是<strong>发动机本身</strong>。车跑起来之后，马力要分给变速箱、水泵、空调压缩机，还要对抗风阻和轮胎滚动阻力。
+
+差额不在发动机里，在<strong>发动机和地面之间</strong>——在那条从曲轴一直连到轮胎的传动链上。
+
+回测里的成本模型，就是这条传动链的账本。它不加马力，它只告诉你：<strong>从曲轴出来的 300 匹，到轮胎上还剩多少。</strong>
+</div></div>
+
+回测这件事，很多人对它的期待是错的。他们把回测当成“预测器”：回测好，所以未来好。
+
+它更像一个<strong>筛子</strong>,而且只干一件事：<strong>把那些明显错的策略筛掉</strong>。它的价值在于证伪，不在于证明。一个策略通过了回测，说明“它至少没有犯那些一眼就能看出来的错误”；它完全不说明这个策略下个月能赚钱。
+
+这个定位一变，前面那句“实盘亏 3%”就不再是矛盾了：回测从来没有承诺过 61.4%，它只说“在扣掉我算的那几项成本之后，历史上是这样”。
+
+所以要紧的问题只有一个：<strong>那几项成本，到底算了没有？</strong>
+
+<h2 id="sec-17-3"><span class="hnum">17.3</span>把摩擦写成公式：三因子成本模型</h2>
+
+先说一个“差不多对”的版本：交易成本就是佣金，买卖各收万分之三。
+
+这个版本抓住了三成。它漏掉的是三件在 A 股每天都真实发生的事：（1）佣金有<strong>最低收费</strong>；（2）卖出还要交<strong>印花税</strong>；（3）你的单子会把价格推走，这叫<strong>市场冲击</strong>。
+
+系统在 <code class="sysfile">internal/backtest/cost_model.go</code> 里把这三件事写成了一项一项相加的成本函数。它的官方注释直接把对标对象写了出来：
+
+<div class="math-scroll" id="eq:ch17-cost">\[\text{cost} \;=\; a\cdot\abs{x} \;+\; b\cdot\sigma\cdot\frac{\abs{x}^{1.5}}{\sqrt{V}} \;+\; c\cdot x , \tag{17.1}\]</div>
+
+其中 \(x\) 是这一笔的成交金额（元），\(\sigma\) 是标的的日波动率，\(V\) 是当日的成交金额（元）。三项的含义分别是：
+
+<ul><li>\(a\abs{x}\)：<strong>比例费用</strong>。A 股里就是佣金（买卖都收，最低 5 元）加上印花税（<strong>只在卖出时收</strong> \(0.05\%\)）；
+  </li><li>\(b\sigma\abs{x}^{1.5}/\sqrt{V}\)：<strong>市场冲击</strong>。这叫 Almgren--Chriss 平方根冲击律；
+  </li><li>\(c\,x\)：<strong>收盘偏置</strong>。因为回测里信号和成交都用“收盘价”，口径一致时这项取 \(0\)。
+</li></ul>
+
+系统的默认参数写在 <code class="code">DefaultCostModel()</code> 里，我把它们抄成表 <a class="xref" href="ch17.html#tab:ch17-cost">表 17.1</a>。
+
+<figure class="tbl" id="tab:ch17-cost"><div class="tbl-scroll"><table><caption><span class="lbl">表 17.1</span>系统的默认成本模型参数（A 股口径）</caption><tbody><tr><td><strong>字段</strong></td><td><strong>默认值</strong></td><td><strong>名称</strong></td><td><strong>说明</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td><code class="code">CommissionRate</code></td><td>\(0.0003\)</td><td>佣金率</td><td>万分之三，<strong>买卖都收</strong></td></tr><tr><td><code class="code">MinCommission</code></td><td>\(5\)</td><td>最低佣金</td><td>单笔不足 5 元按 5 元收</td></tr><tr><td><code class="code">StampDutyRate</code></td><td>\(0.0005\)</td><td>印花税</td><td>\(0.05\%\)，<strong>仅卖出</strong></td></tr><tr><td><code class="code">ImpactCoeff</code></td><td>\(1.0\)</td><td>冲击系数 \(b\)</td><td>设为 \(0\) 即关闭冲击项</td></tr><tr><td><code class="code">ImpactExponent</code></td><td>\(1.5\)</td><td>冲击指数</td><td>即式 <a class="xref" href="ch17.html#eq:ch17-cost">式 (17.1)</a> 里的 1.5 次方</td></tr><tr><td><code class="code">BiasCoeff</code></td><td>\(0.0\)</td><td>收盘偏置 \(c\)</td><td>收盘价成交且口径一致时为 0</td></tr><tr><td><code class="code">VolWindow</code></td><td>\(60\)</td><td>波动率窗口</td><td>用最近 60 根 K 线估 \(\sigma\)</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">买入成本 = 佣金 + 冲击 + 偏置；卖出成本 = 佣金 + <strong>印花税</strong> + 冲击 + 偏置。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/backtest/cost_model.go</code> 的 <code class="code">DefaultCostModel()</code> 与 <code class="code">BuyCost</code>/<code class="code">SellCost</code>；核对时间 2026-09-24。</p></figure>
+
+现在我要把表里第一个数字单独拎出来说，因为它藏着一件几乎所有小资金账户都会踩的事。
+
+<h3 id="sec-17-3-1"><span class="hnum">17.3.1</span>最低佣金：一条给小额交易设的税率</h3>
+
+<div class="thm plain" id="prop:ch17-floor"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">17.1</span>（最低佣金抬高有效费率）</div>
+设佣金率为 \(a\)、最低佣金为 \(M\)（元），一笔金额为 \(x&gt;0\) 的成交，实收佣金为
+<div class="math-scroll">\[\mathrm{fee}(x)=\max\{a x,\; M\}. \tag{17.2}\]</div>
+记<strong>有效佣金率</strong> \(\alpha(x)=\mathrm{fee}(x)/x\)。则
+<ol><li>当 \(x\ge x^\ast:=M/a\) 时，\(\alpha(x)=a\)，是个常数；
+  </li><li>当 \(0&lt;x&lt;x^\ast\) 时，\(\alpha(x)=M/x\)，关于 \(x\) <strong>严格递减</strong>，且 \(\lim_{x\to0^+}\alpha(x)=+\infty\)；
+  </li><li>因此 \(\alpha\) 在 \(x=x^\ast\) 处取到最小值 \(a\)，且 \(\alpha(x)\ge a\) 对一切 \(x&gt;0\) 成立。
+</li></ol>
+</div>
+
+这个命题在说什么：它把“最低 5 元”这句话翻译成了一条税率曲线。<strong>交易金额越小，你实际付的费率越高</strong>，而且可以高到离谱。代入系统参数：\(a=0.0003\)、\(M=5\)，得阈值
+<div class="math-scroll">\[x^\ast=\frac{5}{0.0003}=16666.67\ \text{元}. \tag{17.3}\]</div>
+
+<figure class="tbl" id="tab:ch17-effrate"><div class="tbl-scroll"><table><caption><span class="lbl">表 17.2</span>最低佣金下的有效佣金率（\(a=0.0003\)，\(M=5\)）</caption><tbody><tr><td class="num"><strong>成交金额 \(x\)（元）</strong></td><td class="num"><strong>实收佣金（元）</strong></td><td class="num"><strong>有效费率 \(\alpha(x)\)</strong></td><td class="num"><strong>相对名义费率</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td class="num">\(3{,}000\)</td><td class="num">\(5.00\)</td><td class="num">\(0.1667\%\)</td><td class="num">\(5.56\times\)</td></tr><tr><td class="num">\(5{,}000\)</td><td class="num">\(5.00\)</td><td class="num">\(0.1000\%\)</td><td class="num">\(3.33\times\)</td></tr><tr><td class="num">\(10{,}000\)</td><td class="num">\(5.00\)</td><td class="num">\(0.0500\%\)</td><td class="num">\(1.67\times\)</td></tr><tr><td class="num">\(16{,}667\)</td><td class="num">\(5.00\)</td><td class="num">\(0.0300\%\)</td><td class="num">\(1.00\times\)</td></tr><tr><td class="num">\(50{,}000\)</td><td class="num">\(15.00\)</td><td class="num">\(0.0300\%\)</td><td class="num">\(1.00\times\)</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabsrc">本书按 <code class="sysfile">internal/backtest/cost_model.go</code> 的 <code class="code">fee(x)=max(0.0003x,5)</code> 复算；参数取自同文件 <code class="code">DefaultCostModel()</code>。</p></figure>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 若 \(x\ge M/a\)，则 \(ax\ge M\)，于是 \(\max\{ax,M\}=ax\)，除以 \(x\) 得 \(\alpha(x)=a\)。
+
+<em>(ii)</em> 若 \(0&lt;x&lt;M/a\)，则 \(ax&lt;M\)，于是 \(\max\{ax,M\}=M\)，\(\alpha(x)=M/x\)。对 \(x\) 求导：
+<div class="math-scroll">\[\alpha'(x)=-\frac{M}{x^2}&lt;0 \quad(M&gt;0,\;x&gt;0),\]</div>
+故在 \((0,x^\ast)\) 上严格递减；又 \(\lim_{x\to0^+}M/x=+\infty\)。
+
+<em>(iii)</em> 由 (i)(ii)，\(\alpha\) 在 \((0,x^\ast)\) 上为 \(M/x&gt;x^\ast\) 的单调下降段，在 \([x^\ast,\infty)\) 上恒为 \(a\)，且左极限 \(\lim_{x\to x^{\ast-}}\alpha(x)=M/x^\ast=a\)。故 \(\alpha\) 在 \(x^\ast\) 处连续且取最小值 \(a\)；其余各处 \(\alpha(x)\ge a\)。\(\blacksquare\)
+</div>
+
+这条命题能直接解释一件事：为什么“把 10 万元拆成 20 只每只 5 千”这种看起来很稳健的分散，在成本上是灾难。每只 5,000 元，佣金率是名义费率的 \(3.33\) 倍；而卖出时还要再叠一层印花税。
+
+<h3 id="sec-17-3-2"><span class="hnum">17.3.2</span>平方根冲击律：为什么大单必须拆</h3>
+
+现在看式 <a class="xref" href="ch17.html#eq:ch17-cost">式 (17.1)</a> 里最不像“费用”的那一项。冲击项的形式是 \(\abs{x}^{1.5}/\sqrt{V}\)，两个指数都不好看。但把它除以 \(x\)，它会突然变得极干净。
+
+<div class="thm definition" id="def:ch17-rho"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">17.2</span>（参与率）</div>
+一笔金额为 \(x\) 的委托，相对于当日成交金额 \(V\)，其<strong>参与率</strong>定义为
+<div class="math-scroll">\[\rho \;=\; \frac{x}{V}\in(0,1). \tag{17.4}\]</div>
+</div>
+
+<div class="thm plain" id="prop:ch17-sqrt"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">17.3</span>（平方根冲击律）</div>
+在上述成本模型下，令 \(I(x)=b\,\sigma\,x^{1.5}/\sqrt{V}\) 为单笔冲击成本（元），则
+<ol><li><strong>单位金额的冲击成本</strong>为
+  <div class="math-scroll" id="eq:ch17-rho-law">\[\frac{I(x)}{x}\;=\;b\,\sigma\sqrt{\rho}, \tag{17.5}\]</div>
+  即冲击成本率正比于参与率的<strong>平方根</strong>，与 \(x\)、\(V\) 的绝对大小无关，只通过 \(\rho\) 起作用；
+  </li><li><strong>单调性</strong>：\(I(x)\) 关于 \(x\) 严格递增；<a class="xref" href="ch17.html#eq:ch17-rho-law">(17.5)</a> 关于 \(\rho\) 严格递增且<strong>上凸</strong>（凹函数）；
+  </li><li><strong>可加性尺度</strong>：若把金额 \(x\) 与成交量 \(V\) 同时放大 \(\lambda\) 倍，则冲击成本率不变、冲击成本放大 \(\lambda\) 倍；
+  </li><li><strong>拆分定理</strong>：把一笔金额 \(x\) 等分成 \(k\) 笔分别下单，总冲击成本下降为原来的 \(1/\sqrt{k}\)。
+</li></ol>
+</div>
+
+这个命题在说什么：第 (i) 条是整章的枢纽——<strong>真正决定冲击成本的，不是“我买了多少钱”，而是“我买了当日成交额的百分之几”</strong>。第 (iv) 条则回答了一个所有人都问过的问题：“大单为什么要拆着下？”答案不是玄学，是 \(\sqrt{k}\)：拆成 4 笔，冲击降到一半；拆成 16 笔，降到四分之一。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由 \(I(x)=b\sigma x^{1.5}/\sqrt{V}\) 得
+<div class="math-scroll">\[\frac{I(x)}{x}=b\sigma\frac{x^{0.5}}{\sqrt{V}}=b\sigma\sqrt{\frac{x}{V}}=b\sigma\sqrt{\rho}.\]</div>
+
+<em>(ii)</em> 先看 \(I\)：\(x^{1.5}\) 在 \(x&gt;0\) 上严格递增，故 \(I\) 严格递增。再看 \(g(\rho)=b\sigma\sqrt{\rho}\)：\(\sqrt{\cdot}\) 在 \((0,\infty)\) 上严格递增且严格上凸（二阶导 \(-\tfrac14\rho^{-3/2}&lt;0\)）；\(b,\sigma&gt;0\) 不改变单调性与凸性。
+
+<em>(iii)</em> 代入 \(x\to\lambda x\)、\(V\to\lambda V\)：
+<div class="math-scroll">\[\frac{I(\lambda x;\lambda V)}{\lambda x}
+=\frac{b\sigma(\lambda x)^{1.5}/\sqrt{\lambda V}}{\lambda x}
+=b\sigma\frac{\lambda^{1.5}x^{0.5}}{\lambda^{0.5}\sqrt{V}\cdot\lambda}
+=b\sigma\sqrt{\rho}=\frac{I(x;V)}{x},\]</div>
+即成本率不变；而 \(I(\lambda x;\lambda V)=\lambda x\cdot b\sigma\sqrt{\rho}=\lambda\,I(x;V)\)，成本放大 \(\lambda\) 倍。
+
+<em>(iv)</em> 每笔金额 \(x/k\)，由 (i) 每笔冲击成本为
+<div class="math-scroll">\[\frac{x}{k}\cdot b\sigma\sqrt{\frac{x/k}{V}}
+=b\sigma\,\frac{x^{1.5}}{k^{1.5}\sqrt{V}},\]</div>
+\(k\) 笔相加得
+<div class="math-scroll">\[k\cdot b\sigma\frac{x^{1.5}}{k^{1.5}\sqrt{V}}
+=\frac{b\sigma x^{1.5}}{\sqrt{V}}\cdot\frac{1}{\sqrt{k}}
+=\frac{I(x)}{\sqrt{k}}. \qquad\blacksquare\]</div>
+</div>
+
+<div class="thm remark" id="rem:ch17-sqrt-limit"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">17.4</span>（平方根律在哪里失效）</div>
+式 <a class="xref" href="ch17.html#eq:ch17-rho-law">(17.5)</a> 不是自然定律，它是一条<strong>经验近似</strong>。三处会失效：
+
+<strong>第一，\(V\) 是外生的。</strong>模型把当日成交金额 \(V\) 当成你不在场时的量。当 \(\rho\) 变大（比如超过 \(10\%\)），你自己就是 \(V\) 的主要成分，\(V\) 会随你变化，公式自相矛盾。
+
+<strong>第二，冲击有永久与暂时之分。</strong>真实冲击里有一部分会随时间衰减回去，另一部分留在了价格里。这里把两者合并成一个瞬时项。
+
+<strong>第三，拆分不是免费的。</strong>命题 <a class="xref" href="ch17.html#prop:ch17-sqrt">17.3</a>(iv) 只算冲击，没算拆单带来的<strong>时间风险</strong>和<strong>撤单/漏单</strong>概率。\(k\to\infty\) 时冲击趋零，但你的持仓暴露时间趋于无穷——所以最优拆分数是一个有内部最小值的优化问题，不是“越拆越好”。
+</div>
+
+<h3 id="sec-17-3-3"><span class="hnum">17.3.3</span>把上面两笔账合起来：一次往返要付多少</h3>
+
+现在算一次完整的“买入 \(\to\) 卖出”。用九月二十三日库里那只真实标的做例子：<code class="code">sh600519</code>，当日收盘 1251.24<sup class="fn-ref"><a id="fnref-ch17-1" href="#fn-ch17-1">1</a></sup> 元，最近 60 个交易日对数收益率的标准差 \(\sigma\) \(=0.014433\)<sup class="fn-ref"><a id="fnref-ch17-2" href="#fn-ch17-2">2</a></sup>只读查询 <code class="dbtab">stock.ohlc</code> 中 <code class="code">sh600519</code> 的前 60 根日线，按 \(\sigma=\mathrm{std}(\ln(P_t/P_{t-1}))\) 复算；查询日 2026-09-24。<sup class="fn-ref"><a id="fnref-ch17-3" href="#fn-ch17-3">3</a></sup>。
+
+假设我下单 50,000 元，当日成交金额取 \(V=\) \(1.33222\times10^{9}\)<sup class="fn-ref"><a id="fnref-ch17-4" href="#fn-ch17-4">4</a></sup> 元（该标的当日库内记录的 <code class="field">amount</code>）。代入：
+
+<div class="math-scroll">\begin{align}\text{买入佣金} &amp;= \max\{0.0003\times 50000,\;5\} = 15.00\ \text{元}, \tag{17.6}\\
+\text{买入冲击} &amp;= 1.0\times 0.014433\times\frac{50000^{1.5}}{\sqrt{1.33222\times10^{9}}} = 4.42\ \text{元}, \tag{17.7}\\
+\text{卖出佣金} &amp;= 15.00\ \text{元}, \tag{17.8}\\
+\text{卖出印花税} &amp;= 0.0005\times 50000 = 25.00\ \text{元}, \tag{17.9}\\
+\text{卖出冲击} &amp;= 4.42\ \text{元}. \tag{17.10}\end{align}</div>
+
+往返合计 \(63.84\) 元，占本金的 \(0.1277\%\)。
+
+这个数单独看很小。但它乘上交易频率就变了性质：若这条策略一年往返 50 次，光成本就是 \(0.1277\%\times 50 = 6.39\%\)。你回测里看到的 61.4% 年化，是要先扣掉这 6.39% 的。
+
+<div class="box keybox"><div class="boxtitle">本章第一个结论</div><div class="boxbody">
+摩擦不是“扣几个点”，它是<strong>与交易频率相乘的项</strong>。<br>
+
+频率 \(\times\) 单次成本率 \(=\) 年化成本。<br>
+
+所以一条高换手策略的真实门槛，比它的回测收益率低得多——低多少，取决于它一年来回多少次。
+</div></div>
+
+<h2 id="sec-17-4"><span class="hnum">17.4</span>比成本更贵的错：偷看未来</h2>
+
+成本是“少赚”，前视偏差是“假赚”。后者危险得多，因为它会让一个根本不成立的策略在回测里封神。
+
+<div class="box intuition"><div class="boxbody">
+一个学生每次模拟考都接近满分。你翻他的卷子，发现他在“已给出答案”的那一页折了角。
+
+他没有作弊——他只是把答案那页翻开了。而在真实考场上，那一页是密封的。
+
+回测里的“当日收盘价成交”，就是那一页折角：你用一个<strong>当天的收盘价</strong>算出信号，又用<strong>这个收盘价</strong>成交。真实世界里，你要在收盘那一刻同时完成“看到收盘价”和“以这个价格成交”两件事，这在物理上不可能。
+</div></div>
+
+把这件事写严谨，需要一个词：<strong>信息集</strong>。
+
+<div class="thm definition" id="def:ch17-filtration"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">17.5</span>（信息集与可测决策）</div>
+设 \(P_t=(P_{t}^{\mathrm{open}},P_t^{\mathrm{high}},P_t^{\mathrm{low}},P_t^{\mathrm{close}},V_t)\) 为第 \(t\) 个交易日的完整行情向量。定义到第 \(t\) 日收盘为止的信息集
+<div class="math-scroll">\[\mathcal F_t \;=\; \sigma\bigl(P_0,P_1,\dots,P_t\bigr), \tag{17.11}\]</div>
+即“由第 \(0\) 到第 \(t\) 日全部行情生成的信息”。若某个决策变量 \(D_t\) 是 \(\mathcal F_t\)-可测的，就说它是<strong>无前视的</strong>；若 \(D_t\) 用到 \(P_{t+1},P_{t+2},\dots\) 中的任何分量，就说它<strong>有前视偏差</strong>。
+</div>
+
+<div class="thm plain" id="prop:ch17-exec"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">17.6</span>（成交价口径决定有无前视）</div>
+设策略在第 \(t\) 日的信号为 \(s_t=g(\mathcal F_t)\)。比较两种成交口径：
+<ol><li><strong>次日开盘口径</strong>：成交价取 \(P_{t+1}^{\mathrm{open}}\)；
+  </li><li><strong>当日收盘口径</strong>：成交价取 \(P_t^{\mathrm{close}}\)。
+</li></ol>
+则 (i) 无前视偏差；而 (ii) 隐含了一个无法实现的假设——要求下单与成交发生在“观察到 \(P_t^{\mathrm{close}}\)”同一瞬间、以零延迟完成。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 次日开盘口径下，第 \(t\) 日产生的委托在第 \(t+1\) 日开盘撮合。委托的全部输入 \(s_t=g(\mathcal F_t)\) 是 \(\mathcal F_t\)-可测的，成交价 \(P_{t+1}^{\mathrm{open}}\) 出现在 \(t+1\) 日，晚于决策时刻。决策与成交满足“先决策、后成交”的因果顺序，故无前视。
+
+<em>(ii)</em> 若成交价取 \(P_t^{\mathrm{close}}\)，则成交时刻 \(=\,\)收盘时刻 \(\tau_t^{\mathrm{close}}\)。而 \(P_t^{\mathrm{close}}\) 由收盘集合竞价在 \(\tau_t^{\mathrm{close}}\) 处产生——在 \(\tau_t^{\mathrm{close}}\) 之前，\(P_t^{\mathrm{close}}\) 不属于任何参与者已知的信息。要以 \(P_t^{\mathrm{close}}\) 成交，参与者必须在 \(\tau_t^{\mathrm{close}}\) 之前提交订单，而他提交订单时依据的 \(s_t=g(\mathcal F_t)\) 中不含 \(P_t^{\mathrm{close}}\)。因此“用 \(P_t^{\mathrm{close}}\) 算信号、又用 \(P_t^{\mathrm{close}}\) 成交”这一对条件不能同时由同一次决策实现。\(\blacksquare\)
+</div>
+
+系统里的做法是<strong>强制</strong>第一条口径。回测服务 <code class="sysfile">internal/backtest/service.go</code> 里有一个开关叫 <code class="code">ExecNextOpen</code>，含义是“在下一根 K 线的开盘价撮合”。它的注释把理由写在明处：消除前视。同一层还按标的自适应涨跌停、并按<strong>披露日</strong>注入真实财务数据，防止“用年报给年报发布前的股票打分”。
+
+<div class="box pitfall"><div class="boxbody">
+这是我最早、也是最贵的一个误解。
+
+回测不能预测，它只能<strong>证伪</strong>。一个策略通过了回测，只说明“在我检查过的那些错误里，它没有犯”；它不说明这个策略在明天会赚钱。
+
+把这两件事分清之后，一件让人难受的事就变得可以接受了：<strong>回测好、实盘差，是常态而不是异常</strong>。回测的价值在于它能把“明显不成立”的策略用很低的成本淘汰掉。它是一道初筛，不是一份承诺。
+
+真正需要警惕的是相反的情形：回测<strong>特别好</strong>。一个年化远高于市场、回撤又特别小的结果，首先应该被怀疑有前视、有幸存者偏差、或者样本太少——本章余下的部分就是在教你怎么怀疑它。
+</div></div>
+
+<h2 id="sec-17-5"><span class="hnum">17.5</span>胜率是怎么被一只股票骗出来的</h2>
+
+现在讲第三笔账：样本。
+
+九月七日那天，我看到的“胜率 70.8%”，分母是 348 笔成交——听起来很扎实。可是这 348 笔是从哪里来的？
+
+我查了一下：它们<strong>全部来自一只股票</strong>。
+
+问题不在于“一只股票能不能做回测”，而在于<strong>单只股票的成交笔数少、且互相关</strong>。当我们只在一只股票上跑一条策略，来回反复，样本之间的独立性很弱，而笔数又少到统计量没有意义。极端情况下，一只股票上只成交了三笔、三笔全赢，屏幕上就会显示“胜率 100%”。
+
+系统的修复办法叫<strong>样本池回测</strong>，实现在 <code class="sysfile">internal/strategy/service.go</code> 的 <code class="code">RefreshStrategyMetrics</code> 里。它的做法是：
+
+<ol><li>样本池优先取<strong>当前持仓</strong>（<code class="code">position_status='open'</code> 的标的）；持仓为空则回退到基准指数 <code class="code">sh000300</code>，再回退 <code class="code">sh000001</code>；
+  </li><li>每个样本加载 <code class="code">sampleLookback</code> \(=1500\) 根 K 线（比单次回测长得多，目的就是让单只标的也能产生足量成交）；
+  </li><li>胜率<strong>不再按标的算，而是把所有样本的已平仓交易汇总起来算</strong>：\(\text{aggWins}/(\text{aggWins}+\text{aggLosses})\)；
+  </li><li>K 线只加载一次，用有界 worker 池并行跑（并发数上限 8），避免重复读库。
+</li></ol>
+
+第 3 条看起来只是“换个写法”，其实它决定了一个统计量有没有意义。下面把它写成命题。
+
+<div class="thm plain" id="prop:ch17-winrate"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">17.7</span>（交易聚合胜率与标的平均胜率不相等）</div>
+设样本池有 \(m\) 只标的。第 \(j\) 只标的的已平仓交易中，盈利 \(w_j\) 笔、亏损 \(\ell_j\) 笔，总笔数 \(n_j=w_j+\ell_j&gt;0\)。定义
+<div class="math-scroll">\begin{align}\widehat p_{\text{交易}}&amp;=\frac{\sum_{j=1}^{m}w_j}{\sum_{j=1}^{m}n_j}
+&amp;&amp;\text{（\textbf{交易聚合胜率}）}, \tag{17.12}\\
+\widehat p_{\text{标的}}&amp;=\frac{1}{m}\sum_{j=1}^{m}\frac{w_j}{n_j}
+&amp;&amp;\text{（\textbf{标的平均胜率}）}. \tag{17.13}\end{align}</div>
+则
+<ol><li>\(\widehat p_{\text{交易}}=\widehat p_{\text{标的}}\) 当且仅当所有 \(n_j\) 相等；
+  </li><li>\(\widehat p_{\text{交易}}\) 是“从全部成交中均匀随机取一笔，该笔为盈利”这一事件的<strong>无偏频率估计</strong>；而 \(\widehat p_{\text{标的}}\) 一般不是；
+  </li><li>存在例子使 \(\widehat p_{\text{标的}}=100\%\) 而 \(\widehat p_{\text{交易}}\) 远低于 \(100\%\)。
+</li></ol>
+</div>
+
+这个命题在说什么：把胜率写成“哪个公式”不是风格问题。(i) 说这两个数只有在所有标的成交笔数完全一样时才相等——而现实中永远不会；(ii) 说交易聚合口径才是“随机抽一笔会不会赢”的答案，这正是我们关心的那个量；(iii) 则给出了那个最刺眼的反例。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 记 \(p_j=w_j/n_j\)。把 \(\widehat p_{\text{交易}}\) 写成一个<strong>笔数加权平均</strong>：
+<div class="math-scroll">\[\widehat p_{\text{交易}}
+=\frac{\sum_j n_j p_j}{\sum_j n_j}
+=\sum_j \omega_j p_j,\qquad \omega_j=\frac{n_j}{\sum_i n_i}.\]</div>
+而 \(\widehat p_{\text{标的}}=\sum_j \frac1m p_j\)，是<strong>等权平均</strong>。两者都是 \(p_j\) 的凸组合，但权重向量不同：\((\omega_j)\) 对 \((\tfrac1m)\)。由均值恒等式
+<div class="math-scroll">\[\widehat p_{\text{交易}}-\widehat p_{\text{标的}}
+=\sum_j\Bigl(\omega_j-\tfrac1m\Bigr)p_j ,\]</div>
+该差为零对所有 \((p_j)\) 成立，当且仅当 \(\omega_j\equiv\frac1m\)，即 \(n_j\) 全相等。
+
+<em>(ii)</em> 把全部已平仓交易编号，令第 \(i\) 笔的盈利指示变量 \(X_i\in\{0,1\}\)。全样本共 \(n=\sum_j n_j\) 笔，\(\sum_i X_i=\sum_j w_j\)。若“随机抽一笔”是在 \(n\) 笔上均匀抽，则
+<div class="math-scroll">\[\Prob(X=1)=\frac{\sum_i X_i}{n}=\frac{\sum_j w_j}{\sum_j n_j}=\widehat p_{\text{交易}},\]</div>
+故 \(\widehat p_{\text{交易}}\) 是该概率的样本频率。而 \(\widehat p_{\text{标的}}\) 是 \(p_j\) 的等权平均，只有在“先均匀随机选一只标的、再在该标的上随机抽一笔”这个抽样机制下才是无偏的——那是另一个问题。
+
+<em>(iii)</em> 取 \(m=2\)，标的 1 有 \(w_1=3,\ell_1=0\)；标的 2 有 \(w_2=0,\ell_2=97\)。则
+<div class="math-scroll">\[\widehat p_{\text{标的}}=\frac{1}{2}\Bigl(\frac{3}{3}+\frac{0}{97}\Bigr)=\frac{1}{2}(1+0)=50\%,\]</div>
+<div class="math-scroll">\[\widehat p_{\text{交易}}=\frac{3+0}{3+97}=\frac{3}{100}=3\%.\]</div>
+更极端的 \(m=1\) 情形：单只标的成交 3 笔全赢，则 \(\widehat p_{\text{标的}}=\widehat p_{\text{交易}}=100\%\)——分母只有 3，统计量本身没有意义。这正是修复前的失真来源。\(\blacksquare\)
+</div>
+
+顺带说明：收益、夏普、回撤、换手这些<strong>路径型</strong>指标无法“合并成一笔”，系统的处理是对活跃样本取平均；而胜率之所以要特别处理，恰恰因为它是唯一一个“数笔数”的指标，最容易被单只股票的笔数结构污染。
+
+<h2 id="sec-17-6"><span class="hnum">17.6</span>把参数选好看的代价：walk-forward</h2>
+
+最后一笔账，是“我怎么知道这组参数不是碰巧”。
+
+<div class="box intuition"><div class="boxbody">
+一个学生在过去十年的真题上反复练习，把每道题的答案都背了下来。他再考同一套卷子，满分。
+
+这不叫“学会了”，这叫<strong>在答案上过拟合</strong>。
+
+要判断他有没有学会，唯一的办法是给他一套<strong>他从没见过</strong>的题——样本外测试。
+
+参数寻优是同一回事：你在历史上试了一百组参数，选了成绩最好的那一组。那一组的成绩里，有一部分是“真实能力”，另一部分是“碰巧对了”。
+</div></div>
+
+这一步的偏差是可以精确写出来的。
+
+<div class="thm plain" id="prop:ch17-selection"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">17.8</span>（最大值统计量的正偏）</div>
+设 \(K\) 组候选参数的真实表现（如真实夏普）为 \(\theta_1,\dots,\theta_K\)，估计值为
+<div class="math-scroll">\[\widehat\theta_i=\theta_i+\varepsilon_i,\qquad \E[\varepsilon_i]=0,\quad i=1,\dots,K, \tag{17.14}\]</div>
+其中 \(\varepsilon_i\) 为估计噪声。则
+<ol><li>\(\E\bigl[\max_i\widehat\theta_i\bigr]\;\ge\;\max_i\theta_i\)；
+  </li><li>若噪声非退化（\(\Var(\varepsilon_i)&gt;0\)）且 \(\max_i\widehat\theta_i\) 落在一个“并列”区间内，则上述不等式<strong>严格</strong>成立；
+  </li><li>特别地，\(K\) 越大，偏差 \(\E[\max_i\widehat\theta_i]-\max_i\theta_i\) 一般越大。
+</li></ol>
+</div>
+
+这个命题在说什么：它解释了为什么“我试了一百组参数，挑最好的”这个动作本身就会<strong>系统性地</strong>把成绩抬高。抬高多少不由你的诚意决定，只由你试了多少组决定。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> \(\max_i(\cdot)\) 是 \(\R^K\) 上的凸函数（逐点取最大是凸的：对任意 \(i\)，\(\max\) 是线性函数的逐点上确界，而线性函数既是凸也是凹，凸函数的上确界仍凸）。由 Jensen 不等式，对凸函数 \(f\) 有 \(f(\E[X])\le\E[f(X)]\)，取 \(X=\widehat\theta=(\widehat\theta_1,\dots,\widehat\theta_K)\)：
+<div class="math-scroll">\[\max_i\E[\widehat\theta_i]\;\le\;\E\bigl[\max_i\widehat\theta_i\bigr].\]</div>
+而 \(\E[\widehat\theta_i]=\theta_i\)（噪声零均值），故左边 \(=\max_i\theta_i\)，得到 (i)。
+
+<em>(ii)</em> 由 Jensen 不等式取等的条件：凸函数 \(f\) 上 \(\E[f(X)]=f(\E[X])\) 当且仅当 \(X\) 在 \(\E[X]\) 的每一个 \(f\)-活跃面上几乎必然取常值。对 \(\max\) 函数，这意味着 \(\widehat\theta\) 几乎必然落在某个单一的“活跃面”（即最大值指标 \(i^\ast=\argmax_i\widehat\theta_i\) 恒定）上。若存在至少两个指标 \(i\ne j\) 使 \(\theta_i=\theta_j=\max_k\theta_k\) 且 \(\Var(\varepsilon_i-\varepsilon_j)&gt;0\)，则 \(\argmax\) 会随噪声在 \(i,j\) 间跳动，不满足取等条件，于是不等式严格。
+
+<em>(iii)</em> 记 \(M_K=\max_{i\le K}\widehat\theta_i\)。因为 \(\max\) 关于指标集单调不减（\(M_{K+1}\ge M_K\) 逐样本成立），故 \(\E[M_{K+1}]\ge\E[M_K]\)：加入新的候选参数<strong>不可能</strong>降低期望最大值。在候选参数彼此独立同分布、噪声非退化的常见情形下，\(\E[M_K]\) 关于 \(K\) 严格递增。又由 (i) 得偏差 \(=\E[M_K]-\max_i\theta_i\ge0\) 且随 \(K\) 单调不减。\(\blacksquare\)
+</div>
+
+系统的对策叫 <strong>walk-forward 时间切分</strong>，写在 <code class="sysfile">internal/backtest/grid.go</code> 里：
+
+<figure class="listing" id="{lst:ch17-walkforward}"><figcaption><span class="lbl">代码 17.1</span>walk-forward 切分与样本外验证（节选自 <code class="sysfile">internal/backtest/grid.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// walk-forward 时间切分：样本内前70%，样本外后30%</span></span>
+<span class="cl">trainEnd := len(bars) * 7 / 10</span>
+<span class="cl">train, test := bars[:trainEnd], bars[trainEnd:]</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 逐组回测：只在前 train 段评分、选参</span></span>
+<span class="cl"><span class="kw">for</span> t := <span class="kw">range</span> jobCh {</span>
+<span class="cl">    r := runComboOnSegment(req.StrategyType, t.params, train, req, dm)</span>
+<span class="cl">    results[t.idx] = GridComboResult{ /* 记录 IsSharpe / IsReturn ... */ }</span>
+<span class="cl">}</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 排序：0 成交的组合一律排在后面（防止选出&quot;零成交的虚假最优&quot;）</span></span>
+<span class="cl">sort.SliceStable(results, <span class="kw">func</span>(i, j <span class="kw">int</span>) <span class="kw">bool</span> {</span>
+<span class="cl">    a, b := results[i], results[j]</span>
+<span class="cl">    <span class="kw">if</span> (a.IsTrades == 0) != (b.IsTrades == 0) { <span class="kw">return</span> a.IsTrades &gt; 0 }</span>
+<span class="cl">    <span class="kw">if</span> obj == GridObjReturn { <span class="kw">return</span> a.IsReturn &gt; b.IsReturn }</span>
+<span class="cl">    <span class="kw">return</span> a.IsSharpe &gt; b.IsSharpe</span>
+<span class="cl">})</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 只在样本外（后30%）报告被选中参数的真实表现</span></span>
+<span class="cl">best := results[0]</span>
+<span class="cl">oos := runComboOnSegment(req.StrategyType, best.Params, test, req, dm)</span></code></pre></figure>
+
+这段话在说什么：选参这件事<strong>只允许看到前 70% 的数据</strong>；被选中的那组参数，要拿到它没见过的后 30% 上去跑一遍，把那个成绩单独报出来。表 <a class="xref" href="ch17.html#tab:ch17-grid">表 17.3</a> 是网格扫描的输出结构——注意它同时给出 <code class="code">BestIsSharpe</code>（样本内）和 <code class="code">OosSharpe</code>（样本外）两个数，这是刻意设计：<strong>不让你只看那个好看的数字</strong>。
+
+<figure class="tbl" id="tab:ch17-grid"><div class="tbl-scroll"><table><caption><span class="lbl">表 17.3</span>网格扫描的输出字段（<code class="code">GridScanResult</code>）</caption><tbody><tr><td><strong>字段</strong></td><td><strong>含义</strong></td><td><strong>为什么要有它</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td><code class="code">CombosTested</code></td><td>实际测试的组合数</td><td>命题 <a class="xref" href="ch17.html#prop:ch17-selection">17.8</a>(iii)：它越大，样本内成绩越不可信</td></tr><tr><td><code class="code">TrainBars</code> / <code class="code">TestBars</code></td><td>样本内 / 样本外根数</td><td>报告切分位置，可复现</td></tr><tr><td><code class="code">BestParams</code></td><td>最优参数</td><td>只在样本内选出</td></tr><tr><td><code class="code">BestIsSharpe</code></td><td>最优组的<strong>样本内</strong>夏普</td><td>好看但不作数</td></tr><tr><td><code class="code">OosSharpe</code> / <code class="code">OosReturn</code> / <code class="code">OosMaxDD</code></td><td><strong>样本外</strong>夏普 / 年化 / 回撤</td><td>唯一作数的成绩</td></tr><tr><td><code class="code">Method</code></td><td>防前视方法说明</td><td>把“怎么防的”写进结果，方便审计</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">组合数超过 200 会被截断为前 200 组；扫描要求至少 40 根 K 线。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/backtest/grid.go</code> 的 <code class="code">GridScanResult</code> 与 <code class="code">scanGrid</code>；核对时间 2026-09-24。</p></figure>
+
+<div class="box pitfall"><div class="boxbody">
+这是量化里最常见、也最隐蔽的一种自欺，所以我要先把它点名，下一章专门拆开。
+
+<strong>随机划分</strong>：把全部历史打乱，随机分 70% 训练、30% 测试。对时间序列这是错的，因为打乱之后“未来”会流进训练集——你的模型见过它。正确做法是按时间切分。
+
+<strong>全量 fit scaler</strong>：先在全样本上算均值和标准差，再分别标准化训练集和测试集。这看起来无害，但均值和标准差里已经包含测试集的信息，泄漏已经发生。
+
+这两条合起来的效果是：回测指标会<strong>变得更漂亮</strong>，而不是报警。系统的事实清单里记录了同一个坑在 ML 策略上的完整症状（第 #26 条）——模型指标虚高、实盘失效。第 <a class="xref" href="ch18.html#ch:ch18">第十八章</a> 章会给出它的形式化版本。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+样本池的目的是<strong>让统计量有意义</strong>，不是“让曲线更好看”。
+
+样本池回测优先取当前持仓，是因为持仓标的代表了你实际会交易的宇宙；它回退到指数，是因为持仓为空时也要有一个可算的对象。
+
+需要留意的是聚合口径带来的一个副作用：<strong>当样本池里各标的的成交笔数极不均衡时，交易聚合胜率会被笔数多的那只主导</strong>。这不是缺陷——这正是命题 <a class="xref" href="ch17.html#prop:ch17-winrate">17.7</a> 说的“交易加权”的正确含义——但你必须知道你在读的是“交易平均”还是“标的平均”，两者不等。
+</div></div>
+
+<h2 id="sec-17-7"><span class="hnum">17.7</span>它在系统里长什么样</h2>
+
+把本章的四个部件按调用顺序摆出来：数据入口统一（自动识别市场、优先 DuckDB、回退 TDX、日期过滤）\(\to\) 撮合口径强制 <code class="code">ExecNextOpen</code> \(\to\) 三因子成本逐笔扣减 \(\to\) 参数扫描时做 walk-forward 切分 \(\to\) 样本池聚合出胜率并回写策略表。
+
+<figure class="fig" id="fig:ch17-chain"><img class="tikz" src="assets/tikz/tikz-11.svg" alt="示意图"><figcaption><span class="lbl">图 17.1</span>回测链路的五个环节。前三环决定“数字真不真”，后两环决定“数字算不算数”。</figcaption></figure>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>三因子成本模型与默认参数、逐笔买入/卖出成本：<code class="sysfile">internal/backtest/cost_model.go</code> 的 <code class="code">DefaultCostModel</code>、<code class="code">BuyCost</code>、<code class="code">SellCost</code>、<code class="code">impact</code>
+  </li><li>次日开盘撮合与前视消除、按披露日注入财务、自适应涨跌停：<code class="sysfile">internal/backtest/service.go</code>
+  </li><li>walk-forward 参数网格扫描与样本外验证、0 成交兜底排序：<code class="sysfile">internal/backtest/grid.go</code> 的 <code class="code">scanGrid</code>
+  </li><li>样本池回测、\(1500\) 根回看、有界 worker 池、胜率聚合与指标回写：<code class="sysfile">internal/strategy/service.go</code> 的 <code class="code">RefreshStrategyMetrics</code>
+  </li><li>交易口径（买入仅佣金、卖出佣金 + 印花税）：<code class="sysfile">internal/portfolio</code> 与 <code class="code">OrderCostTool</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（二十分钟）</div><div class="boxbody">
+<ol><li>打开<strong>回测</strong>页，选一条你熟悉的策略（比如双均线），跑一次。把结果页上的“年化收益”“夏普”“最大回撤”“胜率”四个数抄下来。
+  </li><li>在同一个页面上找到<strong>参数扫描</strong>入口，选目标 <code class="code">sharpe</code>，让它跑。跑完对比两个数：<code class="code">BestIsSharpe</code>（样本内）和 <code class="code">OosSharpe</code>（样本外）。<strong>它们之间的落差，就是命题 <a class="xref" href="ch17.html#prop:ch17-selection">17.8</a> 的实测版本。</strong>
+  </li><li>去<strong>策略管理</strong>页，点一次「刷新」。观察“胜率”那一格有没有变化——如果它变了，说明你上一次看到的是单标的算出来的旧值，现在是样本池聚合值。
+  </li><li>现在做一道手算题：用表 <a class="xref" href="ch17.html#tab:ch17-effrate">表 17.2</a> 的公式，算一算如果你把 10 万元分成 20 份、每份 5,000 元买入，佣金一共要付多少？再算只分 2 份、每份 5 万元，佣金一共多少？两次的差，就是“过度分散”的票价。
+  </li><li>最后想一想：把 50,000 元的单子拆成 4 笔，冲击成本降为 \(1/\sqrt{4}=1/2\)；那拆成 100 笔是不是降为 \(\sqrt{100}=10\) 分之一？请回到注 <a class="xref" href="ch17.html#rem:ch17-sqrt-limit">17.4</a> 第三条，说说为什么“越多越好”在这里不成立。
+</li></ol>
+</div></div>
+
+成本、前视、样本池——这三笔账算完，我至少知道我的回测“少算了几项”。可是还有一笔更大的账没算：那些<strong>看起来很聪明</strong>的模型。
+
+第九章挑出来的那条机器学习策略，回测三个指标漂亮得不像话。下一章我们就去看它为什么经常打不过三条均线——以及那五个模型集成在一起，到底是真的更稳，还是只是把同一个错误抄了五遍。
+
+</article>
+<nav class="pager"><a class="prev" href="ch16.html"><span class="dir">上一页</span>第十六章 十七种策略：它们其实只做一件事</a><a class="next" href="ch18.html"><span class="dir">下一页</span>第十八章 机器学习的陷阱：五个模型为什么常常输给三条均线</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch17-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch17-1">↩</a></li><li id="fn-ch17-2"><strong>复算数据</strong> 该数字为本书按系统实现中的同一公式、在系统的真实数据上重新计算所得；公式出处已在正文标注。 <a class="fn-back" href="#fnref-ch17-2">↩</a></li><li id="fn-ch17-3"><strong>数据来源</strong> 只读查询 <code class="dbtab">stock.ohlc</code> 中 <code class="code">sh600519</code> 的前 60 根日线，按 \(\sigma=\mathrm{std}(\ln(P_t/P_{t-1}))\) 复算；查询日 2026-09-24。 <a class="fn-back" href="#fnref-ch17-3">↩</a></li><li id="fn-ch17-4"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch17-4">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

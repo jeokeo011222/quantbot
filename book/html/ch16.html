@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>十七种策略：它们其实只做一件事 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·十七种策略：它们其实只做一件事">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch16.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html" class="current"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a><ul class="sub"><li><a href="#sec-16-1">16.1 同一天，十七个策略吵起来了</a></li><li><a href="#sec-16-2">16.2 工具箱里的十七把螺丝刀</a></li><li><a href="#sec-16-3">16.3 没有统一接口，要付三种代价</a></li><li><a href="#sec-16-4">16.4 一个接口，三种输出</a></li><li><a href="#sec-16-4-1">16.4.1 十七个函数体，其实只有两种算法</a></li><li><a href="#sec-16-4-2">16.4.2 均线信号的可分解性与水平位移不变性</a></li><li><a href="#sec-16-4-3">16.4.3 超级趋势：让通道跟着波动呼吸</a></li><li><a href="#sec-16-5">16.5 它在系统里长什么样</a></li><li><a href="#sec-16-5-1">16.5.1 新增一个策略，要同时动三处</a></li><li><a href="#sec-16-5-2">16.5.2 指标为什么自己写</a></li><li><a href="#sec-16-6">16.6 常见误解与纠偏</a></li><li><a href="#sec-16-7">16.7 真实出处</a></li></ul></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch16"><span class="cnum">第十六章</span>十七种策略：它们其实只做一件事</h1>
+
+
+
+
+
+<h2 id="sec-16-1"><span class="hnum">16.1</span>同一天，十七个策略吵起来了</h2>
+
+这件事发生在我做「每日策略」那个功能的时候。
+
+想法很简单：既然系统内置了十七个策略，那就让它们在<strong>同一只股票、同一段日 K 线</strong>上各跑一遍，把结果拉出来排个序，看哪个更好。
+
+排序做不下去。因为它们的输出不是分数，是方向。
+
+同一根 K 线上，双均线说买，RSI 说卖，KDJ 说再等等，DMI 说有趋势但强度不够，CMF 说资金在往外走。十七个策略，给了我七八个不同的答案。
+
+我第一反应是“参数不对”。我把几个策略的周期挨个调了一遍，重新跑。答案还是打架，只是换了个位置打架。
+
+第二个反应才是我真正需要的：<strong>我根本不知道这十七个东西分别在算什么。</strong>我一直在问“哪个策略更好”，却从来没有问过“它们在算同一件事吗”。
+
+那天晚上我把十七个策略的实现逐个读了一遍。读完的结论让我有点意外：<strong>它们确实只做一件事。</strong>
+
+<h2 id="sec-16-2"><span class="hnum">16.2</span>工具箱里的十七把螺丝刀</h2>
+
+<div class="box intuition"><div class="boxbody">
+我桌上有个小工具箱：一字、十字、内六角、梅花。四种刀头，形状完全不同。
+
+可它们干的是同一件事：把螺丝转进去、转出来。挑用哪把的时候，我从来不看“哪把刀更好”，只看<strong>这颗螺丝是什么型号</strong>。
+
+策略也一样。十七个名字听起来像十八般武艺，其实每一个都只回答同一个问题：<em>在这个时点，我该买、该卖，还是该不动？</em>
+
+它们的区别不在功能，而在<strong>它们盯的是行情里的哪一种形状</strong>——有人盯趋势的斜率，有人盯价格偏离均值多远，有人盯成交量与资金方向。同一段行情里，这几种形状常常互相矛盾，所以答案互相矛盾。
+
+从这个角度说，“十七个策略哪个最好”这个问题，跟“一字螺丝刀和十字螺丝刀哪个更好”是同一个问题：<strong>问错了对象</strong>。
+</div></div>
+
+还有一层很像的地方：螺丝刀之所以能换刀头，是因为握把是同一个。策略也一样——它们能放在一起比较、一起回测、一起调参，是因为<strong>接口是同一个，实现是可插拔的</strong>。
+
+<h2 id="sec-16-3"><span class="hnum">16.3</span>没有统一接口，要付三种代价</h2>
+
+在动手之前，我得先把“为什么必须统一”说清楚，否则“统一接口”听起来只是程序员的口味问题。
+
+<strong>代价一：你没法比较任何两个策略。</strong>
+
+如果每个策略自己定义输入和输出——一个吃日 K，一个吃分钟 K，一个吐“信号”，一个吐“目标仓位”——那么“A 比 B 好”这句话就没有公共口径。你手里的比较结果，比的其实是两套不同的记账方式。
+
+<strong>代价二：每加一件新东西，成本是乘法不是加法。</strong>
+
+回测、参数网格扫描、每日策略选优、盘中策略减仓，这是四条独立的功能链。如果每个策略都要为这四条链各写一套适配，那么策略数 \(17\) 与链路数 \(4\) 的乘积就是 \(68\) 处需要维护的接缝。接缝越多，出错概率越大。
+
+<strong>代价三：出了问题，你分不清是信号错了还是执行错了。</strong>
+
+如果“策略判断行情”和“系统怎么用它”混在一个函数里，那么一次亏损就有两种完全不同的解释：要么是信号本身在这个环境里失效，要么是引擎把它用错了。这两件事的修法完全不同，混在一起就永远查不清。
+
+系统的答案短得有点不讲道理：一个只有两个方法的接口，定义在 <code class="sysfile">internal/backtest/strategies.go</code>。
+
+<h2 id="sec-16-4"><span class="hnum">16.4</span>一个接口，三种输出</h2>
+
+<figure class="listing" id="{lst:ch16-interface}"><figcaption><span class="lbl">代码 16.1</span>策略接口与信号常量（节选）</figcaption><pre class="code"><code><span class="cl"><span class="com">// Strategy 策略接口</span></span>
+<span class="cl"><span class="kw">type</span> Strategy <span class="kw">interface</span> {</span>
+<span class="cl">    Name() <span class="kw">string</span></span>
+<span class="cl">    GenerateSignals(bars []BarData) []StrategySignal</span>
+<span class="cl">}</span>
+<span class="cl"></span>
+<span class="cl"><span class="kw">const</span> (</span>
+<span class="cl">    SignalNone StrategySignal = 0   <span class="com">// 不动</span></span>
+<span class="cl">    SignalBuy  StrategySignal = 1   <span class="com">// 买</span></span>
+<span class="cl">    SignalSell StrategySignal = -1  <span class="com">// 卖</span></span>
+<span class="cl">)</span></code></pre></figure>
+
+两个方法：一个报出自己的名字，一个吃一串 K 线、吐一串信号。
+
+注意输出的是“信号序列”而不是“买卖决策”。信号序列和 K 线等长，第 \(i\) 位上的值属于 \(\{-1,0,+1\}\)：策略只是在说“<strong>第 \(i\) 根 K 线上出现了一个买点</strong>”，它不知道账户里有多少钱、当时仓位多少、这只股票是不是躺在涨停板上。那些全部由后面的引擎负责。
+
+这正是“可插拔”的准确含义：<em>策略负责形状，引擎负责后果。</em>
+
+那么十七种策略的“不同”，全藏在 <code class="code">GenerateSignals</code> 的函数体里。我把它们读完，归纳出一个有点扫兴的结论。
+
+<h3 id="sec-16-4-1"><span class="hnum">16.4.1</span>十七个函数体，其实只有两种算法</h3>
+
+<strong>第一种：比较两条线。</strong>先把 K 线算成两条（或一条线与一条阈值线），再看谁在上面、有没有交叉。
+
+<ul><li>双均线：MA15 与 MA20
+  </li><li>EXPMA：EMA12 与 EMA50
+  </li><li>KDJ 金叉：K 与 D（再加 J 的高低门槛）
+  </li><li>TRIX：TRIX 与它自己的均线
+  </li><li>DMI：PDI 与 MDI（再加 ADX 的强度门槛）
+  </li><li>HMA：收盘价与 HMA
+  </li><li>Aroon：AroonUp 与 AroonDown
+  </li><li>布林带突破：收盘价与上下轨
+  </li><li>超级趋势：收盘价与最终轨道
+</li></ul>
+
+<strong>第二种：把一个数拿去和阈值比。</strong>
+
+<ul><li>RSI：和 30 / 70 比
+  </li><li>KDJ 里的 J 值：和 30 / 70 比
+  </li><li>MFI：和 30 / 70 比
+  </li><li>MTM：和 0 比
+  </li><li>CCI：和 \(\pm100\) 比
+  </li><li>CMF：和 \(\pm0.05\) 比
+  </li><li>海龟：和 40 日最高价 / 5 日最低价比
+  </li><li>捉妖大师：几个周期的涨幅分别和门槛比，再要求“共振”
+</li></ul>
+
+机器学习策略看起来是第三种：它吐出一个概率。可它最后还是把概率和 \(0.5\) / \(0.3\) 比——又回到了第二种。
+
+所以“十七种策略”更准确的说法是：<strong>十七套把 K 线变成数字的公式，加上两种比较方式。</strong>
+
+而第一种里的绝大多数成员，可以合并成同一个数学对象。这一步值得认真做，因为它能一次性回答“金叉为什么会出现在这根 K 线上”。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">16.1</span>（线性过滤器）</div>
+设 \(p_t\) 为收盘价序列。称
+<div class="math-scroll">\[L_t=\sum_{k=0}^{K}c_k\,p_{t-k} \tag{16.1}\]</div>
+是一个<strong>线性过滤器</strong>，\(c_0,\dots,c_K\) 是它的权重。若某个策略用来比较的量可以写成这样的 \(L_t\)，就称这个策略是线性的。
+</div>
+
+<h3 id="sec-16-4-2"><span class="hnum">16.4.2</span>均线信号的可分解性与水平位移不变性</h3>
+
+<div class="thm plain" id="thm:ch16-ma"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">16.2</span>（均线交叉信号的可分解性与水平位移不变性）</div>
+设 \(1\le F&lt;S\)。记快、慢均线为
+<div class="math-scroll">\[\mathrm{MA}_F(t)=\frac1F\sum_{k=0}^{F-1}p_{t-k},\qquad
+\mathrm{MA}_S(t)=\frac1S\sum_{k=0}^{S-1}p_{t-k}, \tag{16.2}\]</div>
+并记差分 \(D_t=\mathrm{MA}_F(t)-\mathrm{MA}_S(t)\)。则：
+
+<em>(i)（可分解性）</em> \(D_t\) 是一个线性过滤器：
+<div class="math-scroll" id="eq:ch16-coeff">\[D_t=\sum_{k=0}^{S-1}c_k\,p_{t-k},\qquad
+c_k=\begin{cases}\ \dfrac1F-\dfrac1S, &amp; 0\le k\le F-1,\\[6pt]
+-\dfrac1S, &amp; F\le k\le S-1.\end{cases} \tag{16.3}\]</div>
+
+<em>(ii)（零和）</em> \(\displaystyle\sum_{k=0}^{S-1}c_k=0\)。
+
+<em>(iii)（水平位移不变性）</em> 若把整条价格序列整体抬高一个常数，即 \(p_t\mapsto p_t+a\)（\(a\) 为任意实数），则 \(D_t\) 逐位不变。
+
+<em>(iv)（正齐次性）</em> 若 \(p_t\mapsto \lambda p_t\)（\(\lambda&gt;0\)），则 \(D_t\mapsto\lambda D_t\)。因为 \(\lambda&gt;0\)，金叉条件 \(\{D_{t-1}\le0&lt;D_t\}\) 与死叉条件 \(\{D_{t-1}\ge0&gt;D_t\}\) 的判定完全不变。
+
+<em>(v)（平盘无信号）</em> 若 \(p_t\equiv p\) 为常数，则 \(D_t\equiv0\)，金叉与死叉都不触发。
+</div>
+
+这个定理在说什么：一句“MA15 上穿 MA20”，数学上就是“一个权重和为零的线性过滤器，从非正变成正”。<strong>它只看价格的形状，完全不看价格的绝对水平。</strong>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 两个和式的长度不同（\(S&gt;F\)，慢线更长），先把它们对齐到同一个下标范围 \(\{0,\dots,S-1\}\)：
+<div class="math-scroll">\begin{align}D_t&amp;=\frac1F\sum_{k=0}^{F-1}p_{t-k}-\frac1S\sum_{k=0}^{S-1}p_{t-k}\\
+&amp;=\underbrace{\sum_{k=0}^{F-1}\Bigl(\frac1F-\frac1S\Bigr)p_{t-k}}_{\text{快线覆盖的前 }F\text{ 个}}
++\underbrace{\sum_{k=F}^{S-1}\Bigl(0-\frac1S\Bigr)p_{t-k}}_{\text{只被慢线覆盖的 }S-F\text{ 个}} . \tag{16.4}\end{align}</div>
+第一段对应 \(k=0,\dots,F-1\)，系数为 \(1/F-1/S\)；第二段对应 \(k=F,\dots,S-1\)，系数为 \(-1/S\)。写成分段形式即 <a class="xref" href="ch16.html#eq:ch16-coeff">式 (16.3)</a>。
+
+<em>(ii)</em> 把两段系数分别求和：
+<div class="math-scroll">\[\sum_{k=0}^{S-1}c_k
+=\underbrace{F\Bigl(\frac1F-\frac1S\Bigr)}_{F\text{ 个}}
++\underbrace{(S-F)\Bigl(-\frac1S\Bigr)}_{S-F\text{ 个}}
+=\Bigl(1-\frac FS\Bigr)-\Bigl(1-\frac FS\Bigr)=0 . \tag{16.5}\]</div>
+
+<em>(iii)</em> 用 (i) 的分解式，把每一个 \(p_{t-k}\) 换成 \(p_{t-k}+a\)：
+<div class="math-scroll">\[D_t(p+a\mathbf1)=\sum_{k=0}^{S-1}c_k\,(p_{t-k}+a)
+=\underbrace{\sum_{k=0}^{S-1}c_k\,p_{t-k}}_{=\,D_t(p)}
+\qquad
++a\underbrace{\sum_{k=0}^{S-1}c_k}_{=\,0}=D_t(p). \tag{16.6}\]</div>
+关键在最后一步：<strong>整体位移带来的那一项 \(a\sum_k c_k\)，被 (ii) 直接清零了。</strong>
+
+<em>(iv)</em> 同样展开：
+<div class="math-scroll">\[D_t(\lambda p)=\sum_{k=0}^{S-1}c_k\,\lambda\,p_{t-k}=\lambda\,D_t(p). \tag{16.7}\]</div>
+\(\lambda&gt;0\) 时，\(\lambda D_{t-1}\le0\) 当且仅当 \(D_{t-1}\le0\)；\(\lambda D_t&gt;0\) 当且仅当 \(D_t&gt;0\)。两个不等式的方向都不变，所以金叉的判定不变；死叉同理。
+
+<em>(v)</em> \(p_t\equiv p\) 时，两个均线的每一个窗口平均都等于 \(p\)，故 \(\mathrm{MA}_F(t)=\mathrm{MA}_S(t)=p\)，于是 \(D_t=0\) 对一切 \(t\) 成立。金叉要求 \(D_t&gt;0\)、死叉要求 \(D_t&lt;0\)，两者都永远不成立。
+</div>
+
+<div class="thm plain" id="cor:ch16-linear"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">16.3</span>（水平位移不变性的一般判据）</div>
+对一般线性过滤器 \(L_t=\sum_{k=0}^Kc_k\,p_{t-k}\)，“整体加常数后不变”当且仅当 \(\sum_kc_k=0\)。
+
+特别地，“收盘价上穿 \(n\) 日均线”也是零和的：它的权重是 \(c_0=1-1/n\)，\(c_1=\dots=c_{n-1}=-1/n\)，求和得 \(1-1=0\)。所以它与“快线上穿慢线”属于同一个家族。
+
+反过来，RSV、RSI 这类<strong>比值型</strong>指标不属于这一家族：它们靠“除以区间宽度”免疫于位移，代价是引入了非线性。
+</div>
+
+这句推论值得单独说一句：<strong>线性类策略的共同点是“看形状不看价位”，比值类策略的共同点是“看相对位置不看绝对位置”。</strong>两类都不会因为一只股票是 5 元还是 500 元而改变信号——这是它们能在全市场几千只股票上直接复用的前提。
+
+<div class="thm remark" id="rem:ch16-warmup"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">16.4</span>（一个我照实写下来的不一致）</div>
+定理 <a class="xref" href="ch16.html#thm:ch16-ma">16.2</a> 的 (v) 说的是“价格恒定时不触发信号”。这句话有一个隐藏前提：<strong>参与比较的均线必须是有效值。</strong>
+
+系统里的简单均线在窗口未满时返回的是零占位系统源码 <code class="sysfile">internal/backtest/indicators.go</code> 的 <code class="code">MA</code>：仅在 <code class="code">i &gt;= period-1</code> 时写入均值，更早的位置保持切片初始值 \(0\)。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-1" href="#fn-ch16-1">1</a></sup>。于是取 \(F=15\)、\(S=20\) 时，从 0 计数的第 \(14\) 根 K 线上，快线刚刚变成有效值、慢线仍然是 \(0\)；交叉判定函数看到的是“一条线从 \(0\) 上穿到正数”，会认成一次金叉。
+
+后加入的四个策略都显式把预热区关掉了：<code class="code">super_trend</code> 与 <code class="code">aroon</code>、<code class="code">hma</code> 都在 <code class="code">i &lt; period</code> 时直接跳过，<code class="code">cmf</code> 跳过 <code class="code">i &lt; period-1</code>系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 中四个 <code class="code">GenerateSignals</code> 的循环头部。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-2" href="#fn-ch16-2">2</a></sup>。而最早写入的双均线与 EXPMA 策略，循环从 \(i=1\) 开始，没有这道闸门。
+
+我没有把这个不一致偷偷改掉，而是把它写在这里，因为它正好说明一件事：<strong>“接口统一”不等于“实现对不齐的问题自动消失”</strong>。凡是可能返回占位值的指标，调用方都必须自己把预热区关掉——这是策略作者的责任，不是接口的责任。
+</div>
+
+<h3 id="sec-16-4-3"><span class="hnum">16.4.3</span>超级趋势：让通道跟着波动呼吸</h3>
+
+第二种算法里的“阈值”是死的（30、70、\(\pm0.05\)）；第一种算法里的两条线又太钝。有没有一种办法，让阈值自己随市场波动调整？有，而且它只用到一个统计量。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">16.5</span>（真实波幅与 ATR）</div>
+设 \(H_t,L_t,C_t\) 为第 \(t\) 根 K 线的高、低、收。定义真实波幅
+<div class="math-scroll">\[\mathrm{TR}_t=\max\bigl\{H_t-L_t,\ \abs{H_t-C_{t-1}},\ \abs{L_t-C_{t-1}}\bigr\}\quad(t\ge1),
+\qquad \mathrm{TR}_0=H_0-L_0 . \tag{16.8}\]</div>
+给定周期 \(k\)，平均真实波幅 ATR（Wilder 平滑）为
+<div class="math-scroll">\[\mathrm{ATR}_k=\frac1k\sum_{j=1}^{k}\mathrm{TR}_j,\qquad
+\mathrm{ATR}_t=\frac{(k-1)\,\mathrm{ATR}_{t-1}+\mathrm{TR}_t}{k}\quad(t&gt;k). \tag{16.9}\]</div>
+</div>
+
+这段定义里有一个细节值得停一下：\(\mathrm{TR}_t\) 把“当日振幅”和“跳空”都算进去了——\(H_t-L_t\) 管日内，\(\abs{H_t-C_{t-1}}\) 与 \(\abs{L_t-C_{t-1}}\) 管隔夜跳空。取三者最大，等于<strong>不管波动出现在日内还是隔夜，都算数</strong>。而 ATR 的递推式说明它是“把当前波动以 \(1/k\) 的权重滚进平均值”。
+
+有了 ATR，超级趋势把中线与两条基本轨定义成
+<div class="math-scroll">\[M_t=\frac{H_t+L_t}{2},\qquad B^U_t=M_t+m\,\mathrm{ATR}_t,\qquad B^L_t=M_t-m\,\mathrm{ATR}_t . \tag{16.10}\]</div>
+
+系统里取的默认参数是 \(k=10\)、\(m=3.0\)系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">SuperTrendStrategy</code> 与 <code class="code">BuiltinStrategies</code> 中 <code class="code">super_trend</code> 的 <code class="code">ConfigJSON</code>：<code class="code">period=10</code>、<code class="code">multiplier=3.0</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-3" href="#fn-ch16-3">3</a></sup>。
+
+<div class="thm plain" id="thm:ch16-st"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">16.6</span>（超级趋势 ATR 通道的宽度、单调性与有界性）</div>
+<em>(i)（宽度）</em> 两条基本轨之间的宽度为
+<div class="math-scroll">\[B^U_t-B^L_t=2m\,\mathrm{ATR}_t , \tag{16.11}\]</div>
+且当 \(\mathrm{ATR}_t&gt;0\) 时，它对 \(m&gt;0\) 严格单调增：\(m\) 越大，通道越宽。
+
+<em>(ii)（单向收紧）</em> 设最终上轨由收敛规则
+<div class="math-scroll">\[F^U_t=\begin{cases}B^U_t, &amp; B^U_t&lt;F^U_{t-1}\ \text{或}\ C_{t-1}&gt;F^U_{t-1},\\[4pt]
+F^U_{t-1}, &amp; \text{否则}\end{cases} \tag{16.12}\]</div>
+生成。若 \(C_{t-1}\le F^U_{t-1}\)（上一根 K 线没有突破上轨），则
+<div class="math-scroll">\[F^U_t=\min\bigl\{F^U_{t-1},\,B^U_t\bigr\}\ \le\ F^U_{t-1}, \tag{16.13}\]</div>
+即上轨只降不升。对偶地，若 \(C_{t-1}\ge F^L_{t-1}\)，则 \(F^L_t=\max\bigl\{F^L_{t-1},B^L_t\bigr\}\ge F^L_{t-1}\)，下轨只升不降。
+
+<em>(iii)（有界性）</em> 若价格始终落在 \([P_{\min},P_{\max}]\) 内，记 \(R=P_{\max}-P_{\min}\)，则对一切 \(t\ge k\)，
+<div class="math-scroll">\[0\le\mathrm{TR}_t\le R,\qquad
+0\le\mathrm{ATR}_t\le R,\qquad
+0\le B^U_t-B^L_t\le 2mR . \tag{16.14}\]</div>
+</div>
+
+这个定理在说什么：通道的宽度是“波动的 \(2m\) 倍”，不是“价格的某个固定百分比”；轨道像棘轮一样只往内收；而 ATR 有界，所以一次异常 K 线不会让通道永久变形。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 两式相减：
+<div class="math-scroll">\[B^U_t-B^L_t=(M_t+m\,\mathrm{ATR}_t)-(M_t-m\,\mathrm{ATR}_t)=2m\,\mathrm{ATR}_t . \tag{16.15}\]</div>
+右端关于 \(m\) 求导得 \(2\,\mathrm{ATR}_t\)。当 \(\mathrm{ATR}_t&gt;0\) 时导数严格为正，故关于 \(m\) 严格单调增。
+
+<em>(ii)</em> 在条件 \(C_{t-1}\le F^U_{t-1}\) 下，收敛规则里的第二个条件（\(C_{t-1}&gt;F^U_{t-1}\)）为假，于是规则退化成两分支：“若 \(B^U_t&lt;F^U_{t-1}\) 则取 \(B^U_t\)，否则取 \(F^U_{t-1}\)”。这两种情形分别给出 \(F^U_t=B^U_t\) 与 \(F^U_t=F^U_{t-1}\)，而在两种情形里取小者恰好都等于 \(\min\{F^U_{t-1},B^U_t\}\)。所以 \(F^U_t=\min\{F^U_{t-1},B^U_t\}\)。
+
+对任意两个实数，最小值不大于其中任何一个；取被比较者是 \(F^U_{t-1}\)，即得 \(F^U_t\le F^U_{t-1}\)。
+
+下轨完全对偶：把条件换成 \(C_{t-1}\ge F^L_{t-1}\)，规则退化为“取大者”，\(\min\) 换成 \(\max\)，\(\le\) 换成 \(\ge\)，逐字重复上述推理即可。
+
+<em>(iii)</em> 先证 TR 有界。因为 \(H_t\)、\(L_t\)、\(C_{t-1}\) 都落在 \([P_{\min},P_{\max}]\) 内，三个候选量的绝对值都不超过 \(R\)：
+<div class="math-scroll">\[H_t-L_t\le P_{\max}-P_{\min}=R,\qquad
+\abs{H_t-C_{t-1}}\le R,\qquad
+\abs{L_t-C_{t-1}}\le R . \tag{16.16}\]</div>
+三者取最大仍不超过 \(R\)，故 \(\mathrm{TR}_t\le R\)；另一侧 \(\mathrm{TR}_t\ge0\) 由 \(H_t\ge L_t\) 以及两个绝对值非负得到。
+
+再证 ATR 有界，用归纳法。基例 \(t=k\)：\(\mathrm{ATR}_k=\frac1k\sum_{j=1}^k\mathrm{TR}_j\) 是 \(k\) 个落在 \([0,R]\) 内的数的算术平均，仍落在 \([0,R]\) 内。
+
+归纳步：设 \(\mathrm{ATR}_{t-1}\in[0,R]\)。递推式可写成
+<div class="math-scroll">\[\mathrm{ATR}_t=\frac{k-1}{k}\,\mathrm{ATR}_{t-1}+\frac1k\,\mathrm{TR}_t , \tag{16.17}\]</div>
+这是 \(\mathrm{ATR}_{t-1}\) 与 \(\mathrm{TR}_t\) 的一个<strong>凸组合</strong>：两个系数 \(\frac{k-1}{k}\) 与 \(\frac1k\) 都非负，且和为 \(\frac{k-1}{k}+\frac1k=1\)。区间 \([0,R]\) 是凸集，凸组合仍落在其中，故 \(\mathrm{ATR}_t\in[0,R]\)。
+
+最后由 (i) 直接得到 \(0\le B^U_t-B^L_t=2m\,\mathrm{ATR}_t\le 2mR\)。
+</div>
+
+三条结论各有一个工程含义，我用三句话说完。
+
+<strong>(i) 是自适应。</strong>宽度 \(2m\,\mathrm{ATR}_t\) 随波动率缩放。一只日均振幅 2% 的股票和一只 8% 的股票，用同一组 \((k,m)=(10,3.0)\)，前者通道自动窄、后者自动宽。所以参数 \(m\) 是<strong>倍数</strong>，不是价格区间——这跟“设一个 5% 的止损”是两种完全不同的东西：后者在低波动股票上形同虚设，在高波动股票上天天被打掉。
+
+<strong>(ii) 是棘轮。</strong>没有被突破的上轨只能往下走。这带来一个副作用，我直说：<em>趋势走得越久、通道收得越紧，一次像样的回调就足以翻空</em>。所以它同时兼任两件事——顺势持有，以及自动上移的止损位（多头持仓时跟踪线取的是下轨 \(M_t-m\,\mathrm{ATR}_t\)）。
+
+<strong>(iii) 是防失控。</strong>ATR 是平均值，一次一字板带来的巨大 TR 只会以 \(1/k\) 的权重进来。\(k=10\) 时权重是 \(0.1\)，不会被一根 K 线永久带偏。
+
+还有一个细节属于工程层面，但它直接影响“第一笔交易什么时候发生”：ATR 在 \([0,k)\) 区间是零占位，\(i=k\) 才是第一个有效值。所以超级趋势策略在 \(i&lt;k\) 时一律跳过；而在 \(i=k\) 这一根上，如果方向已经是多头，就直接补一个买入信号——因为引擎只在收到买入信号时才建仓，若不补这一下，一段上来就是多头的行情会被整段错过系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">SuperTrendStrategy.GenerateSignals</code>：<code class="code">i &lt; period</code> 跳过，<code class="code">i == period</code> 时若 <code class="code">trend[i] == 1</code> 补 <code class="code">SignalBuy</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-4" href="#fn-ch16-4">4</a></sup>。
+
+<h2 id="sec-16-5"><span class="hnum">16.5</span>它在系统里长什么样</h2>
+
+先把十七个策略摆成一张表。
+
+<figure class="tbl" id="tab:ch16-strategies"><div class="tbl-scroll"><table><caption><span class="lbl">表 16.1</span>17 个内置策略：族、类型、默认参数与信号方向</caption><tbody><tr><td><strong>族</strong></td><td><strong>策略类型</strong></td><td><strong>默认参数</strong></td><td><strong>信号逻辑（买 \(\to\) 卖）</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>趋势</td><td><code class="code">ma_cross</code></td><td>\(15,\ 20\)</td><td>MA15 上穿 MA20 \(\to\) 下穿</td></tr><tr><td>趋势</td><td><code class="code">expma_cross</code></td><td>\(12,\ 50\)</td><td>EMA12 上穿 EMA50 \(\to\) 下穿</td></tr><tr><td>趋势</td><td><code class="code">dmi_trend</code></td><td>\(14,\ 25\)</td><td>PDI 在 MDI 上方且 ADX 超过 25 \(\to\) 反向</td></tr><tr><td>趋势</td><td><code class="code">trix_cross</code></td><td>\(12\)</td><td>TRIX 上穿自身均线 \(\to\) 下穿</td></tr><tr><td>趋势</td><td><code class="code">super_trend</code></td><td>\(k=10,\ m=3.0\)</td><td>方向由空翻多 \(\to\) 由多翻空</td></tr><tr><td>趋势</td><td><code class="code">hma</code></td><td>\(20\)</td><td>收盘上穿 HMA \(\to\) 下穿</td></tr><tr><td>趋势</td><td><code class="code">aroon</code></td><td>\(25\)</td><td>AroonUp 上穿 AroonDown \(\to\) 下穿</td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>动量</td><td><code class="code">mtm_momentum</code></td><td>\(30\)</td><td>MTM 上穿 0 \(\to\) 下穿 0</td></tr><tr><td>动量</td><td><code class="code">zhuoyao_momentum</code></td><td>\(20/90/180\)</td><td>多周期共振转强 \(\to\) 转弱</td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>反转</td><td><code class="code">rsi_reversal</code></td><td>\(14,\ 30/70\)</td><td>RSI 低于 30 \(\to\) RSI 高于 70</td></tr><tr><td>反转</td><td><code class="code">bollinger_breakout</code></td><td>\(20,\ 2.0\)</td><td>收盘跌破下轨 \(\to\) 突破上轨</td></tr><tr><td>反转</td><td><code class="code">kdj_golden</code></td><td>\(9/3,\ 30/70\)</td><td>K 上穿 D 且 J 低于 30 \(\to\) K 下穿 D 且 J 高于 70</td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>量价</td><td><code class="code">mfi_volume</code></td><td>\(14,\ 30/70\)</td><td>MFI 低于 30 \(\to\) MFI 高于 70</td></tr><tr><td>量价</td><td><code class="code">cmf</code></td><td>\(20,\ \pm0.05\)</td><td>CMF 上穿 \(+0.05\) \(\to\) 跌破 \(-0.05\)</td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>突破</td><td><code class="code">turtle_breakout</code></td><td>\(40,\ 5\)</td><td>收盘破 40 日高点 \(\to\) 破 5 日低点</td></tr><tr><td>突破</td><td><code class="code">cci_breakout</code></td><td>\(14,\ \pm100\)</td><td>CCI 上穿 \(+100\) \(\to\) 下穿 \(-100\)</td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>AI</td><td><code class="code">ml_model</code></td><td>5 模型集成</td><td>集成概率不低于 \(0.5\) \(\to\) 不高于 \(0.3\)</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">“族”是本书的归纳，代码里没有这个字段；类型名取自 <code class="code">BuiltinStrategies</code> 的 <code class="code">StrategyType</code>，参数取自同处 <code class="code">ConfigJSON</code>。CMF 的 \(\pm0.05\) 之间是观望带，不产生任何信号。</p>
+<p class="tabsrc">系统事实清单第 10 节的内置策略表，与 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">BuiltinStrategies</code>、<code class="code">GetStrategyByType</code> 逐条对照；核对时间 2026-09-24。</p></figure>
+
+表里的“17”不是估出来的，是数出来的：<code class="code">BuiltinStrategies</code> 这个切片里恰好有 17 条记录，它也是策略目录的<strong>单一数据源</strong>系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">BuiltinStrategies</code>（共 17 条）与 <code class="code">IsBuiltinStrategyType</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-5" href="#fn-ch16-5">5</a></sup>。
+
+单一数据源的意思是：策略的名字、类型、说明、默认参数、止损止盈，都只在这一个地方写一遍，其它地方读它。这样“系统里到底有几个策略”这个问题只有一个答案。
+
+<h3 id="sec-16-5-1"><span class="hnum">16.5.1</span>新增一个策略，要同时动三处</h3>
+
+单一数据源管住了“策略是什么”，但“策略怎么被用”还牵涉三张表。加一个策略，要同时在这三处登记：
+
+<figure class="listing" id="{lst:ch16-register}"><figcaption><span class="lbl">代码 16.2</span>新策略的三处注册（以超级趋势为例，均为节选）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 1) 构造实例：internal/backtest/strategies.go  GetStrategyByType</span></span>
+<span class="cl"><span class="kw">case</span> <span class="str">&quot;super_trend&quot;</span>:</span>
+<span class="cl">    <span class="kw">return</span> &amp;SuperTrendStrategy{Period: 10, Multiplier: 3.0}</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 2) 参数映射：internal/backtest/strategy_config.go  strategyParamFieldMap</span></span>
+<span class="cl"><span class="com">//    （JSON 配置字段名 -&gt; 策略结构体字段名）</span></span>
+<span class="cl"><span class="str">&quot;super_trend&quot;</span>: {<span class="str">&quot;period&quot;</span>: <span class="str">&quot;Period&quot;</span>, <span class="str">&quot;multiplier&quot;</span>: <span class="str">&quot;Multiplier&quot;</span>}</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 3) 调参扫描范围：同文件 defaultTuneRanges</span></span>
+<span class="cl"><span class="str">&quot;super_trend&quot;</span>: {</span>
+<span class="cl">    <span class="str">&quot;period&quot;</span>:     {Type: <span class="str">&quot;int&quot;</span>,   Min: 8,   Max: 20,  Step: 2},</span>
+<span class="cl">    <span class="str">&quot;multiplier&quot;</span>: {Type: <span class="str">&quot;float&quot;</span>, Min: 2.0, Max: 4.0, Step: 0.5},</span>
+<span class="cl">}</span></code></pre></figure>
+
+这三处的分工是：<code class="code">GetStrategyByType</code> 决定“能不能造出这个策略”；<code class="code">strategyParamFieldMap</code> 决定“配置文件里的字段能不能落到结构体上”；<code class="code">defaultTuneRanges</code> 决定“参数网格扫描时这个参数在什么范围里试”。
+
+少任何一处，症状都很隐蔽：少了第一处，策略选中了却跑不起来；少了第二处，默认参数被数据库里的值悄悄覆盖掉、你却以为改了；少了第三处，回测能跑但“策略调参”这个功能对它视而不见。
+
+后加入的四个策略（超级趋势、Aroon、HMA、CMF）三处都已登记系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">GetStrategyByType</code>、<code class="sysfile">internal/backtest/strategy_config.go</code> 的 <code class="code">strategyParamFieldMap</code> 与 <code class="code">defaultTuneRanges</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-6" href="#fn-ch16-6">6</a></sup>。
+
+<h3 id="sec-16-5-2"><span class="hnum">16.5.2</span>指标为什么自己写</h3>
+
+超级趋势、Aroon、HMA、CMF、以及它们依赖的 ATR、WMA，全部写在 <code class="sysfile">internal/backtest/indicators.go</code> 里，没有引用外部指标库系统源码 <code class="sysfile">internal/backtest/indicators.go</code> 文件头的注释：与公开领域的标准指标公式思路一致，但按本方切片接口自实现，不引入 AGPL-3.0 依赖。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-7" href="#fn-ch16-7">7</a></sup>。
+
+这不是省事，也不是图快。理由有两条，第二条比第一条重要：
+
+<strong>第一条是许可证。</strong>指标库的许可证可能对分发有约束，离线打包的桌面程序尤其要注意。
+
+<strong>第二条是公式可审计。</strong>指标是这本手册里所有数字的源头，它必须能被读懂、能被指出来。所以系统里的每个指标都是<strong>纯函数</strong>：输入一个切片，输出一个等长切片，不持有状态、不访问数据库、不依赖调用顺序。这让同一套指标能被回测、因子计算、盘面分析三处共用，而任何一处发现异常，都可以单独拿一组数据去核对。
+
+<h2 id="sec-16-6"><span class="hnum">16.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是最省事、也最容易被现实打脸的想法。
+
+同一个策略在不同环境里的表现可以完全相反。双均线在单边趋势里很漂亮——它只要“上车”然后一直坐着；可它在震荡市里会反复被假交叉打脸，一次行情来回磨三遍，手续费和滑点全交出去了。布林带正好相反：震荡里高抛低吸得很舒服，趋势里一突破就站在了错误的一边。
+
+所以正确的问法不是“哪个策略最好”，而是“<strong>这个策略适合哪一种行情</strong>”。
+
+系统的做法跟这个想法是一致的：它不指定一个“永远最好”的策略，而是每天重新选一次——按<code class="code">StrategySelectionScore</code>\(=0.4\times\)总收益\(+0.3\times\)夏普\(+0.3\times\)胜率在活跃策略里选优，写进当日的策略计划系统事实清单第 10 节：<code class="code">select_next_day_strategy</code> 未指定类型时按该加权分自动选优，写 <code class="dbtab">daily_strategy_plans</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-8" href="#fn-ch16-8">8</a></sup>。
+
+这个选法本身是个启发式（它赌“最近的相对强弱会延续一段”），但它承认了本章最重要的那个直觉：<strong>没有永远最好的策略，只有当天更合适的策略。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+我一开始也这么觉得：ATR、CMF 这些指标到处都有现成实现，抄一个过来不是更省时间？
+
+读完系统的指标实现我才明白，自己写的价值不在于“实现”，而在于<strong>每一个边界条件都是自己决定并写明理由的</strong>。举两个真实例子：
+
+<strong>例子一：KDJ 预热期的 RSV 默认取 50 而不是 0。</strong>窗口未满时算不出 RSV，如果按零值处理，那么这个 0 会被卷进 K、D 的平滑递推里，导致指标初期异常、信号失真。所以系统显式地把预热期的 RSV 设成中性的 50，并把理由写在注释里系统源码 <code class="sysfile">internal/backtest/indicators.go</code> 的 <code class="code">KDJ</code>：<code class="code">for i := 0; i &lt; n-1; i++ { rsv[i] = 50 }</code> 及紧随其后的注释。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-9" href="#fn-ch16-9">9</a></sup>。
+
+<strong>例子二：CMF 的预热区恰好“无害”，但仍然显式跳过。</strong>\(i&lt;period-1\) 时 CMF 返回 0，而 0 正好落在 \([-0.05,+0.05]\) 的观望带里，所以即便不跳过也不会误发信号。系统的选择是仍然在循环里显式 <code class="code">continue</code>同上文件 <code class="code">CMF</code> 与 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">CMFStrategy.GenerateSignals</code>：<code class="code">if i &lt; period-1 { continue }</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch16-10" href="#fn-ch16-10">10</a></sup>。
+
+为什么不利用这个巧合？因为<strong>巧合不是设计</strong>。今天参数是 \(\pm0.05\)，明天调参调到 \(\pm0.03\)，或者阈值被改成 0，这个“无害”立刻变成“每天开盘就发信号”。把正确性建立在“当前参数恰好让它无害”上，是借来的正确。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+策略只输出 \(-1/0/+1\)，它对“多少钱、多少仓位、买不买得进”一无所知。
+
+同一个买入信号，落在不同的市场环境里，后果完全不同。如果当天的六维判势给的是“退潮风险”、仓位系数 0.06，那么这笔订单会被缩到几乎可以忽略的大小。你会在成交记录里看到一笔很小的买单，然后以为“策略失效了”。
+
+它没有失效。是决策层在干活：<em>信号回答“什么时候”，仓位系数回答“买多少”，风控回答“能不能买”</em>。这三件事分属三个模块，把它们混在一句话里，就会得出错误的结论。第 <a class="xref" href="ch19.html#ch:ch19">十九</a> 章会专门讲中间那层。
+</div></div>
+
+<h2 id="sec-16-7"><span class="hnum">16.7</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>策略接口与信号常量（<code class="code">Name</code>、<code class="code">GenerateSignals</code>、<code class="code">SignalNone/Buy/Sell</code>）：<code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">Strategy</code> 接口
+  </li><li>十七个内置策略的单一数据源（名称、类型、说明、默认 <code class="code">ConfigJSON</code>、止损止盈）：同文件的 <code class="code">BuiltinStrategies</code> 与 <code class="code">IsBuiltinStrategyType</code>
+  </li><li>各策略的构造与默认参数：同文件的 <code class="code">GetStrategyByType</code>
+  </li><li>参数映射与调参扫描范围：<code class="sysfile">internal/backtest/strategy_config.go</code> 的 <code class="code">strategyParamFieldMap</code>、<code class="code">defaultTuneRanges</code> 与 <code class="code">GetDefaultTuneRanges</code>
+  </li><li>指标自实现（MA、EMA、ATR、WMA、HMA、Aroon、CMF、SuperTrend）：<code class="sysfile">internal/backtest/indicators.go</code>
+  </li><li>预热期处理：<code class="code">super_trend</code>/<code class="code">aroon</code>/<code class="code">hma</code> 的 <code class="code">i &lt; period</code>、<code class="code">cmf</code> 的 <code class="code">i &lt; period-1</code>、<code class="code">KDJ</code> 的 RSV 中性初值
+  </li><li>每日策略选优与落库（<code class="code">StrategySelectionScore</code>、<code class="dbtab">daily_strategy_plans</code>）：系统事实清单第 10 节所述的 <code class="tool">select_next_day_strategy</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（二十分钟）</div><div class="boxbody">
+<ol><li>打开 <code class="sysfile">internal/backtest/strategies.go</code>，数一数 <code class="code">BuiltinStrategies</code> 里到底有多少条记录。数出来的数字应当是 17——如果不是，说明有人加了策略却没同步这张表。
+  </li><li>在同一个文件里搜 <code class="code">"super_trend"</code>，看它在 <code class="code">BuiltinStrategies</code> 与 <code class="code">GetStrategyByType</code> 里各出现一次。再到 <code class="sysfile">internal/backtest/strategy_config.go</code> 里搜一次，它应当出现两次（参数映射、调参范围）。三处齐了，才算登记完整。
+  </li><li>拿一张纸，把表 <a class="xref" href="ch16.html#tab:ch16-strategies">16.1</a> 里 17 个策略按“比较两条线”和“和阈值比”分两堆。你会发现有一些可以从一堆挪到另一堆——能挪说明它们本质相同。
+  </li><li>用 <a class="xref" href="ch16.html#eq:ch16-coeff">式 (16.3)</a> 手算 \(F=15\)、\(S=20\) 时的 20 个系数：前 15 个是 \(1/15-1/20=1/60\)，后 5 个是 \(-1/20\)。把它们相加，验证得到 0；再乘上任意常数 \(a\) 相加，验证还是 0。这就是水平位移不变性的全部机制。
+  </li><li>对超级趋势做一次“参数敏感度”手算：取某根 K 线的 \(\mathrm{ATR}_t=0.42\)，分别用 \(m=2.0\) 和 \(m=4.0\) 算通道宽度 \(2m\,\mathrm{ATR}_t\)。宽度翻倍，但中线一动不动——这就是“乘倍数而不是设价格”的直观含义。
+</li></ol>
+</div></div>
+
+到这里，“什么时候买、什么时候卖”这件事已经拆开了：十七个策略只是十七套公式加两种比较方式，接口统一、实现可插拔，指标自己写、边界自己定。
+
+可是还有一个问题没回答。我在本章开头想让十七个策略排个序，排不出来；现在我知道它们只是形状探测器，可形状探测器也需要被检验。
+
+<strong>怎么知道一个策略在这个环境里到底行不行？</strong>
+
+答案只有一个：回测。而回测恰恰是整本书里最容易骗人的一件事——它的假象主要不是来自数据本身，而是来自<strong>你没算进去的东西</strong>。下一章就来讲，回测到底在验证什么。
+</article>
+<nav class="pager"><a class="prev" href="ch15.html"><span class="dir">上一页</span>第十五章 怎样识破一个“看起来很厉害”的因子？</a><a class="next" href="ch17.html"><span class="dir">下一页</span>第十七章 回测到底在验证什么？—— 成本、前视与样本池</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch16-1"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/indicators.go</code> 的 <code class="code">MA</code>：仅在 <code class="code">i &gt;= period-1</code> 时写入均值，更早的位置保持切片初始值 \(0\)。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-1">↩</a></li><li id="fn-ch16-2"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 中四个 <code class="code">GenerateSignals</code> 的循环头部。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-2">↩</a></li><li id="fn-ch16-3"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">SuperTrendStrategy</code> 与 <code class="code">BuiltinStrategies</code> 中 <code class="code">super_trend</code> 的 <code class="code">ConfigJSON</code>：<code class="code">period=10</code>、<code class="code">multiplier=3.0</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-3">↩</a></li><li id="fn-ch16-4"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">SuperTrendStrategy.GenerateSignals</code>：<code class="code">i &lt; period</code> 跳过，<code class="code">i == period</code> 时若 <code class="code">trend[i] == 1</code> 补 <code class="code">SignalBuy</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-4">↩</a></li><li id="fn-ch16-5"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">BuiltinStrategies</code>（共 17 条）与 <code class="code">IsBuiltinStrategyType</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-5">↩</a></li><li id="fn-ch16-6"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">GetStrategyByType</code>、<code class="sysfile">internal/backtest/strategy_config.go</code> 的 <code class="code">strategyParamFieldMap</code> 与 <code class="code">defaultTuneRanges</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-6">↩</a></li><li id="fn-ch16-7"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/indicators.go</code> 文件头的注释：与公开领域的标准指标公式思路一致，但按本方切片接口自实现，不引入 AGPL-3.0 依赖。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-7">↩</a></li><li id="fn-ch16-8"><strong>数据来源</strong> 系统事实清单第 10 节：<code class="code">select_next_day_strategy</code> 未指定类型时按该加权分自动选优，写 <code class="dbtab">daily_strategy_plans</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-8">↩</a></li><li id="fn-ch16-9"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/backtest/indicators.go</code> 的 <code class="code">KDJ</code>：<code class="code">for i := 0; i &lt; n-1; i++ { rsv[i] = 50 }</code> 及紧随其后的注释。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-9">↩</a></li><li id="fn-ch16-10"><strong>数据来源</strong> 同上文件 <code class="code">CMF</code> 与 <code class="sysfile">internal/backtest/strategies.go</code> 的 <code class="code">CMFStrategy.GenerateSignals</code>：<code class="code">if i &lt; period-1 { continue }</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch16-10">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

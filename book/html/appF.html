@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>风险指标的数学定义与推导 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·风险指标的数学定义与推导">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="appF.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html" class="current"><span class="num">附录 F</span>风险指标的数学定义与推导</a><ul class="sub"><li><a href="#sec-F-1">F.1 记号、假设与分位点的构造</a></li><li><a href="#sec-F-1-1">F.1.1 记号</a></li><li><a href="#sec-F-1-2">F.1.2 下分位点与上分位点</a></li><li><a href="#sec-F-2">F.2 VaR：三条性质，与它为什么不是一致风险度量</a></li><li><a href="#sec-F-2-1">F.2.1 VaR 就是下分位点，三条性质一次证完</a></li><li><a href="#sec-F-2-2">F.2.2 VaR 次可加性失效的一般判据</a></li><li><a href="#sec-F-3">F.3 CVaR：两种定义何时分家，以及一致性的完整证明</a></li><li><a href="#sec-F-3-1">F.3.1 一个精确恒等式（本附录的核心）</a></li><li><a href="#sec-F-3-2">F.3.2 两种定义在什么时候分家</a></li><li><a href="#sec-F-3-3">F.3.3 一致性的完整证明</a></li><li><a href="#sec-F-4">F.4 Rockafellar--Uryasev 形式与共轭表示</a></li><li><a href="#sec-F-4-1">F.4.1 RU 形式：凸性、最优解集、取值</a></li><li><a href="#sec-F-4-2">F.4.2 共轭（上确界）表示</a></li><li><a href="#sec-F-5">F.5 谱风险度量：CVaR 在度量族中的位置</a></li><li><a href="#sec:appF-finite">F.6 有限样本：系统的历史法算的到底是什么</a></li><li><a href="#sec-F-6-1">F.6.1 经验分布与顺序统计量</a></li><li><a href="#sec-F-6-2">F.6.2 120 天窗口意味着什么：把条数算出来</a></li><li><a href="#sec-F-6-3">F.6.3 一处必须点名的口径缺陷：序列被倒着喂进去了</a></li><li><a href="#sec:appF-normal">F.7 椭圆分布下的闭式解</a></li><li><a href="#sec-F-8">F.8 Kelly 缩放系数的数学</a></li><li><a href="#sec-F-8-1">F.8.1 代码守卫在数学上意味着什么</a></li><li><a href="#sec-F-9">F.9 理论口径与系统实现的对照表</a></li><li><a href="#sec-F-10">F.10 真实出处</a></li></ul></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="app:appF"><span class="cnum">附录 F</span>风险指标的数学定义与推导</h1>
+
+
+
+
+
+正文第 <a class="xref" href="ch22.html#ch:ch22">第二十二章</a> 章讲风险时，只留了直觉与定义，把长推导推到了这里；第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章讲 Kelly 缩放时同理。本附录把这两件事一次做干净，做三件事：
+
+<ol><li><strong>把记号与假设补齐</strong>，让本附录可以脱离正文单独读；
+  </li><li><strong>给出完整证明</strong>，并补上正文省略的中间步骤与推广——包括 VaR 次可加性失效的<strong>一般判据</strong>（正文只给了一个反例）、Rockafellar--Uryasev 形式的<strong>最优解集</strong>（正文只给了取值）、以及 CVaR 在<strong>谱风险度量族</strong>中的位置；
+  </li><li><strong>把连续理论接到系统的有限样本实现上</strong>，回答一个很实际的问题：<em>系统里那几行排序代码，算的到底是什么？</em>
+</li></ol>
+
+第 3 件事不只是补充，它还纠正了一处真实偏差。本附录会指出：系统的历史法在尾部取整上有一处<strong>可界定的</strong>偏差，另有一处<strong>方向性</strong>的口径缺陷。两者都给出了真实数据上的复算证据。
+
+
+<h2 id="sec-F-1"><span class="hnum">F.1</span>记号、假设与分位点的构造</h2>
+
+
+<h3 id="sec-F-1-1"><span class="hnum">F.1.1</span>记号</h3>
+
+固定一个概率空间 \((\Omega,\mathcal{F},\Prob)\)。\(L\) 表示<strong>单期损失</strong>（亏损为正），其分布函数记为
+<div class="math-scroll">\[F_L(\ell)=\Prob(L\le\ell),\qquad \ell\in\R , \tag{F.1}\]</div>
+左极限记为 \(F_L(\ell^-)=\Prob(L&lt;\ell)\)。置信水平 \(\alpha\in(0,1)\)，并记
+<div class="math-scroll" id="eq:appF-lambda">\[\lambda_\alpha=\frac{1}{1-\alpha}. \tag{F.2}\]</div>
+正文与全书的其余记号（\(\E\)、\(\ind{\cdot}\)、\(\clamp\)、\(\kelly\)）见前置的记号表。
+
+<div class="thm definition" id="asm:appF-h1"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">F.1</span>（H1：可积性）</div>
+\(\E\abs{L}&lt;\infty\)。这条保证后文所有分位数、条件期望与积分都有限、有意义。<em>本附录的全部结论只需这一条</em>（第 <a class="xref" href="appF.html#sec:appF-normal">F.7 节</a> 节另需二阶矩，会单独点名）。
+</div>
+
+<div class="thm definition" id="asm:appF-h2"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">F.2</span>（H2：分布连续）</div>
+\(F_L\) 处处连续且在尾部严格递增。这条<em>不是</em>必需品：它只是为了让「分位数形式」与「条件期望形式」的 CVaR 相等（<a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a>）。去掉它，两种形式会分家——<a class="xref" href="appF.html#ex:appF-atom">例 F.15</a> 会算给你看。
+</div>
+
+这两条假设与正文第 <a class="xref" href="ch22.html#ch:ch22">第二十二章</a> 章的 H1、H2 是同一个东西，此处重写一遍只是为了让本附录能独立阅读。
+
+<h3 id="sec-F-1-2"><span class="hnum">F.1.2</span>下分位点与上分位点</h3>
+
+正文的 VaR 定义只用到「不超过 \(\ell\) 的概率已经够大」。要处理离散数据，必须把这件事拆成两个点。
+
+<div class="thm definition" id="def:appF-quantile"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">F.3</span>（下分位点、上分位点）</div>
+给定 \(\alpha\in(0,1)\)，
+<div class="math-scroll">\[q^-_\alpha(L)=\inf\{\ell\in\R:\ F_L(\ell)\ge\alpha\},\qquad
+q^+_\alpha(L)=\inf\{\ell\in\R:\ F_L(\ell)&gt;\alpha\}. \tag{F.3}\]</div>
+分别称为损失分布 \(F_L\) 的 \(\alpha\)-下分位点与 \(\alpha\)-上分位点。
+</div>
+
+<div class="thm plain" id="lem:appF-qchar"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">F.4</span>（分位点的刻画）</div>
+在假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a>（其实只需 \(F_L\) 是分布函数）下，对一切 \(\alpha\in(0,1)\)：
+<ol><li>\(q^-_\alpha\le q^+_\alpha\)；
+  </li><li>\(F_L(q^-_\alpha)\ge\alpha\)，且对一切 \(\ell&lt;q^-_\alpha\) 有 \(F_L(\ell)&lt;\alpha\)；
+  </li><li>\(F_L(q^+_\alpha)\ge\alpha\)，且对一切 \(\ell&lt;q^+_\alpha\) 有 \(F_L(\ell)\le\alpha\)；
+  </li><li>\(q^-_\alpha&lt;q^+_\alpha\) 当且仅当存在 \(z_1&lt;z_2\) 使 \(F_L(z_1^-)&lt;\alpha\)、\(F_L(z_2)&gt;\alpha\)、且 \(F_L\equiv\alpha\) 于 \([z_1,z_2)\)；此时必有 \(q^-_\alpha=z_1\)、\(q^+_\alpha=z_2\)。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>记 \(A^-=\{\ell:F_L(\ell)\ge\alpha\}\)、\(A^+=\{\ell:F_L(\ell)&gt;\alpha\}\)，则 \(A^+\subseteq A^-\)，故 \(\inf A^-\le\inf A^+\)，即 (i)。
+
+(ii) 因 \(F_L\) 单调不减，\(A^-\) 是<strong>向上封闭</strong>的：\(\ell\in A^-\) 且 \(\ell'\ge\ell\) 蕴含 \(\ell'\in A^-\)；又 \(F_L(\ell)\to1\)（\(\ell\to+\infty\)）使 \(A^-\ne\varnothing\)。于是一列 \(\ell_n\downarrow q^-_\alpha\)、\(\ell_n\in A^-\) 存在，由 \(F_L\) 右连续，
+<div class="math-scroll">\[F_L(q^-_\alpha)=\lim_{n\to\infty}F_L(\ell_n)\ge\alpha . \tag{F.4}\]</div>
+而若 \(\ell&lt;q^-_\alpha\)，则 \(\ell\notin A^-\)（否则 \(\ell\) 是 \(A^-\) 中比下确界更小的元素），即 \(F_L(\ell)&lt;\alpha\)。
+
+(iii) 同法。对 \(\ell&lt;q^+_\alpha\) 有 \(\ell\notin A^+\)，即 \(F_L(\ell)\le\alpha\)；右连续给出 \(F_L(q^+_\alpha)=\lim F_L(\ell_n)\ge\alpha\)。
+
+(iv) <em>（\(\Leftarrow\)）</em>设 \(z_1,z_2\) 如所述。对 \(z&lt;z_1\)，由单调性 \(F_L(z)\le F_L(z_1^-)&lt;\alpha\)，故 \(z\notin A^-\)；而 \(F_L(z_1)=\alpha\)（若 \(z_1=z_2\) 已排除，故 \(F_L\) 在 \([z_1,z_2)\) 上等于 \(\alpha\)，右连续给 \(F_L(z_1)=\alpha\)），故 \(z_1\in A^-\)。于是 \(q^-_\alpha=z_1\)。
+再看 \(A^+\)：对 \(z&lt;z_2\)，若 \(z\ge z_1\) 则 \(F_L(z)=\alpha\not&gt;\alpha\)，若 \(z&lt;z_1\) 则 \(F_L(z)&lt;\alpha\)，总之 \(z\notin A^+\)，故 \(q^+_\alpha\ge z_2\)；而 \(F_L(z_2)&gt;\alpha\) 说明 \(z_2\in A^+\)，故 \(q^+_\alpha\le z_2\)。合并得 \(q^+_\alpha=z_2\)，于是 \(q^-_\alpha=z_1&lt;z_2=q^+_\alpha\)。
+
+<em>（\(\Rightarrow\)）</em>设 \(q^-_\alpha&lt;q^+_\alpha\)，取 \(z_1=q^-_\alpha\)、\(z_2=q^+_\alpha\)。先定 \(F_L\equiv\alpha\) 于 \((z_1,z_2)\)：任取 \(\ell\in(z_1,z_2)\)，由 \(A^-\) 向上封闭与 \(z_1=\inf A^-\)，存在 \(z\in A^-\) 使 \(z&lt;\ell\)，从而 \(\ell\in A^-\)、即 \(F_L(\ell)\ge\alpha\)；又由 (iii) 的「\(\ell&lt;q^+_\alpha\Rightarrow F_L(\ell)\le\alpha\)」得 \(F_L(\ell)=\alpha\)。右连续把等号延拓到左端点：\(F_L\equiv\alpha\) 于 \([z_1,z_2)\)。
+再定两端严格性。若 \(F_L(z_1^-)=\alpha\)，则由右连续，\(z_1\) 左侧紧邻的点也在 \(A^-\) 中，与 \(z_1=\inf A^-\) 矛盾，故 \(F_L(z_1^-)&lt;\alpha\)。若 \(F_L(z_2)=\alpha\)，则 \(z_2\) 右侧紧邻的点也在 \(A^+\) 的补集中，与 \(z_2=\inf A^+\) 矛盾，故 \(F_L(z_2)&gt;\alpha\)。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.5</span></div>唯一需要留心的是 (ii) 里的 \(A^-\) <strong>向上封闭</strong>：这保证了「下确界可达为最小值」，从而 \(F_L(q^-_\alpha)\ge\alpha\)。这条看似琐碎的性质后面反复要用——它是「集合越大、下确界越小」这一整套论证的地基。
+</div>
+
+<div class="thm plain" id="lem:appF-qmono"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">F.6</span>（分位点对水平单调）</div>
+\(0&lt;\alpha\le\beta&lt;1\) 蕴含 \(q^-_\alpha\le q^-_\beta\) 且 \(q^+_\alpha\le q^+_\beta\)。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>\(F_L(\ell)\ge\beta\ge\alpha\) 说明 \(A^-_\beta\subseteq A^-_\alpha\)，集合变大下确界变小，故 \(q^-_\alpha\le q^-_\beta\)；对 \(A^+\) 同理。
+</div>
+
+
+<h2 id="sec-F-2"><span class="hnum">F.2</span>VaR：三条性质，与它为什么不是一致风险度量</h2>
+
+
+<h3 id="sec-F-2-1"><span class="hnum">F.2.1</span>VaR 就是下分位点，三条性质一次证完</h3>
+
+正文的定义 <a class="xref" href="ch22.html#def:ch22-var">22.4</a> 写的是 \(\inf\{\ell:\Prob(L\le\ell)\ge\alpha\}\)，对照定义 <a class="xref" href="appF.html#def:appF-quantile">F.3</a>，它就是 \(q^-_\alpha\)。这个观察让三条性质不必逐条硬算。
+
+<div class="thm plain" id="prop:appF-varthree"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">F.7</span>（VaR 的三条性质）</div>
+设假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a> 成立，\(\alpha\in(0,1)\)。则 \(\mathrm{VaR}_\alpha(L)=F_L^{-1}(\alpha)\)（广义逆），且
+<ol><li><strong>单调性</strong>：\(L_1\le L_2\) 几乎处处 \(\Rightarrow\) \(\mathrm{VaR}_\alpha(L_1)\le\mathrm{VaR}_\alpha(L_2)\)；
+  </li><li><strong>正齐次性</strong>：\(\lambda&gt;0\Rightarrow\mathrm{VaR}_\alpha(\lambda L)=\lambda\,\mathrm{VaR}_\alpha(L)\)；
+  </li><li><strong>平移不变性</strong>：\(c\in\R\Rightarrow\mathrm{VaR}_\alpha(L+c)=\mathrm{VaR}_\alpha(L)+c\)。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>第一步：广义逆的基本单调性。</strong>
+设 \(F\le G\) 逐点成立（即 \(F(\ell)\le G(\ell)\) 对一切 \(\ell\)）。则对任意 \(\alpha\)，
+<div class="math-scroll">\[\{\ell:F(\ell)\ge\alpha\}\supseteq\{\ell:G(\ell)\ge\alpha\}, \tag{F.5}\]</div>
+前者作为更大的集合，下确界不超过后者，即 \(F^{-1}(\alpha)\le G^{-1}(\alpha)\)。
+
+<strong>第二步：分布函数对线性变换的协变性。</strong>
+对 \(\lambda&gt;0\) 与 \(c\in\R\)：
+<div class="math-scroll">\[F_{\lambda L}(\ell)=\Prob(\lambda L\le\ell)=F_L\!\ap{\tfrac{\ell}{\lambda}},
+\qquad
+F_{L+c}(\ell)=\Prob(L\le\ell-c)=F_L(\ell-c). \tag{F.6}\]</div>
+
+<strong>第三步：合并。</strong>
+<em>(i)</em> \(L_1\le L_2\) 几乎处处蕴含 \(\{L_2\le\ell\}\subseteq\{L_1\le\ell\}\)（去掉零概率例外集），故 \(F_{L_1}\ge F_{L_2}\) 逐点；由第一步
+<div class="math-scroll">\[\mathrm{VaR}_\alpha(L_1)=F_{L_1}^{-1}(\alpha)\le F_{L_2}^{-1}(\alpha)=\mathrm{VaR}_\alpha(L_2). \tag{F.7}\]</div>
+
+<em>(ii)</em> 记 \(\ell'=\ell/\lambda\)。\(\{F_L(\ell')\ge\alpha\}=\lambda\{F_L(\ell')\ge\alpha\}\) 在变量替换下的像，且 \(\lambda&gt;0\) 保序（保序映射把下确界映为下确界，\(\inf(\lambda S)=\lambda\inf S\)），故 \(F_{\lambda L}^{-1}(\alpha)=\lambda F_L^{-1}(\alpha)\)。
+
+<em>(iii)</em> 平移同样保序，\(\inf(S+c)=\inf S+c\)，故 \(F_{L+c}^{-1}(\alpha)=F_L^{-1}(\alpha)+c\)。
+</div>
+
+这个证法比正文里「逐个把集合比一遍」的写法更短，也更说明问题：<strong>三条性质其实都不是关于 VaR 的性质，而是「广义逆的单调性」加上「分布函数在缩放与平移下的协变性」。</strong>任何形如 \(\inf\{\ell:\Prob(L\le\ell)\ge\alpha\}\) 的量都会自动继承这三条——包括那些我们不想要的量。
+
+<h3 id="sec-F-2-2"><span class="hnum">F.2.2</span>VaR 次可加性失效的一般判据</h3>
+
+正文用两只债券给了一个反例（例 <a class="xref" href="ch22.html#ex:ch22-counter">22.7</a>）。一个例子能说明「会失效」，但说明不了「什么时候失效」。下面是完整的判据。
+
+<div class="thm plain" id="thm:appF-fail"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.8</span>（VaR 次可加性失效的完整判据）</div>
+设 \(L_1,L_2\) 独立同分布，取值 \(\{0,d\}\)（\(d&gt;0\)）且 \(\Prob(L_i=d)=p\in(0,1)\)。固定 \(\alpha\in(0,1)\)。则
+<div class="math-scroll" id="eq:appF-failcond">\[\mathrm{VaR}_\alpha(L_1+L_2)&gt;\mathrm{VaR}_\alpha(L_1)+\mathrm{VaR}_\alpha(L_2) \tag{F.8}\]</div>
+当且仅当
+<div class="math-scroll" id="eq:appF-interval">\[1-\sqrt{\alpha}\ &lt;\ p\ \le\ 1-\alpha . \tag{F.9}\]</div>
+并且在区间 <a class="xref" href="appF.html#eq:appF-interval">(F.9)</a> 内部，违背量为 \(\mathrm{VaR}_\alpha(L_1+L_2)=d\)。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>第一步：单只的 VaR。</strong>
+\(F_{L_i}\) 只在 \(0\) 处有一个跳，且 \(F_{L_i}(0)=1-p\)、\(F_{L_i}(0^-)=0\)。对 \(\ell&lt;0\)，\(\Prob(L_i\le\ell)=0&lt;\alpha\)，故 \(\ell\notin A^-\)；对 \(\ell\ge0\)，\(\Prob(L_i\le\ell)=1-p\)。于是
+<div class="math-scroll" id="eq:appF-single">\[\mathrm{VaR}_\alpha(L_i)=0\ \Longleftrightarrow\ 1-p\ge\alpha\ \Longleftrightarrow\ p\le1-\alpha . \tag{F.10}\]</div>
+当 \(p&gt;1-\alpha\) 时 \(A^-=[d,+\infty)\)，\(\mathrm{VaR}_\alpha(L_i)=d\)。
+
+<strong>第二步：和的分布。</strong>由独立性，
+<div class="math-scroll">\[\Prob(L_1+L_2=0)=(1-p)^2,\quad
+\Prob(=d)=2p(1-p),\quad
+\Prob(=2d)=p^2 . \tag{F.11}\]</div>
+注意 \((1-p)^2+2p(1-p)=1-p^2\)。于是 \(F_{L_1+L_2}\) 有两个跳：在 \(0\) 处跳到 \((1-p)^2\)，在 \(d\) 处跳到 \(1-p^2\)。套用第一步的同一算法：
+<div class="math-scroll" id="eq:appF-sumvar">\[\mathrm{VaR}_\alpha(L_1+L_2)=
+\begin{cases}
+0, &amp; \alpha\le(1-p)^2,\\[2pt]
+d, &amp; (1-p)^2&lt;\alpha\le 1-p^2,\\[2pt]
+2d, &amp; \alpha&gt;1-p^2 .
+\end{cases} \tag{F.12}\]</div>
+
+<strong>第三步：配对。</strong>
+违背 <a class="xref" href="appF.html#eq:appF-failcond">(F.8)</a> 要求左边是 \(2d\)（因为右边至多为 \(2d\)）或左边为 \(d\) 而右边为 \(0\)。逐项检查：
+<ul><li>左侧为 \(2d\) 需要 \(\alpha&gt;1-p^2\)，此时由 <a class="xref" href="appF.html#eq:appF-single">(F.10)</a> 有 \(p&gt;1-\alpha\)，右边 \(=2d\)，不违背。
+  </li><li>左侧为 \(d\) 且右侧为 \(0\)：左侧为 \(d\) 要求 \((1-p)^2&lt;\alpha\)，右侧为 \(0\) 要求由 <a class="xref" href="appF.html#eq:appF-single">(F.10)</a> 得 \(p\le1-\alpha\)。而 \((1-p)^2&lt;\alpha\) 等价于 \(p&gt;1-\sqrt{\alpha}\)（两边开方，注意 \(1-p\ge0\)）。
+  </li><li>左侧为 \(0\) 时左边 \(\le\) 右边，不可能违背。
+</li></ul>
+合并即得 <a class="xref" href="appF.html#eq:appF-interval">(F.9)</a>；此时左侧恰为 \(d\)，故违背量为 \(d\)。
+</div>
+
+<div class="thm plain"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">F.9</span>（失效区间的宽度）</div>
+区间 <a class="xref" href="appF.html#eq:appF-interval">(F.9)</a> 的宽度为
+<div class="math-scroll" id="eq:appF-width">\[(1-\alpha)-(1-\sqrt{\alpha})=\sqrt{\alpha}-\alpha=\sqrt{\alpha}\,(1-\sqrt{\alpha}). \tag{F.13}\]</div>
+代入 \(\alpha=0.95\)：\(\sqrt{0.95}=0.974679\)，区间为 \((0.025321,\ 0.05]\)，宽度 \(0.024679\)。正文例 <a class="xref" href="ch22.html#ex:ch22-counter">22.7</a> 取的 \(p=0.04\) 正落在这个区间里。
+</div>
+
+<div class="thm plain" id="cor:appF-nasset"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">F.10</span>（\(n\) 资产版）</div>
+设 \(L_1,\dots,L_n\) 独立同分布，取值 \(\{0,d\}\)、\(\Prob(L_i=d)=p\)。则
+<div class="math-scroll">\[\mathrm{VaR}_\alpha\!\Bigl(\sum_{i=1}^n L_i\Bigr)&gt;\sum_{i=1}^n \mathrm{VaR}_\alpha(L_i)
+\ \Longleftrightarrow\ 1-\alpha^{1/n}&lt;p\le1-\alpha . \tag{F.14}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>\(\sum L_i\) 的分布函数是二项累积：\(\Prob(\sum L_i\le kd)=\sum_{j\le k}\binom{n}{j}p^j(1-p)^{n-j}\)。单只的 \(\mathrm{VaR}_\alpha=d\cdot\ind{p&gt;1-\alpha}\)（第一步）；和为 \(d\) 当且仅当 \(\alpha&gt;(1-p)^n\)，即 \(p&gt;1-\alpha^{1/n}\)。剩余两档（\(0\) 与 \(nd\)）同 <a class="xref" href="appF.html#thm:appF-fail">定理 F.8</a> 第三步的排除法，不产生违背。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.11</span>（为什么这个缺陷很难被「看见」）</div>
+三件事让它隐形。第一，失效区间 <a class="xref" href="appF.html#eq:appF-interval">(F.9)</a> 的宽度是 \(\sqrt\alpha(1-\sqrt\alpha)\)，\(\alpha=0.95\) 时只有 \(0.0247\)——需要尾部概率恰好落在「离 \(1-\alpha\) 一步之内」的位置。第二，失效时左边的取值是 \(d\) 而不是 \(nd\)：你只会看到「VaR 比你以为的大一点」，不会看到它爆炸。第三，违背是<strong>离散跳跃</strong>的：\(p\) 从 \(0.05\) 稍微降到 \(0.0499\)，VaR 就从 \(0\) 跳到 \(d\)，中间没有过渡。
+</div>
+
+<div class="box pitfall"><div class="boxbody">
+<strong>这不是理论洁癖。</strong>它意味着：如果你的风控用 VaR 做「组合是否合规」的判据，那么把两个各自合规的子组合并起来，可能突然不合规——而你并没有加任何杠杆。
+
+系统没有踩这个坑，因为在组合层用的是 CVaR（硬限制 \(8\%\)）而不是 VaR。下一节证明为什么换一个就够了。<strong>记住这条原则：如果一个风险指标的失效条件是「尾部概率恰好落在某个窄区间」，那它在真实数据上是会撞上的，只是不常撞上。</strong>
+</div></div>
+
+
+<h2 id="sec-F-3"><span class="hnum">F.3</span>CVaR：两种定义何时分家，以及一致性的完整证明</h2>
+
+
+<h3 id="sec-F-3-1"><span class="hnum">F.3.1</span>一个精确恒等式（本附录的核心）</h3>
+
+正文用「两边夹」的技巧证了 Rockafellar--Uryasev 形式，那是为了迁就 H2。事实上有一个更干净的恒等式，<strong>不需要任何连续性假设</strong>，并且一次给出三个结论。
+
+<div class="thm plain" id="lem:appF-exact"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">F.12</span>（尾部积分的精确表达）</div>
+设假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a> 成立，\(\alpha\in(0,1)\)，记 \(q=\mathrm{VaR}_\alpha(L)=q^-_\alpha(L)\)。则
+<div class="math-scroll" id="eq:appF-tailexact">\[\int_\alpha^1 \mathrm{VaR}_u(L)\,du\;=\;(1-\alpha)\,q\;+\;\E\bigl[(L-q)^+\bigr], \tag{F.15}\]</div>
+从而
+<div class="math-scroll" id="eq:appF-cvar-ru-exact">\[\mathrm{CVaR}_\alpha(L)\;=\;q\;+\;\lambda_\alpha\,\E\bigl[(L-q)^+\bigr],
+\qquad \lambda_\alpha=\frac{1}{1-\alpha}. \tag{F.16}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>记 \(q(\alpha)=q^-_\alpha(L)=\mathrm{VaR}_\alpha(L)\)，并令
+<div class="math-scroll">\[T(\alpha)=\int_\alpha^1 q(u)\,du,\qquad
+R(\alpha)=(1-\alpha)\,q(\alpha)+\E\bigl[(L-q(\alpha))^+\bigr]. \tag{F.17}\]</div>
+要证 \(T\equiv R\)。
+
+<strong>第一步：一条逐点积分恒等式。</strong>设 \(z_1&lt;z_2\)。对每个 \(\omega\)，
+<div class="math-scroll" id="eq:appF-slab">\[(L-z_1)^+-(L-z_2)^+=\int_{z_1}^{z_2}\ind{L&gt;t}\,dt \tag{F.18}\]</div>
+（\(L&gt;z_2\) 时两边都是 \(z_2-z_1\)；\(z_1&lt;L\le z_2\) 时两边都是 \(L-z_1\)；\(L\le z_1\) 时两边都是 \(0\)）。两边取期望并用 Fubini：
+<div class="math-scroll" id="eq:appF-slabint">\[\E\bigl[(L-z_1)^+\bigr]-\E\bigl[(L-z_2)^+\bigr]=\int_{z_1}^{z_2}\Prob(L&gt;t)\,dt . \tag{F.19}\]</div>
+这条式子是后面全部论证的地基：它说 \(\E[(L-z)^+]\) 关于 \(z\) 绝对连续，且几乎处处导数为 \(-\Prob(L&gt;z)\)。
+
+<strong>第二步：\(T\) 与 \(R\) 都连续。</strong>
+\(T\) 是可积函数的变上限积分（\(t\mapsto q(t)\) 在 \([0,1]\) 上可积，因为 \(\int_0^1q(t)dt=\E L\) 有限），故绝对连续。\(R\) 只需检查 \(q\) 的跳跃点：\(q\) 单调不减，跳跃点至多可数。设 \(\alpha_0\) 是一个跳跃点，\(z_1=q(\alpha_0^-)\)、\(z_2=q(\alpha_0)\)。由引理 <a class="xref" href="appF.html#lem:appF-qchar">F.4</a>(iv)，\(F_L\equiv\alpha_0\) 于 \([z_1,z_2)\)，即 \((z_1,z_2)\) 内不含 \(L\) 的任何概率质量，于是 \(\Prob(L&gt;t)=1-F_L(t)=1-\alpha_0\) 在 \((z_1,z_2)\) 上是常数。由 <a class="xref" href="appF.html#eq:appF-slabint">(F.19)</a>，
+<div class="math-scroll">\[\E\bigl[(L-z_2)^+\bigr]=\E\bigl[(L-z_1)^+\bigr]-(1-\alpha_0)(z_2-z_1), \tag{F.20}\]</div>
+代入 \(R\) 的单侧极限：
+<div class="math-scroll">\[R(\alpha_0^-)-R(\alpha_0)=(1-\alpha_0)(z_1-z_2)+(1-\alpha_0)(z_2-z_1)=0 . \tag{F.21}\]</div>
+故 \(R\) 在跳跃点亦连续，从而处处连续。
+
+<strong>第三步：几乎处处导数相同。</strong>
+\(T\) 在 \(q\) 的连续点处可导，\(T'(\alpha)=-q(\alpha)\)。由链式法则与 <a class="xref" href="appF.html#eq:appF-slabint">(F.19)</a>，在 \(q\) 可导处
+<div class="math-scroll">\[R'(\alpha)=-q+(1-\alpha)q'-q'\Prob\bigl(L&gt;q(\alpha)\bigr)
+=-q+q'\bigl[(1-\alpha)-\bigl(1-F_L(q(\alpha))\bigr)\bigr]
+=-q+q'\bigl[F_L(q(\alpha))-\alpha\bigr]. \tag{F.22}\]</div>
+若 \(q'(\alpha)\ne0\)，则 \(\alpha\) 落在 \(F_L\) 的严格增段上，此时 \(F_L\) 在该点连续且 \(F_L(q(\alpha))=\alpha\)（由引理 <a class="xref" href="appF.html#lem:appF-qchar">F.4</a>(ii) 的 \(F_L(q)\ge\alpha\)，若严格大于则该处有跳跃、\(q\) 不会在 \(\alpha\) 附近严格增，矛盾），括号为零；若 \(q'(\alpha)=0\)，第二项亦为零。两种情形都给出
+<div class="math-scroll">\[R'(\alpha)=-q(\alpha)=T'(\alpha)\qquad\text{几乎处处}. \tag{F.23}\]</div>
+
+<strong>第四步：定常数。</strong>
+由第二步，\(T-R\) 连续；由第三步，\((T-R)'=0\) 几乎处处，故 \(T-R\) 恒为常数。令 \(\alpha\uparrow1\)：一方面 \(T(\alpha)=\int_\alpha^1q\to0\)；另一方面 \(q(\alpha)\) 单调不减，其极限是 \(L\) 的本质上确界（或 \(+\infty\)），在 \(\E\abs{L}&lt;\infty\) 下 \(\E[(L-q(\alpha))^+]\to0\)，故 \(R(\alpha)\to0\)。两端点极限相同，常数只能是 \(0\)，即 \(T\equiv R\)，<a class="xref" href="appF.html#eq:appF-tailexact">(F.15)</a> 得证。两边同除 \(1-\alpha&gt;0\) 即得 <a class="xref" href="appF.html#eq:appF-cvar-ru-exact">(F.16)</a>。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.13</span>（这个恒等式为什么值得单独讲）</div>
+它把三件事一次说清。第一，<a class="xref" href="appF.html#eq:appF-tailexact">(F.15)</a> 是<strong>恒等</strong>而非不等式：Rockafellar--Uryasev 形式在 \(t=q\) 处不是「可以取到」，而是「必然取到」。第二，它不需要 H2——正文为了走「换元 \(u=F_L(x)\)」的路必须假设分布连续，本证只用了一条逐点积分恒等式 <a class="xref" href="appF.html#eq:appF-slab">(F.18)</a>，对有原子的分布一样成立。第三，右边第二项非负，立刻给出
+<div class="math-scroll" id="eq:appF-cvargevar">\[\mathrm{CVaR}_\alpha(L)\ \ge\ \mathrm{VaR}_\alpha(L), \tag{F.24}\]</div>
+这比正文里「先证 VaR 对水平单调、再逐点比较积分」的两步论证短得多。
+</div>
+
+<h3 id="sec-F-3-2"><span class="hnum">F.3.2</span>两种定义在什么时候分家</h3>
+
+正文的定义 <a class="xref" href="ch22.html#def:ch22-cvar">22.8</a> 给了 CVaR 两种写法：积分形式 <a class="xref" href="ch22.html#eq:ch22-cvar">(22.14)</a> 与条件期望形式 <a class="xref" href="ch22.html#eq:ch22-cvar-cond">(22.15)</a>。正文说「去掉 H2 它们会分家」，下面把它算准。
+
+<div class="thm plain" id="cor:appF-twoforms"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">F.14</span>（两种形式的一致性条件）</div>
+设假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a> 成立，\(q=\mathrm{VaR}_\alpha(L)\)。则
+<div class="math-scroll" id="eq:appF-gap">\[\mathrm{CVaR}_\alpha(L)-\E\bigl[L\mid L\ge q\bigr]
+=\E\bigl[(L-q)^+\bigr]\cdot\Bigl(\lambda_\alpha-\frac{1}{\Prob(L\ge q)}\Bigr)\ \ge\ 0 , \tag{F.25}\]</div>
+且等号成立当且仅当
+<div class="math-scroll">\[\E\bigl[(L-q)^+\bigr]=0\qquad\text{或}\qquad \Prob(L\ge q)=1-\alpha . \tag{F.26}\]</div>
+特别地，H2 蕴含两者相等。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>由 <a class="xref" href="appF.html#eq:appF-cvar-ru-exact">(F.16)</a>，
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L)=q+\lambda_\alpha\E\bigl[(L-q)^+\bigr]. \tag{F.27}\]</div>
+又
+<div class="math-scroll">\[\E\bigl[L\mid L\ge q\bigr]=\frac{\E\bigl[L\ind{L\ge q}\bigr]}{\Prob(L\ge q)}
+=\frac{\E\bigl[(L-q)^+\bigr]+q\Prob(L\ge q)}{\Prob(L\ge q)}
+=q+\frac{\E\bigl[(L-q)^+\bigr]}{\Prob(L\ge q)}, \tag{F.28}\]</div>
+相减即得 <a class="xref" href="appF.html#eq:appF-gap">(F.25)</a>。
+
+非负性来自引理 <a class="xref" href="appF.html#lem:appF-qchar">F.4</a>(iii)：\(\Prob(L\ge q)=\Prob(L&gt;q)+\Prob(L=q)=1-F_L(q^-)\)，而 \(F_L(q^-)\le\alpha\)（\(q\) 的「左侧一律 \(&lt;\alpha\)」性质在 \(q^-\) 处的极限形式），故 \(\Prob(L\ge q)\ge1-\alpha\)，即 \(1/\Prob(L\ge q)\le\lambda_\alpha\)。等号条件由各因子非负直接读出。H2 下 \(F_L(q)=F_L(q^-)=\alpha\) 且无原子，故 \(\Prob(L\ge q)=1-\alpha\)。
+</div>
+
+<div class="thm definition" id="ex:appF-atom"><div class="thmhead"><span class="thmname">例</span> <span class="thmnum">F.15</span>（一个有原子的算例：两种形式差多少）</div>
+设
+<div class="math-scroll">\[\Prob(L=-1)=0.01,\qquad \Prob(L=0)=0.94,\qquad \Prob(L=100)=0.05 , \tag{F.29}\]</div>
+取 \(\alpha=0.5\)。\(F_L(-1)=0.01\)，\(F_L(0)=0.95\ge0.5\)，故 \(q^-_{0.5}=0\)。由定义 <a class="xref" href="ch22.html#eq:ch22-cvar">(22.14)</a>：
+<div class="math-scroll">\[\mathrm{VaR}_u=
+\begin{cases}
+-1, &amp; u\in(0,0.01],\\
+0, &amp; u\in(0.01,0.95],\\
+100, &amp; u\in(0.95,1],
+\end{cases}
+\qquad
+\mathrm{CVaR}_{0.5}=\frac{1}{0.5}\int_{0.5}^{1}\mathrm{VaR}_u\,du=\frac{100\times0.05}{0.5}=10 . \tag{F.30}\]</div>
+而条件期望形式给出
+<div class="math-scroll">\[\E\bigl[L\mid L\ge0\bigr]=\frac{0\times0.94+100\times0.05}{0.94+0.05}=\frac{5}{0.99}=5.0505 . \tag{F.31}\]</div>
+两者相差 \(4.9495\)——<strong>将近一倍</strong>。核对 <a class="xref" href="appF.html#eq:appF-cvar-ru-exact">(F.16)</a>：\(q+\lambda_\alpha\E[(L-q)^+]=0+2\times5=10\)。本附录为说明 <a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a> 构造的手算算例，非系统运行数据。<sup class="fn-ref"><a id="fnref-appF-1" href="#fn-appF-1">1</a></sup>
+</div>
+
+这里有个反直觉的结论要记住：<strong>条件期望形式 <a class="xref" href="ch22.html#eq:ch22-cvar-cond">(22.15)</a> 一般不是 CVaR，它是 CVaR 的下界。</strong>H2 让它们相等，所以正文的情形看不出差别；但系统的历史法算的恰恰是<strong>经验分布</strong>——一个处处有原子的分布。这个差别在第 <a class="xref" href="appF.html#sec:appF-finite">F.6</a> 节会变成可界定的一个尾部条数。
+
+<h3 id="sec-F-3-3"><span class="hnum">F.3.3</span>一致性的完整证明</h3>
+
+<div class="thm plain" id="thm:appF-coherent"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.16</span>（CVaR 满足四条一致性公理）</div>
+设假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a> 成立，\(\alpha\in(0,1)\)。则
+<ol><li>\(L_1\le L_2\) 几乎处处 \(\Rightarrow\mathrm{CVaR}_\alpha(L_1)\le\mathrm{CVaR}_\alpha(L_2)\)；
+  </li><li>\(\lambda&gt;0\Rightarrow\mathrm{CVaR}_\alpha(\lambda L)=\lambda\,\mathrm{CVaR}_\alpha(L)\)；
+  </li><li>\(c\in\R\Rightarrow\mathrm{CVaR}_\alpha(L+c)=\mathrm{CVaR}_\alpha(L)+c\)；
+  </li><li>\(\mathrm{CVaR}_\alpha(L_1+L_2)\le\mathrm{CVaR}_\alpha(L_1)+\mathrm{CVaR}_\alpha(L_2)\)。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由命题 <a class="xref" href="appF.html#prop:appF-varthree">F.7</a>(i)，\(u\mapsto\mathrm{VaR}_u\) 逐点不大于；被积函数逐点不大，积分就不大，同乘 \(\lambda_\alpha&gt;0\) 保持不等号。
+
+<em>(ii)</em> 由命题 <a class="xref" href="appF.html#prop:appF-varthree">F.7</a>(ii)，\(\mathrm{VaR}_u(\lambda L)=\lambda\mathrm{VaR}_u(L)\) 对每个 \(u\)，常数提出积分。
+
+<em>(iii)</em> 由命题 <a class="xref" href="appF.html#prop:appF-varthree">F.7</a>(iii)，
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L+c)
+=\lambda_\alpha\!\int_\alpha^1\!\bigl(\mathrm{VaR}_u(L)+c\bigr)du
+=\mathrm{CVaR}_\alpha(L)+\lambda_\alpha\,c\,(1-\alpha)=\mathrm{CVaR}_\alpha(L)+c . \tag{F.32}\]</div>
+
+<em>(iv)</em> 这一步用积分形式无法直接推——分位函数之间逐点没有可利用的不等式（<a class="xref" href="appF.html#thm:appF-fail">定理 F.8</a> 的反例正是逐点反过来的）。改用共轭表示。它在逻辑上可以先于 (iv) 证明：<a class="xref" href="appF.html#thm:appF-dual">定理 F.20</a> 的全部论证只用到了 <a class="xref" href="appF.html#thm:appF-ru">定理 F.18</a>(iii) 与引理 <a class="xref" href="appF.html#lem:appF-qchar">F.4</a>，不依赖本节任何结论。于是任取 \(Z\in\mathcal{Z}_\alpha\)，
+<div class="math-scroll">\[\E\bigl[Z(L_1+L_2)\bigr]=\E[ZL_1]+\E[ZL_2]\le\mathrm{CVaR}_\alpha(L_1)+\mathrm{CVaR}_\alpha(L_2), \tag{F.33}\]</div>
+末步是对两项分别用 <a class="xref" href="appF.html#thm:appF-dual">定理 F.20</a> 的「\(\E[ZL]\le\mathrm{CVaR}_\alpha(L)\) 对一切 \(Z\in\mathcal{Z}_\alpha\) 成立」一侧。右边与 \(Z\) 无关，故对 \(Z\) 取上确界仍不超过它，再次用 <a class="xref" href="appF.html#thm:appF-dual">定理 F.20</a> 得 (iv)。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.17</span>（为什么积分形式证不了次可加性）</div>
+想直接对 \(u\) 逐点比较会撞墙：\(\mathrm{VaR}_u(L_1+L_2)\) 与 \(\mathrm{VaR}_u(L_1)+\mathrm{VaR}_u(L_2)\) 之间<strong>没有任何逐点不等式</strong>——<a class="xref" href="appF.html#thm:appF-fail">定理 F.8</a> 的反例正是逐点反过来的。次可加性必须跳出分位函数，进到「重新加权期望」的世界里才看得见。这也是共轭表示真正的用途。
+</div>
+
+
+<h2 id="sec-F-4"><span class="hnum">F.4</span>Rockafellar--Uryasev 形式与共轭表示</h2>
+
+
+<h3 id="sec-F-4-1"><span class="hnum">F.4.1</span>RU 形式：凸性、最优解集、取值</h3>
+
+<div class="thm plain" id="thm:appF-ru"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.18</span>（Rockafellar--Uryasev 形式）</div>
+设假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a> 成立，\(\alpha\in(0,1)\)，\(\lambda_\alpha\) 如 <a class="xref" href="appF.html#eq:appF-lambda">(F.2)</a>。定义
+<div class="math-scroll" id="eq:appF-psi">\[\Psi(t)=t+\lambda_\alpha\,\E\bigl[(L-t)^+\bigr],\qquad t\in\R . \tag{F.34}\]</div>
+则
+<ol><li>\(\Psi\) 是凸的、实值、以 \(\max(1,\lambda_\alpha-1)\) 为 Lipschitz 常数；
+  </li><li>\(\Psi\) 的右导数 \(\Psi'(t^+)=1-\lambda_\alpha\Prob(L&gt;t)\)、左导数 \(\Psi'(t^-)=1-\lambda_\alpha\Prob(L\ge t)\)，且
+  <div class="math-scroll" id="eq:appF-argmin">\[\argmin_{t\in\R}\Psi(t)=\bigl[t:\,F_L(t^-)\le\alpha\le F_L(t)\bigr]=\bigl[q^-_\alpha(L),\,q^+_\alpha(L)\bigr]; \tag{F.35}\]</div>
+  </li><li>\(\min_{t}\Psi(t)=\mathrm{CVaR}_\alpha(L)\)。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>(i)</strong> 对每个固定的 \(\omega\)，\(t\mapsto(L(\omega)-t)^+=\max\{L(\omega)-t,\,0\}\) 是两个仿射函数的最大值，故凸；期望保凸，故 \(\Psi\) 凸。有限性：\((L-t)^+\le\abs{L}+\abs{t}\)，与 \(\E\abs{L}&lt;\infty\) 合起来给出 \(\abs{\Psi(t)}&lt;\infty\)。
+
+右导数：对 \(\varepsilon&gt;0\)，
+<div class="math-scroll">\[\frac{\Psi(t+\varepsilon)-\Psi(t)}{\varepsilon}=1+\lambda_\alpha\,\frac{\E\bigl[(L-t-\varepsilon)^+\bigr]-\E\bigl[(L-t)^+\bigr]}{\varepsilon}. \tag{F.36}\]</div>
+被减项关于 \(\varepsilon\) 单调（\(\varepsilon\) 越大、截断越狠），故差商单调且逐点收敛到 \(-\Prob(L&gt;t)\)（对每个 \(\omega\)，\((L-t-\varepsilon)^+\) 与 \((L-t)^+\) 之差在 \(\{L&gt;t\}\) 上为 \(-\varepsilon\wedge(L-t)\)、否则为 \(0\)）；单调收敛定理给出 \(\Psi'(t^+)=1-\lambda_\alpha\Prob(L&gt;t)\)。左导数同法用 \(\Prob(L\ge t)\)。
+
+Lipschitz：由 \(\Prob(L&gt;t)\in[0,1]\) 得 \(\Psi'(t^+)\in[1-\lambda_\alpha,1]\)；左导数同。凸函数的导数单调，故 \(\abs{\Psi'(t)}\le\max(\lambda_\alpha-1,1)\) 于一切连续点，取稠密列并积分得 Lipschitz 常数 \(\max(1,\lambda_\alpha-1)\)。
+
+<strong>(ii)</strong> 记 \(A(t)=F_L(t)=1-\Prob(L&gt;t)\)。则 \(\Psi'(t^+)\ge0\) 当且仅当 \(\Prob(L&gt;t)\le1-\alpha\)，当且仅当 \(A(t)\ge\alpha\)，当且仅当 \(t\ge q^-_\alpha\)。于是 \(\Psi\) 在 \((-\infty,q^-_\alpha]\) 上非增、在 \([q^-_\alpha,\infty)\) 上非减，最小值必在 \(t=q^-_\alpha\) 取到。
+
+另一半：\(\Psi'(t^-)\le0\) 当且仅当 \(\Prob(L\ge t)\ge1-\alpha\)，当且仅当 \(F_L(t^-)\le\alpha\)，当且仅当 \(t\le q^+_\alpha\)。于是 \(\Psi\) 在 \((-\infty,q^+_\alpha]\) 上非增。合并：<strong>下降区是 \((-\infty,q^-_\alpha]\)，平坦或上升区从 \(q^-_\alpha\) 开始，而在 \(q^+_\alpha\) 之后严格上升</strong>——最小值集合正是 \([q^-_\alpha,q^+_\alpha]\)，即 <a class="xref" href="appF.html#eq:appF-argmin">(F.35)</a>。
+
+<strong>(iii)</strong> 由引理 <a class="xref" href="appF.html#lem:appF-exact">F.12</a> 的 <a class="xref" href="appF.html#eq:appF-cvar-ru-exact">(F.16)</a>，\(\Psi(q^-_\alpha)=\mathrm{CVaR}_\alpha(L)\)；而 \(q^-_\alpha\) 是最小值点（(ii)），故 \(\min\Psi=\mathrm{CVaR}_\alpha\)。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.19</span>（与正文版本的差别）</div>
+正文的引理 <a class="xref" href="ch22.html#lem:ch22-dual">22.12</a> 是在 H2 下证的，只说「下确界在 \(t=q\) 处取到」。这里得到了更强的结论：<strong>最优解集恰好是整个区间 \([q^-_\alpha,q^+_\alpha]\)</strong>，且在 \(F_L\) 有平坦段时这个区间非退化。这对数值实现有用——梯度下降落在区间里的任何一点都得到同一个 \(\Psi\) 值。
+</div>
+
+<h3 id="sec-F-4-2"><span class="hnum">F.4.2</span>共轭（上确界）表示</h3>
+
+<div class="thm plain" id="thm:appF-dual"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.20</span>（共轭表示，含原子情形）</div>
+设假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a> 成立，\(\lambda_\alpha=(1-\alpha)^{-1}\)，令
+<div class="math-scroll" id="eq:appF-Zset">\[\mathcal{Z}_\alpha=\Bigl\{Z\in L^0(\Omega):\ 0\le Z\le\lambda_\alpha\ \text{a.s.},\ \E Z=1\Bigr\}. \tag{F.37}\]</div>
+则
+<div class="math-scroll" id="eq:appF-dual">\[\mathrm{CVaR}_\alpha(L)=\sup_{Z\in\mathcal{Z}_\alpha}\E[ZL], \tag{F.38}\]</div>
+且上确界被下式达到：
+<div class="math-scroll" id="eq:appF-Zstar">\[Z^\star=\lambda_\alpha\ind{L&gt;q}+\beta\ind{L=q},\qquad
+\beta=\frac{1-\lambda_\alpha\Prob(L&gt;q)}{\Prob(L=q)}, \tag{F.39}\]</div>
+其中 \(q=\mathrm{VaR}_\alpha(L)\)；当 \(\Prob(L=q)=0\) 时第二项去掉，此时 \(\beta\) 任意（约定为 \(0\)）。若 \(\Prob(L=q)&gt;0\)，则 \(\beta\in[0,\lambda_\alpha]\)。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>第一步（上界）。</strong>任取 \(Z\in\mathcal{Z}_\alpha\) 与任意 \(t\in\R\)。由 \(L-t\le(L-t)^+\) 与 \(Z\ge0\) 得 \((L-t)Z\le(L-t)^+Z\)；再由 \((L-t)^+\ge0\) 与 \(Z\le\lambda_\alpha\) 得 \((L-t)^+Z\le\lambda_\alpha(L-t)^+\)。于是
+<div class="math-scroll">\[\E[ZL]=t\,\E Z+\E\bigl[(L-t)Z\bigr]=t+\E\bigl[(L-t)Z\bigr]\le t+\lambda_\alpha\E\bigl[(L-t)^+\bigr]=\Psi(t), \tag{F.40}\]</div>
+对 \(t\) 取下确界并用 <a class="xref" href="appF.html#thm:appF-ru">定理 F.18</a>(iii) 得 \(\E[ZL]\le\mathrm{CVaR}_\alpha(L)\)。对 \(Z\) 取上确界仍成立。
+
+<strong>第二步（\(Z^\star\) 合法）。</strong>\(0\le Z^\star\le\lambda_\alpha\) 显然。若 \(\Prob(L=q)&gt;0\)，
+<div class="math-scroll">\begin{align}\beta\ge0 &amp;\Longleftrightarrow 1\ge\lambda_\alpha\Prob(L&gt;q)\Longleftrightarrow \Prob(L&gt;q)\le1-\alpha &amp;&amp;\text{（$F_L(q)\ge\alpha$）}, \tag{F.41}\\
+\beta\le\lambda_\alpha &amp;\Longleftrightarrow 1\le\lambda_\alpha\bigl(\Prob(L&gt;q)+\Prob(L=q)\bigr)=\lambda_\alpha\Prob(L\ge q) \tag{F.42}\\
+&amp;\Longleftrightarrow \Prob(L\ge q)\ge1-\alpha &amp;&amp;\text{（$F_L(q^-)\le\alpha$）}, \tag{F.43}\end{align}</div>
+两条都由引理 <a class="xref" href="appF.html#lem:appF-qchar">F.4</a> 保证成立。于是 \(\beta\in[0,\lambda_\alpha]\)；且由 \(\beta\) 的定义直接得
+<div class="math-scroll">\[\E Z^\star=\lambda_\alpha\Prob(L&gt;q)+\beta\Prob(L=q)=1 . \tag{F.44}\]</div>
+
+<strong>第三步（\(Z^\star\) 达到上确界）。</strong>设 \(\Prob(L=q)&gt;0\)（否则直接取 \(Z^\star=\lambda_\alpha\ind{L&gt;q}\)，第二项为 \(0\)，计算同样成立）。则
+<div class="math-scroll" id="eq:appF-Zstar-value">\begin{align}\E[Z^\star L]
+&amp;=\lambda_\alpha\E\bigl[L\ind{L&gt;q}\bigr]+\beta\,q\,\Prob(L=q)\\
+&amp;=\lambda_\alpha\E\bigl[L\ind{L&gt;q}\bigr]+q\bigl(1-\lambda_\alpha\Prob(L&gt;q)\bigr)\\
+&amp;=q+\lambda_\alpha\Bigl(\E\bigl[L\ind{L&gt;q}\bigr]-q\Prob(L&gt;q)\Bigr)
+=q+\lambda_\alpha\E\bigl[(L-q)^+\bigr]
+=\mathrm{CVaR}_\alpha(L), \tag{F.45}\end{align}</div>
+末步用了 <a class="xref" href="appF.html#eq:appF-cvar-ru-exact">(F.16)</a>。结合第一步，<a class="xref" href="appF.html#eq:appF-dual">(F.38)</a> 成立。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.21</span>（一句人话）</div>
+<a class="xref" href="appF.html#eq:appF-dual">(F.38)</a> 说的是：<strong>把「尾部平均」翻译成「最坏重加权的平均」</strong>。\(\mathcal{Z}_\alpha\) 里的每个 \(Z\) 是一个「概率再加权器」：权重只能放大、最多放大 \(\lambda_\alpha\) 倍，且总质量仍为 \(1\)。CVaR 就是在这个权重族里选最坏的那个。\(\mathcal{Z}_\alpha\) 是凸紧的，<a class="xref" href="appF.html#eq:appF-dual">(F.38)</a> 是一个不涉及优化的<strong>闭式</strong>上确界——这正是它比「\(\inf_t\Psi(t)\)」好用的地方：\(\sup\) 对加法线性，\(\inf\) 不是。次可加性就是这样来的。
+</div>
+
+<div class="thm plain" id="cor:appF-cvx"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">F.22</span>（CVaR 是凸风险度量）</div>
+在假设 <a class="xref" href="appF.html#asm:appF-h1">F.1</a> 下，\(L\mapsto\mathrm{CVaR}_\alpha(L)\) 是凸的、正齐次的，因而是<strong>凸风险度量</strong>；(<a class="xref" href="appF.html#thm:appF-coherent">定理 F.16</a>) 再加单调性与平移不变性就是一致风险度量。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>凸性：<a class="xref" href="appF.html#eq:appF-dual">(F.38)</a> 的右边是一族<strong>线性</strong>泛函 \(L\mapsto\E[ZL]\) 的上确界，线性泛函之集的上确界是凸函数。正齐次性：\(L\mapsto\E[ZL]\) 正齐次，上确界亦正齐次（\(\lambda&gt;0\) 时 \(\sup_Z\E[Z\lambda L]=\lambda\sup_Z\E[ZL]\)）。
+</div>
+
+
+<h2 id="sec-F-5"><span class="hnum">F.5</span>谱风险度量：CVaR 在度量族中的位置</h2>
+
+
+次可加性是「一族线性泛函的上确界」给的，那么反过来问：哪些风险度量能写成这种上确界的形式？答案是<strong>谱风险度量</strong>。这个视角能一次说清 VaR 和 CVaR 的关系。
+
+<div class="thm definition" id="def:appF-spectral"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">F.23</span>（谱风险度量）</div>
+设权重函数 \(\phi:[0,1]\to[0,\infty)\) 满足
+<div class="math-scroll">\[\phi\ \text{非减},\qquad \int_0^1\phi(u)\,du=1 , \tag{F.46}\]</div>
+并设 \(\int_0^1\phi(u)\abs{\mathrm{VaR}_u(L)}\,du&lt;\infty\)。定义
+<div class="math-scroll" id="eq:appF-spectral">\[\rho_\phi(L)=\int_0^1\phi(u)\,\mathrm{VaR}_u(L)\,du . \tag{F.47}\]</div>
+</div>
+
+<div class="thm plain" id="prop:appF-cvar-is-spectral"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">F.24</span>（CVaR 是谱风险度量）</div>
+取阶梯权重 \(\phi_\alpha(u)=\lambda_\alpha\ind{u&gt;\alpha}\)，则 \(\phi_\alpha\) 非减、\(\int_0^1\phi_\alpha=1\)，且
+<div class="math-scroll">\[\rho_{\phi_\alpha}=\mathrm{CVaR}_\alpha . \tag{F.48}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>\(\phi_\alpha\) 在 \(u&lt;\alpha\) 上为 \(0\)、在 \(u&gt;\alpha\) 上为 \(\lambda_\alpha&gt;0\)，非减；\(\int_0^1\phi_\alpha=\lambda_\alpha(1-\alpha)=1\)。代入 <a class="xref" href="appF.html#eq:appF-spectral">(F.47)</a> 得 \(\rho_{\phi_\alpha}(L)=\lambda_\alpha\int_\alpha^1\mathrm{VaR}_u(L)\,du\)，正是定义 <a class="xref" href="ch22.html#def:ch22-cvar">22.8</a> 的积分形式。
+</div>
+
+<div class="thm plain" id="thm:appF-spectral-coherent"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.25</span>（谱风险度量都是一致的）</div>
+设 \(\phi\) 如定义 <a class="xref" href="appF.html#def:appF-spectral">F.23</a>。则 \(\rho_\phi\) 满足单调性、正齐次性、平移不变性与次可加性。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>第一步：阶梯权重的乘积结构。</strong>设 \(\phi=\sum_{j=1}^m w_j\phi_{\alpha_j}\)，其中 \(w_j\ge0\)、\(\sum_jw_j=1\)、\(0&lt;\alpha_1\le\cdots\le\alpha_m&lt;1\)，且每个 \(\phi_{\alpha_j}\) 是命题 <a class="xref" href="appF.html#prop:appF-cvar-is-spectral">F.24</a> 的阶梯权重（即 \(\rho_{\phi_{\alpha_j}}=\mathrm{CVaR}_{\alpha_j}\)）。由 <a class="xref" href="appF.html#eq:appF-spectral">(F.47)</a> 的线性性，
+<div class="math-scroll">\[\rho_\phi(L)=\sum_{j=1}^m w_j\,\mathrm{CVaR}_{\alpha_j}(L), \tag{F.49}\]</div>
+即 \(\rho_\phi\) 是若干 CVaR 的<strong>凸组合</strong>。于是四条公理逐条继承：单调（<a class="xref" href="appF.html#thm:appF-coherent">定理 F.16</a>(i)）、正齐次（(ii)）、平移不变（(iii)）都是「有限个成立的量做加权和仍成立」；次可加性用 <a class="xref" href="appF.html#thm:appF-coherent">定理 F.16</a>(iv)：
+<div class="math-scroll">\[\rho_\phi(L_1+L_2)=\sum_jw_j\,\mathrm{CVaR}_{\alpha_j}(L_1+L_2)\le\sum_jw_j\bigl(\mathrm{CVaR}_{\alpha_j}(L_1)+\mathrm{CVaR}_{\alpha_j}(L_2)\bigr)=\rho_\phi(L_1)+\rho_\phi(L_2). \tag{F.50}\]</div>
+
+<strong>第二步：一般 \(\phi\) 的逼近。</strong>对一般的非减 \(\phi\)，取一列非减阶梯函数 \(\phi^{(m)}\) 满足 \(0\le\phi^{(m)}\uparrow\phi\) 且 \(\int\phi^{(m)}\uparrow1\)；把每个 \(\phi^{(m)}\) 归一化后套用第一步，再令 \(m\to\infty\)。积分号下的收敛由控制收敛定理保证——控制函数可取 \(\phi(u)\abs{\mathrm{VaR}_u(L)}\)，其可积性已由定义 <a class="xref" href="appF.html#def:appF-spectral">F.23</a> 假定。\(\abs{\rho_{\phi^{(m)}}(L)-\rho_\phi(L)}\to0\) 逐条传递四条公理（不等号在极限下保持）。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.26</span>（VaR 不在这个族里，这不是巧合）</div>
+VaR 想写成 <a class="xref" href="appF.html#eq:appF-spectral">(F.47)</a> 只能取 \(\phi=\delta_\alpha\)（\(\alpha\) 处的 Dirac 质量）。Dirac 既不是非减函数、也不可积——系数 \(\phi\) 必须「把越惨的分位给越大的权重」才有次可加性，而 \(\delta_\alpha\) 只把全部权重压在<strong>一条线</strong>上，线外的惨况一律不给权重。这就是它失效的根本原因，与 <a class="xref" href="appF.html#thm:appF-fail">定理 F.8</a> 的窄区间条件是一回事的两个侧面：<strong>尾部窄区间被忽略得越彻底，分散化的直觉就越守不住。</strong>
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.27</span>（系统为什么还是留着 VaR）</div>
+谱度量比 VaR「更对」，但系统同时报 <code class="code">VaR95</code>、<code class="code">VaR99</code>、<code class="code">CVaR95</code> 三个数。原因不是犹豫：VaR 是<strong>分位点</strong>，可以被读成「某一天亏了多少钱」；CVaR 是<strong>尾部均值</strong>，读成「真出事那天平均亏多少」。两个问题的答案都有用——只是做<em>合规判据</em>时必须用后者（系统的 CVaR 硬限制是 \(8\%\)）。
+</div>
+
+
+<h2 id="sec:appF-finite"><span class="hnum">F.6</span>有限样本：系统的历史法算的到底是什么</h2>
+
+
+到这里都是连续理论。系统的实现是有限样本的排序，两者之间隔着一次「取整」，还隔着一处我们即将指出的方向性缺陷。这一节把两者接上。
+
+<h3 id="sec-F-6-1"><span class="hnum">F.6.1</span>经验分布与顺序统计量</h3>
+
+设系统拿到 \(n\) 个样本 \(r_1,\dots,r_n\)，把它当成损失的<strong>经验分布</strong>：\(L\) 等概率地取 \(L_j=-r_j\)，\(j=1,\dots,n\)。记损失的顺序统计量
+<div class="math-scroll">\[L_{(1)}\le L_{(2)}\le\cdots\le L_{(n)},\qquad
+A_m:=\frac{1}{m}\sum_{i=n-m+1}^{n}L_{(i)}\quad(1\le m\le n), \tag{F.51}\]</div>
+即 \(A_m\) 是「最惨的 \(m\) 条」的平均值。经验分布的分位函数为
+<div class="math-scroll">\[\mathrm{VaR}^{\mathrm{emp}}_u=\inf\bigl\{\ell:F^{\mathrm{emp}}_L(\ell)\ge u\bigr\}=L_{(\lceil nu\rceil)},\qquad u\in(0,1], \tag{F.52}\]</div>
+（\(\lceil\cdot\rceil\) 上取整）。
+
+<div class="thm plain" id="lem:appF-Amono"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">F.28</span>（尾部平均的层级结构）</div>
+\(A_m\) 关于 \(m\) 非增，且
+<div class="math-scroll" id="eq:appF-Adiff">\[A_m-A_{m+1}=\frac{1}{m+1}\bigl(A_m-L_{(n-m)}\bigr)\ \ge\ 0 . \tag{F.53}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>由 \(A_{m+1}=\frac{mA_m+L_{(n-m)}}{m+1}\)（把最惨的 \(m+1\) 条拆成「最惨的 \(m\) 条」与「第 \(m+1\) 惨的那一条」）直接相减：
+<div class="math-scroll">\[A_m-A_{m+1}=A_m-\frac{mA_m+L_{(n-m)}}{m+1}=\frac{(m+1)A_m-mA_m-L_{(n-m)}}{m+1}=\frac{A_m-L_{(n-m)}}{m+1}\ \ge\ 0, \tag{F.54}\]</div>
+非负性来自 \(L_{(n-m)}\le A_m\)（平均值不小于参与平均的最小者）。
+</div>
+
+<div class="thm plain" id="thm:appF-syscorr"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.29</span>（系统算法与理论口径的精确对应）</div>
+设样本量 \(n\)、置信水平 \(\alpha\in(0,1)\)，记
+<div class="math-scroll" id="eq:appF-ktilde">\[k=\Bigl\lfloor(1-\alpha)n\Bigr\rfloor,\qquad m=k+1,\qquad \tilde\alpha=1-\frac{m}{n}. \tag{F.55}\]</div>
+则 \(m\in\bigl((1-\alpha)n,\ (1-\alpha)n+1\bigr]\)、\(\tilde\alpha\in[\alpha-1/n,\ \alpha)\)，并且系统源码 <code class="sysfile">internal/risk/engine.go</code> 的两个历史法估计量恰为
+<div class="math-scroll" id="eq:appF-sysestimators">\[\widehat{\mathrm{VaR}}_\alpha=\bigl\lvert L_{(n-k)}\bigr\rvert=q^+_{\tilde\alpha}\bigl(L^{\mathrm{emp}}\bigr),
+\qquad
+\widehat{\mathrm{CVaR}}_\alpha=\bigl\lvert A_m\bigr\rvert=\Bigl\lvert\frac{1}{m}\sum_{i=n-m+1}^{n}L_{(i)}\Bigr\rvert . \tag{F.56}\]</div>
+在经验分布上，CVaR 的积分形式与条件期望形式在水平 \(\tilde\alpha\) 处<strong>相等</strong>，且都等于 \(A_m\)：
+<div class="math-scroll" id="eq:appF-sysexact">\[A_m=\mathrm{CVaR}^{\mathrm{emp}}_{\tilde\alpha}=\E^{\mathrm{emp}}\bigl[L\mid L\ge \mathrm{VaR}^{\mathrm{emp}}_{\tilde\alpha}\bigr]. \tag{F.57}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>第一步：尾部条数。</strong>由 \(k=\lfloor(1-\alpha)n\rfloor\) 得 \(k\le(1-\alpha)n&lt;k+1\)，故 \(m=k+1\in((1-\alpha)n,(1-\alpha)n+1]\)。除以 \(n\)：\(m/n\in(1-\alpha,1-\alpha+1/n]\)，故 \(\tilde\alpha=1-m/n\in[\alpha-1/n,\alpha)\)。
+
+<strong>第二步：VaR。</strong>\(k\) 是 Go 代码里 <code class="code">idx</code> 的取值（0 基），<code class="code">sorted[idx]</code> 即 \(L_{(n-k)}\)（因为升序排列的第 \(k+1\) 个最小样本，对应第 \(k+1\) 大的损失）。经验分布有 \(n\) 个等概率原子，\(F^{\mathrm{emp}}_L(L_{(n-k)})=(n-k)/n=1-k/n=\tilde\alpha+1/n&gt;\tilde\alpha\)，而 \(F^{\mathrm{emp}}_L(L_{(n-k-1)})=\tilde\alpha\) 不大于 \(\tilde\alpha\)。故按定义 <a class="xref" href="appF.html#def:appF-quantile">F.3</a>，\(q^+_{\tilde\alpha}=L_{(n-k)}\)。
+
+<strong>第三步：CVaR。</strong>取 \(u\in(\tilde\alpha,1]\)，则 \(\lceil nu\rceil\ge\lceil n\tilde\alpha\rceil=n-m+1\)，故 \(\mathrm{VaR}^{\mathrm{emp}}_u=L_{(\lceil nu\rceil)}\ge L_{(n-m+1)}\)。于是
+<div class="math-scroll">\[\int_{\tilde\alpha}^1\mathrm{VaR}^{\mathrm{emp}}_u\,du=\frac{1}{n}\sum_{i=n-m+1}^{n}L_{(i)}=\frac{m}{n}A_m , \tag{F.58}\]</div>
+两边除以 \(1-\tilde\alpha=m/n\) 得积分形式 \(=A_m\)。
+
+<strong>第四步：两形式相等。</strong>经验分布有原子，一般情形两形式会分家（<a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a>）。但在水平 \(\tilde\alpha\) 处，\(\Prob^{\mathrm{emp}}(L\ge L_{(n-m+1)})=m/n=1-\tilde\alpha\)，恰好命中 <a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a> 的等号条件，故条件期望形式也等于 \(A_m\)。<a class="xref" href="appF.html#eq:appF-sysexact">(F.57)</a> 得证。
+
+<strong>第五步：源码口径。</strong>\(k=\lfloor(1-\alpha)n\rfloor\) 与 <code class="code">idx</code> 一致；<code class="code">tail := sorted[:idx+1]</code> 长度恰为 \(m=k+1\)；<code class="code">sum/len(tail)</code> 即 \(A_m\)；外围的 <code class="code">math.Abs</code> 把损失取成正的绝对值。\(\widehat{\mathrm{VaR}}_\alpha=\abs{L_{(n-k)}}\) 亦同。
+</div>
+
+<div class="thm plain" id="cor:appF-roundbound"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">F.30</span>（取整偏差的界）</div>
+记名义尾部条数 \(m_0=(1-\alpha)n\in(0,n)\)，\(m=\lfloor m_0\rfloor+1\)。则 \(\lfloor m_0\rfloor=m-1&lt;m_0&lt;m\)，且「多取一条尾部观测」所付的代价为
+<div class="math-scroll">\[A_{m-1}-A_m=\frac{1}{m}\Bigl(A_{m-1}-L_{(n-m+1)}\Bigr)\ \ge\ 0 , \tag{F.59}\]</div>
+即尾部内部的离散程度除以尾部条数。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>在 <a class="xref" href="appF.html#lem:appF-Amono">引理 F.28</a> 的 <a class="xref" href="appF.html#eq:appF-Adiff">(F.53)</a> 中把 \(m\) 换成 \(m-1\) 得该恒等式；非负性来自 \(L_{(n-m+1)}\le A_{m-1}\)。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.31</span>（取整是必须的，但要写清它换来了什么）</div>
+<a class="xref" href="appF.html#cor:appF-roundbound">推论 F.30</a> 说：系统报出的 CVaR 相对「最窄的整数口径（\(\lfloor m_0\rfloor\) 条）」一律<strong>偏小</strong>，差额恰好是尾部内部离散度除以尾部件数。这不是「更保守」或「更激进」的问题，而是<strong>水平被悄悄挪到了 \(\tilde\alpha\)</strong>：\(n=120\)、\(\alpha=0.95\) 时，读者以为在看「95% 分位以上那一段的平均」，实际看的是 \(94.17\%\) 水平上的尾部均值。多取一条换来的是估计更稳（尾部多一个样本），代价是数值略小。<strong>这是一处必须写明、而不是必须修掉的口径</strong>——尾部条数只能是整数，而系统的选择是自洽的。
+</div>
+
+<h3 id="sec-F-6-2"><span class="hnum">F.6.2</span>120 天窗口意味着什么：把条数算出来</h3>
+
+系统的组合日收益率窗口写死在 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">computePositionReturns</code> 里：<code class="code">const historyDays = 120</code>。把 \(n=120\) 代进 <a class="xref" href="appF.html#thm:appF-syscorr">定理 F.29</a>：
+
+<figure class="tbl" id="tab:appF-window"><div class="tbl-scroll"><table><caption><span class="lbl">表 F.1</span>名义置信水平、实际尾部条数与等价水平（\(n=120\)）</caption><tbody><tr><td><strong>名义水平 \(\alpha\)</strong></td><td class="num"><strong>名义条数 \((1-\alpha)n\)</strong></td><td class="num"><strong>代码 \(k=\lfloor\cdot\rfloor\)</strong></td><td class="num"><strong>尾部条数 \(m=k+1\)</strong></td><td class="num"><strong>等价水平 \(\tilde\alpha=1-m/n\)</strong></td></tr><tr class="rule"><td colspan="5"></td></tr><tr><td>\(0.95\)</td><td class="num">\(6.0\)</td><td class="num">\(6\)</td><td class="num">\(\mathbf{7}\)</td><td class="num">\(\mathbf{0.941667}\)</td></tr><tr><td>\(0.99\)</td><td class="num">\(1.2\)</td><td class="num">\(1\)</td><td class="num">\(\mathbf{2}\)</td><td class="num">\(\mathbf{0.983333}\)</td></tr><tr class="rule"><td colspan="5"></td></tr></tbody></table></div><p class="tabnote">读法：系统报出的 <code class="code">CVaR95</code> 是最近 120 个交易日里「最惨 7 天」的平均；<code class="code">VaR99</code> 是「第二惨的那一天」；<code class="code">CVaR99</code> 是「最惨 2 天」的平均。</p>
+<p class="tabsrc">本书按 <code class="sysfile">internal/risk/engine.go</code> 的 <code class="code">CalculateVaR</code>/<code class="code">CalculateCVaR</code> 与 <code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">computeHistoricalVaR</code>/<code class="code">computeHistoricalCVaR</code> 逐字复算 <a class="xref" href="appF.html#eq:appF-ktilde">式 (F.55)</a>；窗口 \(n=120\) 取自 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">historyDays</code>。核对时间 2026-09-24。</p></figure>
+
+两个数字值得盯一眼。<strong>95% 的尾部只有 7 条</strong>：一整个季度的行情里，系统拿 7 天来代表「极端情况」。<strong>99% 的尾部只有 2 条</strong>：<code class="code">VaR99</code> 实际上就是「第二惨的那一天」这一个观测——它的数值完全由单日决定，换个窗口就可能变样。这不是实现的错，是样本量的物理限制：想在 99% 水平上有 \(m_0\ge20\) 条尾部，需要 \(n\ge2000\) 个交易日，约八年。
+
+<h3 id="sec-F-6-3"><span class="hnum">F.6.3</span>一处必须点名的口径缺陷：序列被倒着喂进去了</h3>
+
+下面这件事是本书在核对时发现的，有代码链和真实数据两条证据，如实记下。
+
+<strong>代码链。</strong><code class="sysfile">internal/data/duckdb.go</code> 的 <code class="code">GetRecentPrices</code> 查询写的是 <code class="code">ORDER BY date DESC LIMIT ?</code>，返回的切片是<strong>新到旧</strong>。<code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">computePositionReturns</code> 拿到这个切片后<strong>没有重排</strong>，直接按 \(i=1,2,\dots\) 算
+<div class="math-scroll">\[\hat r_i=\frac{c_i-c_{i-1}}{c_{i-1}}, \tag{F.60}\]</div>
+其中 \(c_{i-1}\) 比 \(c_i\) <strong>更新</strong>。于是
+<div class="math-scroll" id="eq:appF-flip">\[\hat r_i=-\frac{r_i}{1+r_i},
+\qquad r_i=\frac{c_{i-1}-c_i}{c_i}\ \text{为真实日收益}. \tag{F.61}\]</div>
+<strong>符号被翻了过来</strong>（幅度还多一层 \(1/(1+r_i)\) 的二阶畸变）。
+
+这个判断有一个旁证：同一个返回值的另一个消费方——<code class="sysfile">internal/portfolio/dataprep.go</code> 的 <code class="code">PrepareData</code>——在拿到价格后<strong>显式重排</strong>：
+<figure class="listing" id="{lst:appF-resort}"><figcaption><span class="lbl">代码 F.1</span>另一个消费方对 $GetRecentPrices$ 返回值的处理（<code class="sysfile">internal/portfolio/dataprep.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="kw">if</span> prices, err := dm.GetRecentPrices(ctx, market, ids[i], days); err == <span class="kw">nil</span> &amp;&amp; len(prices) &gt;= 2 {</span>
+<span class="cl">    sort.Slice(prices, <span class="kw">func</span>(x, y <span class="kw">int</span>) <span class="kw">bool</span> { <span class="kw">return</span> prices[x].TradeDate.Before(prices[y].TradeDate) })</span>
+<span class="cl">    <span class="com">// ... 之后才做日期对齐与收益率计算</span></span>
+<span class="cl">}</span></code></pre></figure>
+也就是说，这个函数的事实契约是<strong>「调用方必须自己按日期升序重排」</strong>。而 <code class="code">computePositionReturns</code> 漏了这一步。
+
+<strong>真实数据证据。</strong>用沪深300（<code class="code">sh000300</code>）最近 121 根日线（2026-04-01 至 2026-09-23）、按系统同一公式复算，看被当成「尾部」的到底是什么：
+
+<figure class="tbl" id="tab:appF-reversed"><div class="tbl-scroll"><table><caption><span class="lbl">表 F.2</span>被倒序喂入后，「尾部」取到的是涨幅而非跌幅——沪深300，\(n=120\)</caption><tbody><tr><td><strong>对象</strong></td><td class="num"><strong>日收益</strong></td><td class="num"><strong>备注</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>正确时序第 7 大跌幅</td><td class="num">\(-0.021441\)</td><td class="num">本应成为 <code class="code">VaR95</code> 的量</td></tr><tr><td>正确时序第 7 大涨幅</td><td class="num">\(+0.018705\)</td><td class="num">系统实际取到的那一条</td></tr><tr><td>系统 \(k=6\) 位置的排序值</td><td class="num">\(-0.018362\)</td><td class="num">\(=-0.018705/(1+0.018705)\)，即上一条经 <a class="xref" href="appF.html#eq:appF-flip">(F.61)</a> 变换</td></tr><tr><td>系统报出的 <code class="code">VaR95</code></td><td class="num">\(0.018362\)</td><td class="num">\(=\) 取绝对值后的第 7 大涨幅</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">差额 \(0.021441-0.018362=0.003079\)，即 <code class="code">VaR95</code> 被低估 \(14.4\%\)。规律：<strong>当上涨日的极端涨幅整体小于下跌日的极端跌幅时，系统的 VaR/CVaR 一律偏小</strong>——而 A 股长久期上这恰恰是常态。</p>
+<p class="tabsrc"><strong>复算数据</strong>：本书按 <code class="sysfile">internal/data/duckdb.go</code> 的同一 SQL（<code class="code">ORDER BY date DESC LIMIT 121</code>）取数、按 <code class="sysfile">internal/cio/cio.go</code> 的同一公式算收益率、按 <code class="sysfile">internal/risk/engine.go</code> 的同一算法取尾部，逐字复现。数据直接取自 <code class="sysfile">data/stock.duckdb</code>，未做任何模拟或平滑。核对时间 2026-09-24。</p></figure>
+
+<figure class="tbl" id="tab:appF-impact"><div class="tbl-scroll"><table><caption><span class="lbl">表 F.3</span>哪些对外指标被这一处顺序影响（沪深300 与上证指数，\(n=120\)，2026-04-02 至 2026-09-23）</caption><tbody><tr><td><strong>指标</strong></td><td class="num"><strong>正确时序</strong></td><td class="num"><strong>系统时序</strong></td><td><strong>是否被影响</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td><code class="code">VaR95</code></td><td class="num">\(0.021441\)</td><td class="num">\(0.018362\)</td><td>被影响（低 \(14.4\%\)）</td></tr><tr><td><code class="code">CVaR95</code></td><td class="num">\(0.028902\)</td><td class="num">\(0.024911\)</td><td>被影响（低 \(13.8\%\)）</td></tr><tr><td><code class="code">VaR99</code></td><td class="num">\(0.030254\)</td><td class="num">\(0.029733\)</td><td>被影响（低 \(1.7\%\)）</td></tr><tr><td><code class="code">CVaR99</code></td><td class="num">\(0.033147\)</td><td class="num">\(0.031724\)</td><td>被影响（低 \(4.3\%\)）</td></tr><tr><td>日波动率</td><td class="num">\(0.012724\)</td><td class="num">\(0.012765\)</td><td><strong>不受影响</strong>（对符号不变，仅受 \(1/(1+r)\) 二阶项扰动）</td></tr><tr><td>年化 Sharpe</td><td class="num">\(0.079\)</td><td class="num">\(0.118\)</td><td>被影响（均值项符号翻转，但被二阶项抵消了一部分）</td></tr><tr><td>最大回撤</td><td class="num">\(0.120486\)</td><td class="num">\(0.122348\)</td><td>被影响（路径型指标，与顺序有关）</td></tr><tr><td>与上证指数相关系数</td><td class="num">\(0.948144\)</td><td class="num">\(0.948790\)</td><td><strong>不受影响</strong>（所有资产被同一个排列重排，配对关系不变）</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">反向验证：<strong>哪一类指标不受影响，正好反证了机制</strong>。相关系数与 Beta 只依赖「同一时点上资产之间的配对」，全体资产被同一变换作用时配对不变，所以不受影响；波动率只依赖幅度不依赖符号，所以不受影响；而任何用到「哪些观测构成尾部」或「路径顺序」的指标都会被影响。</p>
+<p class="tabsrc"><strong>复算数据</strong>：同上；相关系数取 <code class="code">sh000300</code> 与 <code class="code">sz399001</code> 的 120 个日收益；年化按 \(\sqrt{244}\) 折算。核对时间 2026-09-24。</p></figure>
+
+<strong>影响范围（要说准，不夸大）。</strong>这一处顺序只影响 <code class="sysfile">internal/cio/cio.go</code> 的三条消费路径：<code class="code">requestRiskReview</code>（风险报告）、第 3724 行附近的组合指标装配、以及第 5857 行附近的面板指标（<code class="code">volatility</code>、<code class="code">sharpe_ratio</code>、<code class="code">max_drawdown</code>）。<strong>回撤熔断不受影响</strong>——<code class="code">drawdownStatus</code> 用的是组合快照总资产与 <code class="code">MaxHistoricalAssets()</code>，不经过收益率序列；组合中台的 <code class="code">ComputePortfolioRisk</code> 走的是另一条取数路径（<code class="sysfile">internal/brain/agents/workflow.go</code> 与 <code class="sysfile">internal/riskcenter/riskcenter.go</code>），同样不经过这里。
+
+<div class="box pitfall"><div class="boxbody">
+这是本附录最该记住的一条。倒序喂入之后，系统报出的 <code class="code">VaR95</code> \(=1.84\%\) 依然是一个「看起来很正常」的数字——它甚至还是同一量级。为什么？因为涨幅和跌幅的极端值本来就接近，取绝对值以后两者长得像。
+
+<strong>一个算错的量如果量级合理，它比一个明显离谱的量危险得多。</strong>这条经验对全部风险指标都成立：波动率对符号不变，所以看不出问题；相关系数对所有资产做同一变换不变，所以看不出问题；只有把「尾部取的是哪几条」逐条打出来，才能看见。
+
+顺带记一条同类的：<code class="sysfile">internal/risk/engine.go</code> 的 <code class="code">CalculateVaR</code> 在样本为空<strong>或频率参数非法</strong>时，直接 <code class="code">return 0</code>。于是「数据没拿到」和「风险为零」在输出上长得一模一样。第 <a class="xref" href="ch25.html#ch:ch25">第二十五章</a> 章讲的「静默降级」在这里有一个具体落点：<strong>调用方必须自己检查样本条数，不能把 0 当成「没有风险」</strong>。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+正文为了能走「换元 \(u=F_L(x)\)」，加了 H2（分布连续）。很多人读到这里会把 H2 记成「CVaR 理论的前提」——但系统的数据是<strong>经验分布</strong>，处处有原子，H2 根本不成立。
+
+真实情况是：<strong>CVaR 的全部关键结论都不需要 H2</strong>。本附录的 <a class="xref" href="appF.html#lem:appF-exact">引理 F.12</a>（尾部积分的精确表达）、<a class="xref" href="appF.html#thm:appF-ru">定理 F.18</a>（最优解集）、<a class="xref" href="appF.html#thm:appF-dual">定理 F.20</a>（共轭表示，含原子情形的 \(Z^\star\) 构造）都在只有 H1 的前提下证完了。H2 唯一的用途是让两种定义形式相等（<a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a>）。
+
+<strong>教训：一个假设如果只在某一条证明路径里需要，就不要把它写成「理论的前提」。</strong>写作者省了一页篇幅，读者却可能以为自己不能对自己的数据用这套工具。
+</div></div>
+
+
+<h2 id="sec:appF-normal"><span class="hnum">F.7</span>椭圆分布下的闭式解</h2>
+
+
+前面都在讲一般分布。当分布被指定为椭圆族时，VaR 与 CVaR 都有闭式解——这就是为什么「用一个波动率反推风险」在实务里流行。
+
+<div class="thm definition" id="asm:appF-h3"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">F.32</span>（H3：二阶矩与正态基准）</div>
+本节额外设 \(L\sim N(\mu,\sigma^2)\)、\(\sigma&gt;0\)。记 \(\Phi\)、\(\phi\) 为标准正态的分布函数与密度，\(z_\alpha=\Phi^{-1}(\alpha)\)。
+</div>
+
+<div class="thm plain" id="thm:appF-normal"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.33</span>（正态风险指标的闭式解）</div>
+在假设 <a class="xref" href="appF.html#asm:appF-h3">F.32</a> 下，对一切 \(\alpha\in(0,1)\)，
+<div class="math-scroll" id="eq:appF-normal">\[\mathrm{VaR}_\alpha(L)=\mu+\sigma z_\alpha,\qquad
+\mathrm{CVaR}_\alpha(L)=\mu+\sigma\,\frac{\phi(z_\alpha)}{1-\alpha}. \tag{F.62}\]</div>
+等价地，
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L)-\mathrm{VaR}_\alpha(L)=\sigma\bigl(\lambda_\alpha\phi(z_\alpha)-z_\alpha\bigr)\ &gt;\ 0 . \tag{F.63}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>VaR。</strong>由 \(F_L(\mu+\sigma z)=\Phi(z)\)，取 \(z=z_\alpha\) 得 \(F_L(\mu+\sigma z_\alpha)=\alpha\)；再由 \(F_L\) 连续严格递增，\(\mu+\sigma z_\alpha\) 就是唯一的 \(\alpha\)-分位点。
+
+<strong>CVaR。</strong>用 <a class="xref" href="appF.html#lem:appF-exact">引理 F.12</a> 的恒等式 <a class="xref" href="appF.html#eq:appF-cvar-ru-exact">(F.16)</a>，\(q=\mu+\sigma z_\alpha\)，则 \(L-q=\sigma(Z-z_\alpha)\)，\(Z\sim N(0,1)\)。先算一条标准正态的积分：
+<div class="math-scroll" id="eq:appF-mills">\[\E\bigl[(Z-z)^+\bigr]=\int_z^\infty(t-z)\phi(t)\,dt=\int_z^\infty t\phi(t)\,dt-z\bigl(1-\Phi(z)\bigr)=\phi(z)-z(1-\Phi(z)), \tag{F.64}\]</div>
+末步用了 \(\int_z^\infty t\phi(t)dt=\phi(z)\)（因为 \(\phi'(t)=-t\phi(t)\)）。代入：
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L)=\mu+\sigma z_\alpha+\lambda_\alpha\,\sigma\bigl(\phi(z_\alpha)-z_\alpha(1-\alpha)\bigr)
+=\mu+\sigma z_\alpha+\sigma\Bigl(\frac{\phi(z_\alpha)}{1-\alpha}-z_\alpha\Bigr)
+=\mu+\sigma\frac{\phi(z_\alpha)}{1-\alpha}. \tag{F.65}\]</div>
+正性：\(\lambda_\alpha\phi(z_\alpha)&gt;z_\alpha\) 对一切 \(\alpha\in(0,1)\) 成立（两者在 \(\alpha\to0\) 时都趋于 \(0\) 但前者以 \(\phi(z)/\alpha\) 的量级增长更快，在 \(\alpha\to1\) 时 \(\phi\to0\) 而 \(z_\alpha\to\infty\)，逐点数值检验见下表）。
+</div>
+
+<figure class="tbl" id="tab:appF-normal"><div class="tbl-scroll"><table><caption><span class="lbl">表 F.4</span>正态假设下的风险倍数（以标准差 \(\sigma\) 为单位）</caption><tbody><tr><td class="num"><strong>\(\alpha\)</strong></td><td class="num"><strong>\(z_\alpha\)</strong></td><td class="num"><strong>\(\phi(z_\alpha)\)</strong></td><td class="num"><strong>CVaR\(-\)VaR（除以 \(\sigma\)）</strong></td><td class="num"><strong>CVaR（除以 \(\sigma\)）</strong></td></tr><tr class="rule"><td colspan="5"></td></tr><tr><td class="num">\(0.900\)</td><td class="num">\(1.281552\)</td><td class="num">\(0.175498\)</td><td class="num">\(1.754983\)</td><td class="num">\(3.036535\)</td></tr><tr><td class="num">\(0.950\)</td><td class="num">\(1.644854\)</td><td class="num">\(0.103136\)</td><td class="num">\(2.062713\)</td><td class="num">\(3.707566\)</td></tr><tr><td class="num">\(0.975\)</td><td class="num">\(1.959964\)</td><td class="num">\(0.058445\)</td><td class="num">\(2.337803\)</td><td class="num">\(4.297767\)</td></tr><tr><td class="num">\(0.990\)</td><td class="num">\(2.326348\)</td><td class="num">\(0.026652\)</td><td class="num">\(2.665214\)</td><td class="num">\(4.991562\)</td></tr><tr><td class="num">\(0.999\)</td><td class="num">\(3.090232\)</td><td class="num">\(0.003367\)</td><td class="num">\(3.367090\)</td><td class="num">\(6.457322\)</td></tr><tr class="rule"><td colspan="5"></td></tr></tbody></table></div><p class="tabnote">读法：<strong>95% 的 CVaR 约等于 \(3.71\sigma\)</strong>，比 95% 的 VaR（\(1.64\sigma\)）高出 \(2.06\sigma\)。这一列数字解释了为什么许多「按 \(3\sigma\) 设止损」的做法看起来还行——它其实是在用 \(0.95\) 的 CVaR 当目标，而不是 \(0.95\) 的 VaR。</p>
+<p class="tabsrc"><strong>复算数据</strong>：本书用 <a class="xref" href="appF.html#eq:appF-normal">式 (F.62)</a> 在标准正态上高精度数值求解并复算，非系统运行数值。核对时间 2026-09-24。</p></figure>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.34</span>（为什么系统不用闭式解）</div>
+两处硬理由。第一，<a class="xref" href="appF.html#eq:appF-normal">(F.62)</a> 要求你<strong>先相信正态</strong>，而 A 股日收益的峰度远高于 \(3\)——尾部被正态严重低估。第二，系统的输出契约里 <code class="code">VaR95</code>/<code class="code">CVaR95</code> 是要和真实持仓对账的，用历史法至少「可复现」：给定同一段行情，任何人都能算出同一个数。<strong>闭式解的价值不在替代历史法，而在提供一个尺子</strong>：把历史法算出的 \(3.71\sigma\) 与正态的 \(3.71\sigma\) 放在一起，尾部到底厚不厚，一眼就能看出来。
+</div>
+
+
+<h2 id="sec-F-8"><span class="hnum">F.8</span>Kelly 缩放系数的数学</h2>
+
+
+第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章已经证过 \(\kelly\) 的有界性与单调性。这里补上三条正文没有的：<strong>等号取到的条件</strong>、<strong>Lipschitz 常数</strong>，以及<strong>代码守卫在数学上意味着什么</strong>。
+
+回顾定义 <a class="xref" href="ch07.html#def:ch07-kelly">7.1</a>：\(c,a\) 是归一化后的置信度与共识度，二者都落在 \([0,1]\)，
+<div class="math-scroll" id="eq:appF-kelly">\[\kelly(c,a)=\min\bigl(1,\ 0.4+0.6\,c\,a\bigr). \tag{F.66}\]</div>
+
+<div class="thm plain" id="thm:appF-kelly-sharp"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.35</span>（等号取到的条件）</div>
+对 \(c,a\in[0,1]\)：
+<div class="math-scroll">\[\kelly(c,a)=0.4\ \Longleftrightarrow\ c\,a=0\ \Longleftrightarrow\ (c=0)\ \text{或}\ (a=0), \tag{F.67}\]</div>
+<div class="math-scroll">\[\kelly(c,a)=1\ \Longleftrightarrow\ c\,a=1\ \Longleftrightarrow\ c=a=1 . \tag{F.68}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>记 \(g(c,a)=0.4+0.6ca\)。由 \(c,a\in[0,1]\) 得 \(ca\in[0,1]\)，故 \(g\in[0.4,1]\)。
+下界：\(\min(1,g)=0.4\) 等价于 \(g=0.4\)（因 \(g\ge0.4\) 且 \(\min(1,g)\ge g\) 在 \(g\le1\) 时取等），等价于 \(ca=0\)。在 \([0,1]\) 上积为零当且仅当至少一个因子为零。
+上界：\(\min(1,g)=1\) 等价于 \(g\ge1\)，等价于 \(ca\ge1\)；由 \(ca\le1\) 知这等价于 \(ca=1\)，在 \([0,1]\) 上当且仅当 \(c=a=1\)。
+</div>
+
+<div class="thm plain" id="thm:appF-kelly-lip"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.36</span>（Lipschitz 常数与最优性）</div>
+对任意 \(c_1,c_2,a_1,a_2\in[0,1]\)，
+<div class="math-scroll">\[\abs{\kelly(c_1,a_1)-\kelly(c_2,a_2)}\ \le\ 0.6\max\bigl(\abs{a_1}\abs{c_1-c_2},\ \abs{c_1}\abs{a_1-a_2}\bigr)\ \le\ 0.6\bigl(\abs{c_1-c_2}+\abs{a_1-a_2}\bigr). \tag{F.69}\]</div>
+特别地，对每个固定坐标，\(\kelly\) 是 \(0.6\)-Lipschitz 的，且常数 \(0.6\) <strong>不能再小</strong>。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>弱化第一步：\(u\mapsto\min(1,u)\) 是 \(1\)-Lipschitz 的。若 \(u,v\le1\)，\(\abs{\min(1,u)-\min(1,v)}=\abs{u-v}\)；若 \(u\le1\le v\)，\(\abs{\min(1,u)-\min(1,v)}=\abs{u-1}\le\abs{u-v}\)；\(u,v\ge1\) 时为 \(0\)。
+
+第二步：由链式法则（先在第二个自变量上 Lipschitz）与 \(g\) 的双线性性，
+<div class="math-scroll">\begin{align}\abs{\kelly(c_1,a)-\kelly(c_2,a)}
+&amp;\le\abs{g(c_1,a)-g(c_2,a)}=0.6\,a\,\abs{c_1-c_2}\le0.6\,\abs{c_1-c_2}, \tag{F.70}\\
+\abs{\kelly(c,a_1)-\kelly(c,a_2)}
+&amp;\le\abs{g(c,a_1)-g(c,a_2)}=0.6\,c\,\abs{a_1-a_2}\le0.6\,\abs{a_1-a_2}. \tag{F.71}\end{align}</div>
+一般情形的三角不等式由两次单变量估计相加得到。
+
+最优性：取 \(a=1\)、\(c_1=0\)、\(c_2=1\)。由 <a class="xref" href="appF.html#thm:appF-kelly-sharp">定理 F.35</a>，\(\kelly(0,1)=0.4\)、\(\kelly(1,1)=1\)，差为 \(0.6=0.6\abs{c_1-c_2}\)，等号被达到，故 \(0.6\) 是最小的可行常数。
+</div>
+
+<div class="thm plain" id="thm:appF-onlydown-sharp"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.37</span>（只降不升，以及下界）</div>
+设 \(A=\text{ruleRate}\ge0\)、\(p,o\in\R\) 为两位 AI 的建议仓位，
+<div class="math-scroll" id="eq:appF-effective">\[\text{Effective}=\min\Bigl(A,\ \clamp(p,0.2,1.0),\ \clamp(o,0.2,1.0),\ \kelly\Bigr). \tag{F.72}\]</div>
+则
+<div class="math-scroll">\[\min\bigl(A,\ 0.2\bigr)\ \le\ \text{Effective}\ \le\ A , \tag{F.73}\]</div>
+且 Effective 关于 \(A\) 是 \(1\)-Lipschitz 的。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>上界</strong>：\(\min\) 是最小元素，不超过集合中任何一个成员，取成员 \(A\) 即得。
+
+<strong>下界</strong>：由 <a class="xref" href="ch07.html#def:ch07-kelly">定义 7.1</a> 中 \(\clamp(\cdot,0.2,1.0)\) 的定义，\(\clamp(p,0.2,1.0)\ge0.2\)、\(\clamp(o,0.2,1.0)\ge0.2\)；由 <a class="xref" href="appF.html#thm:appF-kelly-sharp">定理 F.35</a>，\(\kelly\ge0.4\ge0.2\)。于是除掉 \(A\) 以外的三项都不小于 \(0.2\)，故 \(\min(A,\text{其余三项})\ge\min(A,0.2)\)。
+
+<strong>Lipschitz</strong>：\(\abs{\min(A,B,C,D)-\min(A',B,C,D)}\le\abs{A-A'}\)（对固定的另外三项，\(\min\) 是 \(1\)-Lipschitz 的）。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.38</span>（这就是「AI 只踩刹车」的完整数学表述）</div>
+<a class="xref" href="appF.html#thm:appF-onlydown-sharp">定理 F.37</a> 的两句话合起来说：<strong>生效仓位被夹在 \([\min(A,0.2),\,A]\) 这一段里</strong>，上端由规则层单独决定、AI 无权触碰（它的三项最多是 \(1\)），下端由 \(\clamp\) 的地板 \(0.2\) 与 \(\kelly\) 的底座 \(0.4\) 兜住。AI 的全部作用是在这段区间里<strong>向下选择</strong>。系统事实清单第 7 节把这条写成 \(\text{Effective}=\min(\text{ruleRate},\clamp(\cdot,0.2,1.0),\kelly)\)，这里给出了它的完整证明。
+</div>
+
+<h3 id="sec-F-8-1"><span class="hnum">F.8.1</span>代码守卫在数学上意味着什么</h3>
+
+第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章的注 <a class="xref" href="ch07.html#rem:ch07-guard">7.4</a> 提过一处「公式与实现的差异」：当输入的置信度或共识度<strong>小于等于零</strong>时，<code class="code">kellyPositionScale</code> 直接返回 \(1.0\)。下面把它写准。
+
+<div class="thm definition" id="def:appF-guard"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">F.39</span>（带守卫的缩放系数）</div>
+<div class="math-scroll">\[\tilde\kelly(c,a)=
+\begin{cases}
+1, &amp; c\le0\ \text{或}\ a\le0,\\
+\kelly(c,a), &amp; c&gt;0\ \text{且}\ a&gt;0 .
+\end{cases} \tag{F.74}\]</div>
+</div>
+
+<div class="thm plain" id="thm:appF-guard"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">F.40</span>（守卫在 \(0\) 处制造一个跳跃）</div>
+对每个 \(a\in(0,1]\)，
+<div class="math-scroll">\[\lim_{c\downarrow0}\tilde\kelly(c,a)=0.4\ \ne\ 1=\tilde\kelly(0,a),
+\qquad\text{跳跃幅度}\ =\ 0.6 . \tag{F.75}\]</div>
+\(\tilde\kelly\) 在开区域 \((0,1]^2\) 上单调不减（在每个坐标方向），但在整个 \([0,1]^2\) 上<strong>不单调</strong>：例如 \(\tilde\kelly(0,1)=1&gt;0.7=\tilde\kelly(0.5,1)\)，而 \(0&lt;0.5\)。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>极限：\(c\downarrow0\) 时 \(0.4+0.6ca\to0.4&lt;1\)，故 \(\kelly(c,a)=\min(1,0.4+0.6ca)\to0.4\)。而 \(\tilde\kelly(0,a)=1\)。差为 \(0.6\)。
+
+开区域上的单调性由 <a class="xref" href="appF.html#thm:appF-kelly-lip">定理 F.36</a> 的证明中同一结论（\(g\) 的偏导 \(0.6a,0.6c\ge0\)，复合单调的 \(\min(1,\cdot)\)）给出。
+
+不单调：\(\tilde\kelly(0,1)=1\)（守卫分支），\(\tilde\kelly(0.5,1)=\kelly(0.5,1)=\min(1,0.7)=0.7\)。自变量增大而函数值下降。
+</div>
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">F.41</span>（语义与连续性是两回事）</div>
+<a class="xref" href="appF.html#thm:appF-guard">定理 F.40</a> 说的不连续性不是 bug，是<strong>故意的语义切换</strong>：在系统里 \(0\) 这个值出现的场合是「这个数没拿到」（模型没给出、解析失败、字段缺失），不是「信心真的很低」。对一个缺失值动刀，等于让一次失联决定仓位，所以实现选择「不动」。
+
+要看清这一点，把它和 <a class="xref" href="appF.html#thm:appF-onlydown-sharp">定理 F.37</a> 合起来读：守卫把 \(\kelly\) 抬到 \(1\)，看起来像「放大仓位」，但 Effective 的上界 \(A\) 没有变，\(\clamp\) 的两项也没变。所以<strong>守卫的后果是「AI 的缩放整条退出，决策回落到规则层与另两位官员」</strong>，而不是「加倍下注」。
+
+<strong>接这套代码时要记住的分工</strong>：<a class="xref" href="appF.html#eq:appF-kelly">(F.66)</a> 描述「数据都在时的保守度曲线」，<a class="xref" href="appF.html#def:appF-guard">定义 F.39</a> 描述「数据不在时干脆不做判断」。两件事写在一个函数里，读的时候必须拆开——否则会得到一个「AI 一失联、仓位自动腰斩」的系统，那正好是「AI 单点故障不得阻断交易」的反面。
+</div>
+
+
+<h2 id="sec-F-9"><span class="hnum">F.9</span>理论口径与系统实现的对照表</h2>
+
+
+把前面几节的结论收成一张表，供读者按表核对。
+
+<figure class="tbl" id="tab:appF-map"><div class="tbl-scroll"><table><caption><span class="lbl">表 F.5</span>风险指标：理论对象、系统实现、以及两者的差异</caption><tbody><tr><td><strong>理论对象</strong></td><td><strong>系统实现</strong></td><td><strong>差异与性质</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>\(\mathrm{VaR}_\alpha=q^-_\alpha\)</td><td><code class="code">CalculateVaR</code>：升序排序后取 <code class="code">sorted[idx]</code>，<code class="code">idx = floor((1-alpha)*n)</code>，再取绝对值</td><td>取的是<strong>上分位点</strong> \(q^+_{\tilde\alpha}\)（<a class="xref" href="appF.html#thm:appF-syscorr">定理 F.29</a>），水平 \(\tilde\alpha=1-m/n\)；\(n=120\)、\(\alpha=0.95\) 时等价水平 \(0.941667\)</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>\(\mathrm{CVaR}_\alpha\)（积分形式）</td><td><code class="code">CalculateCVaR</code>：<code class="code">sorted[:idx+1]</code> 的绝对值均值</td><td><strong>精确等于</strong>经验分布在 \(\tilde\alpha\) 处的 CVaR；与名义 \(\alpha\) 的偏差由 <a class="xref" href="appF.html#cor:appF-roundbound">推论 F.30</a> 界定</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>\(\mathrm{CVaR}_\alpha\)（条件期望形式）</td><td>同一函数</td><td>在经验分布上，条件期望形式<strong>只在水平 \(\tilde\alpha\) 处</strong>与积分形式相等（<a class="xref" href="appF.html#eq:appF-sysexact">式 (F.57)</a>）；一般情形两者不等（<a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>\(\inf_t\bigl[t+\lambda_\alpha\E[(L-t)^+]\bigr]\)</td><td>不使用（无优化）</td><td>两者在样本上同值：<code class="code">sorted[:idx+1]</code> 的均值就是经验 RU 最优值，最优解集为 \([q^-_{\tilde\alpha},q^+_{\tilde\alpha}]\)（<a class="xref" href="appF.html#thm:appF-ru">定理 F.18</a>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>\(\E\bigl[L\mid L\ge\mathrm{VaR}_\alpha\bigr]\)</td><td>代码注释写作「ES」</td><td>是 CVaR 的<strong>下界</strong>，不是 CVaR（<a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a>）；H2 下才相等</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>一致风险度量四条公理</td><td>组合层硬限制用 CVaR（\(8\%\)），同时报 <code class="code">VaR95</code></td><td>CVaR 四条全满足（<a class="xref" href="appF.html#thm:appF-coherent">定理 F.16</a>）；VaR 缺次可加（<a class="xref" href="appF.html#thm:appF-fail">定理 F.8</a>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>\(\kelly(c,a)=\min(1,0.4+0.6ca)\)</td><td><code class="code">kellyPositionScale</code></td><td>公式与实现差一个「\(0\) 即缺失」的守卫分支，该分支在 \(c=0\) 处制造 \(0.6\) 的跳跃（<a class="xref" href="appF.html#thm:appF-guard">定理 F.40</a>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>\(\text{Effective}\le\text{ruleRate}\)</td><td><code class="code">Effective</code>=<code class="code">min(ruleRate, clamp(p), clamp(o), kelly)</code></td><td>成立，且更紧：\(\text{Effective}\ge\min(\text{ruleRate},0.2)\)（<a class="xref" href="appF.html#thm:appF-onlydown-sharp">定理 F.37</a>）</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabsrc">本书对 <code class="sysfile">internal/risk/engine.go</code>、<code class="sysfile">internal/intelligence/risk_engine.go</code>、<code class="sysfile">internal/cio/cio.go</code>、<code class="sysfile">internal/data/duckdb.go</code>、<code class="sysfile">internal/cio/proposal.go</code> 逐行核对。核对时间 2026-09-24。</p></figure>
+
+
+<h2 id="sec-F-10"><span class="hnum">F.10</span>真实出处</h2>
+
+
+<div class="box provenance"><div class="boxbody">
+<ul><li><strong>VaR 与 CVaR 的定义、假设 H1/H2/H3、三条性质、次可加性反例、两种定义形式</strong>：正文第 <a class="xref" href="ch22.html#ch:ch22">第二十二章</a> 章第 2 节；本附录补齐一般失效判据（<a class="xref" href="appF.html#thm:appF-fail">定理 F.8</a>）、精确恒等式（<a class="xref" href="appF.html#lem:appF-exact">引理 F.12</a>）、一致性条件（<a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a>）
+  </li><li><strong>历史法实现</strong>：<code class="sysfile">internal/risk/engine.go</code> 的 <code class="code">CalculateVaR</code>（行 169 起）、<code class="code">CalculateCVaR</code>（行 193 起）、<code class="code">validateReturnFrequency</code>（行 19 起）、<code class="code">CalculateSharpeRatio</code>（行 253 起）、<code class="code">CalculateMaxDrawdown</code>（行 295 起，以权益曲线为输入）
+  </li><li><strong>计算中台实现</strong>：<code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">computeHistoricalVaR</code>（行 188 起）、<code class="code">computeHistoricalCVaR</code>（行 203 起）、<code class="code">computeMaxDrawdown</code>（行 241 起）、<code class="code">ComputePortfolioRisk</code>（行 64 起）
+  </li><li><strong>组合日收益率序列</strong>：<code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">computePositionReturns</code>（行 5223 起，<code class="code">const historyDays = 120</code> 在行 5233）；消费方 <code class="code">requestRiskReview</code>（行 809 起）、行 3718 附近、行 5857 附近
+  </li><li><strong><code class="code">GetRecentPrices</code> 的返回顺序</strong>：<code class="sysfile">internal/data/duckdb.go</code> 行 232 起，SQL 为 <code class="code">ORDER BY date DESC LIMIT ?</code>（行 250--251）；对照消费方 <code class="sysfile">internal/portfolio/dataprep.go</code> 行 47 起的 <code class="code">sort.Slice</code> 升序重排
+  </li><li><strong>回撤熔断不经过收益率序列</strong>：<code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">drawdownStatus</code>（行 126 起），使用 <code class="code">portfolio.GetSnapshot()</code> 与 <code class="code">MaxHistoricalAssets()</code>
+  </li><li><strong>压力测试六情景与损失封顶</strong>：<code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">generateStressScenarios</code>；冲击依次为 \(-15\%,-5\%,-8\%,-10\%,-12\%,-7\%\)
+  </li><li><strong>Kelly 缩放公式与守卫</strong>：<code class="sysfile">internal/cio/proposal.go</code> 的 <code class="code">kellyPositionScale</code>（置信度或共识度 \(\le0\) 时返回 \(1.0\)）；正文第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章的注 <a class="xref" href="ch07.html#rem:ch07-guard">7.4</a>
+  </li><li><strong>硬限制与生效仓位</strong>：<code class="sysfile">internal/policy/engine.go</code> 的 <code class="code">HardLimits</code>（<code class="code">MaxSinglePosition=0.30</code>、<code class="code">MaxDrawdown=0.10</code>、CVaR 限制 \(8\%\)）、系统事实清单第 7 节与第 11 节
+  </li><li><strong>真实数据复算</strong>：<code class="sysfile">data/stock.duckdb</code> 的 <code class="code">stock.ohlc</code>，标的 <code class="code">sh000300</code>、<code class="code">sh000001</code>、<code class="code">sz399001</code>，各取 <code class="code">ORDER BY date DESC LIMIT 121</code>（2026-04-01 至 2026-09-23），得 120 个日收益
+  </li><li><strong>数据缺失与留白</strong>：本附录不引用任何系统未落库的运行数值；第 <a class="xref" href="appF.html#tab:appF-normal">表 F.4</a> 表的数字为标准正态的数学常数、第 <a class="xref" href="appF.html#ex:appF-atom">例 F.15</a> 节的算例为手算构造，均已标明非系统运行数据
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试</div><div class="boxbody">
+<ol><li><strong>把尾部条数算出来。</strong>取你手里的日收益样本数 \(n\)，按 <a class="xref" href="appF.html#eq:appF-ktilde">式 (F.55)</a> 算 \(k=\lfloor(1-\alpha)n\rfloor\) 与 \(m=k+1\)，再看 \(\tilde\alpha=1-m/n\)。\(n=250\)、\(\alpha=0.95\) 时 \(m\) 是几？\(\tilde\alpha\) 与 \(0.95\) 差多少？这决定了你报出的 CVaR 到底是哪个水平上的尾部均值。
+  </li><li><strong>复现失效区间。</strong>按 <a class="xref" href="appF.html#thm:appF-fail">定理 F.8</a> 的 <a class="xref" href="appF.html#eq:appF-interval">(F.9)</a>，对 \(\alpha=0.95\) 与 \(\alpha=0.99\) 分别算出使 VaR 失效的违约概率区间 \((1-\sqrt\alpha,\,1-\alpha]\)。再把 \(p=0.04\) 代进去，验证 \(\alpha=0.95\) 失效而 \(\alpha=0.99\) 不失效。\(\alpha=0.99\) 时失效区间宽度是多少？
+  </li><li><strong>用真实数据验一遍顺序问题。</strong>对任一标的，用 <code class="sysfile">internal/data/duckdb.go</code> 的同一 SQL 取 121 根日线，分别按「返回顺序」与「按日期升序」算 120 个日收益，各跑一次 <a class="xref" href="appF.html#thm:appF-syscorr">定理 F.29</a> 的两个估计量。你会看到：<code class="code">VaR95</code> 与 <code class="code">CVaR95</code> 都变了，而波动率几乎不变。再把两个序列各排一次序，看第 7 小的那个值分别对应哪个方向的极端日。
+  </li><li><strong>核对守卫的跳跃。</strong>写一个函数实现 <a class="xref" href="appF.html#def:appF-guard">定义 F.39</a>，在 \(a=1\) 下让 \(c\) 从 \(0\) 走到 \(0.1\)（含 \(c=0\) 这一点），把 \(c\) 与返回值画成折线。跳跃落在 \(c=0\) 上，幅度 \(0.6\)——按 <a class="xref" href="appF.html#thm:appF-guard">定理 F.40</a> 核对。
+  </li><li><strong>拿正态当尺子量尾部。</strong>算出你组合 95% 的历史 CVaR，再算组合日波动率，把两者之比与 <a class="xref" href="appF.html#tab:appF-normal">表 F.4</a> 的 \(3.707566\) 比一下。比值明显大于 \(3.71\) 说明尾部比正态厚——这正是系统不用闭式解的原因。
+</li></ol>
+</div></div>
+
+</article>
+<nav class="pager"><a class="prev" href="appE.html"><span class="dir">上一页</span>附录 E 六维判势的数据源与降级矩阵</a><a class="next" href="appG.html"><span class="dir">下一页</span>附录 G 术语表（中英对照）</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-appF-1"><strong>数据来源</strong> 本附录为说明 <a class="xref" href="appF.html#cor:appF-twoforms">推论 F.14</a> 构造的手算算例，非系统运行数据。 <a class="fn-back" href="#fnref-appF-1">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

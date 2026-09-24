@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A 股的几个硬规矩：T+1、整手与涨跌停 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·A 股的几个硬规矩：T+1、整手与涨跌停">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch23.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html" class="current"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a><ul class="sub"><li><a href="#sec-23-1">23.1 第一天的废单</a></li><li><a href="#sec-23-2">23.2 你的车再好，红灯也得停</a></li><li><a href="#sec-23-3">23.3 不把这些算进去，会付出四种代价</a></li><li><a href="#sec-23-4">23.4 近似模型：现金只够买整手</a></li><li><a href="#sec-23-4-1">23.4.1 整手取整</a></li><li><a href="#sec-23-4-2">23.4.2 现金约束下的最大可行购买量</a></li><li><a href="#sec-23-4-3">23.4.3 回退是幂等的</a></li><li><a href="#sec-23-4-4">23.4.4 费用项与“低价股”过滤</a></li><li><a href="#sec-23-5">23.5 涨跌停：想买买不进，想卖卖不掉</a></li><li><a href="#sec-23-6">23.6 它在系统里长什么样</a></li><li><a href="#sec-23-7">23.7 两道硬筛选：流通市值与流动性</a></li><li><a href="#sec-23-8">23.8 常见误解与纠偏</a></li><li><a href="#sec-23-9">23.9 真实出处</a></li></ul></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch23"><span class="cnum">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</h1>
+
+
+
+
+
+<h2 id="sec-23-1"><span class="hnum">23.1</span>第一天的废单</h2>
+
+我认识一个人，他在美股做过几年日频策略。策略本身简单得像一句口号：收盘前扫一遍动量榜，挑最壮的几只，第二天开盘价买入，收盘前全部换成当天新的最强名单。净值曲线很干净，回撤小，换手高——他管这叫“永远骑在最快的马上”。
+
+他把同一套逻辑搬到了 A 股。
+
+第一天上午九点四十，他按名单买齐了五只票。中午其中一只跌了六个点，按他的规则该立刻换掉。他点了卖出，系统弹回来一行字：
+
+<figure class="listing" id="{lst:ch23-reject}"><figcaption><span class="lbl">代码 23.1</span>一次真实的拒单（来自执行层校验）</figcaption><pre class="code"><code><span class="cl">违反A股T+1交易规则：sh600xxx 可卖数量为 0 股（昨日持仓），</span>
+<span class="cl">今日买入 1000 股不可卖出，请求卖出 1000 股</span></code></pre></figure>
+
+这段话在说什么：他今天买进的 1000 股，今天一股都卖不掉。可卖数量是“当前持仓减去今日买入量”，而当前持仓里今天买入的那部分，在当天被冻结。
+
+他愣了几秒，以为是自己下单数量写错了，改小，还是不行。改小到 100 股，依然不行——因为问题不在数量，在<strong>日期</strong>。
+
+那天下午他一只都动不了，只能眼看着那五只票继续跌。第二天开盘他才把它们卖掉，而这一夜，恰好是他的策略里假设“根本没有隔夜敞口”的那一夜。
+
+怪策略吗？不怪。他的回测没有算错，只是那段回测是在<strong>另一套交通规则</strong>下跑的。规则没有写进模型，模型就假装它不存在——这正是这一部分从第 12 章一路追到现在的主题：<strong>误差不是从数据来的，是从你没算进去的东西来的。</strong>
+
+<h2 id="sec-23-2"><span class="hnum">23.2</span>你的车再好，红灯也得停</h2>
+
+<div class="box intuition"><div class="boxbody">
+一辆跑车在直线加速上能秒掉任何家用车。可它开到路口，红灯一亮，它也停在白线后面，和旁边那辆小面包并排。
+
+为什么？因为<strong>速度是车的属性，怎么走是路的规矩</strong>，这两件事是分开的。
+
+交易也是这样。“信号有多准、因子有多强、回测夏普有多高”，那是车。“当天买进能不能当天卖、一次最少买多少股、涨停了还能不能挂单”，那是路。<strong>车好不等于可以不看路。</strong>
+
+更要紧的一层：路规是<strong>外生</strong>的，不会因为你模型漂亮而改一个数字。你唯一能做的，是在设计模型时就把红绿灯算进去；等下单那一刻才想起来，红绿灯已经在拦你了。
+</div></div>
+
+这些规矩大多是<strong>制度设计</strong>而不是技术限制：T+1 压日内投机，涨跌停给情绪装断路器，整手为了撮合后可结算。它们跟“市场有效性”是两码事，只回答一个底层问题：<strong>在 A 股，什么东西是你根本不许做的？</strong>
+
+<h2 id="sec-23-3"><span class="hnum">23.3</span>不把这些算进去，会付出四种代价</h2>
+
+我把代价数了一遍，一共四种。
+
+<strong>代价一：回测骗你。</strong>如果回测假装“当天买进当天就能卖”，它给出的就是<strong>不存在的世界</strong>里的收益。回测里那些漂亮的日内止损、日内换仓，实盘一笔都执行不了——多出来的收益不是策略赚的，是规则漏洞借给你的。
+
+<strong>代价二：订单被直接拒绝。</strong>买入数量不是 100 的整数倍时，执行层会当场拒绝，而不是帮你凑整：
+
+<figure class="listing" id="{lst:ch23-lot}"><figcaption><span class="lbl">代码 23.2</span>整手校验（节选）</figcaption><pre class="code"><code><span class="cl"><span class="com">// A股最小单位检查</span></span>
+<span class="cl"><span class="kw">if</span> quantity%100 != 0 {</span>
+<span class="cl">    <span class="kw">return</span> <span class="kw">nil</span>, fmt.Errorf(<span class="str">&quot;A股买入数量必须是100的整数倍&quot;</span>)</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：一百股是 A 股买入的最小台阶，不是建议而是硬门槛——不是一百整数倍的下单量进不了账户。
+
+<strong>代价三：信号对了，但成交不了。</strong>这是最容易被忽略的一种。策略说“买”，方向完全正确，可那只票此刻正躺在涨停板上封死，你的买单排在几万手后面，成交概率是零。这属于盘口问题，第 <a class="xref" href="ch22.html#ch:ch22">第二十二章</a> 章已经把盘口五态拆开讲过，这一章要把它和“制度”接上。
+
+<strong>代价四：你选到了一个跑不掉的池子。</strong>如果选股偏爱“弹性大”的微盘股，建仓那天会很满意——涨得快；等要走时才发现，成交量只有几百万，仓位一天也走不完。
+
+四种代价，第一种在回测里，后三种在下单那一刻，都指向同一件事：<strong>制度和摩擦，是模型外面的一层硬壳。</strong>
+
+<h2 id="sec-23-4"><span class="hnum">23.4</span>近似模型：现金只够买整手</h2>
+
+先只关心一件事：<strong>手上有 \(C\) 元现金，每股价格 \(p\) 元，一手一百股，我最多能买多少股？</strong>
+
+<h3 id="sec-23-4-1"><span class="hnum">23.4.1</span>整手取整</h3>
+
+<div class="thm definition" id="def:ch23-floor"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">23.1</span>（整手取整算子）</div>
+取一手 \(L=100\) 股。对实数 \(x\ge0\)，定义
+<div class="math-scroll" id="eq:ch23-floor">\[\lfloor x\rfloor_{L}\;=\;L\left\lfloor \frac{x}{L}\right\rfloor . \tag{23.1}\]</div>
+</div>
+
+这个定义在讲什么：先把手数向下取整再乘回一百，所以 \(\lfloor x\rfloor_L\) 永远是整百的数。
+
+<div class="thm plain" id="lem:ch23-floor"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">23.2</span>（整手取整的三条性质）</div>
+对任意 \(x\ge0\)：
+<em>(i)</em> \(\lfloor x\rfloor_{L}\le x&lt;\lfloor x\rfloor_{L}+L\)；
+<em>(ii)</em> \(\lfloor x\rfloor_{L}\) 是 \(L\) 的非负整数倍；
+<em>(iii)</em> 若 \(n\in\N\)、\(L\mid n\) 且 \(n\le x\)，则 \(n\le\lfloor x\rfloor_{L}\)。
+</div>
+
+这个引理在说什么：(i) 取整一定不放大，丢掉的部分不到一手；(ii) 结果永远落在最小台阶上；(iii) 任何不超过 \(x\) 的整手数都不会越过取整结果——这句是后面证明最优性的关键。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由下取整的定义，
+<div class="math-scroll">\[\left\lfloor \frac{x}{L}\right\rfloor\le \frac{x}{L}&lt;\left\lfloor \frac{x}{L}\right\rfloor+1 . \tag{23.2}\]</div>
+三边同乘 \(L&gt;0\)，得
+<div class="math-scroll">\[L\left\lfloor \frac{x}{L}\right\rfloor\le x&lt;L\left\lfloor \frac{x}{L}\right\rfloor+L, \tag{23.3}\]</div>
+左端与右端第一项正是 \(\lfloor x\rfloor_L\)，即得 \(\lfloor x\rfloor_L\le x&lt;\lfloor x\rfloor_L+L\)。
+
+<em>(ii)</em> \(x\ge0\) 时 \(\lfloor x/L\rfloor\) 是非负整数，记它为 \(k\)，则 \(\lfloor x\rfloor_L=Lk\)，是 \(L\) 的非负整数倍。
+
+<em>(iii)</em> 由 \(n\le x\) 得 \(n/L\le x/L\)。而 \(n/L\) 是整数（因为 \(L\mid n\)），一个整数不超过实数 \(x/L\)，必然不超过它的下取整：\(n/L\le\lfloor x/L\rfloor\)。两边同乘 \(L\)，得 \(n\le L\lfloor x/L\rfloor=\lfloor x\rfloor_L\)。
+\(\blacksquare\)
+</div>
+
+<h3 id="sec-23-4-2"><span class="hnum">23.4.2</span>现金约束下的最大可行购买量</h3>
+
+先把费用放一边，只要求“按名义金额 \(pq\) 算，钱够”。
+
+<div class="thm definition" id="as:ch23-lot"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">23.3</span>（整手约束）</div>
+可买数量只能是整手：\(q=kL\)，其中 \(k\in\N\)，\(L=100\)。
+</div>
+
+<div class="thm definition" id="as:ch23-cost"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">23.4</span>（买入成本模型）</div>
+买入的单位成本含佣金与最低佣金项，
+<div class="math-scroll" id="eq:ch23-cost">\[c(p,q)\;=\;p q+\max\bigl\{f\,p q,\;c_{\min}\bigr\},
+\qquad f=0.0003,\quad c_{\min}=5\ \text{元}. \tag{23.4}\]</div>
+买入<strong>不收印花税</strong>。\(c(p,q)\) 关于 \(q\) 单调不减。
+</div>
+
+这两种假设都要对到源码上：假设 <a class="xref" href="ch23.html#as:ch23-lot">23.3</a> 说“数量只能踩在一百股的台阶上”，假设 <a class="xref" href="ch23.html#as:ch23-cost">23.4</a> 说“买入付佣金，成交额的万分之三，不足 5 元按 5 元收”——那个 \(\max\) 就是“最低 5 元”的写法。
+
+<div class="thm definition" id="def:ch23-feasible"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">23.5</span>（可行购买集）</div>
+给定现金 \(C\ge0\)、价格 \(p&gt;0\)，称
+<div class="math-scroll">\[Q=\bigl\{\,q=kL:\ k\in\N,\ k\ge1,\ c(p,q)\le C\,\bigr\} \tag{23.5}\]</div>
+为<strong>可行购买集</strong>。它装的是“至少买一手、而且付得起”的全部数量。
+</div>
+
+<div class="thm plain" id="thm:ch23-max"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">23.6</span>（整手取整与现金约束下的可行购买量最大性）</div>
+在假设 <a class="xref" href="ch23.html#as:ch23-lot">23.3</a>、<a class="xref" href="ch23.html#as:ch23-cost">23.4</a> 下：
+
+<em>(a)（存在性判据）</em> \(Q\ne\emptyset\) 当且仅当 \(C\ge c(p,L)\)，即“预算至少够买一手”。
+
+<em>(b)（简化模型的最优性）</em> 记忽略费用时的可行集
+<div class="math-scroll">\[Q_0=\bigl\{\,q=kL:\ k\ge1,\ pq\le C\,\bigr\},
+\qquad
+q^{\star}=\lfloor C/p\rfloor_{L}, \tag{23.6}\]</div>
+则 \(q^{\star}\) 是 \(Q_0\) 的最大元：对一切 \(q\in Q_0\) 都有 \(q\le q^{\star}\)；且
+<div class="math-scroll" id="eq:ch23-qstar">\[q^{\star}\;=\;L\left\lfloor \frac{C}{pL}\right\rfloor , \tag{23.7}\]</div>
+这与系统实现里“先按现金算最大股数、再向下取整到手”的写法逐字一致。
+
+<em>(c)（现金不足自动回退整手）</em> 令费用感知的最大手数
+<div class="math-scroll">\[k^{\dagger}=\max\bigl\{\,k\ge1:\ c(p,kL)\le C\,\bigr\},
+\qquad q^{\dagger}=k^{\dagger}L . \tag{23.8}\]</div>
+则集合 \(\{k\ge1:\ c(p,kL)\le C\}\) 是下闭的，\(k^{\dagger}\) 唯一存在，并且 \(q^{\dagger}\le q^{\star}\)；更进一步，<strong>若 \(c(p,q^{\star})&gt;C\)，则 \(q^{\dagger}\le q^{\star}-L\)</strong>，即至少要回退一手。
+
+<em>(d)（低价股买不起一手的判据）</em> 连一手都买不成的充要条件是
+<div class="math-scroll" id="eq:ch23-cantbuy">\[C&lt;pL+\max\bigl\{f\,pL,\;c_{\min}\bigr\}. \tag{23.9}\]</div>
+当 \(pL&lt;c_{\min}/f=16666.67\) 元时最低佣金项起主导，判据退化为 \(C&lt;pL+5\)。
+</div>
+
+这个定理在说什么：三句话。(a) 能不能开张，只看“钱够不够买一手”；(b) 系统那句 <code class="code">int(C/p)/100*100</code> 算出来的，就是现金能覆盖的<strong>最大</strong>整手数量，不多一股也不少一股；(c) 如果加上手续费后最大的那个数量仍然买不起，正确做法是往下退一手，而退到的那一手是退过之后的最大可行量；(d) 什么时候算“穷到连一手都买不起”，有一个闭式的判据。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(a)</em> （\(\Leftarrow\)）若 \(C\ge c(p,L)\)，取 \(q=L\)（即 \(k=1\)），它满足 \(c(p,L)\le C\)，故 \(L\in Q\)，\(Q\ne\emptyset\)。
+
+（\(\Rightarrow\)）设 \(Q\ne\emptyset\)，取任意 \(q=kL\in Q\)，则 \(k\ge1\)，于是 \(q=kL\ge L\)。由假设 <a class="xref" href="ch23.html#as:ch23-cost">23.4</a> 中 \(c\) 关于 \(q\) 单调不减，得 \(c(p,q)\ge c(p,L)\)。又 \(q\in Q\) 给出 \(c(p,q)\le C\)。串联：
+<div class="math-scroll">\[C\ \ge\ c(p,q)\ \ge\ c(p,L). \tag{23.10}\]</div>
+两边合起来，\(Q\ne\emptyset\iff C\ge c(p,L)\)。
+
+<em>(b)</em> 记 \(k^{\star}=\lfloor C/(pL)\rfloor\)，则 \(q^{\star}=Lk^{\star}\)。
+
+<strong>可行性</strong>：由 \(\lfloor\cdot\rfloor\le\cdot\) 得 \(k^{\star}=\lfloor C/(pL)\rfloor\le C/(pL)\)，两边乘 \(pL&gt;0\)：
+<div class="math-scroll">\[p\,q^{\star}=pLk^{\star}\le pL\cdot\frac{C}{pL}=C, \tag{23.11}\]</div>
+故 \(q^{\star}\in Q_0\)（只要 \(k^{\star}\ge1\)，即 \(q^{\star}&gt;0\)）。
+
+<strong>最大性</strong>：任取 \(q=kL\in Q_0\)，有 \(pq\le C\)，即 \(pkL\le C\)。两边除以 \(pL&gt;0\)：
+<div class="math-scroll">\[k\le \frac{C}{pL}. \tag{23.12}\]</div>
+左端 \(k\) 是整数，一个整数不超过实数 \(C/(pL)\)，必不超过其下取整：\(k\le\lfloor C/(pL)\rfloor=k^{\star}\)。再乘 \(L\)：
+<div class="math-scroll">\[q=kL\le k^{\star}L=q^{\star}. \tag{23.13}\]</div>
+所以 \(q^{\star}\) 是 \(Q_0\) 的最大元，任何可行数量都不超过它。
+
+<strong>与代码一致</strong>：由引理 <a class="xref" href="ch23.html#lem:ch23-floor">23.2</a> 的形式，\(\lfloor C/p\rfloor_L=L\lfloor \lfloor C/p\rfloor/L\rfloor\)。对正整数 \(L\) 有恒等式 \(\lfloor\lfloor x\rfloor/L\rfloor=\lfloor x/L\rfloor\)（取 \(x=C/p\)），故
+<div class="math-scroll">\[\lfloor C/p\rfloor_L=L\left\lfloor\frac{C}{pL}\right\rfloor=q^{\star}, \tag{23.14}\]</div>
+即 <a class="xref" href="ch23.html#eq:ch23-qstar">式 (23.7)</a>。系统里的 <code class="code">int(C/p)/100*100</code> 正是“对 \(C/p\) 先取整、再向下取整到一百的整数倍”；对非负数而言 <code class="code">int()</code> 就是下取整，所以它与 <a class="xref" href="ch23.html#eq:ch23-qstar">式 (23.7)</a> 是同一个数。
+
+<em>(c)</em> 先证下闭性。设 \(k\) 使 \(c(p,kL)\le C\)。对任意整数 \(j\) 满足 \(1\le j\le k\)，有 \(jL\le kL\)，由 \(c\) 关于 \(q\) 单调不减得 \(c(p,jL)\le c(p,kL)\le C\)，故 \(j\) 也在集合里。这说明集合形如 \(\{1,2,\dots,k^{\dagger}\}\)，\(k^{\dagger}\) 存在且唯一。
+
+再证上界 \(q^{\dagger}\le q^{\star}\)。对任意 \(q&gt;0\)，
+<div class="math-scroll">\[c(p,q)=pq+\max\{fpq,\;c_{\min}\}\ \ge\ pq , \tag{23.15}\]</div>
+因为额外项 \(\max\{fpq,c_{\min}\}\ge0\)。于是 \(c(p,k^{\dagger}L)\le C\) 蕴含 \(p\,k^{\dagger}L\le C\)，即 \(k^{\dagger}\le C/(pL)\)。左端为整数，故 \(k^{\dagger}\le\lfloor C/(pL)\rfloor=k^{\star}\)，从而 \(q^{\dagger}=k^{\dagger}L\le k^{\star}L=q^{\star}\)。
+
+最后证明“至少回退一手”。若 \(c(p,q^{\star})&gt;C\)，则 \(k^{\star}\) 不属于集合 \(\{k:c(p,kL)\le C\}\)。而该集合是 \(\{1,\dots,k^{\dagger}\}\)，不含 \(k^{\star}\) 说明 \(k^{\dagger}&lt;k^{\star}\)，即 \(k^{\dagger}\le k^{\star}-1\)。乘 \(L\)：
+<div class="math-scroll">\[q^{\dagger}=k^{\dagger}L\le (k^{\star}-1)L=q^{\star}-L . \tag{23.16}\]</div>
+
+<em>(d)</em> 由 (a)，\(Q=\emptyset\) 当且仅当 \(C&lt;c(p,L)\)。把 \(q=L\) 代入 <a class="xref" href="ch23.html#eq:ch23-cost">式 (23.4)</a>：
+<div class="math-scroll">\[c(p,L)=pL+\max\{f\,pL,\;c_{\min}\}, \tag{23.17}\]</div>
+即 <a class="xref" href="ch23.html#eq:ch23-cantbuy">式 (23.9)</a>。再定哪一项在 \(\max\) 里占优：\(f\,pL\ge c_{\min}\) 当且仅当
+<div class="math-scroll">\[pL\ \ge\ \frac{c_{\min}}{f}=\frac{5}{0.0003}=16666.67\ \text{元}. \tag{23.18}\]</div>
+所以当 \(pL&lt;16666.67\) 时 \(\max=5\)，判据化为 \(C&lt;pL+5\)。
+\(\blacksquare\)
+</div>
+
+把定理 <a class="xref" href="ch23.html#thm:ch23-max">23.6</a> 的 (b)、(c) 连起来读，就是系统实际执行的三个动作：<strong>先把请求量向下取整到手，再算出现金能覆盖的最大整手，最后取两者中较小的那个。</strong>这正是“整手归一化 + 现金不足自动回退整手”的全部机制。
+
+<h3 id="sec-23-4-3"><span class="hnum">23.4.3</span>回退是幂等的</h3>
+
+<div class="thm plain" id="cor:ch23-idem"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">23.7</span>（归一化映射的幂等性与一致性）</div>
+设 \(q^{\star}=\lfloor C/p\rfloor_L\) 如 <a class="xref" href="ch23.html#eq:ch23-qstar">式 (23.7)</a>。定义映射
+<div class="math-scroll">\[\Phi(q)=\min\bigl\{\lfloor q\rfloor_L,\ q^{\star}\bigr\}. \tag{23.19}\]</div>
+则：(i) \(\Phi(q)\) 恒为 \(L\) 的非负整数倍；(ii) \(\Phi\) 幂等，即 \(\Phi(\Phi(q))=\Phi(q)\)；(iii) \(\Phi(q)\le q^{\star}\)，且 \(p\,\Phi(q)\le C\)（在 \(q^{\star}&gt;0\) 时）。
+</div>
+
+这个推论在说什么：<strong>同一个数量归一化一次和两次，结果一模一样。</strong>这在工程里很值钱——归一化会在“策略算一次、工具校验一次、执行层再校验一次”的链路上被反复调用，若不幂等，每过一道手数量就掉一个台阶，最后成交的量会莫名变小。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> \(\lfloor q\rfloor_L=L\lfloor q/L\rfloor\) 是 \(L\) 的整数倍，\(q^{\star}\) 也是；两个 \(L\) 的整数倍取小仍是 \(L\) 的整数倍（非负）。
+
+<em>(ii)</em> 令 \(m=\Phi(q)\)。由 (i)，\(m\) 已是 \(L\) 的整数倍，故 \(\lfloor m\rfloor_L=m\)。于是
+<div class="math-scroll">\[\Phi(m)=\min\{\lfloor m\rfloor_L,\ q^{\star}\}=\min\{m,\ q^{\star}\}=m, \tag{23.20}\]</div>
+最后一步因为 \(m=\min\{\lfloor q\rfloor_L,q^{\star}\}\le q^{\star}\)。
+
+<em>(iii)</em> \(\Phi(q)\le q^{\star}\) 由 \(\min\) 的定义直接得到。又由 (b) 的可行性，\(p\,q^{\star}\le C\)，故 \(p\,\Phi(q)\le p\,q^{\star}\le C\)。
+\(\blacksquare\)
+</div>
+
+<h3 id="sec-23-4-4"><span class="hnum">23.4.4</span>费用项与“低价股”过滤</h3>
+
+定理 <a class="xref" href="ch23.html#thm:ch23-max">23.6</a>(d) 的判据有一个很实际的后果：<strong>股票越贵，越可能“一手都买不起”。</strong>
+
+假设单标的预算是 \(B\) 元，能买得起一手的条件约等于 \(B\ge pL\)，即 \(p\le B/100\)。资金五万、每只分到一万元时，\(p\le100\) 元才买得起一手；价格超过一百元的票，一万元预算连一手都凑不齐。
+
+系统的处理不是“硬扛”，而是<strong>在选股阶段就把这类标的挡在外面</strong>：当单标的预算买不到一手时，把筛选取值收窄到低价股与 ETF。选股工具里有一个价格上限参数，说明写得非常直白：
+
+<figure class="listing" id="{lst:ch23-maxprice}"><figcaption><span class="lbl">代码 23.3</span>低价股筛选参数（节选）</figcaption><pre class="code"><code><span class="cl"><span class="str">&quot;max_price&quot;</span>: <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">interface</span>{}{</span>
+<span class="cl">    <span class="str">&quot;type&quot;</span>: <span class="str">&quot;number&quot;</span>,</span>
+<span class="cl">    <span class="str">&quot;description&quot;</span>: &quot;最大股价上限（元），用于小资金低价股筛选</span>
+<span class="cl">        （如5万以下需 股价×100 &lt;= 单标的资金，可传 50），&gt;0 才生效&quot;,</span>
+<span class="cl">},</span></code></pre></figure>
+
+这段话在说什么：小资金别买高价股，因为“股价乘一百”必须落在单标的预算内；传一个价格上限，工具就只在这个价位以下选。
+
+<h2 id="sec-23-5"><span class="hnum">23.5</span>涨跌停：想买买不进，想卖卖不掉</h2>
+
+制度里还有一条更硬的：涨跌停。它和第 <a class="xref" href="ch22.html#ch:ch22">第二十二章</a> 章的盘口五态是同一件事的两面——盘口五态描述<strong>此刻能不能成交</strong>，涨跌停描述<strong>为什么不能</strong>。先把判据写清楚。
+
+<div class="thm definition" id="as:ch23-limit"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">23.8</span>（涨跌停价与盘口五态）</div>
+涨停价与跌停价由行情快照给出的涨跌幅限制 \(\mathrm{limitPct}\) 决定：
+<div class="math-scroll">\[p^{\mathrm{up}}=\mathrm{round}\bigl(\text{前收}\times(1+\mathrm{limitPct}),\,2\bigr),
+\qquad
+p^{\mathrm{down}}=\mathrm{round}\bigl(\text{前收}\times(1-\mathrm{limitPct}),\,2\bigr). \tag{23.21}\]</div>
+盘口五态由封装好的分类函数给出：涨停封死、涨停打开、跌停封死、跌停打开、正常。封单量阈值
+<div class="math-scroll">\[\theta=\max\bigl\{1000\ \text{手},\ 0.1\times V\bigr\},
+\qquad V=\text{当日成交量}, \tag{23.22}\]</div>
+其中“涨停封死”的判定是：现价触及 \(p^{\mathrm{up}}\)，且买一价已达 \(p^{\mathrm{up}}\)，且买一封单量不低于 \(\theta\)。“跌停封死”完全对偶。
+</div>
+
+<div class="thm definition" id="def:ch23-fill"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">23.9</span>（可成交集合与成交换手）</div>
+对一个新提交的委托，记 \(\mathcal{T}\subseteq\{\text{五态}\}\times\{\text{买},\text{卖}\}\) 为<strong>可成交集合</strong>：\((s,d)\in\mathcal{T}\) 表示在状态 \(s\) 下、方向为 \(d\) 的委托有机会成交。成交遵循<strong>价格优先、时间优先</strong>：同一价位上，新委托排在已有委托之后，只有队列前部被消耗殆尽，它才可能成交。
+</div>
+
+<div class="thm plain" id="thm:ch23-limit"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">23.10</span>（涨跌停封死下的成交概率为零）</div>
+在假设 <a class="xref" href="ch23.html#as:ch23-limit">23.8</a> 下：
+<em>(i)</em> 若目标股处于“涨停封死”，则买单在 \(\mathcal{T}\) 中不可成交，成交概率为 \(0\)；
+<em>(ii)</em> 若目标股处于“跌停封死”，则卖单不可成交，成交概率为 \(0\)；
+<em>(iii)</em> 若处于“跌停打开”，则卖单可成交（按跌停价离场）。
+</div>
+
+这个定理在说什么：<strong>“信号正确”和“能成交”是两件事。</strong>止损信号再正确，碰上跌停封死，卖单当天出不去；买入信号再正确，碰上涨停封死，买单排在队尾，一手都吃不到。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 设状态为涨停封死。由假设 <a class="xref" href="ch23.html#as:ch23-limit">23.8</a>，买一价等于 \(p^{\mathrm{up}}\)，且该价位的已封买单量 \(B\ge\theta&gt;0\)。
+
+先看远端：\(p^{\mathrm{up}}\) 是制度允许的<strong>最高</strong>委托价（价格上界），任何理性买单的报价都不超过 \(p^{\mathrm{up}}\)；卖方亦不能报出高于 \(p^{\mathrm{up}}\) 的成交价。因此新买单能成交的价格只能落在 \([\,p^{\mathrm{ask}},\,p^{\mathrm{up}}\,]\) 之内，其中 \(p^{\mathrm{ask}}\) 是当时最优卖价。
+
+再排队。由定义 <a class="xref" href="ch23.html#def:ch23-fill">23.9</a> 的时间优先，新买单在价位 \(p^{\mathrm{up}}\) 上排在已存在的 \(B\) 手之后；它要成交，必须先有 \(B\) 手被消耗。而“封死”这一判定本身就表示：在这个时点窗口内，该价位的封单\(B\)维持不低于阈值\(\theta\)，也就是队列前部<strong>没有被消耗</strong>。设窗口内愿意在 \(p^{\mathrm{up}}\) 卖出的总量为 \(X\)，则留给新买单的可成交量至多为 \(X-B\)；“封死”蕴含 \(X\le B\)，故 \(X-B\le0\)。于是
+<div class="math-scroll">\[\Prob\bigl(\text{新买单成交}\ \bigm|\ \text{涨停封死}\bigr)=0 . \tag{23.23}\]</div>
+
+<em>(ii)</em> 完全对偶：把“涨停/买”整体换成“跌停/卖”，\(p^{\mathrm{up}}\) 换成 \(p^{\mathrm{down}}\)，价格下界取代上界，“卖一价等于 \(p^{\mathrm{down}}\) 且卖一封单量不低于 \(\theta\)”取代买一，逐字重复 (i) 的推理，得卖单成交概率为 \(0\)。
+
+<em>(iii)</em> 跌停打开的状态判据是封单量<strong>不足</strong>阈值（封单薄或伴随巨量换手）。此时 (ii) 中的不等式 \(X\le B\) 不再成立，存在 \(X-B&gt;0\)，即新卖单存在可成交量，故可成交；系统据此对跌停打开放行，允许按跌停价立即离场。
+\(\blacksquare\)
+</div>
+
+<div class="thm plain" id="cor:ch23-and"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">23.11</span>（信号与成交是两个条件的“与”）</div>
+一笔委托真正成交，需要两个条件同时成立：
+<div class="math-scroll">\[\text{成交}\ \Longleftrightarrow\ \bigl(\text{信号给出方向}\bigr)\ \wedge\ \bigl((s,d)\in\mathcal{T}\bigr). \tag{23.24}\]</div>
+因此“信号正确”不蕴含“能成交”。特别地，当 \(s=\) 涨停封死而 \(d=\) 买，或者 \(s=\) 跌停封死而 \(d=\) 卖时，
+<div class="math-scroll">\[\Prob\bigl(\text{成交}\ \bigm|\ \text{信号正确}\bigr)=0 . \tag{23.25}\]</div>
+</div>
+
+这个推论在说什么：成交是一个“与”关系。信号只是一半，另一半在盘口手里；你把信号做得再准，也只是把左边那一半做到极致，右边那一半为假时，结果仍然是零。
+
+系统对此的处理是<strong>在执行层直接拦截</strong>，而不是“试着报一单看能不能成”：买入侧拦跌停板与涨停封死，卖出侧拦跌停封死，跌停打开放行。拦截返回一句结构化的拒绝原因，绝不伪造成交。底气正是定理 <a class="xref" href="ch23.html#thm:ch23-limit">23.10</a>：封死状态下成交概率为零，与其挂一笔永远不成交的委托，不如当场说清为什么不做。
+
+<h2 id="sec-23-6"><span class="hnum">23.6</span>它在系统里长什么样</h2>
+
+上面每一条在系统里都有具体落点，我把它们排成一张表。
+
+<figure class="tbl" id="tab:ch23-rules"><div class="tbl-scroll"><table><caption><span class="lbl">表 23.1</span>A 股三条硬规矩与它们在系统里的落点</caption><tbody><tr><td><strong>硬规矩</strong></td><td><strong>取值</strong></td><td><strong>系统落点</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>T+1</td><td>当日买入当日不可卖</td><td>卖出前算“可卖量 = 持仓 \(-\) 今日买入量”，不足则拒单（<code class="sysfile">internal/portfolio/engine.go</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>交易时段</td><td>09:30--11:30、13:00--15:00</td><td><code class="code">IsTradingHour</code>；周末与节假日返回休市（<code class="sysfile">internal/util/trading_hours.go</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>整手归一化</td><td>买入量为 100 股整数倍</td><td><code class="code">floorLots</code> 向下取整；执行层再校验 <span class="mono">quantity%100!=0</span>（<code class="sysfile">internal/tools/position_manager.go</code>、<code class="sysfile">internal/portfolio/engine.go</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>现金不足回退</td><td>取“请求整手”与“现金整手上限”之较小者</td><td>下单工具里 <code class="code">qty=(quantity/100)*100</code> 与 <code class="code">affordable=int(Cash/price)</code><code class="code">/100*100</code> 取小（<code class="sysfile">internal/tools/</code><code class="sysfile">tools.go</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>买入费用</td><td>佣金万三、最低 5 元；<strong>不收印花税</strong></td><td><code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">Buy</code></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>卖出费用</td><td>佣金万三、最低 5 元 \(+\) 印花税 \(0.05\%\)</td><td>同文件 <code class="code">Sell</code>（<code class="code">fees = grossAmount*0.0005</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>持仓数量</td><td>按资金分档动态调整</td><td><code class="code">PortfolioSizing</code>（<code class="sysfile">internal/util/portfolio_sizing.go</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>流通市值筛选</td><td>20 亿--200 亿</td><td><code class="code">minFloatCap</code>/<code class="code">maxFloatCap</code>，<code class="code">收盘价×股本</code>（<code class="sysfile">internal/screener/</code><code class="sysfile">pro_factor_engine.go</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>流动性硬下限</td><td>流动性因子分 \(\ge30\)</td><td><code class="code">applyLiquidityFloor</code>（<code class="sysfile">internal/screener/</code><code class="sysfile">screener_service.go</code>）</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">“最低 5 元”是佣金下限，不是印花税。“现金整手上限”忽略手续费，故加费后仍可能不足，需再回退一手——这正是定理 <a class="xref" href="ch23.html#thm:ch23-max">23.6</a>(c)。</p>
+<p class="tabsrc">系统事实清单第 9、10、11、12 节，与所列源码逐条对照；核对时间 2026-09-24。</p></figure>
+
+持仓数量那一行值得展开，它是“按资金规模动态调整”的具体形态。分档只有四档：
+
+<figure class="tbl" id="tab:ch23-sizing"><div class="tbl-scroll"><table><caption><span class="lbl">表 23.2</span>总资产规模与最大候选只数、单标的预算</caption><tbody><tr><td><strong>总资产</strong></td><td><strong>最大候选（持仓）数</strong></td><td><strong>单标的预算占比</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>3 万以下</td><td>4</td><td>约 25%</td></tr><tr><td>3 万--20 万（含 20 万）</td><td>5</td><td>约 20%</td></tr><tr><td>20 万--50 万</td><td>8</td><td>约 12%</td></tr><tr><td>50 万以上</td><td>10</td><td>约 10%</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">同一套分档同时用于投资规划与盘中自动建仓，两处口径一致。5 万资金落在第二档，推荐 5 只，单标的约 1 万元。</p>
+<p class="tabsrc"><code class="sysfile">internal/util/portfolio_sizing.go</code> 的 <code class="code">PortfolioSizing</code>；核对时间 2026-09-24。</p></figure>
+
+这张表解释了开头那个策略为什么“一次买五只”：不是他的名单只有五只，而是五万元这个资金量下，系统认为分散到五只合适。资金越大、档位越高，允许的持仓数越多、单标的越轻。
+
+为什么是“越多标的越轻”？因为每只股票有一个一百股的最小重量。五万元分成十份、每份五千元时，很多股票连一手都买不起（回到定理 <a class="xref" href="ch23.html#thm:ch23-max">23.6</a>(d)）。小资金只能聚焦少数标的，大资金才谈得上分散。
+
+<h2 id="sec-23-7"><span class="hnum">23.7</span>两道硬筛选：流通市值与流动性</h2>
+
+选股阶段有两道德式硬门槛，它们和上面的交易规矩是同一个精神——<strong>不是降权，是直接剔除</strong>。
+
+<strong>第一道：流通市值 20 亿--200 亿。</strong>口径是“收盘价 \(\times\) 流通股本”，流通股本缺失时用总股本兜底；低于 20 亿的微盘和高于 200 亿的超大盘都被剔除。这里有一个我很欣赏的设计：<strong>无股本资料时放行</strong>——缺数据不等于数据差，因为拿不到股本就把正常股票剔掉，是把数据的缺口错当成标的的缺陷。
+
+<strong>第二道：流动性硬下限。</strong>流动性因子分低于门限值（默认 30，约在均值下方半个标准差处）的标的直接剔除。系统把这条写成了“拒买门槛”而不是普通打分因子，源码注释里的理由只有一句：
+
+<figure class="listing" id="{lst:ch23-liq}"><figcaption><span class="lbl">代码 23.4</span>流动性硬下限（节选）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 流动性硬下限：换手/成交额不足的&quot;僵尸股&quot;即便高分也直接剔除（不降权、不保留）。</span></span>
+<span class="cl"><span class="com">// 小基金最怕&quot;买了跑不掉&quot;，流动性必须是拒买门槛而非只是一个打分因子。</span></span>
+<span class="cl"><span class="kw">const</span> minLiquidityScore = 30.0</span></code></pre></figure>
+
+这段话在说什么：流动性差的股票，别的因子满分也不买——买入后能不能顺利卖出是另一个问题，那部分风险打分表兜不住。过滤有兜底：若过滤后一只不剩就退回原始结果，不硬过滤，也不让用户面对空池。
+
+关于盘口五态本身还有一个诚实的数据说明：本地行情库里当日盘口摘要表没有有效记录当日 <code class="dbtab">order_book_daily</code> 记录数为 0，本书遵照系统“数据不可用即报错、不降级、不伪造”的原则留白<sup class="fn-ref"><a id="fnref-ch23-1" href="#fn-ch23-1">1</a></sup>，所以本章对五态的讨论全部建立在<strong>判定逻辑</strong>上，而不是当日的统计分布上。
+
+<h2 id="sec-23-8"><span class="hnum">23.8</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+我一开始就是这么想的：T+1、整手、涨跌停，听起来都是“客服手册”里的东西，跟因子、跟模型、跟数学有什么关系？
+
+后来我在回测里做了一次对照，才明白这句话错得有多离谱。同一个策略，一套回测假设“当天可卖”，另一套假设“T+1 冻结”，两条净值曲线差出一大截，而差距主要来自<strong>那些被迫持仓过夜的仓位</strong>。这不是细节，这是收益的一部分。
+
+更普遍地说：<strong>制度和摩擦，常常比模型更能决定最终收益。</strong>模型决定“你想赚什么”，制度决定“你到底能不能赚到”。开头那位朋友的策略，恰恰只能在理想世界里赚钱。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+这是很有诱惑力的一条：翻一翻历史，很多翻倍股确实从中微盘里冒出来，“弹性大”不是空穴来风。
+
+但“涨得快”只说了故事的一半，另一半是<strong>你走得掉吗</strong>。一只日均成交额只有几百万的微盘股，你放进去十万元，可能当天就占掉它相当比例的成交；等你要减仓，能接盘的量根本不够，你想卖的那一刻，价格已经先跌为敬。
+
+所以“剔除微盘”不是对市值的偏见，而是对<strong>退出能力</strong>的要求：<strong>跑不掉的仓位等于负债。</strong>两道硬筛选——20 亿以下不选、流动性因子分低于 30 不选——都是在成交流动性上设闸，而不是在收益预期上做品味判断。
+</div></div>
+
+<h2 id="sec-23-9"><span class="hnum">23.9</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>T+1 校验与拒单文案（“可卖数量为 \(N\) 股（昨日持仓）”）：<code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">Sell</code>，含“按交易日判断是否过了 T+1 结算日”的解锁逻辑
+  </li><li>整手校验（<span class="mono">quantity%100!=0</span> 拒绝）、买入费用（佣金万三、最低 5 元、买入无印花税）、卖出费用（佣金 \(+\) 印花税 \(0.05\%\)）：同文件 <code class="code">Buy</code> 与 <code class="code">Sell</code>
+  </li><li>交易时段与休市判定：<code class="sysfile">internal/util/trading_hours.go</code> 的 <code class="code">GetMarketPhase</code>、<code class="code">IsTradingHour</code>（上午 09:30--11:30、下午 13:00--15:00）
+  </li><li>整手归一化函数 <code class="code">floorLots</code>（<code class="code">int(shares/100)*100</code>）：<code class="sysfile">internal/tools/position_manager.go</code>
+  </li><li>现金不足自动回退整手：<code class="sysfile">internal/tools/tools.go</code> 的 <code class="code">PlaceTradeTool.Execute</code>，<code class="code">qty=(quantity/100)*100</code> 与 <code class="code">affordable=int(Cash/price)/100*100</code> 取小，不足一手则拒绝
+  </li><li>持仓数量动态分档：<code class="sysfile">internal/util/portfolio_sizing.go</code> 的 <code class="code">PortfolioSizing</code>
+  </li><li>流通市值硬筛选（20 亿--200 亿、总股本兜底、无资料放行）：<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">minFloatCap</code>/<code class="code">maxFloatCap</code> 与 <code class="code">floatShares</code>
+  </li><li>流动性硬下限：<code class="sysfile">internal/screener/screener_service.go</code> 的 <code class="code">applyLiquidityFloor</code>（<code class="code">minLiquidityScore=30</code>）
+  </li><li>组合优化器（均值-方差 Markowitz、风险平价、风险预算；MVO 风险厌恶系数 \(\lambda\) 默认 4.0）：<code class="sysfile">internal/portfolio/optimizer.go</code>；工具 <code class="tool">optimize_portfolio</code>
+  </li><li>盘口五态与封单量阈值：<code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code>；买卖拦截：<code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyBlockReason</code> / <code class="code">sellBlockReason</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（半小时）</div><div class="boxbody">
+<ol><li><strong>手算一次最大购买量。</strong>设可用现金 \(C=100000\) 元，股价 \(p=37.6\) 元，一手 \(L=100\) 股。先算 \(C/(pL)=100000/3760=26.60\)，向下取整到手得 \(k^{\star}=26\)，即 \(q^{\star}=2600\) 股该结果按系统 <code class="code">floorLots</code> 的同一公式在给定输入上手算所得，仅演示取整算术<sup class="fn-ref"><a id="fnref-ch23-2" href="#fn-ch23-2">2</a></sup>。再验证 \(27\) 手：\(2700\times37.6=101520&gt;100000\)，确实超预算。最后算费用：\(2600\times37.6\times0.0003=29.33\) 元 \(\ge5\) 元，故含佣金净支出 \(97789.33\) 元，仍在预算内，\(q^{\dagger}=q^{\star}\)。
+  </li><li><strong>核对取整方向。</strong>在 <code class="sysfile">internal/tools/position_manager.go</code> 里搜 <code class="code">floorLots</code>，确认它是<strong>向下</strong>取整：宁可少买，绝不超买。再去 <code class="sysfile">internal/tools/tools.go</code> 的 <code class="code">PlaceTradeTool.Execute</code> 里搜 <code class="code">affordable</code>，确认“现金上限”也是向下取整。
+  </li><li><strong>在选股页看流通市值筛选。</strong>跑一次选股，在结果里找每只票的流通市值列。你会看到它们都落在 20 亿--200 亿之间——这不是巧合，是 <code class="code">minFloatCap</code>/<code class="code">maxFloatCap</code> 两道门槛在起作用。
+  </li><li><strong>核对交易时段常量。</strong>打开 <code class="sysfile">internal/util/trading_hours.go</code>，找到 <code class="code">PhaseMorningSession</code> 与 <code class="code">PhaseAfternoonSession</code>，确认时间是 09:30--11:30 与 13:00--15:00。再把电脑时间改到晚上八点，试着手动下单一次，看系统回什么。
+</li></ol>
+</div></div>
+
+原理讲完了。这一部分从头到尾在追同一件事：<strong>误差是从哪里来的？</strong>它可能来自一个用错口径的因子、一个漏算的成本项、一次抽歪的抽样、一个把当日买入当成可卖的假设。这一章补上了最后、也最容易被忽略的一类来源——<strong>制度和摩擦</strong>：它们不在数据里，也不在因子里，却实实在在扣在你的收益上。
+
+到这里，第二部分合上了：十七种策略、六维判势、三层风控、盘口五态、T+1 与整手——这套机器我们已从里到外拆过一遍。可拆开看懂不等于能用：一台机器不会因为你读完说明书就自己转起来。
+
+所以接下来要换一种语气。第三部分不再是“为什么”，而是“怎么做”：<strong>把它装到你的电脑上，接上模型，连上数据，让它明天早上真的开始上班。</strong>第 <a class="xref" href="ch24.html#ch:ch24">第二十四章</a> 章就是第一天。
+</article>
+<nav class="pager"><a class="prev" href="ch22.html"><span class="dir">上一页</span>第二十二章 风控不是一堵墙，是三层走廊</a><a class="next" href="ch24.html"><span class="dir">下一页</span>第二十四章 第一天：安装、接模型、连数据</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch23-1"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch23-1">↩</a></li><li id="fn-ch23-2"><strong>复算数据</strong> 该数字为本书按系统实现中的同一公式、在系统的真实数据上重新计算所得；公式出处已在正文标注。 <a class="fn-back" href="#fnref-ch23-2">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

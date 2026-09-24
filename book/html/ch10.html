@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>黑匣子：怎么证明这个决策不是瞎猜的？ · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·黑匣子：怎么证明这个决策不是瞎猜的？">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch10.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html" class="current"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a><ul class="sub"><li><a href="#sec-10-1">10.1 亏钱那天，你能查到什么</a></li><li><a href="#sec-10-2">10.2 没有它，会坏在哪</a></li><li><a href="#sec-10-3">10.3 一个差不多对的模型：写日志</a></li><li><a href="#sec-10-4">10.4 它在系统里长什么样</a></li><li><a href="#sec-10-5">10.5 常见误解与纠偏</a></li><li><a href="#sec-10-6">10.6 真实出处与动手试一试</a></li><li><a href="#sec-10-7">10.7 这一部分的收尾：他们到底在算什么</a></li></ul></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch10"><span class="cnum">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</h1>
+
+
+
+
+
+<h2 id="sec-10-1"><span class="hnum">10.1</span>亏钱那天，你能查到什么</h2>
+
+我先不说“可解释性”这三个字，先请你做一个动作。
+
+想象某一天收盘，你打开账户，发现是亏的。亏得不多，但亏得莫名其妙——因为按你的理解，那天市场看起来还行。
+
+现在请你打开这套系统，回答下面五个问题：
+
+<ol><li>那天它<strong>看到了什么</strong>？
+  </li><li>那天它<strong>判断是什么</strong>？
+  </li><li>那天<strong>谁不同意它</strong>？不同意在哪里？
+  </li><li>那天它<strong>本来想下多少注</strong>，最后实际下了多少？
+  </li><li>那一笔买入，<strong>是哪个信号让它下的单</strong>？
+</li></ol>
+
+如果这五个问题里有任何一个你答不上来，那么“这个决策是不是瞎猜的”这个问题，你也就永远答不上来——不是因为它瞎猜了，而是因为<strong>你没有留给自己调查的资格</strong>。
+
+我用系统自己的真实记录来把这件事说具体。翻开判势记录，二零二六年九月十一日那一条是这样的：六维判势的原始总分 32.14<sup class="fn-ref"><a id="fnref-ch10-1" href="#fn-ch10-1">1</a></sup>，冲突数 5<sup class="fn-ref"><a id="fnref-ch10-2" href="#fn-ch10-2">2</a></sup>，修正后总分 25.71<sup class="fn-ref"><a id="fnref-ch10-3" href="#fn-ch10-3">3</a></sup>，标签“退潮风险”，建议仓位系数只有 0.06<sup class="fn-ref"><a id="fnref-ch10-4" href="#fn-ch10-4">4</a></sup>。
+
+这一条记录本身已经能回答第一个问题的一部分了。更进一步，它的 <code class="field">sources</code> 字段里逐维度写着数字从哪来——同一天的情绪维度写着“涨停 36／跌停 15／炸板率 33%（炸板 18）”，技术维度写着“MA20\(=\)3936.8 MA60\(=\)3944.7”。
+
+也就是说：<strong>“那天它看到的是真实数据，而不是编的”这句话，是可以被逐条核对的。</strong>这正是本章要讲的整套机制。
+
+<div class="box intuition"><div class="boxbody">
+飞机上那个橙色盒子，学名叫飞行记录仪。它有两个通道：一个记录仪表读数，一个记录驾驶舱里的对话。
+
+它设计上有一个关键特征：<strong>它是被撞不坏、烧不坏的。</strong>因为设计者早就知道，它唯一被需要的那一天，正是飞机最惨的那一天——那天别的记录都可能没了，只有它必须留下。
+
+手术记录单是另一个版本的故事。一台手术结束后，医生要写一份记录：术前诊断是什么、切开了哪里、发现了什么、做了什么处理、谁签的字。
+
+这两样东西有一个共同点：<strong>它们不是“事后总结”，它们是过程本身的副本。</strong>写它们的时刻，就是事情正在发生的时刻；一旦写完，它就不再依赖任何人的记忆。
+</div></div>
+
+本章讲的，就是这套系统里的橙盒子。
+
+<h2 id="sec-10-2"><span class="hnum">10.2</span>没有它，会坏在哪</h2>
+
+“留痕”这件事，听起来像行政要求，不像技术设计。我一开始也是这么想的，直到我把“不留痕”的代价一条一条列出来。
+
+<strong>第一条：你分不清“想错了”和“做错了”。</strong>一个决策的链条很长——看到什么、判断什么、谁反对、折算成多少仓位、下多少单。如果只知道结果，那么“亏了”这件事至少对应三种完全不同的病因：判断错了（认知问题）、折算错了（参数问题）、执行错了（工程问题）。三种病因的修法毫不相干。没有证据链，你连去修哪一个都不知道。
+
+<strong>第二条：你会不由自主地编理由。</strong>这是最危险的一条，而且它发生在你身上，不发生在系统身上。人有一种很强的本能：事后回头看一个结果，会自发地给这个结果配一个通顺的解释，然后把这个解释当成“当时就是这么想的”。假如证据是事后补录的，那这份记录就<strong>天然被这份解释污染过</strong>，它就不再是证据，而是辩护词。
+
+<strong>第三条：说不清“这一单凭什么”。</strong>买一只股票，可能是策略信号让它买的，也可能是因子模型选的，也可能是 AI 自己偏好的。这三条路的责任归属完全不同。如果订单上不写明来源，事后就只能靠猜。
+
+<h2 id="sec-10-3"><span class="hnum">10.3</span>一个差不多对的模型：写日志</h2>
+
+我最初的做法符合直觉：<strong>把关键动作写进日志文件。</strong>每做一件事就写一行，出错也写一行。
+
+这个模型抓住了最本质的东西——<strong>有记录比没记录强</strong>。它在排查“程序有没有跑”“哪一步报错了”这类问题时非常有效，前面第 <a class="xref" href="ch09.html#ch:ch09">第九章</a> 章那次闪退的排查，用的就是它。
+
+但作为“决策证据”，它有四个致命的不足。
+
+<strong>不足一：它是给机器读的，不是给结论读的。</strong>一行日志通常只有一个维度：时间、级别、一句话。而一个决策有十几个维度（方向、信心、反对意见、净多分、仓位折算……）。把这些挤进一行文本里，读的人要自己拿正则表达式去拆。
+
+<strong>不足二：它是碎的。</strong>证据分散在几十行里，中间还夹着行情刷新、缓存命中之类无关的输出。要回答“谁否了谁”，你得像拼图一样把相关的几行挑出来，还得保证没挑漏。
+
+<strong>不足三：它可能被冲掉。</strong>日志有滚动策略（这套系统里审计日志默认保留 \(180\) 天）。你三个月后想复查一次决策，那条记录可能已经不在了。
+
+<strong>不足四——也是最要命的一条：它和你什么时候写，是两件事。</strong>日志可以在决策之后补写。只要补写的可能存在，“记录被事后解释污染”这个风险就永远在。
+
+补上这四条，模型就变成了本章的严谨版本：<strong>在决策发生的那一瞬间，把证据序列化成结构化的对象，和决策结果写进同一条记录里，并且不依赖你事后去回忆任何东西。</strong>
+
+<strong>这个模型失效在哪里？</strong>在于它保证不了“证据链是完整的”。它可以保证“已经写下来的那些是真实的、同刻的”，但保证不了“该写的都写了”——如果某个环节忘了往证据里塞一个字段，那个字段就是空的，而且没人会报警。所以这套机制能挡住的，是“事后编理由”和“事后查不到”；挡不住的，是“当时就没记”。想清楚这一点，你才知道该定期去翻那些字段，看它们是不是常年为空。
+
+<h2 id="sec-10-4"><span class="hnum">10.4</span>它在系统里长什么样</h2>
+
+先说决策记录本身。每一次 CIO 决策，都带一个证据对象，字段名是 <code class="code">Evidence</code>，类型叫 <code class="code">decisionProposalPayload</code>，定义在 <code class="sysfile">internal/cio/proposal.go</code>。表 <a class="xref" href="ch10.html#tab:ch10-evidence">10.1</a> 是它的字段清单。
+
+<figure class="tbl" id="tab:ch10-evidence"><div class="tbl-scroll"><table><caption><span class="lbl">表 10.1</span>决策证据链的字段，以及每个字段负责回答的问题</caption><tbody><tr><td><strong>字段</strong></td><td><strong>它回答的问题</strong></td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td><code class="field">market_direction</code> / <code class="field">market_read</code></td><td>它当时怎么看的，一句话解读是什么</td></tr><tr><td><code class="field">suggested_position_rate</code> / <code class="field">effective_position_rate</code></td><td>它想下多少注；最后实际生效多少</td></tr><tr><td><code class="field">governed_by_sixdim</code></td><td>这次是不是被六维判势压下来的</td></tr><tr><td><code class="field">preferred_stocks</code> / <code class="field">confidence</code> / <code class="field">conclusion</code></td><td>它看好谁、有多确信、总结说了什么</td></tr><tr><td><code class="field">skeptic_verdict</code> / <code class="field">skeptic_concerns</code></td><td><strong>谁否了它</strong>，否在哪几条具体风险上</td></tr><tr><td><code class="field">debate</code>（方向 / 多 / 空 / 共识度 / 总结）</td><td>多空两边各自摆出了什么论据</td></tr><tr><td><code class="field">kelly_position_scale</code></td><td>共识与信心折算成的那个折扣系数</td></tr><tr><td><code class="field">ensemble</code>（方向 / <code class="field">net_score</code> / <code class="field">votes</code>）</td><td>四路来源各自怎么表态、净多分多少</td></tr><tr><td><code class="field">feedback</code></td><td>上一次结算之后的真实战绩，作为这次决策的输入之一</td></tr><tr><td><code class="field">evidence</code>[] / <code class="field">generated_at</code></td><td>当时看到的原始输入清单，以及这些结论生成的时刻</td></tr><tr class="rule"><td colspan="2"></td></tr></tbody></table></div><p class="tabsrc">系统源码 <code class="sysfile">internal/cio/proposal.go</code>，结构体 <code class="code">decisionProposalPayload</code>；字段随 <code class="code">CIODecision.Evidence</code> 持久化；核对时间 2026-09-24。</p></figure>
+
+请注意这张表的形状。它不是一个“结果表”，它是一张<strong>对账表</strong>：左边一列是决策过程里的每一个角色和每一步折算，右边一列是它们各自的产出。第 <a class="xref" href="ch06.html#ch:ch06">第六章</a> 章到第 <a class="xref" href="ch08.html#ch:ch08">第八章</a> 章讲的所有机制——主张、异议、辩论、Kelly 折扣、集成投票——最后都落在这一张表里，一条都不少。
+
+写进去的动作发生在 <code class="code">attachProposal</code> 里：它把主张、异议、辩论、Kelly 系数、集成结果，以及盘前采集的那份输入清单，一起塞进 <code class="code">decision.Evidence</code>。在这之前，<code class="code">buildEvidenceLines</code> 已经先把“当时看到了什么”整理成了一份清单——日期、六维判势摘要、组合快照、回撤等级、风控摘要、因子候选、历史反馈。<strong>这份清单在任何判断发生之前就准备好了</strong>，这也是它能当证据的原因。
+
+再往上一层，是两条<strong>合规防线</strong>。它们都只拦买入，这一点很重要，下面会专门讲。
+
+<strong>防线一：股票池白名单，而且是“失败即拒绝”。</strong>任何自主建仓的买入订单，都要先过一遍可交易股票池（<code class="dbtab">tradeable_stocks</code>）。不在池里的标的，一个不留地剔除：
+
+<figure class="listing" id="{lst:ch10-pool}"><figcaption><span class="lbl">代码 10.1</span>白名单的失败即拒绝（节选，<code class="sysfile">internal/cio/cio.go</code>）</figcaption><pre class="code"><code><span class="cl">allowed := c.tradeablePoolBuyableCodes()</span>
+<span class="cl"><span class="kw">if</span> len(allowed) == 0 {</span>
+<span class="cl">    log.Println(<span class="str">&quot;[CIO] 可交易股票池为空，拒绝基于多因子的自主建仓（白名单强制）&quot;</span>)</span>
+<span class="cl">    <span class="kw">return</span> orders            <span class="com">// 池子空 → 一笔都不下</span></span>
+<span class="cl">}</span>
+<span class="cl"><span class="kw">for</span> _, s := <span class="kw">range</span> topStocks {</span>
+<span class="cl">    <span class="kw">if</span> allowed[normalizePlanCode(s.Code)] {</span>
+<span class="cl">        poolFiltered = append(poolFiltered, s)</span>
+<span class="cl">    } <span class="kw">else</span> {</span>
+<span class="cl">        log.Printf(<span class="str">&quot;[CIO] 白名单剔除: %s(%s) 未在可交易股票池，禁止买入&quot;</span>, s.Name, s.Code)</span>
+<span class="cl">    }</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：注意第二个 <code class="code">if</code>。池子是空的、或者读池子失败了，系统做的事情不是“先按默认买几只”，而是<strong>一笔都不下</strong>。这种设计有个专门的名字，叫 fail-closed（失败即关闭）——<strong>拿不准的时候，选择“不动”，而不是选择“按常识猜一个”</strong>。
+
+把池子交给程序自己维护，它会在读不到的时候放行；把池子建成白名单，它就会在读不到的时候拦住。这两种选择的区别，就是“一次事故”和“永远不会因为这个原因出事”的区别。
+
+<strong>防线二：每一笔买入都要写清信号来源。</strong>订单结构 <code class="code">OrderIntent</code> 里有一个字段 <code class="field">signal_source</code>（<code class="sysfile">internal/port/agent.go</code>），每笔买入订单都会被标注它是被哪个信号驱动的，并且这个来源还会被写进订单的理由文本里——形如“因子优选买入某某（代码）某某股@某某（复合得分\(=\)某某，信号来源\(=\)某某）”。同一天里的加仓订单，同样带这个字段。
+
+<figure class="fig" id="fig:ch10-channels"><img class="tikz" src="assets/tikz/tikz-06.svg" alt="示意图"><figcaption><span class="lbl">图 10.1</span>三条落库通道：决策证据链挂在决策记录上，交付物同时进文件与数据库，操作级动作另进审计日志。</figcaption></figure>
+
+接下来是另外三条通道。
+
+<strong>交付物双存储。</strong>智能体每个任务的产出，同时写两个地方：一个是文件系统 <code class="sysfile">deliverables/{日期}/</code>，文件命名形如 <code class="code">YYYYMMDD_HHMMSS_DELIVERABLE_TYPE_交付物名称.json</code>；另一个是 SQLite 的 <code class="dbtab">agent_task_logs</code> 表，对应字段是 <code class="field">deliverable_type</code>、<code class="field">deliverable_name</code>、<code class="field">deliverable_data</code>。为什么要存两份？文件适合“翻出来看”，数据库适合“查和筛”。一份记录如果只有文件，你三个月后想按类型找它就得靠文件名猜；只有数据库，你又没法把原始 JSON 直接递给别人。
+
+<strong>审计日志。</strong>系统里有一个统一的审计服务（<code class="sysfile">internal/audit/service.go</code>），处理的是<strong>操作级</strong>的留痕：谁在什么时候做了什么、结果如何。它的工程细节都是围绕“必须记下来”设计的——写入走异步批量（批量上限 \(100\) 条、每 \(5\) 秒刷一次），不阻塞主流程；写入失败最多重试 \(3\) 次；日志默认保留 \(180\) 天，每 \(24\) 小时清理一次过期记录；重要的操作走同步写入版本，确保落库成功才继续。它按业务场景分了很多入口：选股、投资规划、回测、AI 分析、CIO 每日复盘、配置变更、实时活动等等，并且提供了带筛选和分页的查询接口。
+
+<strong>过程透明度。</strong>还有一份更细的记录，专门描述“一次会话里发生了什么”：<code class="sysfile">internal/transparency/tracker.go</code> 里的 <code class="code">SessionTransparency</code>，包含三个数组——<code class="field">data_sources</code>（这一轮读了哪些数据源、成功还是失败）、<code class="field">algorithm_records</code>（跑了哪些算法、输入输出各是什么、耗时多少毫秒）、<code class="field">decision_steps</code>（第几步、哪个角色、做了什么动作）。它的价值在于把“结论”和“结论的原料”分开存：<code class="code">Evidence</code> 存的是结论侧的证据，这份存的是<strong>数据与算法侧</strong>的流水账。
+
+最后，这些记录是被消费的——不然存了也没意义。CIO 页的决策日志（<code class="code">GetCIOJournal</code>）会把每条决策渲染成一张卡片，里面包含【多空辩论】区块和【多提案集成】区块。也就是说，第 <a class="xref" href="ch06.html#ch:ch06">第六章</a> 章那条“看多 3 条、看空 2 条、共识 61”、和第 <a class="xref" href="ch08.html#ch:ch08">第八章</a> 章那条“净多 \(-100\%\)、来源 主张\(=\)看多、异议\(=\)RISK、辩论\(=\)看空、规则\(=\)看空”，就是从这里读出来的。<strong>你怎么读它，和系统怎么记它，是同一件事。</strong>
+
+<h2 id="sec-10-5"><span class="hnum">10.5</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是我想得最久、也错得最久的一条。
+
+我一开始以为，“可解释”指的是：决策做完了，系统能给我一段人能看懂的理由。按这个标准，一套写得漂亮的总结文字就够了。
+
+后来我发现这个标准毫无意义。因为<strong>一段“说得圆的理由”，在决策正确时和错误时都一样圆</strong>。它是为读者服务的，不是为调查服务的。
+
+真正的标准应该换成这样一句话：<strong>证据必须在决策发生的那一刻就已经存在，而不是在你想看的时候才被生产出来。</strong>用系统里的话说：<code class="code">buildEvidenceLines</code> 在任何判断之前运行，<code class="code">attachProposal</code> 把结果和证据写进同一条记录，两者之间没有“等一会儿再补”的空间。
+
+为什么这一点不能妥协？因为一旦允许事后补，“证据”就退化成了“叙述”，而人对叙述有一种很强的加工本能——你会不自觉地把结果合理化。第 <a class="xref" href="ch08.html#ch:ch08">第八章</a> 章讲的那个“净多分 \(0\) 到底是没有来源还是激烈对冲”，一旦允许事后补记录，你就会永远得到一个对自己有利的答案。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+看代码很容易产生这个印象：白名单卡的是买入订单，<code class="field">signal_source</code> 标的也是买入订单；而卖出那一侧，几乎没有什么东西拦它。这不是“管一半漏一半”吗？
+
+这个不对称是刻意的，而且是一条贯穿全书的纪律：<strong>离场永远比进场更该被放行。</strong>
+
+理由很朴素。买入是“增加风险敞口”，它的最坏情况是“多了一个你本不该有的仓位”——这个错误可以等一天、可以下不为例。而卖出是“减少风险敞口”，尤其在被止损、被熔断、市场转弱这些情形下，晚一小时都是实打实的损失。如果让白名单去管卖出，那么“这只股票被移出池子”就会变成一个“不能卖出”的理由——<strong>你想把风险赶出去，白名单反倒把门锁上了。</strong>
+
+同样的不对称在前面的章节里已经出现过两次：第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a> 章会讲的六维仓位系数只缩放买入订单、不缩放卖出订单；第 <a class="xref" href="ch08.html#ch:ch08">第八章</a> 章的集成投票只往下压仓位上限、从不往上抬。它们都是同一句话的不同写法：<strong>所有约束的作用方向都必须指向“更少风险”，而不能顺手把出口也堵上。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“系统有日志”和“系统可审计”，是两种东西。
+
+这套系统里，这两者的差距可以被一个具体的问题量出来：<strong>那天谁否了谁？</strong>
+
+日志能告诉你“风控审查通过了”“决策完成了”。但它回答不了上面的问题——因为答案藏在两个具体的字段里：一个是 <code class="field">skeptic_verdict</code>（异议审查官的表态是 <code class="code">AGREE</code>、<code class="code">CAUTION</code> 还是 <code class="code">RISK</code>）加上 <code class="field">skeptic_concerns</code>（它到底担心哪几条），另一个是 <code class="field">ensemble</code> 里的 <code class="field">votes</code>（四路来源各自投了什么）。这两个字段如果没被单独存下来，而是被揉进一句“综合各方意见后决定”的总结里，那么<strong>这个决策在事后就变成了不可审的</strong>——你能证明它做过了，不能证明它想过了。
+
+所以“可审计”的门槛不是“有没有记录”，而是：<strong>能不能在不依赖任何回忆和推断的前提下，回答“谁不同意、不同意在哪”。</strong>
+</div></div>
+
+<h2 id="sec-10-6"><span class="hnum">10.6</span>真实出处与动手试一试</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>决策证据链结构 <code class="code">decisionProposalPayload</code> 与写入动作 <code class="code">attachProposal</code>：<code class="sysfile">internal/cio/proposal.go</code>；随 <code class="code">CIODecision.Evidence</code> 持久化。
+  </li><li>决策前采集的输入清单 <code class="code">buildEvidenceLines</code>：同文件。
+  </li><li>股票池白名单与失败即拒绝：<code class="sysfile">internal/cio/cio.go</code>，函数 <code class="code">generateBuyOrdersFromFactors</code>，白名单来源函数 <code class="code">tradeablePoolBuyableCodes</code>；池数据表 <code class="dbtab">tradeable_stocks</code>。
+  </li><li>买入订单的信号来源字段 <code class="field">signal_source</code>：<code class="sysfile">internal/port/agent.go</code>，结构 <code class="code">OrderIntent</code>。
+  </li><li>操作级审计服务：<code class="sysfile">internal/audit/service.go</code>，结构 <code class="code">AuditService</code>（批量写入、重试、保留期与清理）。
+  </li><li>过程透明度记录：<code class="sysfile">internal/transparency/tracker.go</code>，结构 <code class="code">SessionTransparency</code> 与 <code class="code">Tracker.StartSession</code>。
+  </li><li>交付物双存储：文件目录 <code class="sysfile">deliverables/{taskDate}/</code> 与 SQLite 表 <code class="dbtab">agent_task_logs</code>（<code class="field">deliverable_type</code> / <code class="field">deliverable_name</code> / <code class="field">deliverable_data</code>）。
+  </li><li>前端消费：CIO 页决策日志（<code class="code">GetCIOJournal</code>）与【多空辩论】【多提案集成】区块，<code class="sysfile">ui/src/pages/CIO.tsx</code>。
+  </li><li>真实判势证据样本：<code class="dbtab">market_sixdim_daily</code> 表（含逐维度的 <code class="field">sources</code> 字段）。
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（二十分钟）</div><div class="boxbody">
+<ol><li>打开系统，进入<strong>首席投资官（CIO）</strong>页，把决策日志往下翻，找一条带完整证据的决策。
+  </li><li>在这一条里，按表 <a class="xref" href="ch10.html#tab:ch10-evidence">10.1</a> 逐个找字段：方向、建议仓位、实际生效仓位、异议表态、辩论共识度、Kelly 系数、集成净多分。
+  </li><li>试着用它回答本章开头那五个问题。答不上来的那个，就是你想再要一个字段的地方。
+  </li><li>换到<strong>设置 \(\to\) 审计日志</strong>页，查一查这段时间里发生过哪些操作级事件。
+  </li><li>最后打开安装目录的 <code class="sysfile">deliverables/</code> 文件夹，找一个日期目录，看里面有多少个 JSON——数一数，和你刚刚在决策日志里看到的任务数对不对得上。
+</li></ol>
+</div></div>
+
+<h2 id="sec-10-7"><span class="hnum">10.7</span>这一部分的收尾：他们到底在算什么</h2>
+
+第一部分到这里就结束了。我们现在可以回过头，把第 <a class="xref" href="ch01.html#ch:ch01">第一章</a> 章那个问题再回答一次。
+
+那个问题是：<strong>一个人，怎么假装自己有一支投资团队？</strong>
+
+十章的答案拼起来是这样的：
+
+<strong>先分工</strong>——把“看市场、找机会、做研究、选股、回测、控风险、管组合、交易、复盘”这九件事，拆成五个岗位（第 <a class="xref" href="ch01.html#ch:ch01">第一章</a> 章）。
+
+<strong>再定权</strong>——每条权力边界都写进代码里的权限表，尤其把“否决”这一票单独交给一个角色（第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章）。
+
+<strong>然后签合同</strong>——每一次派活都有明确的输入、禁止项、产出格式、停止条件，连“我答不上来”都有专门的拒答码（第 <a class="xref" href="ch03.html#ch:ch03">第三章</a>、<a class="xref" href="ch04.html#ch:ch04">第四章</a> 章）。
+
+<strong>接着排班</strong>——用市场自己的时段当节拍器，什么时间谁在岗（第 <a class="xref" href="ch05.html#ch:ch05">第五章</a> 章）。
+
+<strong>让他们吵</strong>——把反对意见交给另一个视角产生，而不是让同一个模型自我怀疑（第 <a class="xref" href="ch06.html#ch:ch06">第六章</a> 章）。
+
+<strong>只许往下调</strong>——所有角色的意见都只能把仓位压小，不能抬高（第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章）。
+
+<strong>有事投票</strong>——四路来源折成一个可核对的净多分，缺票就少投，绝不补假票（第 <a class="xref" href="ch08.html#ch:ch08">第八章</a> 章）。
+
+<strong>打不死</strong>——AI 失联退回规则、阶段失败不中断、进程不许静默消失（第 <a class="xref" href="ch09.html#ch:ch09">第九章</a> 章）。
+
+<strong>留得下</strong>——决策发生的那一刻，把看到了什么、想了什么、谁否了谁，一起写进记录（本章）。
+
+所以答案不是“AI 很聪明”。答案恰恰相反：
+
+<div class="box keybox"><div class="boxtitle">第一部分的一句话总结</div><div class="boxbody">
+一个人假装有一支团队的办法，不是找到了五个聪明的 AI，而是<strong>把分工、权限、契约、证据、容错和诚实，一条一条写进了代码里</strong>。<br>
+
+智能体是这套制度的执行者，不是它的替代品。
+</div></div>
+
+团队有了，纪律有了，证据链也有了。
+
+但你现在应该能感觉到，有一个问题我们一直在绕：这套系统里反复出现的那些数字——六维判势的八个维度、因子的权重、形态评分、仓位系数——<strong>它们到底是怎么算出来的？</strong>
+
+一个“退潮风险”的标签，是怎么从几万只股票、一千多根 K 线、几个外部数据源里被算出来的？凭什么相信它不是凑出来的？
+
+第 <a class="xref" href="ch11.html#ch:ch11">第十一章</a> 章开始，我们把团队放在一边，去拆开它脑子里那台计算器。第一部分到此结束：<strong>我们知道谁来干活了。第二部分要问的是，他们到底在算什么。</strong>
+</article>
+<nav class="pager"><a class="prev" href="ch09.html"><span class="dir">上一页</span>第九章 如果 AI 突然失联，交易还继续吗？</a><a class="next" href="ch11.html"><span class="dir">下一页</span>第十一章 什么叫“这只股票不错”？—— 从感觉到因子</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch10-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch10-1">↩</a></li><li id="fn-ch10-2"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch10-2">↩</a></li><li id="fn-ch10-3"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch10-3">↩</a></li><li id="fn-ch10-4"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch10-4">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

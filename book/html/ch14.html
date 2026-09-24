@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>因子也要写体检报告：IC、RankIC、分组与衰减 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·因子也要写体检报告：IC、RankIC、分组与衰减">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch14.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html" class="current"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a><ul class="sub"><li><a href="#sec-14-1">14.1 九月十一日，盘后那行正数</a></li><li><a href="#sec-14-2">14.2 跟着一个天气预报员上班</a></li><li><a href="#sec-14-3">14.3 不做体检，要付三种代价</a></li><li><a href="#sec-14-4">14.4 先给一个“差不多对”的模型</a></li><li><a href="#sec-14-4-1">14.4.1 IC 与 RankIC：同一张散点图，两种读法</a></li><li><a href="#sec-14-4-2">14.4.2 分组收益差：把一个相关系数翻译成钱</a></li><li><a href="#sec-14-4-3">14.4.3 这个等价性在哪里失效</a></li><li><a href="#sec-14-4-4">14.4.4 剩下四项：覆盖率、准确率、稳定性、衰减</a></li><li><a href="#sec-14-5">14.5 它在系统里长什么样</a></li><li><a href="#sec-14-6">14.6 常见误解与纠偏</a></li><li><a href="#sec-14-7">14.7 真实出处</a></li></ul></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch14"><span class="cnum">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</h1>
+
+
+
+
+
+<h2 id="sec-14-1"><span class="hnum">14.1</span>九月十一日，盘后那行正数</h2>
+
+二零二六年九月十一日，周五，收盘之后。
+
+那天盘前的六维判势给的是“退潮风险”：调整后总分 25.71，仓位系数 0.06系统表 <code class="dbtab">market_sixdim_daily</code> 的 2026-09-11 记录：<code class="field">adjusted_total_score</code> = 25.71，<code class="field">position_rate</code> = 0.06，<code class="field">market_tag</code> = 退潮风险。<sup class="fn-ref"><a id="fnref-ch14-1" href="#fn-ch14-1">1</a></sup>。系统那天没让我买入任何东西。
+
+同一份盘后复盘里，动量因子的 RankIC 是一个正数。
+
+我盯着这个正数看了很久，然后问了它三句话。
+
+<strong>第一句：准到什么程度？</strong>它是一个正数，可它是 0.004 还是 0.08？这两个数字对应的含义完全不同：前者是噪声，后者是一年里都难得见到的好因子。
+
+<strong>第二句：覆盖了多少股票？</strong>如果这个正数是由全市场九千多只股票算出来的，那它是一份普查结果；如果它是由八只股票算出来的，那它是一次抛硬币。
+
+<strong>第三句：能维持几天？</strong>如果它只在最近五个交易日有效，那我下周就得重新评估它；如果它已经连续二十周为正，那我有理由把它写进权重里。
+
+三句问完，我发现我手里的这个“正数”，什么都没回答。
+
+这不是复盘工具坏了。这是我在用一把只能量长度的尺子，去量一件有三四个维度的事。
+
+所以我决定给每个因子写一份体检报告——不是一行数，是一张表。
+
+<h2 id="sec-14-2"><span class="hnum">14.2</span>跟着一个天气预报员上班</h2>
+
+我想到的是一个很笨的办法：跟着一个天气预报员上一整年的班，每天记录他一件事。
+
+<div class="box intuition"><div class="boxbody">
+我在本子上画四栏。
+
+<strong>第一栏：他报得准不准。</strong>他说明天有雨，第二天真下雨了吗？这一栏记的是<em>方向</em>和<em>幅度</em>——他报“小雨”却下了暴雨，和一个只报“有雨”的人，水平不一样。
+
+<strong>第二栏：他敢不敢报。</strong>一年三百六十五天，他只报了二十天。那二十天他全准了——可这一年里剩下的三百四十五天，我一点信息都没拿到。<em>准确率再高，也不敢用</em>，因为他覆盖的天气太少。
+
+<strong>第三栏：他报得早不早。</strong>他是昨晚就报，还是今天早上出门前才报？昨晚就能预报的人，我可以在昨天就决定带不带伞；只能在出门前预报的人，我只能站在门口等。
+
+<strong>第四栏：把本子撕成两半，两半的看法一致吗。</strong>前半年他排的“最能下雨的日子”和后半年他排的，是同几天吗？如果两半段排出来的东西完全不一样，那他的“第一名”就不是本事，是抽签。
+
+四栏记满，我才敢说这个预报员“行”或者“不行”。
+</div></div>
+
+这个笨办法，就是我们马上要写进系统的因子体检。翻成术语，四栏分别是：信息系数（<em>IC</em>）、覆盖率（<em>coverage</em>）、前瞻准确率（<em>forward accuracy</em>）、衰减（<em>decay</em>），再加上头的“分组收益差”和收尾的“分半稳定性”。
+
+我第一次做这件事的时候，以为它只是“多算几个数”。后来发现它改变的是我的判断方式：我不再问“这个因子准不准”，我开始问“这个因子在哪种情况下准，在哪种情况下会撒谎”。
+
+<h2 id="sec-14-3"><span class="hnum">14.3</span>不做体检，要付三种代价</h2>
+
+在动手算之前，我得先把“为什么必须算”说清楚。因为如果代价不明显，任何人都会选择省事。
+
+<strong>代价一：你会在一个只剩八只股票的因子上押注。</strong>
+
+动量因子在退潮期的覆盖率会掉。这不是设计缺陷，这是现实：市场下跌时，能同时满足“有足够长的历史 K 线”“有正常的成交量”“不在涨跌停上封着”的股票本来就少。如果覆盖率掉到百分之几，那么 RankIC 这个数基本上就是这八只股票的排位结果。你把它当成“全市场的规律”，就会在下一次调仓时发现它完全不管用。
+
+<strong>代价二：你会为一个只在昨天有效的因子付手续费。</strong>
+
+这是我最心疼的一笔账。因子准，意味着它每天给出的排序都在变；排序每天变，意味着持仓每天要换。A 股的摩擦不是零：买入收佣金（万三，最低 5 元），卖出收佣金加印花税 0.05%交易口径见 <code class="sysfile">internal/portfolio</code> 与 <code class="tool">order_cost_tool</code> 的成本模型；核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-2" href="#fn-ch14-2">2</a></sup>，另外还有市场冲击（这笔账在第 <a class="xref" href="ch17.html#ch:ch17">十七</a> 章会精确算，那里会给出平方根冲击律）。
+
+一个每天让你换掉三成持仓的因子，即便它的 RankIC 很漂亮，它挣的钱也可能刚好被这三项摩擦吃完。体检报告里的“衰减”一栏，就是为了提前发现这种事：一个只对 1 天有效的因子，它的收益全落在最短、摩擦最重的那一档上。
+
+<strong>代价三：你没法回答“它变差了没有”。</strong>
+
+如果不留存历史体检结果，那么“这个因子最近还行吗”这个问题永远只能靠感觉回答。系统的做法是把每次体检按因子名覆盖写入一张表（下面第五节会看到），于是“昨天 0.05，今天 0.02”这件事就变成可查的事实。差异一旦可查，你就能判断到底是因子衰退了，还是你自己的权重调错了。
+
+这三条代价合起来就是一句话：<strong>一个因子只有一行数，等于没有报告。</strong>
+
+<h2 id="sec-14-4"><span class="hnum">14.4</span>先给一个“差不多对”的模型</h2>
+
+现在动手。我先给自己的直觉版本：<em>因子值和下期收益画成一张散点图，如果点斜着往上排，这个因子就有效。</em>
+
+这句话基本是对的，它抓住了“相关”的本质。但它有两个裂缝，我必须当场指出来，否则后面所有的数都会被它骗。
+
+<strong>裂缝一：少数几个点能决定整条斜线。</strong>一张散点图上，只要有一个点落在极端位置，它能自己把整条拟合线拉歪，而另外几十个点几乎不参与。
+
+<strong>裂缝二：斜线是直的，但现实常常是弯的。</strong>如果某只股票“因子值从 60 涨到 70”和“从 90 涨到 100”带来的收益完全不一样（这在动量、情绪类因子里非常常见），那么“一条直线的斜率”就描述不了它。
+
+这两个裂缝分别对应两个不同的指标：Pearson 相关（<em>Pearson correlation</em>）和Spearman 秩相关（<em>Spearman rank correlation</em>）。我们要用第二个去补第一个。
+
+<h3 id="sec-14-4-1"><span class="hnum">14.4.1</span>IC 与 RankIC：同一张散点图，两种读法</h3>
+
+设某一天收盘后，我们对横截面上的 \(n\) 只股票各拿到两个数：因子值 \(x_i\)，以及它未来 \(h\) 个交易日的收益 \(y_i\)（\(i=1,\dots,n\)）。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">14.1</span>（IC 与 RankIC）</div>
+记 \(\rho\) 为 \(x\) 与 \(y\) 的 Pearson 相关系数，\(\rho_S\) 为它们的 Spearman 秩相关系数。本书沿用系统里的叫法：
+<div class="math-scroll" id="eq:ch14-ic"><span id="eq:ch14-rankic"></span>\begin{align}\IC &amp;= \rho(x,y) = \frac{\Cov(x,y)}{\sigma_x\,\sigma_y}, \tag{14.1}\\[2pt]
+\RankIC &amp;= \rho_S(x,y) = \rho\bigl(\rank(x),\,\rank(y)\bigr). \tag{14.2}\end{align}</div>
+其中 \(\rank(\cdot)\) 把每个值换成它在当天的名次（从 1 到 \(n\)；并列取平均名次）。
+</div>
+
+这句话在讲什么：\(\IC\) 直接拿数值去算相关系数，\(\RankIC\) 先把数值换成名次，再对名次算一次同样的相关系数。<strong>两者的差别只在于“用不用数值的大小”。</strong>
+
+<div class="thm definition" id="asm:ch14-notie"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">14.2</span></div>
+本章所有定理都假设当天的因子值与下期收益都没有并列（名次 \(1,\dots,n\) 各不相同）。若存在并列，用平均名次替代，全部结论不变，只是记号变长。
+</div>
+
+现在来回答第一个真正要紧的问题：这两个数会不会打架？
+
+先看一个不证自明的事实，它是后面一切的起点。
+
+<div class="thm plain" id="lem:ch14-order"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">14.3</span>（保序引理）</div>
+设 \(g:\R\to\R\) 是严格单调增函数。若 \(y_i = g(x_i)\)，则对每个 \(i\) 都有 \(\rank_i(y) = \rank_i(x)\)。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>严格单调增意味着 \(x_i &lt; x_j \iff y_i = g(x_i) &lt; g(x_j) = y_j\)。所以在把 \(\{x_1,\dots,x_n\}\) 从小到大排队时，任意两个样本的先后关系与把 \(\{y_1,\dots,y_n\}\) 排队时完全相同；由假设 <a class="xref" href="ch14.html#asm:ch14-notie">14.2</a>，两串名次逐位相等。
+</div>
+
+<div class="thm plain" id="thm:ch14-rank-relation"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">14.4</span>（IC 与 RankIC 的关系）</div>
+设 \((x_i,y_i)\)，\(i=1,\dots,n\) 为当天截面样本，并满足假设 <a class="xref" href="ch14.html#asm:ch14-notie">14.2</a>。
+
+<em>(i)</em> 若存在严格单调增函数 \(g\) 使 \(y_i = g(x_i)\) 对全部 \(i\) 成立，则
+<div class="math-scroll" id="eq:ch14-mono-one">\[\RankIC = 1. \tag{14.3}\]</div>
+
+<em>(ii)</em> 秩变换对“严格单调增”不敏感：对任意严格单调增的 \(g\)，
+<div class="math-scroll" id="eq:ch14-invariance">\[\rho_S\bigl(x,\,g(y)\bigr) = \rho_S(x,y). \tag{14.4}\]</div>
+而对严格单调减的 \(g\)，有 \(\rho_S\bigl(x,g(y)\bigr) = -\rho_S(x,y)\)。也就是说，<strong>RankIC 只看得见次序是否一致，看不见数值的大小</strong>。
+
+<em>(iii)</em> 因此 \(\IC\) 与 \(\RankIC\) 的符号<strong>不必相同</strong>：存在具体样本使 \(\IC&lt;0\) 而 \(\RankIC&gt;0\)。
+</div>
+
+这个定理在说什么：如果把收益换成因子值的“任何一路保序改写”，名次不变，所以 RankIC 一点不动；而 IC 会因为数值被改写而改变，甚至翻号。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由引理 <a class="xref" href="ch14.html#lem:ch14-order">14.3</a>，两个名次向量逐位相等，即 \(r_i^{(x)} = r_i^{(y)}\) 对所有 \(i\)。<a class="xref" href="ch14.html#eq:ch14-rankic">式 (14.2)</a> 于是变成“一个向量与自己的 Pearson 相关”：
+<div class="math-scroll">\[\RankIC = \frac{\Cov\bigl(r^{(x)},r^{(x)}\bigr)}{\sigma_{r^{(x)}}\,\sigma_{r^{(x)}}} = \frac{\Var\bigl(r^{(x)}\bigr)}{\Var\bigl(r^{(x)}\bigr)} = 1. \qquad \tag{14.5}\]</div>
+最后一步用了 \(\sigma&gt;0\)（由假设 <a class="xref" href="ch14.html#asm:ch14-notie">14.2</a>，名次互不相同，方差严格为正）。
+
+<em>(ii)</em> 对严格单调增的 \(g\)，由引理 <a class="xref" href="ch14.html#lem:ch14-order">14.3</a>（把 \(x\) 换成 \(y\)、把 \(y\) 换成 \(g(y)\)）得 \(\rank_i(g(y)) = \rank_i(y)\)，故 <a class="xref" href="ch14.html#eq:ch14-rankic">式 (14.2)</a> 右端一点不变，<a class="xref" href="ch14.html#eq:ch14-invariance">式 (14.4)</a> 成立。
+
+对严格单调减的 \(g\)：\(x_i&lt;x_j \iff g(x_i)&gt;g(x_j)\)，所以名次被整体反号，即 \(\rank_i(g(y)) = n+1-\rank_i(y)\)。对向量 \(r\) 与 \((n+1)\mathbf{1}-r\) 求相关，常数项 \((n+1)\mathbf{1}\) 平移不影响协方差，也平移不影响方差，于是
+<div class="math-scroll">\[\rho_S\bigl(x,g(y)\bigr) = \frac{\Cov\bigl(r^{(x)},-r^{(y)}\bigr)}{\sigma_{r^{(x)}}\sigma_{r^{(y)}}} = -\rho_S(x,y). \tag{14.6}\]</div>
+
+<em>(iii)</em> 只需给出一个样本。取 \(n=5\)，因子值与下期收益分别为
+<div class="math-scroll" id="eq:ch14-counterexample">\[x = (0,\,1,\,2,\,3,\,4),\qquad y = (0,\,100,\,1,\,2,\,3). \tag{14.7}\]</div>
+
+先算 \(\IC\)。\(x\) 的均值是 \(2\)，偏差为 \((-2,-1,0,1,2)\)，\(\sum_i (x_i-\bar x)^2 = 10\)。\(y\) 的均值是 \(21.2\)，偏差为 \((-21.2,\,78.8,\,-20.2,\,-19.2,\,-18.2)\)，于是
+<div class="math-scroll">\[\sum_i (x_i-\bar x)(y_i-\bar y) = 42.4 - 78.8 + 0 - 19.2 - 36.4 = -92.0, \tag{14.8}\]</div>
+<div class="math-scroll">\[\sum_i (y_i-\bar y)^2 = 449.44 + 6209.44 + 408.04 + 368.64 + 331.24 = 7766.8 . \tag{14.9}\]</div>
+所以
+<div class="math-scroll">\[\IC = \frac{-92.0}{\sqrt{10\times 7766.8}} = \frac{-92.0}{278.69} = -0.330 . \tag{14.10}\]</div>
+
+再算 \(\RankIC\)。名次为 \(\rank(x) = (1,2,3,4,5)\)，\(\rank(y) = (1,5,2,3,4)\)。两串名次的均值都是 \(3\)，偏差分别为 \((-2,-1,0,1,2)\) 与 \((-2,2,-1,0,1)\)，因此
+<div class="math-scroll">\[\sum_i \bigl(\rank_i(x)-3\bigr)\bigl(\rank_i(y)-3\bigr) = 4 - 2 + 0 + 0 + 2 = 4, \tag{14.11}\]</div>
+<div class="math-scroll">\[\sum_i \bigl(\rank_i(y)-3\bigr)^2 = 4+4+1+0+1 = 10,\qquad \sum_i\bigl(\rank_i(x)-3\bigr)^2 = 10, \tag{14.12}\]</div>
+<div class="math-scroll">\[\RankIC = \frac{4}{\sqrt{10\times 10}} = 0.400 . \tag{14.13}\]</div>
+
+于是同一个截面样本，\(\IC = -0.330 &lt; 0\)，而 \(\RankIC = 0.400 &gt; 0\)。符号相反，<a class="xref" href="ch14.html#eq:ch14-mono-one">式 (14.3)</a> 与 <a class="xref" href="ch14.html#eq:ch14-invariance">式 (14.4)</a> 的结论同时得到了实例检验。
+</div>
+
+<figure class="fig" id="fig:ch14-outlier"><img class="tikz" src="assets/tikz/tikz-09.svg" alt="示意图"><figcaption><span class="lbl">图 14.1</span><a class="xref" href="ch14.html#eq:ch14-counterexample">式 (14.7)</a> 的五个点。四个点（除 \(x=1\) 那一个）次序与收益一致，名次相关为正；但 \((1,100)\) 这一个点的杠杆把 Pearson 相关拉成负数。</figcaption></figure>
+
+<div class="thm remark" id="rem:ch14-kruskal"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">14.5</span>（常识里那句“IC 和 RankIC 差不多”什么时候成立）</div>
+定理 <a class="xref" href="ch14.html#thm:ch14-rank-relation">14.4</a> 说的是“一般情形下两者可以翻号”。那么在什么情形下它们确实差不多？
+
+经典结果给出：当 \((x,y)\) 服从二元正态、相关系数为 \(\rho\) 时，
+<div class="math-scroll" id="eq:ch14-kruskal">\[\rho_S = \frac{6}{\pi}\arcsin\!\Bigl(\frac{\rho}{2}\Bigr). \tag{14.14}\]</div>
+把 \(\arcsin u = u + \dfrac{u^3}{6} + O(u^5)\) 代入 <a class="xref" href="ch14.html#eq:ch14-kruskal">式 (14.14)</a>（\(u=\rho/2\)）：
+<div class="math-scroll" id="eq:ch14-kruskal-expand">\[\rho_S = \frac{6}{\pi}\Bigl(\frac{\rho}{2} + \frac{\rho^3}{48} + O(\rho^5)\Bigr)
+= \frac{3\rho}{\pi}\Bigl(1 + \frac{\rho^2}{24} + O(\rho^4)\Bigr). \tag{14.15}\]</div>
+因为 \(3/\pi = 0.9549\)，所以当 \(|\rho|\) 很小时（截面因子的真实量级正是这个区间），
+<div class="math-scroll">\[\rho_S = 0.9549\,\rho + O(\rho^3), \tag{14.16}\]</div>
+两者相差不到百分之五；而 <a class="xref" href="ch14.html#eq:ch14-kruskal">式 (14.14)</a> 右端关于 \(\rho\) 严格单调增，符号必然一致。<strong>这才解释了为什么在“分布规矩”的市场里 IC 与 RankIC 从不打架，而在 <a class="xref" href="ch14.html#eq:ch14-counterexample">式 (14.7)</a> 这种“有离群点”的截面里会当场翻号。</strong>
+
+本书只在弱信号区间使用 <a class="xref" href="ch14.html#eq:ch14-kruskal-expand">式 (14.15)</a> 的展开形式，不依赖 <a class="xref" href="ch14.html#eq:ch14-kruskal">式 (14.14)</a> 的精确恒等式。
+</div>
+
+<h3 id="sec-14-4-2"><span class="hnum">14.4.2</span>分组收益差：把一个相关系数翻译成钱</h3>
+
+体检报告的第二栏我想写成钱的语言。因为“相关系数”这个词对人不友好，而“头尾两组的收益差”是任何人一看就懂的。
+
+做法很土：把当天所有股票按因子值从大到小排，取最前面一批（top 组）和最后面一批（bottom 组），分别算它们的平均下期收益，两者相减。
+
+系统里选的是三等分——最上三分之一与最下三分之一系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">groupSpread</code>：\(n/3\) 分组，返回 <code class="field">top_group_ret</code>、<code class="field">bottom_group_ret</code>、<code class="field">long_short_spread</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-3" href="#fn-ch14-3">3</a></sup>。
+
+那么问题来了：<strong>分组收益差和 IC 是不是同一件事的两种说法？</strong>在“分布规矩”的前提下，答案是肯定的，而且比例系数可以算出来。
+
+<div class="thm definition" id="asm:ch14-bvn"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">14.6</span></div>
+截面上的因子值 \(x\) 与下期收益 \(y\) 服从二元正态分布：\(x\sim N(\mu_x,\sigma_x^2)\)，\(y\sim N(\mu_y,\sigma_y^2)\)，相关系数为 \(\rho\)。\(\sigma_x&gt;0\)，\(\sigma_y&gt;0\)。
+</div>
+
+<div class="thm plain" id="lem:ch14-trunc"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">14.7</span>（截断正态的一阶矩）</div>
+设 \(Z\sim N(0,1)\)，其密度函数记为 \(\varphi\)，分布函数记为 \(\Phi\)（\(\varphi'(z) = -z\,\varphi(z)\)）。对任意实数 \(c\)：
+<div class="math-scroll" id="eq:ch14-trunc">\[\E[Z\mid Z&gt;c] = \frac{\varphi(c)}{1-\Phi(c)},\qquad
+\E[Z\mid Z&lt;c] = -\frac{\varphi(c)}{\Phi(c)}. \tag{14.17}\]</div>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>以第一式为例。条件密度的定义与全概率公式给出
+<div class="math-scroll">\[\E[Z\mid Z&gt;c] = \frac{1}{\Prob(Z&gt;c)}\int_{c}^{\infty} z\,\varphi(z)\,dz . \tag{14.18}\]</div>
+被积函数是一个完全微分：由 \(\varphi'(z)=-z\varphi(z)\) 得 \(z\varphi(z) = -\varphi'(z)\)，于是
+<div class="math-scroll">\[\int_{c}^{\infty} z\,\varphi(z)\,dz = \Bigl[-\varphi(z)\Bigr]_{c}^{\infty} = -\varphi(\infty)+\varphi(c) = \varphi(c), \tag{14.19}\]</div>
+其中用了 \(\varphi(z)\to 0\)（\(z\to\infty\)，因为密度含因子 \(e^{-z^2/2}\)）。而 \(\Prob(Z&gt;c)=1-\Phi(c)\)，代回即得第一式。
+
+第二式同理：\(\displaystyle\int_{-\infty}^{c} z\varphi(z)\,dz = [-\varphi(z)]_{-\infty}^{c} = -\varphi(c)\)，除以 \(\Prob(Z&lt;c)=\Phi(c)\) 得到 \(-\varphi(c)/\Phi(c)\)。
+</div>
+
+<div class="thm plain" id="thm:ch14-spread"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">14.8</span>（正态假设下分组收益差与 IC 成比例）</div>
+在假设 <a class="xref" href="ch14.html#asm:ch14-bvn">14.6</a> 下，取 \(q\in(0,1)\)，把 \(x\) 高于其 \(1-q\) 分位点的样本称为 top 组、低于其 \(q\) 分位点的样本称为 bottom 组。记
+<div class="math-scroll">\[\Delta = \E\bigl[y \mid x &gt; z_{1-q}\bigr] - \E\bigl[y \mid x &lt; z_{q}\bigr], \tag{14.20}\]</div>
+其中 \(z_{1-q}\)、\(z_q\) 分别为 \(x\) 的 \(1-q\) 分位点与 \(q\) 分位点。则
+<div class="math-scroll" id="eq:ch14-delta">\[\Delta = \rho\,\sigma_y\cdot \frac{2\,\varphi\!\bigl(z_{1-q}^{\ast}\bigr)}{q},
+\qquad z_{1-q}^{\ast} = \frac{z_{1-q}-\mu_x}{\sigma_x}. \tag{14.21}\]</div>
+特别地，\(\Delta\) 与 \(\rho\) <strong>同号</strong>，且当 \(q\) 与 \(\sigma_y\) 固定时 \(\Delta\) 与 \(\rho\) 成<strong>正比例</strong>。
+</div>
+
+这个定理在说什么：分组收益差不是另一个“独立指标”，它就是 IC 换了一身衣服——两者只差一个由分组比例 \(q\) 和收益波动 \(\sigma_y\) 决定的常数。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>第一步，写出一元条件期望。由多元正态的条件分布公式（对二元正态，给定 \(x\) 时 \(y\) 的条件分布仍为正态，其均值等于最优线性预测），
+<div class="math-scroll" id="eq:ch14-condmean">\[\E[y\mid x] = \mu_y + \frac{\Cov(x,y)}{\Var(x)}\,(x-\mu_x)
+= \mu_y + \rho\,\frac{\sigma_y}{\sigma_x}\,(x-\mu_x). \tag{14.22}\]</div>
+
+第二步，把 top 组的上界换成标准正态刻度。令 \(a = z_{1-q}\)，\(\alpha = (a-\mu_x)/\sigma_x\)。由分位点定义，\(\Prob(x&gt;a)=q\)，而 \(\Prob(Z&gt;\alpha)=1-\Phi(\alpha)=q\) 也正是 \(Z&gt;\alpha\) 的概率；把 \(x\) 标准化即得 \(\alpha = z^{\ast}_{1-q}\)。
+
+第三步，算 top 组的条件期望。对 <a class="xref" href="ch14.html#eq:ch14-condmean">式 (14.22)</a> 两边在事件 \(\{x&gt;a\}\) 下取条件期望（期望的线性性），再把 \(x\) 标准化为 \((x-\mu_x)/\sigma_x\)，它在这个条件下正是“截断在 \(\alpha\) 右侧”的标准正态：
+<div class="math-scroll" id="eq:ch14-top">\begin{align}\E[y\mid x&gt;a]
+&amp;= \mu_y + \rho\,\frac{\sigma_y}{\sigma_x}\Bigl(\E[x\mid x&gt;a]-\mu_x\Bigr)\\
+&amp;= \mu_y + \rho\,\sigma_y\,\E\Bigl[\frac{x-\mu_x}{\sigma_x}\ \Big|\ x&gt;a\Bigr]\\
+&amp;= \mu_y + \rho\,\sigma_y\,\E\bigl[Z\mid Z&gt;\alpha\bigr]
+= \mu_y + \rho\,\sigma_y\,\frac{\varphi(\alpha)}{1-\Phi(\alpha)}
+= \mu_y + \rho\,\sigma_y\,\frac{\varphi(z^{\ast}_{1-q})}{q}, \tag{14.23}\end{align}</div>
+其中倒数第二步用了引理 <a class="xref" href="ch14.html#lem:ch14-trunc">14.7</a> 第一式，最后一步用了 \(1-\Phi(\alpha)=q\)。
+
+第四步，算 bottom 组的条件期望。同理令 \(b=z_q\)，\(\beta=(b-\mu_x)/\sigma_x\)，则 \(\Prob(x&lt;b)=q\) 且 \(\Phi(\beta)=q\)，于是
+<div class="math-scroll" id="eq:ch14-bottom">\begin{align}\E[y\mid x&lt;b]
+&amp;= \mu_y + \rho\,\sigma_y\,\E\bigl[Z\mid Z&lt;\beta\bigr]\\
+&amp;= \mu_y - \rho\,\sigma_y\,\frac{\varphi(\beta)}{\Phi(\beta)}
+= \mu_y - \rho\,\sigma_y\,\frac{\varphi(z^{\ast}_{q})}{q}. \tag{14.24}\end{align}</div>
+
+第五步，相减。由标准正态的对称性 \(\varphi(u)=\varphi(-u)\)，以及分位点的对称性 \(z_q = -z_{1-q}\)（两者的标准化刻度互为相反数），有 \(\varphi(z^{\ast}_q) = \varphi(z^{\ast}_{1-q})\)。于是
+<div class="math-scroll" id="eq:ch14-delta-proof">\begin{align}\Delta &amp;= \E[y\mid x&gt;a]-\E[y\mid x&lt;b] \\
+&amp;= \rho\,\sigma_y\,\frac{\varphi(z^{\ast}_{1-q})}{q} + \rho\,\sigma_y\,\frac{\varphi(z^{\ast}_{q})}{q}
+= \rho\,\sigma_y\cdot\frac{2\,\varphi\bigl(z^{\ast}_{1-q}\bigr)}{q}, \tag{14.25}\end{align}</div>
+即 <a class="xref" href="ch14.html#eq:ch14-delta">式 (14.21)</a>。
+
+第六步，符号与比例。由假设 <a class="xref" href="ch14.html#asm:ch14-bvn">14.6</a>，\(\sigma_y&gt;0\)；\(\varphi(\cdot)&gt;0\) 恒成立；\(q\in(0,1)\) 故 \(1/q&gt;0\)。因此 <a class="xref" href="ch14.html#eq:ch14-delta-proof">式 (14.25)</a> 右端的\(\rho\) 之外的全部因子都是<strong>与 \(\rho\) 无关的严格正数</strong>，故 \(\sign(\Delta)=\sign(\rho)\)，且 \(\Delta/\rho\) 与 \(\rho\) 无关。定理证完。
+</div>
+
+<div class="thm plain" id="cor:ch14-third"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">14.9</span>（系统实际使用的三等分）</div>
+取 \(q=1/3\)，则 \(z_{1-q}^{\ast}=z_{2/3}=0.4307\)，
+<div class="math-scroll">\[\varphi(0.4307) = \frac{1}{\sqrt{2\pi}}e^{-0.4307^2/2}
+= 0.39894\times e^{-0.09275}
+= 0.39894\times 0.91142 = 0.36358, \tag{14.26}\]</div>
+<div class="math-scroll" id="eq:ch14-delta-third">\[\Delta = \rho\,\sigma_y\cdot\frac{2\times 0.36358}{1/3}
+= 6\times 0.36358\times\rho\,\sigma_y = 2.1815\,\rho\,\sigma_y . \tag{14.27}\]</div>
+</div>
+
+这段话在说什么：在“收益服从正态”的前提下，头尾各三分之一组，收益差就是 \(2.18\) 倍的“IC 乘收益标准差”。<strong>分组收益差和 IC 是同一件事的两种刻度</strong>——当分组比例改成 \(q=0.1\) 时，这个系数会跳到 \(2\varphi(z_{0.9})/0.1 = 2\times0.17550/0.1 = 0.3510/0.1 = 3.510\)，也就是说“分得更极端”，同样的 IC 会显得更赚钱。
+
+这正是我在系统里看到的“分组收益差比 IC 好看”的原因，它不是发现了新东西，它是把同一件事换了个放大倍数来说。
+
+<h3 id="sec-14-4-3"><span class="hnum">14.4.3</span>这个等价性在哪里失效</h3>
+
+必须把话说透：<a class="xref" href="ch14.html#thm:ch14-spread">定理 14.8</a> 的比例性完全建立在假设 <a class="xref" href="ch14.html#asm:ch14-bvn">14.6</a>（二元正态）上。现实中它至少在三个地方失效。
+
+<strong>失效一：胖尾。</strong>A 股的日收益分布比正态厚得多（涨跌停、一字板、事件驱动跳空），\(\varphi\) 的尾部密度不再是准确的刻度。此时 \(\sign(\Delta)=\sign(\rho)\) 仍然成立（因为 \(y\) 对 \(x\) 的平均依赖若为单调，头尾组的均值差方向不会反），但 \(\Delta/\rho\) 这个常数会随 \(\rho\)、\(q\) 一起漂移，“2.18 倍”这个换算不再可靠。
+
+<strong>失效二：非线性但单调。</strong>若 \(y = g(x)+\varepsilon\) 且 \(g\) 严格单调增、\(\varepsilon\) 与 \(x\) 独立、\(\Var(\varepsilon)&gt;0\)，则由定理 <a class="xref" href="ch14.html#thm:ch14-rank-relation">14.4</a>(ii) 的思想，名次一致意味着 \(\RankIC\) 会很高，而 \(\IC\) 被 \(g\) 的非线性与噪声 \(\varepsilon\) 压下来。于是“IC 小但分组收益差大”完全可能，比例性被破坏。<strong>符号仍然一致</strong>——这是本书要保留的那一半结论。
+
+<strong>失效三：用样本均值估计头尾。</strong>\(\Delta\) 是用有限样本的头尾均值估出来的，它的方差随 \(q\) 变小而急剧变大（\(q=1/3\) 时每组约占 \(n/3\) 个样本；\(q=0.1\) 时每组只剩 \(n/10\)）。定性地看，<a class="xref" href="ch14.html#eq:ch14-delta">式 (14.21)</a> 里的 \(1/q\) 是“放大系数”，而估计误差并不会被同样地放大，因此极端分组会给出一根噪声极大的曲线。
+
+<div class="box pitfall"><div class="boxbody">
+我在第一版复盘里同时列了 “RankIC = 0.03” 和 “头尾差 = 2.1%” 两行，并且把它们当成两个互相印证的证据：一个说相关性还行，一个说确实赚得到钱。
+
+读完上面这一节我才明白：在正态前提下它们是同一个数。<strong>用同一个数的两种刻度当作两个证据，是经典的重复计数。</strong>
+
+正确的用法是把分组收益差当作“可读性”工具，而不是“独立性”工具：它帮你把相关系数翻译成人能感觉到的钱，但它不能给你额外的置信度。要额外的置信度，得靠第 <a class="xref" href="ch15.html#ch:ch15">十五</a> 章的分半检验。
+</div></div>
+
+<h3 id="sec-14-4-4"><span class="hnum">14.4.4</span>剩下四项：覆盖率、准确率、稳定性、衰减</h3>
+
+体检报告剩下的四栏，都能在三行以内说清。
+
+<strong>覆盖率。</strong>当天真正参与了这次复盘计算的股票数，除以当天的股票池总数：
+<div class="math-scroll" id="eq:ch14-coverage">\[\mathrm{coverage} = \frac{n}{N_{\text{universe}}}\times 100\%. \tag{14.28}\]</div>
+系统里 \(N_{\text{universe}}\) 取的就是这次复盘解析出来的股票池大小系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code>，<code class="code">buildFactorItem</code> 中的 <code class="code">coverage := float64(n) / float64(maxInt(totalUniverse, 1)) * 100</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-4" href="#fn-ch14-4">4</a></sup>。分母取 \(\max(\cdot,1)\) 是为了防止除零——这是一个不起眼但必要的工程细节。
+
+<strong>前瞻准确率。</strong>在按因子值排出的前三分之一里，下期收益为正的比例：
+<div class="math-scroll" id="eq:ch14-acc">\[\mathrm{acc} = \frac{\#\{i\in \text{top}_{1/3} : y_i&gt;0\}}{\#\text{top}_{1/3}}. \tag{14.29}\]</div>
+这一栏是“你能不能在赌桌上赢钱”的最直白版本：它不问你赢多少，只问你赢的那次比输的那次多不多。
+
+<strong>稳定性（区分度）。</strong>系统里这一栏算的是<strong>因子得分自身的横截面标准差</strong> \(\mathrm{std}\)系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">scoreStd</code>：对当日因子得分求标准差。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-5" href="#fn-ch14-5">5</a></sup>——越大说明这个因子把股票“分得越开”。
+
+这里我必须诚实写下一件事：这一栏的名字叫“稳定性”，但它量的其实是“区分度”。第一次读到这个名字时我以为它量的是“IC 的时间序列标准差”（那才是统计意义上的稳定性，而这件事由下一章的分半检验承担）。两者混起来会误判：一个因子完全可以是“每天得分都分得很开、但每天的排序都不同”，这种因子在 <code class="field">stability_std</code> 上很好看，在实际选股上却是噪声。所以读这一栏时，脑子里要把它读成“区分度”，并且知道真正的稳定性另有其人。
+
+<strong>衰减。</strong>同一批样本，分别按 1 日与 20 日前瞻收益算两次 RankIC，取差：
+<div class="math-scroll" id="eq:ch14-decay">\[\mathrm{decay} = \RankIC_{20d} - \RankIC_{1d}. \tag{14.30}\]</div>
+这个差的符号很要紧：<strong>为负，说明这个因子在 1 日尺度上更有效、拉到 20 日就衰减了</strong>；为正，说明它是个慢因子，短周期里是噪声，把窗口拉长才显出来。系统注释里明确写着“负值表示短周期有效、长周期衰减”系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">calcDecay</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-6" href="#fn-ch14-6">6</a></sup>。
+
+<div class="box intuition"><div class="boxbody">
+单独看“衰减 = \(-0.03\)”没有意义。合起来看才有意义：如果同时“覆盖率 12%”、<code class="field">stability_std</code> 很高、衰减为负，那这幅画很可能是——<em>少数几只高波动小票在短周期里疯了一把，把 1 日 RankIC 抬了起来。</em>
+
+体检报告的价值不在任何一栏，在于栏与栏之间能不能互相解释。一份所有栏都很好看的报告，反而要更小心。
+</div></div>
+
+<h2 id="sec-14-5"><span class="hnum">14.5</span>它在系统里长什么样</h2>
+
+纸上讲完了，现在拆机器。
+
+因子复盘在系统里是一个工具：<code class="tool">factor_review</code>，实现在目录 <code class="sysfile">internal/tools/</code><code class="sysfile">factor_review_tool.go</code> 里，类名 <code class="code">FactorReviewTool</code>。它由 <code class="code">NewFactorReviewTool</code> 构造，需要四样东西：行情库管理器、SQLite 管理器、可交易池、以及一个共享的情绪引擎系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 第 35 行的构造签名。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-7" href="#fn-ch14-7">7</a></sup>。
+
+它的位置在盘前工作流里。第 <a class="xref" href="ch05.html#ch:ch05">五</a> 章讲过盘前七个任务的顺序，其中第二个就是量化分析师的因子健康度检查（<code class="code">FACTOR_HEALTH</code>）。复盘结果再往两个方向走：一个方向是当天的权重（由 <code class="code">factorWeightsFor</code> 读走），另一个方向是次日选股。
+
+一次复盘要落库的东西，是六个指标加上几个溯源字段，一起写进 SQLite 的 <code class="dbtab">FactorQuality</code> 表：按 <code class="field">factor_name</code> 为键做 UPSERT，即同一因子只保留最新一次体检结果系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">persistFactorQuality</code>：<code class="code">db.Where("factor_name = ?", name).First(&amp;existing)</code> 命中即更新、未命中即 <code class="code">Create</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-8" href="#fn-ch14-8">8</a></sup>。这样这张表永远只有“最近一次体检”的含义，不会越长越大。
+
+表 <a class="xref" href="ch14.html#tab:ch14-metrics">14.1</a> 是这六栏在代码里的名字，以及它们各自在质量分里占的权重。
+
+<figure class="tbl" id="tab:ch14-metrics"><div class="tbl-scroll"><table><caption><span class="lbl">表 14.1</span>因子体检的六栏，与它们在质量分里的权重</caption><tbody><tr><td><strong>体检栏</strong></td><td><strong>代码字段</strong></td><td><strong>权重</strong></td><td><strong>它防的病</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>IC（Pearson）</td><td><code class="field">pearson_ic</code></td><td>—</td><td>参考项，不直接进质量分</td></tr><tr><td>RankIC</td><td><code class="field">rank_ic</code> / <code class="field">abs_rank_ic</code></td><td>0.35</td><td>信号弱、被离群点翻转</td></tr><tr><td>分组收益差</td><td><code class="field">long_short_spread</code></td><td>—</td><td>只给人看的可读性翻译</td></tr><tr><td>覆盖率</td><td><code class="field">coverage_pct</code></td><td>0.10</td><td>样本太少的假结论</td></tr><tr><td>前瞻准确率</td><td><code class="field">top_accuracy</code></td><td>0.30</td><td>排前面却不涨</td></tr><tr><td>区分度</td><td><code class="field">stability_std</code></td><td>0.15</td><td>得分挤在一起、没有区分力</td></tr><tr><td>衰减</td><td><code class="field">decay_20d_minus_1d</code></td><td>0.10</td><td>只在极短周期有效</td></tr><tr><td>分半稳定性</td><td><code class="field">split_half_ic</code> / <code class="field">split_half_stable</code></td><td>见第 <a class="xref" href="ch15.html#ch:ch15">十五</a> 章</td><td>多重比较产生的假阳性</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">权重总和 0.35 + 0.30 + 0.15 + 0.10 + 0.10 = 1.00。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">factorQualityFromItem</code>；核对时间 2026-09-24。</p></figure>
+
+质量分的构造值得细看，因为“诚实”两个字就写在这几行里：
+
+<figure class="listing" id="{lst:ch14-quality}"><figcaption><span class="lbl">代码 14.1</span>质量分的五项加权（节选，去掉了注释）</figcaption><pre class="code"><code><span class="cl"><span class="com">// IC 贡献：|RankIC|=0.04 视为满分 0.35</span></span>
+<span class="cl">icScore := clampFloat(absIC/0.04, 0, 1) * 0.35</span>
+<span class="cl"><span class="kw">if</span> !halfStable &amp;&amp; sampleCount &gt;= 30 {</span>
+<span class="cl">    icScore *= 0.5          <span class="com">// 诚实下线：IC 贡献减半</span></span>
+<span class="cl">}</span>
+<span class="cl">accScore := clampFloat(accuracy, 0, 1) * 0.30</span>
+<span class="cl"><span class="com">// 区分度：scoreStd 越接近 0.15 区分度越理想</span></span>
+<span class="cl">staScore := (1 - clampFloat(absFloat(stability-0.15)/0.15, 0, 1)) * 0.15</span>
+<span class="cl">covScore := clampFloat(coverage/80, 0, 1) * 0.10</span>
+<span class="cl"><span class="com">// 短周期衰减：decay&lt;=-0.02 满分，&gt;=0.02 归零</span></span>
+<span class="cl">decScore := (1 - clampFloat((decay+0.02)/0.04, 0, 1)) * 0.10</span>
+<span class="cl"><span class="kw">return</span> clampFloat(icScore+accScore+staScore+covScore+decScore, 0, 1)</span></code></pre></figure>
+
+这段话在说什么：质量分是把六栏压成一个 \([0,1]\) 的数。有几个具体的刻度很重要：
+
+<ul><li>\(|\RankIC| = 0.04\) 就算满分。这个数字比很多入门教程里说的 0.05、0.06 更宽松，说明它并不指望因子很强，只要求它“能被看见”。
+  </li><li>覆盖率覆盖 80% 的股票池算满分，也就是这一项几乎总是拿不满——它防的是极端低覆盖。
+  </li><li>区分度以 \(0.15\) 为理想值：太挤（接近 0）说明因子分不开股票，太散（远离 0.15）说明有极端值把标准差撑大。
+  </li><li>衰减以 \(-0.02\) 为满分、\(+0.02\) 为零分。注意这是一个<em>窄窗</em>：它奖励“短周期更有效”，但用的是 20 日与 1 日的差，不是收益本身。
+</li></ul>
+
+写完这张表之后，我在系统里还发现了一个东西：情绪因子 <code class="code">sentiment_score</code> 也被纳进了同一套体检。
+
+它的实现方式是并发预取：以 5 个并发位（<code class="code">sem := make(chan struct{}, 5)</code>）遍历股票池，每只股票单独设 20 秒超时，取不到就跳过这一只、不阻塞整场复盘系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">computeSentimentScores</code>：信号量容量 5、<code class="code">context.WithTimeout(ctx, 20*time.Second)</code>、单只失败仅记录日志。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch14-9" href="#fn-ch14-9">9</a></sup>。这段代码让我改了一个旧习惯：我以前觉得“因子复盘”只是算数，跑多久都无所谓。事实上它每天盘前要跑，一只股票卡住 20 秒乘上几千只，就是一场事故。<strong>复盘工具必须自带超时纪律，这不是优化，是可用性。</strong>
+
+最后是一件必须标注清楚的事。体检报告里有一栏是盘口因子，而盘口数据来自 <code class="dbtab">order_book_daily</code>。核对时点上看，这张表里没有任何记录<code class="dbtab">order_book_daily</code> 在核对时点（2026-09-24）为 0 行。本书不为此填充任何估计值。<sup class="fn-ref"><a id="fnref-ch14-10" href="#fn-ch14-10">10</a></sup>，因此盘口因子的复盘在当前数据库里拿不到可用样本。这件事本身就是体检报告要防的病之一：<strong>一个因子的数据源是空的，它的所有指标都不该被当成有效结论。</strong>
+
+<h2 id="sec-14-6"><span class="hnum">14.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是我在整本书里最想刻进读者骨头的一句话：<strong>IC 是一个统计量，不是一个收益。</strong>它至少漏掉了四笔支出。
+
+第一笔是覆盖率：IC 只统计参与计算的那些股票，如果它只覆盖了 5% 的股票，你根本没有 5% 之外的交易机会。第二笔是换手成本：排序每天都在变，你每次调仓都要付佣金、印花税与市场冲击。第三笔是容量：一个能赚钱的因子，规模一大就会自己把价差吃掉。第四笔是执行：涨停封死买不进、跌停封死卖不掉，这些在第 <a class="xref" href="ch22.html#ch:ch22">二十二</a> 章会讲到。
+
+正确的问法是：“这个因子扣掉成本之后，还剩多少？”——这个问题要到第 <a class="xref" href="ch17.html#ch:ch17">十七</a> 章才有完整的答案。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+我犯过这个错，而且犯了很久。
+
+我把每天的 IC 记成一条时间序列，然后取平均：“这个因子过去 250 天的平均 IC 是 0.028，不错。”这句话把两件完全不同的事压成了一个数：<em>每天都稳定地小有贡献</em>，和<em>十天空着、一天爆发</em>。
+
+后者的均值可能一样漂亮，但你不能用它——因为你不知道明天是空着的那十天，还是爆发的那一天。而且均值对极端值毫无抵抗力：一天 IC 冲到 0.5，能把 249 天的平淡全部盖章认证。
+
+反制有两条：看分布而不只看均值（分位数、正号天数占比），以及下一章的分半检验。<strong>把一条序列压成一个数，是自欺最容易发生的那一步。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+上面说过一次，这里再单独列出来，因为它特别容易踩：<code class="field">stability_std</code> 这个字段名字叫稳定性，算的是当日因子得分的横截面标准差，量的是<strong>区分度</strong>。
+
+一个因子可以天天都“分得很开”，同时天天排的顺序都不同。这种因子在 <code class="field">stability_std</code> 上很漂亮，但在选股上等于抽签。
+
+要判断“排序本身稳不稳”，看的是 <code class="field">split_half_ic</code> 那一栏——下一章的全部内容。
+</div></div>
+
+<h2 id="sec-14-7"><span class="hnum">14.7</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>因子复盘工具（IC / RankIC / 分组 / 覆盖率 / 准确率 / 区分度 / 衰减 / 分半）：<code class="sysfile">internal/tools/factor_review_tool.go</code>
+  </li><li>指标计算细节：同文件中的 <code class="code">pearsonIC</code>、<code class="code">spearmanIC</code>、<code class="code">rankIC</code>、<code class="code">groupSpread</code>、<code class="code">topAccuracy</code>、<code class="code">scoreStd</code>、<code class="code">calcDecay</code>、<code class="code">rankFloat</code>
+  </li><li>质量分构造与落库：同文件中的 <code class="code">factorQualityFromItem</code>、<code class="code">persistFactorQuality</code>、<code class="code">blendQuality</code>
+  </li><li>情绪因子并发预取：同文件中的 <code class="code">computeSentimentScores</code>
+  </li><li>落库表：SQLite <code class="dbtab">FactorQuality</code>（字段 <code class="field">Quality</code>、<code class="field">RankIC</code>、<code class="field">Accuracy</code>、<code class="field">Coverage</code>、<code class="field">Stability</code>、<code class="field">Decay</code>、<code class="field">SplitHalfStable</code>、<code class="field">SplitHalfIC</code>、<code class="field">Detail</code>、<code class="field">AutoCalibrate</code>）
+  </li><li>质量分被谁读走：<code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">factorWeightsFor</code>（第 <a class="xref" href="ch13.html#ch:ch13">十三</a> 章讲过它的 <code class="code">clamp</code> 与归一化）
+  </li><li>盘口因子数据源：DuckDB <code class="dbtab">order_book_daily</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十分钟）</div><div class="boxbody">
+<ol><li>打开系统的 SQLite 库 <code class="sysfile">database/quantpilot.db</code>，查 <code class="dbtab">FactorQuality</code> 表。看两件事：一共几个因子有记录？每个因子的 <code class="field">Quality</code> 是多少？
+  </li><li>挑质量分最低的那个因子，读它的 <code class="field">Detail</code> 字段。那是一行形如 <code class="code">factor_review@日期 |RankIC|=... acc=... std=... cov=... decay=... half=...</code> 的文本。逐项对上本章六栏，看看是哪一栏把它压低了。
+  </li><li>再挑质量分最高的那个因子，做同一件事。如果它靠的是覆盖率那一栏，你要意识到这个结论很脆——覆盖率一变，它就不是第一名了。
+  </li><li>最后一个练习不需要电脑：把本章那个五点的反例抄在纸上，手工算一遍 IC 与 RankIC，确认符号相反。
+</li></ol>
+</div></div>
+
+一份体检报告写到这里，还缺最关键的一道防线。上面所有数字都是“用全部样本算一次”，而真实世界里，一个因子之所以看起来很好，往往只是因为我们在两千只股票、二十个窗口上试了太多遍，试出了一个巧合。
+
+下一章要做的，就是把这份报告撕成两半——看两半段会不会说同一种话。
+</article>
+<nav class="pager"><a class="prev" href="ch13.html"><span class="dir">上一页</span>第十三章 每个因子该占多少分？—— 权重从哪里来</a><a class="next" href="ch15.html"><span class="dir">下一页</span>第十五章 怎样识破一个“看起来很厉害”的因子？</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch14-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch14-1">↩</a></li><li id="fn-ch14-2"><strong>数据来源</strong> 交易口径见 <code class="sysfile">internal/portfolio</code> 与 <code class="tool">order_cost_tool</code> 的成本模型；核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-2">↩</a></li><li id="fn-ch14-3"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">groupSpread</code>：\(n/3\) 分组，返回 <code class="field">top_group_ret</code>、<code class="field">bottom_group_ret</code>、<code class="field">long_short_spread</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-3">↩</a></li><li id="fn-ch14-4"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code>，<code class="code">buildFactorItem</code> 中的 <code class="code">coverage := float64(n) / float64(maxInt(totalUniverse, 1)) * 100</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-4">↩</a></li><li id="fn-ch14-5"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">scoreStd</code>：对当日因子得分求标准差。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-5">↩</a></li><li id="fn-ch14-6"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">calcDecay</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-6">↩</a></li><li id="fn-ch14-7"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 第 35 行的构造签名。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-7">↩</a></li><li id="fn-ch14-8"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">persistFactorQuality</code>：<code class="code">db.Where("factor_name = ?", name).First(&amp;existing)</code> 命中即更新、未命中即 <code class="code">Create</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-8">↩</a></li><li id="fn-ch14-9"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/factor_review_tool.go</code> 的 <code class="code">computeSentimentScores</code>：信号量容量 5、<code class="code">context.WithTimeout(ctx, 20*time.Second)</code>、单只失败仅记录日志。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch14-9">↩</a></li><li id="fn-ch14-10"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch14-10">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

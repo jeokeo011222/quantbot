@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今天能不能下注？（上）—— 市场六维判势怎么打分 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·今天能不能下注？（上）—— 市场六维判势怎么打分">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch19.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html" class="current"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a><ul class="sub"><li><a href="#sec-19-1">19.1 同一只股票，两只手</a></li><li><a href="#sec-19-2">19.2 出门前为什么要看天气</a></li><li><a href="#sec-19-3">19.3 六个维度，六种问法</a></li><li><a href="#sec-19-3-1">19.3.1 技术趋势：三件事，加减各一档</a></li><li><a href="#sec-19-3-2">19.3.2 情绪赚钱效应：涨停加分，炸板扣分</a></li><li><a href="#sec-19-4">19.4 六个分数怎么合成一个总分</a></li><li><a href="#sec-19-4-1">19.4.1 冲突修正：当市场自己都不一致</a></li><li><a href="#sec-19-5">19.5 用五条真实记录把它算一遍</a></li><li><a href="#sec-19-6">19.6 从分数到仓位：一张分段映射表</a></li><li><a href="#sec-19-7">19.7 它在系统里长什么样</a></li></ul></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch19"><span class="cnum">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</h1>
+
+
+
+
+
+<h2 id="sec-19-1"><span class="hnum">19.1</span>同一只股票，两只手</h2>
+
+九月十日，星期四，开盘前。
+
+如果只看单只股票，这一天我挑出来的几只和昨天挑出来的几乎是同一批——因子分没变多少，策略信号也没翻。可是系统给我的仓位系数是 0.10<sup class="fn-ref"><a id="fnref-ch19-1" href="#fn-ch19-1">1</a></sup>系统运行库 <code class="dbtab">market_sixdim_daily</code> 中 2026-09-10 的记录；核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch19-2" href="#fn-ch19-2">2</a></sup>。
+
+0.10 是什么概念？它意味着：就算选股层挑出了一只“满分”的股票、就算策略层说了“买”，这次买入的名义金额也只能是它原本该是的一成。
+
+我第一反应是“这也太胆小了”。第二反应是把两天的记录并排摆出来看，然后我就不说话了：
+
+<ul><li>八月三十一日，仓位系数 0.80<sup class="fn-ref"><a id="fnref-ch19-3" href="#fn-ch19-3">3</a></sup>；
+  </li><li>九月十一日，仓位系数 0.06<sup class="fn-ref"><a id="fnref-ch19-4" href="#fn-ch19-4">4</a></sup>。
+</li></ul>
+
+同一套选股逻辑、同一套策略、同一个人的账户。唯一变化的是<strong>今天这个市场本身</strong>。
+
+这一章要讲的就是那件事：把“今天”变成一个 0 到 100 之间的数，再把那个数变成“允许下多少注”。
+
+<h2 id="sec-19-2"><span class="hnum">19.2</span>出门前为什么要看天气</h2>
+
+<div class="box intuition"><div class="boxbody">
+早上出门前，你会看几样东西：温度、湿度、风、紫外线、空气质量、有没有预警。
+
+你不会把它们合成一个“今天天气 73 分”，然后据此决定穿什么。可你确实会做三件很具体的事：<strong>要不要带伞、穿不穿外套、走不走高架。</strong>
+
+这六样东西各自回答一个不同的问题：温度管保暖、湿度管体感、风管舒适度、紫外线管晒、空气质量管呼吸、预警管要不要干脆别出门。它们<strong>不能互相替代</strong>，也<strong>不需要合成成一个总分</strong>才能用。
+
+市场判势是同一件事：不是问“今天涨还是跌”，而是问<strong>今天这个环境允许我下多少注</strong>。
+</div></div>
+
+先说清楚它<strong>不是</strong>什么：六维判势不是涨跌预测。它输出的是仓位系数，不是方向。
+
+这个区分极其重要，因为一个新手最容易犯的错就是把它当成“多空信号”：看到分数低于 40 就去做空，或者看到分数高就满仓。系统里对这两个用法都有硬拦：分数低了它只做一件事——**把新的买入关掉**，而不是反过来做空（A 股个人投资者也没有方便的低成本做空工具）；分数高了它也不会“加杠杆”，只是不再额外收缩。
+
+<h2 id="sec-19-3"><span class="hnum">19.3</span>六个维度，六种问法</h2>
+
+系统的市场六维判势（<em>MarketSixDim</em>）用的是六个维度、各自一个权重，权重之和为 \(1\)。定义写在 <code class="sysfile">internal/marketsixdim/sixdim.go</code> 里，我抄成表 <a class="xref" href="ch19.html#tab:ch19-dims">表 19.1</a>。
+
+<figure class="tbl" id="tab:ch19-dims"><div class="tbl-scroll"><table><caption><span class="lbl">表 19.1</span>市场六维判势的六个维度与权重</caption><tbody><tr><td><strong>key</strong></td><td><strong>维度</strong></td><td><strong>权重</strong></td><td><strong>它问的那个问题</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td><code class="code">tech</code></td><td>技术趋势</td><td>\(0.15\)</td><td>指数站上 20 日 / 60 日均线了吗，趋势是升是降</td></tr><tr><td><code class="code">breadth</code></td><td>市场广度</td><td>\(0.20\)</td><td>上涨家数占比、新高新低比、涨跌停比、有几条主线</td></tr><tr><td><code class="code">volume</code></td><td>量能流动性</td><td>\(0.15\)</td><td>成交额相对 20 日均是放是缩，价量配不配合</td></tr><tr><td><code class="code">capital</code></td><td>资金结构</td><td>\(0.15\)</td><td>北向是否连续净流入，资金是集中还是到处游击</td></tr><tr><td><code class="code">sentiment</code></td><td>情绪赚钱效应</td><td>\(0.25\)</td><td>涨停多少、炸板率高不高、非 ST 跌停几家</td></tr><tr><td><code class="code">external</code></td><td>外部约束</td><td>\(0.10\)</td><td>隔夜外围与重大事件带来的开盘压力</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">权重之和为 \(1\)。情绪维度权重最大（\(0.25\)），因为它最接近“今天有没有赚钱效应”这件事本身。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/marketsixdim/sixdim.go</code> 的 <code class="code">DimWeights</code>、<code class="code">DimOrder</code>、<code class="code">DimChinese</code>；核对时间 2026-09-24。</p></figure>
+
+每个维度的打分方式都是同一个套路：<strong>从 50 分出发，按证据加减分，最后截断到 \([0,100]\)</strong>。50 分是“中性”，不是“及格线”。这么做有一个实际的好处：一个维度缺数据时，可以什么都不加、什么都不减，它就停在 50——不会因为“今天没数据”而被误判为“今天很糟”。
+
+举两个维度看形态。
+
+<h3 id="sec-19-3-1"><span class="hnum">19.3.1</span>技术趋势：三件事，加减各一档</h3>
+
+<div class="math-scroll">\[s_{\text{tech}}
+=50
++\underbrace{(\pm 15)}_{\text{站上/跌破 MA20}}
++\underbrace{(\pm 20)}_{\text{站上/跌破 MA60}}
++\underbrace{(\pm 15)}_{\text{趋势状态 } \pm 1}. \tag{19.1}\]</div>
+
+三档全对上（站上 20 日、站上 60 日、趋势向上）就是 \(50+15+20+15=100\)；全反就是 \(0\)。没有中间态被漏掉。
+
+<h3 id="sec-19-3-2"><span class="hnum">19.3.2</span>情绪赚钱效应：涨停加分，炸板扣分</h3>
+
+<div class="math-scroll">\[s_{\text{sentiment}}
+=50
++\min(\text{涨停家数},\,100)\times 0.3
+-\min(\text{炸板率},\,1)\times 50
+-\min(\text{非ST跌停数},\,10)\times 3 . \tag{19.2}\]</div>
+
+注意三个 \(\min\)：它们把每一项都<strong>封了顶</strong>。涨停再多，加分不超过 \(30\)；炸板率再高，扣分不超过 \(50\)；跌停再多，扣分不超过 \(30\)。这种“封顶”不是怕算错，是怕<strong>一个极端维度把总分彻底带走</strong>——第 <a class="xref" href="ch13.html#ch:ch13">第十三章</a> 章讲权重时用的是同一条思路，只不过那里封的是权重，这里封的是分。
+
+<h2 id="sec-19-4"><span class="hnum">19.4</span>六个分数怎么合成一个总分</h2>
+
+<div class="thm definition" id="def:ch19-raw"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">19.1</span>（加权总分）</div>
+给定六个维度的得分 \(s=(s_{\text{tech}},\dots,s_{\text{external}})\in[0,100]^6\) 与权重
+<div class="math-scroll">\begin{align}w_{\text{tech}}&amp;=0.15,\quad w_{\text{breadth}}=0.20,\quad w_{\text{volume}}=0.15,\\
+w_{\text{capital}}&amp;=0.15,\quad w_{\text{sentiment}}=0.25,\quad w_{\text{external}}=0.10 . \tag{19.3}\end{align}</div>
+定义<strong>原始总分</strong>
+<div class="math-scroll" id="eq:ch19-raw">\[\mathrm{raw}(s)\;=\;\sum_{k} w_k\,s_k . \tag{19.4}\]</div>
+</div>
+
+<div class="thm plain" id="prop:ch19-raw"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">19.2</span>（加权总分的性质）</div>
+\(\mathrm{raw}\) 满足：
+<ol><li><strong>有界性</strong>：\(\mathrm{raw}(s)\in[0,100]\)；更精确地，\(\min_k s_k\le \mathrm{raw}(s)\le \max_k s_k\)；
+  </li><li><strong>单调性</strong>：\(\mathrm{raw}\) 关于每一个 \(s_k\) 严格递增（偏导 \(\partial \mathrm{raw}/\partial s_k=w_k&gt;0\)）；
+  </li><li><strong>权重即边际</strong>：第 \(k\) 个维度每提高 1 分，总分提高 \(w_k\) 分。所以<strong>情绪维度的一句话，抵得上外部约束的两句半</strong>（\(0.25\) 对 \(0.10\)）。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 因 \(w_k\ge0\) 且 \(\sum_k w_k=1\)、\(s_k\in[0,100]\)，
+<div class="math-scroll">\[\mathrm{raw}(s)=\sum_k w_k s_k\le\sum_k w_k\cdot 100=100,
+\qquad
+\mathrm{raw}(s)\ge\sum_k w_k\cdot 0=0 .\]</div>
+再看夹逼：记 \(s_{\min}=\min_k s_k\)、\(s_{\max}=\max_k s_k\)，则对每个 \(k\) 有 \(s_{\min}\le s_k\le s_{\max}\)。乘以非负权重 \(w_k\) 后求和（保序），并用 \(\sum_k w_k=1\)：
+<div class="math-scroll">\[\sum_k w_k s_{\min}=s_{\min}\le \mathrm{raw}(s)\le \sum_k w_k s_{\max}=s_{\max}.\]</div>
+
+<em>(ii)</em> 固定其余五个维度，对 \(s_k\) 求偏导：\(\partial \mathrm{raw}/\partial s_k=w_k&gt;0\)（六个权重全为正），故严格递增。
+
+<em>(iii)</em> 直接由 (ii)：\(s_k\) 增加 1，\(\mathrm{raw}\) 增加 \(w_k\)。比较两个维度：\(w_{\text{sentiment}}/w_{\text{external}}=0.25/0.10=2.5\)。\(\blacksquare\)
+</div>
+
+<h3 id="sec-19-4-1"><span class="hnum">19.4.1</span>冲突修正：当市场自己都不一致</h3>
+
+原始总分算出来了，但它还没被使用。系统在 <code class="code">Evaluate</code> 里对它做了一次修正。
+
+<div class="thm definition" id="def:ch19-conflict"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">19.3</span>（冲突计数与修正算子）</div>
+令
+<div class="math-scroll">\begin{align}H(s)&amp;=\bigl\vert\{k: s_k\ge 75\}\bigr\vert &amp;&amp;\text{（高分维度数）}, \tag{19.5}\\
+L(s)&amp;=\bigl\vert\{k: s_k\le 40\}\bigr\vert &amp;&amp;\text{（低分维度数）}, \tag{19.6}\end{align}</div>
+<strong>冲突计数</strong>定义为
+<div class="math-scroll">\[c(s)=
+\begin{cases}
+H(s)+L(s), &amp; H(s)&gt;0\ \text{且}\ L(s)&gt;0,\\[2pt]
+0, &amp; \text{否则}.
+\end{cases} \tag{19.7}\]</div>
+<strong>修正算子</strong>为
+<div class="math-scroll" id="eq:ch19-adj">\[\mathrm{adj}(s)=
+\begin{cases}
+0.8\cdot \mathrm{raw}(s), &amp; c(s)\ge 2,\\[2pt]
+\mathrm{raw}(s), &amp; c(s)&lt;2,
+\end{cases}
+\qquad\text{最后截断到 }[0,100]. \tag{19.8}\]</div>
+</div>
+
+这段话在说什么：\(H\) 数“几个维度很强”，\(L\) 数“几个维度很弱”。只有当两边<strong>同时</strong>不为零时，才算发生了冲突，冲突数就取两边相加；只要有一边是零，冲突数就是 0。修正很简单：冲突数到 2 或以上，总分打八折。
+
+第一次读到这里，我以为这只是一个“缩表”的土办法。后来我发现它有一个必须被证明的性质，以及一个必须被承认的副作用。
+
+<div class="thm plain" id="prop:ch19-adj"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">19.4</span>（修正算子的三条性质）</div>
+记 \(\mathrm{adj}\) 如式 <a class="xref" href="ch19.html#eq:ch19-adj">(19.8)</a>。
+<ol><li><strong>只降不升</strong>：\(\mathrm{adj}(s)\le \mathrm{raw}(s)\) 对一切 \(s\) 成立；等号成立当且仅当 \(c(s)&lt;2\) 或 \(\mathrm{raw}(s)=0\)；
+  </li><li><strong>同冲突态内保序</strong>：固定 \(c\)，\(\mathrm{adj}\) 关于 \(\mathrm{raw}\) 严格递增；
+  </li><li><strong>跨冲突态不保序，且逆序幅度有上界</strong>：存在 \(s,s'\) 使 \(\mathrm{raw}(s)&lt;\mathrm{raw}(s')\) 而 \(\mathrm{adj}(s)&gt;\mathrm{adj}(s')\)；并且当 \(c(s)&lt;2\le c(s')\) 时，逆序比满足
+  <div class="math-scroll" id="eq:ch19-inversion">\[\frac{\mathrm{adj}(s)}{\mathrm{adj}(s')}=\frac{1}{0.8}\cdot\frac{\mathrm{raw}(s)}{\mathrm{raw}(s')}&lt;\frac{1}{0.8}=1.25 . \tag{19.9}\]</div>
+</li></ol>
+</div>
+
+这个命题在说什么：第 (i) 条是纪律——修正<strong>永远不会把分数抬高</strong>，它和第一部分第 <a class="xref" href="ch07.html#ch:ch07">第七章</a> 章“只降不升”是同一条设计原则，只不过对象从仓位换成了评分。第 (ii)(iii) 条是一条<strong>诚实</strong>：八折修正<strong>不是</strong>一个保序的评分变换，它会让一个原始分更高、但自相矛盾的市场，排在原始分更低、但内部一致的市场后面。而第 (iii) 条给出它的边界——被颠倒的两个市场，原始分最多差 \(25\%\)。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 若 \(c(s)&lt;2\)，则 \(\mathrm{adj}=\mathrm{raw}\)，等号成立。若 \(c(s)\ge2\)，则 \(\mathrm{adj}=0.8\,\mathrm{raw}\)。因 \(\mathrm{raw}\ge0\)，得 \(\mathrm{adj}=0.8\,\mathrm{raw}\le\mathrm{raw}\)；等号成立当且仅当 \(0.8\,\mathrm{raw}=\mathrm{raw}\)，即 \(\mathrm{raw}=0\)。
+
+<em>(ii)</em> 固定 \(c\)。若 \(c&lt;2\)，\(\mathrm{adj}=\mathrm{raw}\)，严格递增；若 \(c\ge2\)，\(\mathrm{adj}=0.8\,\mathrm{raw}\)，系数 \(0.8&gt;0\)，严格递增。
+
+<em>(iii)</em> 构造反例。取
+<div class="math-scroll">\[s=(60,60,60,60,60,60)\ \Rightarrow\ \mathrm{raw}(s)=60,\ H(s)=0,\ L(s)=0,\ c(s)=0,\ \mathrm{adj}(s)=60 .\]</div>
+再取
+<div class="math-scroll">\[s'=(100,100,20,20,60,60).\]</div>
+先算它的总分：
+<div class="math-scroll">\[\mathrm{raw}(s')=0.15\!\cdot\!100+0.20\!\cdot\!100+0.15\!\cdot\!20+0.15\!\cdot\!20+0.25\!\cdot\!60+0.10\!\cdot\!60
+=15+20+3+3+15+6=62 .\]</div>
+高分维度：\(s'_{\text{tech}}=100\ge75\)、\(s'_{\text{breadth}}=100\ge75\)，故 \(H=2\)；低分维度：\(s'_{\text{volume}}=20\le40\)、\(s'_{\text{capital}}=20\le40\)，故 \(L=2\)。两者都大于零，\(c(s')=2+2=4\ge2\)，于是
+<div class="math-scroll">\[\mathrm{adj}(s')=0.8\times62=49.6 .\]</div>
+比较：\(\mathrm{raw}(s)=60&lt;\mathrm{raw}(s')=62\)，但 \(\mathrm{adj}(s)=60&gt;49.6=\mathrm{adj}(s')\)。逆序成立。
+
+上界：在 \(c(s)&lt;2\le c(s')\) 的情形下，\(\mathrm{adj}(s)=\mathrm{raw}(s)\)、\(\mathrm{adj}(s')=0.8\,\mathrm{raw}(s')\)，故
+<div class="math-scroll">\[\frac{\mathrm{adj}(s)}{\mathrm{adj}(s')}
+=\frac{\mathrm{raw}(s)}{0.8\,\mathrm{raw}(s')}
+=\frac{1}{0.8}\cdot\frac{\mathrm{raw}(s)}{\mathrm{raw}(s')}.\]</div>
+又由假设 \(\mathrm{raw}(s)&lt;\mathrm{raw}(s')\) 得比值 \(\mathrm{raw}(s)/\mathrm{raw}(s')&lt;1\)，从而整个比值 \(&lt;1/0.8=1.25\)。\(\blacksquare\)
+</div>
+
+<div class="box keybox"><div class="boxtitle">八折修正到底在做什么</div><div class="boxbody">
+它不是一个更“准”的评分，它是一个<strong>风险折扣</strong>。<br>
+
+内部一致的市场（六维同向）拿原始分；自相矛盾的市场（既有人喊强、又有人喊弱）拿八折。<br>
+
+代价是：它会让排序出现最大 \(25\%\) 的逆序。<br>
+
+<strong>这个代价是被接受的</strong>——因为一个自相矛盾的市场，本来就<strong>不配</strong>和一个内部一致的市场拿同一个分数。宁可排错，也不肯给矛盾高分。
+</div></div>
+
+<h2 id="sec-19-5"><span class="hnum">19.5</span>用五条真实记录把它算一遍</h2>
+
+上面全是公式。现在换一种讲法：打开系统运行库，把 <code class="dbtab">market_sixdim_daily</code> 里<strong>全部五条记录</strong>拿出来，一条一条手工验算。
+
+这张表是判势结果的落库表，以交易日为主键。库里目前恰好有五条：
+
+<figure class="tbl" id="tab:ch19-real"><div class="tbl-scroll"><table><caption><span class="lbl">表 19.2</span>系统运行库中的市场六维判势真实记录（全部 5 条）</caption><tbody><tr><td><strong>日期</strong></td><td class="num"><strong>tech</strong></td><td class="num"><strong>breadth</strong></td><td class="num"><strong>volume</strong></td><td class="num"><strong>capital</strong></td><td class="num"><strong>sentiment</strong></td><td class="num"><strong>external</strong></td><td class="num"><strong>raw</strong></td><td class="num"><strong>冲突</strong></td><td class="num"><strong>adjusted</strong></td><td><strong>标签</strong></td></tr><tr class="rule"><td colspan="11"></td></tr><tr><td>2026-08-31</td><td class="num">60</td><td class="num">55</td><td class="num">50</td><td class="num">45</td><td class="num">52</td><td class="num">50</td><td class="num">52.30</td><td class="num">0</td><td class="num">52.30</td><td>结构性震荡</td></tr><tr><td>2026-09-02</td><td class="num">100</td><td class="num">18</td><td class="num">50</td><td class="num">60</td><td class="num">50</td><td class="num">46.78</td><td class="num">52.28</td><td class="num">2</td><td class="num">41.82</td><td>偏弱</td></tr><tr><td>2026-09-09</td><td class="num">45</td><td class="num">64.20</td><td class="num">52.80</td><td class="num">80</td><td class="num">25.40</td><td class="num">46.45</td><td class="num">50.50</td><td class="num">2</td><td class="num">40.40</td><td>偏弱</td></tr><tr><td>2026-09-10</td><td class="num">85</td><td class="num">8.69</td><td class="num">52.80</td><td class="num">80</td><td class="num">35.85</td><td class="num">46.71</td><td class="num">48.04</td><td class="num">4</td><td class="num">38.43</td><td>退潮风险</td></tr><tr><td>2026-09-11</td><td class="num">15</td><td class="num">12.84</td><td class="num">52.80</td><td class="num">80</td><td class="num">14.13</td><td class="num">38.71</td><td class="num">32.14</td><td class="num">5</td><td class="num">25.71</td><td>退潮风险</td></tr><tr class="rule"><td colspan="11"></td></tr></tbody></table></div><p class="tabnote">表中 <strong>raw</strong>、<strong>冲突</strong>、<strong>adjusted</strong> 三列是库中<strong>原样</strong>数值（<code class="field">raw_total_score</code> / <code class="field">conflict_count</code> / <code class="field">adjusted_total_score</code>）；六个维度分取自 <code class="field">dim_scores</code> 的 JSON。数值保留了库中精度，展示时统一到两位小数。</p>
+<p class="tabsrc">只读查询 <code class="dbtab">market_sixdim_daily</code> 全部 5 条记录；查询日 2026-09-24。</p></figure>
+
+现在验算。我用式 <a class="xref" href="ch19.html#eq:ch19-raw">(19.4)</a> 和式 <a class="xref" href="ch19.html#eq:ch19-adj">(19.8)</a>，逐个走一遍。
+
+<strong>2026-09-02。</strong>六个分数 \(100,18,50,60,50,46.778967965281055\)：
+<div class="math-scroll">\begin{align}\mathrm{raw}&amp;=0.15(100)+0.20(18)+0.15(50)+0.15(60)+0.25(50)+0.10(46.778967965)\\
+&amp;=15+3.6+7.5+9+12.5+4.6778967965=52.2778967965\ \Rightarrow\ \mathbf{52.28}\ \checkmark \tag{19.10}\end{align}</div>
+高分：tech \(=100\ge75\)，共 1 个。低分：breadth \(=18\le40\)，共 1 个。两者皆非零，\(c=1+1=2\ge2\)，故
+<div class="math-scroll">\[\mathrm{adj}=0.8\times52.2778967965=41.8223174372\ \Rightarrow\ \mathbf{41.82}\ \checkmark\]</div>
+
+<strong>2026-09-09。</strong>六维分数依次为 tech \(45\)、breadth \(64.2\)、volume \(52.8\)、capital \(80\)、sentiment \(25.4\)、external \(46.44938591807174\)：
+<div class="math-scroll">\begin{align}\mathrm{raw}&amp;=6.75+12.84+7.92+12+6.35+4.6449385918\\
+&amp;=50.5049385918\ \Rightarrow\ \mathbf{50.50}\ \checkmark \tag{19.11}\end{align}</div>
+高分：capital \(=80\ge75\)，1 个。低分：sentiment \(=25.4\le40\)，1 个。\(c=2\)，故
+<div class="math-scroll">\[\mathrm{adj}=0.8\times50.5049385918=40.4039508734\ \Rightarrow\ \mathbf{40.40}\ \checkmark\]</div>
+
+<strong>2026-09-10。</strong>六维分数依次为 tech \(85\)、breadth \(8.692307692307693\)、volume \(52.8\)、capital \(80\)、sentiment \(35.85\)、external \(46.71042113410559\)：
+<div class="math-scroll">\begin{align}\mathrm{raw}&amp;=12.75+1.7384615385+7.92+12+8.9625+4.6710421134\\
+&amp;=48.0420036519\ \Rightarrow\ \mathbf{48.04}\ \checkmark \tag{19.12}\end{align}</div>
+高分：tech \(85\)、capital \(80\)，2 个。低分：breadth \(8.69\)、sentiment \(35.85\)，2 个。\(c=4\)，故
+<div class="math-scroll">\[\mathrm{adj}=0.8\times48.0420036519=38.4336029215\ \Rightarrow\ \mathbf{38.43}\ \checkmark\]</div>
+
+<strong>2026-09-11。</strong>六维分数依次为 tech \(15\)、breadth \(12.836363636363636\)、volume \(52.8\)、capital \(80\)、sentiment \(14.133333333333333\)、external \(38.71379548577629\)：
+<div class="math-scroll">\begin{align}\mathrm{raw}&amp;=2.25+2.5672727273+7.92+12+3.5333333333+3.8713795486\\
+&amp;=32.1419856092\ \Rightarrow\ \mathbf{32.14}\ \checkmark \tag{19.13}\end{align}</div>
+高分：capital \(=80\)，1 个。低分：tech \(15\)、breadth \(12.84\)、sentiment \(14.13\)、external \(38.71\)，共 4 个。\(c=1+4=5\)，故
+<div class="math-scroll">\[\mathrm{adj}=0.8\times32.1419856092=25.7135884874\ \Rightarrow\ \mathbf{25.71}\ \checkmark\]</div>
+
+四条记录，逐位吻合。最后是那条对不上的。
+
+<div class="thm remark" id="rem:ch19-0831"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">19.5</span>（一条对不上的记录，以及为什么我不改它）</div>
+<strong>2026-08-31。</strong>分数 \(60,55,50,45,52,50\)：
+<div class="math-scroll">\[\mathrm{raw}=0.15(60)+0.20(55)+0.15(50)+0.15(45)+0.25(52)+0.10(50)=52.25 , \tag{19.14}\]</div>
+而库里 <code class="field">raw_total_score</code> 写的是 <strong>52.30</strong>。差 \(0.05\)。冲突数为 \(0\)（没有 \(\ge75\) 的，也没有 \(\le40\) 的），所以 \(\mathrm{adjusted}\) 应等于 \(\mathrm{raw}\)——库里的 <code class="field">adjusted_total_score</code> 正好也是 \(52.30\)，自洽。
+
+但更值得说的是下一列：库里这一天的 <code class="field">position_rate</code> 是 <strong>0.80</strong>、标签是<strong>结构性震荡</strong>。按当前代码的映射（下一节），\(52.30\) 落在 \([40,60)\) 这一档，应该得到“偏弱”和 \(0.26\) 左右的仓位系数。两者对不上。
+
+我核对过这一天的 <code class="field">sources</code> 字段——它只写了 <code class="code">"tech":"DuckDB真实指数K线"</code> 一条，其余五个维度的来源<strong>全部缺失</strong>。而九月九日之后的记录，<code class="field">sources</code> 每一维都有明确交代。
+
+结论很清楚：<strong>八月三十一日这条是早期版本写进去的，那时的评分与映射口径与现在不同。</strong>
+
+我不改它，也不替它圆场。理由和第一章讲的是同一件事：<strong>这条记录本身就是一个教材</strong>——一个系统跑起来之后，口径会变；如果口径变了但历史记录不带版本号，你三个月后再看这五行数字，就分不清哪条是“当时的真相”、哪条是“当时的实现”。这也正是后面第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章要专门讲“数据从哪来、缺数怎么办”的原因。
+</div>
+
+<h2 id="sec-19-6"><span class="hnum">19.6</span>从分数到仓位：一张分段映射表</h2>
+
+修正后总分要变成仓位系数。这一段实现在 <code class="code">ScoreToPosition</code> 里，是4 段线性映射，外加标签。
+
+<figure class="tbl" id="tab:ch19-map"><div class="tbl-scroll"><table><caption><span class="lbl">表 19.3</span>修正后总分 \(\to\) 仓位系数 \(\posrate\) \(\to\) 市场标签</caption><tbody><tr><td><strong>区间</strong></td><td><strong>公式</strong></td><td><strong>取值</strong></td><td><strong>标签</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>\(\mathrm{adj}\ge 80\)</td><td>\(\posrate=0.8+\frac{\mathrm{adj}-80}{20}\times0.2\)</td><td>\([0.8,\,1.0]\)</td><td>强势</td></tr><tr><td>\(60\le \mathrm{adj}&lt;80\)</td><td>\(\posrate=0.4+\frac{\mathrm{adj}-60}{20}\times0.2\)</td><td>\([0.4,\,0.6]\)</td><td>结构性震荡</td></tr><tr><td>\(40\le \mathrm{adj}&lt;60\)</td><td>\(\posrate=0.2+\frac{\mathrm{adj}-40}{20}\times0.1\)</td><td>\([0.2,\,0.3]\)</td><td>偏弱</td></tr><tr><td>\(\mathrm{adj}&lt;40\)</td><td>\(\posrate=\frac{\mathrm{adj}}{40}\times0.1\)</td><td>\([0.0,\,0.1]\)</td><td>退潮风险</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">每段都是线性的，四段拼起来是一条不减、但不连续的阶梯。\(\posrate\) 计算后保留两位小数。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/marketsixdim/sixdim.go</code> 的 <code class="code">ScoreToPosition</code>；核对时间 2026-09-24。</p></figure>
+
+<div class="thm plain" id="prop:ch19-map"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">19.6</span>（分段映射的单调性与跳跃点）</div>
+设 \(\posrate=g(\mathrm{adj})\) 由表 <a class="xref" href="ch19.html#tab:ch19-map">19.3</a> 定义。则
+<ol><li>\(g\) 在 \([0,100]\) 上<strong>单调不减</strong>；
+  </li><li>\(g\) 在每段内部<strong>严格递增</strong>；
+  </li><li>\(g\) 在点 \(\mathrm{adj}=40,60,80\) 处<strong>不连续</strong>，且都是向上跳跃：
+  <div class="math-scroll">\[\begin{aligned}
+  &amp;\lim_{\mathrm{adj}\to40^-}g=0.10,\quad g(40)=0.20;\\
+  &amp;\lim_{\mathrm{adj}\to60^-}g=0.30,\quad g(60)=0.40;\\
+  &amp;\lim_{\mathrm{adj}\to80^-}g=0.60,\quad g(80)=0.80 .
+  \end{aligned} \tag{19.15}\]</div>
+  </li><li>跳跃幅度随分数升高而变大：\(\Delta_{40}=0.10\)、\(\Delta_{60}=0.10\)、\(\Delta_{80}=0.20\)。
+</li></ol>
+</div>
+
+这个命题在说什么：第 (i) 条保证“市场越好、允许下注越多”这条直觉方向不错。第 (iii) 条是它的脾气——<strong>阈值处会跳一格</strong>。\(79.99\) 分给 \(0.60\)，\(80.00\) 分给 \(0.80\)：一念之间，仓位差三分之一。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(ii)</em> 四段的斜率分别为 \(0.2/20=0.01\)、\(0.2/20=0.01\)、\(0.1/20=0.005\)、\(0.1/40=0.0025\)，全为正，故每段严格递增。
+
+<em>(iii)</em> 用左极限与右值分别代入。
+<ul><li>在 \(\mathrm{adj}=40\)：第四段左极限 \(g(40^-)=\frac{40}{40}\times0.1=0.10\)；第三段在 \(40\) 处取值 \(0.2+\frac{40-40}{20}\times0.1=0.20\)。跳跃 \(\Delta=0.20-0.10=0.10\)。
+  </li><li>在 \(\mathrm{adj}=60\)：第三段左极限 \(g(60^-)=0.2+\frac{60-40}{20}\times0.1=0.2+0.1=0.30\)；第二段在 \(60\) 处取值 \(0.4+\frac{60-60}{20}\times0.2=0.40\)。跳跃 \(\Delta=0.10\)。
+  </li><li>在 \(\mathrm{adj}=80\)：第二段左极限 \(g(80^-)=0.4+\frac{80-60}{20}\times0.2=0.4+0.2=0.60\)；第一段在 \(80\) 处取值 \(0.8+\frac{80-80}{20}\times0.2=0.80\)。跳跃 \(\Delta=0.20\)。
+</li></ul>
+
+<em>(i)</em> 在每段内部由 (ii) 严格递增。跨段只需检查三个边界：由 (iii) 的三个跳跃全为非负（\(0.10,0.10,0.20\ge0\)），且每段右端的值不超过下一段右端的值（例如第三段最大值 \(0.3\) 等于第二段最小值 \(0.4\) 的左侧极限，未越界），故拼接后整体不减。又第一段上界为 \(1.0\)，与代码中的 \(r\le1\) 截断一致。\(\blacksquare\)
+</div>
+
+用这五个真实记录验一遍映射（只验当前口径下应当成立的四个）：
+
+<figure class="tbl" id="tab:ch19-verify"><div class="tbl-scroll"><table><caption><span class="lbl">表 19.4</span>四条真实记录从 <code class="field">adjusted_total_score</code> 到 <code class="field">position_rate</code> 的验算</caption><tbody><tr><td><strong>日期</strong></td><td class="num"><strong>adjusted</strong></td><td><strong>命中区间</strong></td><td class="num"><strong>手算 \(\posrate\)</strong></td><td class="num"><strong>库中 \(\posrate\)</strong></td><td><strong>标签</strong></td></tr><tr class="rule"><td colspan="6"></td></tr><tr><td>2026-09-02</td><td class="num">41.82</td><td>\([40,60)\)</td><td class="num">\(0.2+\frac{1.82}{20}\times0.1=\mathbf{0.21}\)</td><td class="num">0.21<sup class="fn-ref"><a id="fnref-ch19-5" href="#fn-ch19-5">5</a></sup></td><td>偏弱</td></tr><tr><td>2026-09-09</td><td class="num">40.40</td><td>\([40,60)\)</td><td class="num">\(0.2+\frac{0.40}{20}\times0.1=\mathbf{0.20}\)</td><td class="num">0.20<sup class="fn-ref"><a id="fnref-ch19-6" href="#fn-ch19-6">6</a></sup></td><td>偏弱</td></tr><tr><td>2026-09-10</td><td class="num">38.43</td><td>\([0,40)\)</td><td class="num">\(\frac{38.43}{40}\times0.1=\mathbf{0.10}\)</td><td class="num">0.10<sup class="fn-ref"><a id="fnref-ch19-7" href="#fn-ch19-7">7</a></sup></td><td>退潮风险</td></tr><tr><td>2026-09-11</td><td class="num">25.71</td><td>\([0,40)\)</td><td class="num">\(\frac{25.71}{40}\times0.1=\mathbf{0.06}\)</td><td class="num">0.06<sup class="fn-ref"><a id="fnref-ch19-8" href="#fn-ch19-8">8</a></sup></td><td>退潮风险</td></tr><tr class="rule"><td colspan="6"></td></tr></tbody></table></div><p class="tabnote">手算值四舍五入到两位小数后与库中 <code class="field">position_rate</code> 逐条吻合。2026-08-31 那条因口径变更不参与本表验算，见注 <a class="xref" href="ch19.html#rem:ch19-0831">19.5</a>。</p>
+<p class="tabsrc">只读查询 <code class="dbtab">market_sixdim_daily</code>；本书按 <code class="sysfile">internal/marketsixdim/sixdim.go</code> 的 <code class="code">ScoreToPosition</code> 复算；查询日 2026-09-24。</p></figure>
+
+到这一步，有一条规律值得单独拎出来。请看九月十一日那条：<strong>\(s_{\text{tech}}=15\)，但 \(s_{\text{capital}}=80\)</strong>——技术面已经跌破到接近最差，资金结构却还是满分。这正是“冲突”最典型的形态：<strong>价格在跌，但钱还在进</strong>。系统的回答不是“听谁的”，而是<strong>两个都听，然后打八折</strong>。
+
+<h2 id="sec-19-7"><span class="hnum">19.7</span>它在系统里长什么样</h2>
+
+三层职责分得很开，这是这个包最值得学的一点：
+
+<ul><li><strong>评分是纯函数</strong>。<code class="sysfile">internal/marketsixdim/sixdim.go</code> 里没有任何 I/O——输入 <code class="code">MarketInput</code>、输出 <code class="code">MarketReport</code>，可测试、可复现；
+  </li><li><strong>取数是独立的一层</strong>。<code class="sysfile">internal/marketsixdim/fetcher.go</code> 负责把真实数据填进 <code class="code">MarketInput</code>（下一章讲它怎么降级）；
+  </li><li><strong>落库是第三层</strong>。<code class="sysfile">internal/marketsixdim/persist.go</code> 把结果写进 <code class="dbtab">market_sixdim_daily</code>，以交易日为主键——所以<strong>同一天重复跑判势不会产生重复记录，只会覆盖</strong>，这让“今天到底算了什么”永远只有一个答案。
+</li></ul>
+
+面向智能体时，这一整套被打包成一个工具：<code class="tool">market_sixdim_detect</code>。它的可用角色是 CIO、PLANNER、RISK、QUANT 四个——这是第 <a class="xref" href="ch01.html#ch:ch01">第一章</a> 章那张工具可见性表里的第二个例子：<strong>判势是共享上下文，不是任何人的私产</strong>。它还有一个 <code class="code">save</code> 参数，用来控制这次调用是否落库；盘前决策会落库，盘中复算不落库。
+
+<div class="box pitfall"><div class="boxbody">
+这是我被问得最多的一个误解。
+
+判势<strong>完全不预测涨跌</strong>。它输出的不是“明天涨还是跌”，而是“今天允许下多少注”。同一个判势分数，在两种用法下会导出完全相反的结论：
+
+<strong>错误用法</strong>：“今天 25.71 分（退潮风险），所以要做空/清仓。”判势从来不给清仓建议——它只拦<strong>新买入</strong>，不会要求你卖掉已有持仓。真正决定卖不卖的是策略信号和风控。
+
+<strong>正确用法</strong>：“今天 25.71 分，所以任何新的买入，名义金额上限是原来的 \(6\%\)。”就这一件事。
+
+为什么要把这个区分做这么硬？因为它决定了判势错了的后果有多严重。如果判势是方向预测，它错了就是亏钱；而它只是一个缩放系数时，它错了最多是“今天少赚”。<strong>把仓位系数当方向信号用，等于把一个保守器改装成了油门。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“今天涨停 200 家，情绪维度直接拉满，总分应该很高。”
+
+看第二段的公式：涨停项的加分被 \(\min(\cdot,100)\times0.3\) 封在 \(30\) 分。再加基准 50，情绪维度最多到 \(100\)；而它权重是 \(0.25\)。也就是说，<strong>哪怕情绪维度撞到天花板，它对总分的贡献也只有 \(25\) 分</strong>。
+
+这不是设计缺陷。它的用意是：任何<strong>单一</strong>维度都不能把总分带走。反过来说，如果一个市场的总分很高，那一定是<strong>多个维度同时好</strong>——这正是“强势”要被定义成的样子。
+
+顺带说一个更要紧的边界：这些“封顶”全部是<strong>实现里的常数</strong>，不是理论最优值。它们可以被修改，但修改之后必须重新用真实记录验算一遍——本章表 <a class="xref" href="ch19.html#tab:ch19-verify">19.4</a> 那四行，就是你要维护的回归测试。
+</div></div>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>六维权重、固定顺序、中文名：<code class="sysfile">internal/marketsixdim/sixdim.go</code> 的 <code class="code">DimWeights</code>、<code class="code">DimOrder</code>、<code class="code">DimChinese</code>
+  </li><li>六个维度的评分函数与截断：<code class="sysfile">internal/marketsixdim/sixdim.go</code> 的 <code class="code">dim1TechScore</code> … <code class="code">dim6ExternalScore</code>、<code class="code">clampScore</code>
+  </li><li>冲突计数与修正算子：<code class="sysfile">internal/marketsixdim/sixdim.go</code> 的 <code class="code">CheckDimConflict</code>、<code class="code">Evaluate</code>
+  </li><li>分数 \(\to\) 仓位 \(\to\) 标签映射：<code class="sysfile">internal/marketsixdim/sixdim.go</code> 的 <code class="code">ScoreToPosition</code>
+  </li><li>判势结果的落库表与五条真实记录：<code class="dbtab">market_sixdim_daily</code>
+  </li><li>面向智能体的工具：<code class="tool">market_sixdim_detect</code>（可用角色 CIO/PLANNER/RISK/QUANT，<code class="code">save</code> 控制落库）
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（二十分钟，全程可核对）</div><div class="boxbody">
+<ol><li>打开系统，进 <strong>CIO 决策中心</strong>，找到【市场六维判势】卡片。它默认显示最近 7 天，最多 30 天。
+  </li><li>把卡片上六个维度的分数抄下来，用式 <a class="xref" href="ch19.html#eq:ch19-raw">(19.4)</a> 手算一遍 <code class="field">raw_total_score</code>，和界面上的数对一下。误差应当在四舍五入范围内。
+  </li><li>数一数有几个维度 \(\ge75\)、几个 \(\le40\)。两者都非零时，冲突数就是两者之和；达到 2 就打八折。核对界面上显示的 <code class="field">adjusted_total_score</code>。
+  </li><li>用表 <a class="xref" href="ch19.html#tab:ch19-map">19.3</a> 的公式算仓位系数，和界面上的 <code class="field">position_rate</code> 对一下。
+  </li><li>最后做一个思想实验：把某一天的 <code class="field">external</code> 从 46.71 改成 90，其余不动。总分变多少？冲突数会不会变？标签会不会跨档？——想清楚之后再去动手改权重（下一章之后的第 30 章会讲改参数的安全做法）。
+</li></ol>
+</div></div>
+
+六个维度、一个加权和、一次八折、一张阶梯表——这就是判势的全部算法。它是纯函数，只要输入确定，输出就确定。
+
+可问题恰恰在这里：<strong>那六个输入的分数，是从哪儿来的？</strong>九月二日那条记录里，市场广度的来源写着“采样 300 只 20 日新高/新低(98/8)”，而涨跌家数那一项写着“全市场涨跌家数(涨 0/总 9533) = 0%”。一个说采样、一个说全市场，涨 0 家对 9533 家——这显然不对。
+
+下一章就去看每一个数字的真实来源，以及<strong>取不到数的时候，系统选择做什么</strong>。那是我所知道的、全书最贵的一课：抽样偏差不会报错，它只会安静地给你一个错的答案。
+
+</article>
+<nav class="pager"><a class="prev" href="ch18.html"><span class="dir">上一页</span>第十八章 机器学习的陷阱：五个模型为什么常常输给三条均线</a><a class="next" href="ch20.html"><span class="dir">下一页</span>第二十章 今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch19-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch19-1">↩</a></li><li id="fn-ch19-2"><strong>数据来源</strong> 系统运行库 <code class="dbtab">market_sixdim_daily</code> 中 2026-09-10 的记录；核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch19-2">↩</a></li><li id="fn-ch19-3"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch19-3">↩</a></li><li id="fn-ch19-4"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch19-4">↩</a></li><li id="fn-ch19-5"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch19-5">↩</a></li><li id="fn-ch19-6"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch19-6">↩</a></li><li id="fn-ch19-7"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch19-7">↩</a></li><li id="fn-ch19-8"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch19-8">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

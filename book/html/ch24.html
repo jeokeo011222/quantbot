@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第一天：安装、接模型、连数据 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·第一天：安装、接模型、连数据">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch24.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html" class="current"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a><ul class="sub"><li><a href="#sec-24-1">24.1 下载、解压、双击——然后呢？</a></li><li><a href="#sec-24-2">24.2 装一台新机器：先通电，再通水，最后开机自检</a></li><li><a href="#sec-24-3">24.3 为什么“带病开机”比“开不了机”更糟</a></li><li><a href="#sec-24-4">24.4 把“开机”写成一个状态机</a></li><li><a href="#sec-24-5">24.5 它在系统里长什么样</a></li><li><a href="#sec-24-5-1">24.5.1 第一步：一个不用安装的文件夹</a></li><li><a href="#sec-24-5-2">24.5.2 第二步：四步向导，一次把三件事问完</a></li><li><a href="#sec-24-5-3">24.5.3 第三步：开机自检——六个组件与十步初始化</a></li><li><a href="#sec-24-5-4">24.5.4 第四步：点 × 不是退出</a></li><li><a href="#sec-24-6">24.6 常见误解与纠偏</a></li><li><a href="#sec-24-7">24.7 真实出处</a></li></ul></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<div class="part-banner"><div class="plabel">第三部分</div><div class="ptitle">实际操作：让它在今天就开始工作</div></div><article class="page">
+<h1 id="ch:ch24"><span class="cnum">第二十四章</span>第一天：安装、接模型、连数据</h1>
+
+
+
+
+
+<h2 id="sec-24-1"><span class="hnum">24.1</span>下载、解压、双击——然后呢？</h2>
+
+上周有个朋友把安装包拖到桌面，解压，双击里面那个 <code class="code">.exe</code>。窗口弹出来了，屏幕上开始一行一行往外跳字。他没看，端着水杯等了三分钟，然后问了我一个问题：
+
+“好了吗？”
+
+我说：你现在盯着的第一屏，正在替你回答另一个问题——<strong>这台机器，今天到底能不能用。</strong>
+
+他有点意外：“不就是装个软件吗？装完不就能用了？”
+
+我把这句话记了下来，因为它正好是这一章要拆掉的东西。装软件最难的一步，从来不是下载和双击。是<strong>知道自己在等什么</strong>，以及<strong>知道什么东西坏了</strong>。
+
+这一部分的语气会跟前两部分不一样：前面我们在实验室里拆机器、算误差，现在我坐到你的电脑旁边，手把手。本章只干三件事：装好软件、接上 AI 的大脑、打开今天的数据通路。
+
+<h2 id="sec-24-2"><span class="hnum">24.2</span>装一台新机器：先通电，再通水，最后开机自检</h2>
+
+<div class="box intuition"><div class="boxbody">
+我家里装过一台洗衣机。装完的那天，师傅没有立刻按“开始洗衣”。他做了三件事，顺序很固定：
+
+<strong>第一，通电。</strong>插头插上，面板亮不亮。这一步只关心“它认不认自己的电源”。
+
+<strong>第二，通水。</strong>进水管接上、水阀打开，看会不会漏水。这一步关心“它的输入从哪来、通不通”。
+
+<strong>第三，按自检键。</strong>面板上一排灯依次亮起、依次熄灭，全部亮完说明每一条回路都活着；只要有一盏灯是红的，他就把机器停在那里，不洗。
+
+这三步和 QuantBot 的开机一模一样，而且一一对应：
+
+通电，是<strong>配置</strong>——你告诉它有多少钱、用哪个 AI、钥匙是什么。落在 <code class="sysfile">config/config.json</code> 这个文件里。
+
+通水，是<strong>数据</strong>——行情库 <code class="sysfile">data/stock.duckdb</code> 能不能被打开、里面的 K 线新不新。
+
+自检，是<strong>启动加载页</strong>——六个组件挨个点亮，其中几个是“红灯就停机”的关键件。
+
+顺序不能倒。先通水后通电、或者跳过自检直接开洗，机器不会更聪明，只会更危险。而“自检不通过就停机”这件事，本身就是一个需要被设计出来的决定——下一节我们就来说它。
+</div></div>
+
+<h2 id="sec-24-3"><span class="hnum">24.3</span>为什么“带病开机”比“开不了机”更糟</h2>
+
+按本书的规矩，讲“是什么”之前先讲“不这么做会怎样”。所以这里先假设一个反面设计：<strong>启动时不检查、失败了就静默降级悄悄继续</strong>。
+
+这个设计在界面上很讨喜：加载页一路绿灯，你进选股页点“开始选股”，返回 0 只。你大概率会想“今天没什么好票”，而不是“行情库根本没挂上”。
+
+更坏的一种降级是“用假数据顶上”：行情库读不到就拿上一次的缓存当今天用；API Key 没配，就用一句模板话术装作 AI 已经回答过。演示时很连贯，带来的却是<strong>一个看起来完全正常的错误决策</strong>。
+
+到这里必须接上第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章的那条规则：A 股是 T+1，当日买入当日不能卖。也就是说，一个基于错误数据的买入决定，<strong>当天没有撤回键</strong>。系统明明有能力告诉你“我坏了”，却选择沉默，你就得为这份沉默付钱。
+
+所以系统的取舍写在明处：<strong>关键组件失败必须弹窗报错，严禁降级、严禁使用虚假数据</strong>；同时保留一个人为出口——失败后可以由你自己点一次“<strong>进入系统</strong>”继续（此时你是知情者，不是被蒙在鼓里的人）前端 <code class="sysfile">ui/src/components/InitialLoading.tsx</code>：<code class="code">criticalFailed</code> 为真时渲染红色错误块，并显示“进入系统”按钮（<code class="code">showContinue</code>）；错误清单取自后端 <code class="code">IsReady()</code> 的 <code class="code">errors</code> 字段。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-1" href="#fn-ch24-1">1</a></sup>。
+
+那么“停机”和“带病继续”哪个更划算？直觉上大家都知道停机更保险，但“更保险”三个字不是证明。我们把它变成一个可以算的问题。
+
+<h2 id="sec-24-4"><span class="hnum">24.4</span>把“开机”写成一个状态机</h2>
+
+先说一个“差不多对”的模型，再补严谨版。
+
+<strong>近似模型：</strong>开机就是一道与门（AND）。六个组件全部正常，才允许进入工作态；有一个不正常，就停。这个模型抓住了本质，但它把“停机”当成零成本，把“继续”当成零损失——这两笔账都没算。
+
+<strong>严谨版本：</strong>把开机看成一个判定函数，把两条路的<strong>期望损失</strong>算出来相减。先给定义。
+
+<div class="thm definition" id="def:ch24-sm"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">24.1</span>（启动状态机）</div>
+设参与启动判定的组件集合为 \(C=\{c_1,\dots,c_n\}\)，每个组件的状态取
+<div class="math-scroll">\[s_i\in\{\mathrm{ok},\mathrm{fail}\},\qquad i=1,\dots,n, \tag{24.1}\]</div>
+整个系统的状态是一个向量 \(s=(s_1,\dots,s_n)\in\{\mathrm{ok},\mathrm{fail}\}^n\)。记<strong>失效集合</strong>为
+<div class="math-scroll">\[F(s)=\{\,i: s_i=\mathrm{fail}\,\}, \tag{24.2}\]</div>
+并设关键性标记 \(\mathrm{crit}(i)\in\{0,1\}\) 把组件分成关键子集
+<div class="math-scroll">\[C^\ast=\{\,i: \mathrm{crit}(i)=1\,\}\subseteq C . \tag{24.3}\]</div>
+<strong>启动判定</strong>是一个映射
+<div class="math-scroll">\[\Sigma:\{\mathrm{ok},\mathrm{fail}\}^n\to\{\textsc{run},\textsc{abort}\}. \tag{24.4}\]</div>
+本书比较两个具体判定：
+<div class="math-scroll" id="eq:ch24-fc"><span id="eq:ch24-deg"></span>\begin{align}\Sigma_{\mathrm{fc}}(s)&amp;=\textsc{abort}\iff F(s)\cap C^\ast\neq\emptyset, \tag{24.5}\\
+\Sigma_{\mathrm{deg}}(s)&amp;=\textsc{run}\qquad\text{对一切 }s. \tag{24.6}\end{align}</div>
+称 \(\Sigma_{\mathrm{fc}}\) 为<strong>失败即拒（fail-closed）</strong>判定，\(\Sigma_{\mathrm{deg}}\) 为<strong>降级继续</strong>判定。
+</div>
+
+这个定义在说什么：开机不是“跑起来就算成功”，而是一个函数——输入是六个组件的死活清单，输出只有两个字，跑或停。式 <a class="xref" href="ch24.html#eq:ch24-fc">(24.5)</a> 说的是：<em>只要失效清单里沾上一个关键组件，输出就是“停”</em>。
+
+<figure class="fig" id="fig:ch24-sm"><img class="tikz" src="assets/tikz/tikz-14.svg" alt="示意图"><figcaption><span class="lbl">图 24.1</span>fail-closed 启动状态机：只有关键组件全绿才进入工作态；否则停在 <span class="f-smallcaps">abort</span> 分支，修好后重新走一遍自检。</figcaption></figure>
+
+接下来要算账，就得先规定“损失”是什么。
+
+<div class="thm definition" id="as:ch24-loss"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">24.2</span>（损失模型）</div>
+<ol><li>走到 <span class="f-smallcaps">abort</span> 分支的损失记作 \(A\)，\(0&lt;A&lt;\infty\)：这是“今天不开工”的代价（推迟一天、错过一次机会），且<strong>中止不产生任何错误决策</strong>。
+  </li><li>关键组件全部正常、进入工作态运行一天，期望损失记作 \(L_0\ge0\)（正常持仓波动与交易成本）。
+  </li><li>关键组件 \(c_i\) 失效却仍然运行，它会以概率 \(p_i\in[0,1]\) 产出一个“<strong>看起来正常、实际错误</strong>”的决策，单次期望损失为 \(\ell_i&gt;0\)。给定失效集合 \(F\)，这一天的期望错误损失为
+  <div class="math-scroll" id="eq:ch24-D">\[D(F)=\sum_{i\in F\cap C^\ast} p_i\,\ell_i , \tag{24.7}\]</div>
+  即<strong>各失效组件的错误损失可加</strong>（近似；见后文注 <a class="xref" href="ch24.html#rem:ch24-limit">24.7</a>）。
+</li></ol>
+</div>
+
+<div class="thm definition" id="as:ch24-prior"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">24.3</span>（失效先验）</div>
+记“至少有一个关键组件失效”这个事件为 \(\mathcal F=\{s:F(s)\cap C^\ast\neq\emptyset\}\)，其先验概率
+<div class="math-scroll">\[\rho=\Prob(\mathcal F)\in(0,1),\qquad
+\bar D=\E\bigl[D(F)\mid \mathcal F\bigr]&gt;0 . \tag{24.8}\]</div>
+由假设 <a class="xref" href="ch24.html#as:ch24-loss">24.2</a>(iii) 的 \(p_i\ell_i&gt;0\) 立即得 \(\bar D&gt;0\)：只要发生关键失效，期望错误损失就是<strong>严格正</strong>的。
+</div>
+
+<div class="thm definition" id="as:ch24-asym"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">24.4</span>（代价不对称）</div>
+<div class="math-scroll">\[A&lt;\bar D . \tag{24.9}\]</div>
+说人话：<strong>“今天不开工”的代价，小于“带着坏组件开工一天”的期望错误损失。</strong>这不是数学事实，是工程取舍：中止可逆（明天再来），而错误决策在 T+1 与涨跌停制度下往往不可撤销（<a class="xref" href="ch23.html#ch:ch23">第二十三章</a>）；\(A\) 由系统自己控制（一个弹窗、一次手动确认），而 \(\ell_i\) 没有先验上界（错误数据可以驱动一次不该发生的资金操作）。
+</div>
+
+<div class="thm plain" id="prop:ch24-fc"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">24.5</span>（fail-closed 的期望损失严格更优）</div>
+在假设 <a class="xref" href="ch24.html#as:ch24-loss">24.2</a>--<a class="xref" href="ch24.html#as:ch24-asym">24.4</a> 下：
+<ol><li>两条路径的期望损失分别为
+  <div class="math-scroll" id="eq:ch24-exp">\[\E_{\mathrm{fc}}=\rho A+(1-\rho)L_0,\qquad
+  \E_{\mathrm{deg}}=L_0+\rho\bar D ; \tag{24.10}\]</div>
+  </li><li>两者之差只由“中止代价”与“错误损失”两项决定：
+  <div class="math-scroll" id="eq:ch24-diff">\[\E_{\mathrm{fc}}-\E_{\mathrm{deg}}=\rho\bigl(A-\bar D\bigr); \tag{24.11}\]</div>
+  </li><li>特别地，\(A&lt;\bar D\) 时
+  <div class="math-scroll" id="eq:ch24-gap">\[\E_{\mathrm{deg}}-\E_{\mathrm{fc}}=\rho\bigl(\bar D-A\bigr)&gt;0 , \tag{24.12}\]</div>
+  即 fail-closed 的期望损失<strong>严格</strong>小于降级继续，差额随失效概率 \(\rho\) 线性放大。
+</li></ol>
+</div>
+
+这个命题在说什么：它把“该不该停机”这句口号换成了一个不等式：<strong>停机的代价 \(A\) 如果比“带着坏组件瞎跑”的期望损失 \(\bar D\) 小，就该停机，而且差额是 \(\rho(\bar D-A)\)。</strong>注意它同时说明了反面：如果 \(A&gt;\bar D\)（停机代价大得离谱、错误损失小得可以忽略），那么这个策略就不再占优——所以 fail-closed 是有条件的正确，不是永远的正确。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 先算 \(\E_{\mathrm{fc}}\)。按式 <a class="xref" href="ch24.html#eq:ch24-fc">(24.5)</a>，\(\Sigma_{\mathrm{fc}}\) 的输出由事件 \(\mathcal F\) 决定，分两种情况：
+
+当 \(\mathcal F\) 发生（概率 \(\rho\)）时，判定为 <span class="f-smallcaps">abort</span>，按假设 <a class="xref" href="ch24.html#as:ch24-loss">24.2</a>(i) 损失恰为 \(A\)，且不产生错误决策；当 \(\mathcal F\) 不发生（概率 \(1-\rho\)）时，判定为 <span class="f-smallcaps">run</span>，按假设 <a class="xref" href="ch24.html#as:ch24-loss">24.2</a>(ii) 期望损失为 \(L_0\)。两段相加即
+<div class="math-scroll">\[\E_{\mathrm{fc}}=\rho\cdot A+(1-\rho)\cdot L_0 . \tag{24.13}\]</div>
+
+再算 \(\E_{\mathrm{deg}}\)。按式 <a class="xref" href="ch24.html#eq:ch24-deg">(24.6)</a>，\(\Sigma_{\mathrm{deg}}\) 永远输出 <span class="f-smallcaps">run</span>，所以两种情况下都进入工作态。当 \(\mathcal F\) 不发生（概率 \(1-\rho\)）时，损失就是 \(L_0\)；当 \(\mathcal F\) 发生（概率 \(\rho\)）时，损失为 \(L_0+D(F)\)，其中 \(D(F)\) 由式 <a class="xref" href="ch24.html#eq:ch24-D">(24.7)</a> 给出。用全期望公式：
+<div class="math-scroll">\[\E_{\mathrm{deg}}
+=\rho\,\E\bigl[L_0+D(F)\mid\mathcal F\bigr]+(1-\rho)\,L_0 . \tag{24.14}\]</div>
+把 \(L_0\) 从条件期望里提出来（它是常数，不依赖 \(F\)），并用假设 <a class="xref" href="ch24.html#as:ch24-prior">24.3</a> 定义的 \(\bar D=\E[D(F)\mid\mathcal F]\)：
+<div class="math-scroll">\[\E_{\mathrm{deg}}
+=\rho\bigl(L_0+\bar D\bigr)+(1-\rho)L_0
+=L_0+\rho\bar D . \tag{24.15}\]</div>
+这就是式 <a class="xref" href="ch24.html#eq:ch24-exp">(24.10)</a>。
+
+<em>(ii)</em> 直接相减，把 \(L_0\) 项消掉：
+<div class="math-scroll">\[\E_{\mathrm{fc}}-\E_{\mathrm{deg}}
+=\bigl[\rho A+(1-\rho)L_0\bigr]-\bigl[L_0+\rho\bar D\bigr]
+=\rho A+\underbrace{(1-\rho)L_0-L_0}_{=-\rho L_0}-\rho\bar D
+=\rho\bigl(A-\bar D\bigr). \tag{24.16}\]</div>
+这一步的关键是：\(L_0\) 在两条路径里<strong>都以 </strong>\((1-\rho)\)<strong> 的同样权重出现</strong>（全绿时两路径都必须运行），所以它整项相消——两条路径的差别<strong>只发生在失效情形里</strong>。
+
+<em>(iii)</em> 由假设 <a class="xref" href="ch24.html#as:ch24-asym">24.4</a> 得 \(A-\bar D&lt;0\)，两边乘以 \(-\rho\) 并把 \(\rho&gt;0\)（假设 <a class="xref" href="ch24.html#as:ch24-prior">24.3</a>）代入：
+<div class="math-scroll">\[\E_{\mathrm{deg}}-\E_{\mathrm{fc}}=\rho\bigl(\bar D-A\bigr)
+=\underbrace{\rho}_{&gt;0}\cdot\underbrace{\bigl(\bar D-A\bigr)}_{&gt;0}&gt;0 . \tag{24.17}\]</div>
+两个正数之积严格为正，故不等号严格；又因该式对 \(\rho\) 是一次齐次的，差额随失效频率线性放大。
+</div>
+
+<div class="thm plain" id="cor:ch24-monotone"><div class="thmhead"><span class="thmname">推论</span> <span class="thmnum">24.6</span>（关键集合扩张只会更保守）</div>
+设两组关键标记给出 \(C^\ast_1\subseteq C^\ast_2\)（把更多组件“升级为关键”），其余记号不变。则
+<ol><li>判定更保守：\(\{\Sigma_{\mathrm{fc}}^{C^\ast_1}=\textsc{abort}\}\subseteq\{\Sigma_{\mathrm{fc}}^{C^\ast_2}=\textsc{abort}\}\)；
+  </li><li>差额不缩小：\(\rho\bigl(\bar D_2-A\bigr)\ge\rho\bigl(\bar D_1-A\bigr)\)。
+</li></ol>
+</div>
+
+这句推论在说什么：把某个组件从“坏了也能凑合”改成“坏了必须停”，只会让系统更早停下，绝不会让它在更坏的状态下多跑一会儿——这是“只降不升”的一个实例。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 取任意状态 \(s\)，设 \(\Sigma_{\mathrm{fc}}^{C^\ast_1}(s)=\textsc{abort}\)。按定义 <a class="xref" href="ch24.html#def:ch24-sm">24.1</a> 的<a class="xref" href="ch24.html#eq:ch24-fc">(24.5)</a>，这意味着存在 \(i\in F(s)\cap C^\ast_1\)。由 \(C^\ast_1\subseteq C^\ast_2\) 得 \(i\in C^\ast_2\)，于是 \(i\in F(s)\cap C^\ast_2\)，从而 \(\Sigma_{\mathrm{fc}}^{C^\ast_2}(s)=\textsc{abort}\)。由于 \(s\) 任意，第一个中止集合被第二个包含。
+
+<em>(ii)</em> 对任意失效集合 \(F\)，由式 <a class="xref" href="ch24.html#eq:ch24-D">(24.7)</a> 与 \(C^\ast_1\subseteq C^\ast_2\) 得 \(F\cap C^\ast_1\subseteq F\cap C^\ast_2\)；被求和集扩大而每一项 \(p_i\ell_i&gt;0\) 非负，故级数不减：
+<div class="math-scroll">\[D_2(F)=\sum_{i\in F\cap C^\ast_2}p_i\ell_i\ \ge\ \sum_{i\in F\cap C^\ast_1}p_i\ell_i=D_1(F). \tag{24.18}\]</div>
+对条件分布取期望保序（期望单调性：逐点 \(X\ge Y\) 蕴含 \(\E[X]\ge\E[Y]\)），得 \(\bar D_2\ge\bar D_1\)。于是 \((\bar D_2-A)-(\bar D_1-A)=\bar D_2-\bar D_1\ge0\)，乘以 \(\rho&gt;0\) 结论成立。
+</div>
+
+<div class="thm remark" id="rem:ch24-limit"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">24.7</span>（这个近似在哪里失效）</div>
+我不想让上面这套推导显得比它实际更强，所以把三个松动的地方写清楚。
+
+<strong>第一，可加性（假设 <a class="xref" href="ch24.html#as:ch24-loss">24.2</a>(iii)）。</strong>现实中失效是<strong>耦合</strong>的：行情库挂了，判势、选股、回测会一起错，损失不是简单相加而是相互放大。好消息是耦合通常是<strong>正相关</strong>，正相关只会使 \(\bar D\) 更大，命题结论不变；只有当失效之间<strong>互相抵消</strong>（例如一个错误方向的信号恰好被另一个错误盖住）时，\(D\) 才可能偏小，结论才可能翻转。
+
+<strong>第二，\(\rho\) 与 \(\bar D\) 不可直接观测。</strong>式 <a class="xref" href="ch24.html#eq:ch24-gap">(24.12)</a> 给的是判据，不是一个数。本书没有这两个量的实测值，也不打算编一个：它们取决于你机器上的具体环境（第 <a class="xref" href="ch25.html#ch:ch25">第二十五章</a> 章会讲，库没同步好是最常见的失效来源）。
+
+<strong>第三，“进入系统”没有推翻命题。</strong>系统的“<strong>进入系统</strong>”按钮确实允许你在失败后走 <span class="f-smallcaps">run</span> 分支。但那是在你<strong>看到了失败清单之后</strong>做的决定，信息集变了；命题比较的是<strong>默认</strong>策略，而不是否定人的知情选择。
+</div>
+
+<h2 id="sec-24-5"><span class="hnum">24.5</span>它在系统里长什么样</h2>
+
+理论部分到这里就够用了，下面全部是手把手。
+
+<h3 id="sec-24-5-1"><span class="hnum">24.5.1</span>第一步：一个不用安装的文件夹</h3>
+
+QuantBot 是免安装 ZIP：<strong>解压即用，没有安装程序</strong>。解压之后，所有东西都在同一个目录里，最要紧的是这几样：
+
+<ul><li>主程序 <code class="code">.exe</code>：双击它；
+  </li><li><code class="sysfile">config/</code>：配置目录，里面是 <code class="sysfile">config/config.json</code>；
+  </li><li><code class="sysfile">data/</code>：行情库目录，里面是 <code class="sysfile">data/stock.duckdb</code>；
+  </li><li><code class="sysfile">database/</code>：SQLite 库目录，里面是 <code class="sysfile">database/quantpilot.db</code>；
+  </li><li><code class="sysfile">log/</code>：日志目录，每次启动生成一个 <code class="sysfile">log/quantbot_&lt;时间戳&gt;.log</code>；
+  </li><li><code class="sysfile">log/crash_dump.txt</code>：崩溃转储。
+</li></ul>
+
+“数据和程序同目录”这件事值得单独说一句：程序里所有路径都是从<strong>可执行文件所在目录</strong>推出来的系统源码 <code class="sysfile">main.go</code> 的 <code class="code">GetExecDir()</code>（<code class="code">os.Executable()</code> 取目录）与 <code class="code">setupLogging()</code>（日志写 <code class="code">exeDir/log/</code>）；崩溃转储用 <code class="code">debug.SetCrashOutput</code> 写到 <code class="code">exeDir/log/crash_dump.txt</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-2" href="#fn-ch24-2">2</a></sup>，不是从系统盘符里找。所以<strong>换一台电脑 = 拷一个文件夹</strong>：把整个目录复制过去，配置、数据、历史记录一起搬走。
+
+顺带记一个“出事了去哪找原因”：GUI 程序没有控制台，Go 运行时的致命崩溃默认写到标准错误、那里没人接，系统把它重定向到 <code class="sysfile">log/crash_dump.txt</code>系统源码 <code class="sysfile">main.go</code> 的 <code class="code">setupLogging()</code>：<code class="code">debug.SetCrashOutput(cf, debug.CrashOptions{})</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-3" href="#fn-ch24-3">3</a></sup>。
+
+<h3 id="sec-24-5-2"><span class="hnum">24.5.2</span>第二步：四步向导，一次把三件事问完</h3>
+
+首次运行时，程序不会直接进主界面，而是先走一个四步向导前端 <code class="sysfile">ui/src/pages/WelcomeWizard.tsx</code>：<code class="code">step</code> 从 1 到 4，步进条为四个圆点；第 4 步的按钮触发 <code class="code">handleFinish</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-4" href="#fn-ch24-4">4</a></sup>：
+
+<ol><li><strong>市场与初始资金。</strong>市场固定为 A 股（那个按钮<strong>是禁用状态</strong>，点不动，不是你没找到）；初始资金是一个数字输入框，默认 100000<sup class="fn-ref"><a id="fnref-ch24-5" href="#fn-ch24-5">5</a></sup> 元默认值来自 <code class="code">WelcomeWizard</code> 里 <code class="code">useState('100000')</code>，与后端 <code class="sysfile">internal/config/config.go</code> 的 <code class="code">defaultConfig()</code> 中 <code class="code">InitialCapital: 100000.0</code> 一致。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-6" href="#fn-ch24-6">6</a></sup>。
+  </li><li><strong>AI 提供商。</strong><code class="code">deepseek</code> / <code class="code">openai</code> / <code class="code">claude</code> / <code class="code">other</code> 四个按钮，默认选中 <code class="code">deepseek</code>；下面一行是 API Key 输入框，占位符 <code class="code">sk-...</code>。
+  </li><li><strong>风险操作系统（RiskOS）。</strong>这一步是一张说明卡片，交代风控层的存在。
+  </li><li><strong>完成。</strong>显示刚才填的初始资金，并可切换界面语言（中文 / EN）。
+</li></ol>
+
+这里有一个很容易按错的地方：<strong>向导只在最后一步保存</strong>。你翻到第 2 步填了 Key，然后关掉程序——什么都没存下来。真正落库发生在第 4 步点下那个按钮的瞬间，它做两件事：<code class="code">SetInitialCapital</code> 写入资金；如果你的 Key 非空，再调 <code class="code">SetAISettings</code> 写入提供商、模型、接口地址和 Key前端 <code class="sysfile">ui/src/pages/WelcomeWizard.tsx</code> 的 <code class="code">handleFinish</code>：先校验资金为正数，再 <code class="code">SetInitialCapital(capitalNum)</code>，<code class="code">apiKey.trim()</code> 非空才调 <code class="code">SetAISettings(provider, model, baseURL, apiKey)</code>，失败时在卡片里显示红色错误行。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-7" href="#fn-ch24-7">7</a></sup>。
+
+默认接的是哪条 AI 通路？后端的出厂配置写得很明确：提供商 <code class="code">deepseek</code>、模型 <code class="code">deepseek-v4-flash</code>、接口地址 <code class="sysfile">https://api.deepseek.com</code>系统源码 <code class="sysfile">internal/config/config.go</code> 的 <code class="code">defaultConfig()</code>：<code class="code">AIProvider: "deepseek"</code>、<code class="code">AIModel: "deepseek-v4-flash"</code>、<code class="code">AIBaseURL: "https://api.deepseek.com"</code>；同一函数里默认交易模式为 <code class="code">simulated</code>、单票上限 <code class="code">MaxPositionSize: 0.30</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-8" href="#fn-ch24-8">8</a></sup>。
+
+<div class="thm remark" id="rem:ch24-model"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">24.8</span>（一个我照实写下来的不一致）</div>
+上面的模型名来自后端出厂配置。而向导自己内置的那张小表里，<code class="code">deepseek</code> 这一行写的模型是 <code class="code">deepseek-chat</code>前端 <code class="sysfile">ui/src/pages/WelcomeWizard.tsx</code> 的 <code class="code">AI_PROVIDER_DEFAULTS</code>：<code class="code">deepseek: { model: 'deepseek-chat', baseURL: 'https://api.deepseek.com' }</code>，<code class="code">openai</code> 为 <code class="code">gpt-4o</code>，<code class="code">claude</code> 为 <code class="code">claude-3-5-sonnet</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-9" href="#fn-ch24-9">9</a></sup>。也就是说：如果你<strong>在向导里填了 Key</strong>，写进配置的模型名会取自这张表；如果你<strong>跳过 Key</strong>、后来在设置页填，用的就是后端那套默认。
+
+我不改它，也不替它圆场，因为这件事本身是本章要教的：<strong>同一个“默认值”写在两个地方，就等于有两个默认值</strong>。想知道你这台机器上到底在用哪个模型，不要去猜，去设置页的 AI 页签看那一行字。
+</div>
+
+<h3 id="sec-24-5-3"><span class="hnum">24.5.3</span>第三步：开机自检——六个组件与十步初始化</h3>
+
+点下完成之后，进程重启进入主流程。此时前端显示的是启动加载页，它每秒向后端问一次“好了吗”，最多等 30 秒前端 <code class="sysfile">ui/src/components/InitialLoading.tsx</code>：<code class="code">maxWaitTime = 30000</code>（单位毫秒），<code class="code">setTimeout(poll, 1000)</code> 顺序轮询，超时后置 <code class="code">initFailed=true</code> 并显示“进入系统”按钮。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-10" href="#fn-ch24-10">10</a></sup>。
+
+后端那边在干什么？它真的去“通水、通电”，而不是只把标志位置上。启动时执行一次<strong>真实连通性探测</strong>系统源码 <code class="sysfile">App.go</code> 的 <code class="code">runStartupConnectivityCheck()</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-11" href="#fn-ch24-11">11</a></sup>：
+
+<ul><li><strong>数据库：</strong>对 SQLite 做一次真实 <code class="code">PingContext</code>（3 秒超时）。
+  </li><li><strong>行情：</strong>通过数据完整性守卫查 DuckDB 能否取到最新交易日与股票数量，并检查是否更新到“今天的前一个交易日”。
+  </li><li><strong>AI：</strong>向配置里的真实接口发一次极简请求（<code class="code">"ping"</code>），5 秒超时。Key 为空、地址为空、客户端未初始化，各有各的错误文案。
+</li></ul>
+
+这三项的结果缓存在内存里供轮询读取——所以加载页上那几盏灯不是装饰，它背后是一次真实的网络往返。
+
+加载页把“能不能开工”拆成了六项组件状态，另外还多显示一行组合数据预热。我把它抄成一张表。
+
+<figure class="tbl" id="tab:ch24-components"><div class="tbl-scroll"><table><caption><span class="lbl">表 24.1</span>启动加载界面的六个组件，以及失败意味着什么</caption><tbody><tr><td><strong>组件</strong></td><td><strong>状态字段</strong></td><td><strong>关键</strong></td><td><strong>失败意味着什么</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>配置管理器</td><td><code class="field">config_ready</code></td><td>是</td><td>配置读不出来，后面所有参数都无处可依</td></tr><tr><td>SQLite 数据库</td><td><code class="field">conn_db_ok</code></td><td>是</td><td>持仓、成交、决策日志没有账本可记</td></tr><tr><td>股票时序库（行情）</td><td><code class="field">conn_ds_ok</code></td><td>是</td><td>选股、判势、回测全部失去输入</td></tr><tr><td>LLM 大模型服务</td><td><code class="field">conn_ai_ready</code></td><td>是</td><td>AI 团队无法思考，只能回退规则</td></tr><tr><td>投资组合引擎</td><td><code class="field">portfolio_ready</code></td><td>否</td><td>资金与仓位不可用</td></tr><tr><td>智能体执行器</td><td><code class="field">agent_executor_ready</code></td><td>否</td><td>任务派不出去，自动工作流停摆</td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>（额外）组合数据预热</td><td><code class="field">portfolio_warm</code></td><td>是</td><td>持仓行情/昨收/结算数据没备好</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">前六行是本书所称的“六个组件”，第七行是加载页额外显示的一项预热状态，源码里同样被标为关键件。加载页对关键件用红叉、非关键件只做灰点提示。</p>
+<p class="tabsrc">前端 <code class="sysfile">ui/src/components/InitialLoading.tsx</code> 的 <code class="code">componentStatus</code> 数组（<code class="code">name</code> 显示名、<code class="code">critical</code> 标记）与后端 <code class="sysfile">App.go</code> 的 <code class="code">IsReady()</code> 返回字段逐条对照；<code class="code">ready</code> 总判据为 <code class="code">a.ready &amp;&amp; configReady &amp;&amp; sqliteReady &amp;&amp; a.connDbOK &amp;&amp; a.connDsOK &amp;&amp; a.connAIReady</code>。核对时间 2026-09-24。</p></figure>
+
+<figure class="listing" id="{lst:ch24-watchdog}"><figcaption><span class="lbl">代码 24.1</span>后端的启动看门狗与 panic 兜底（节选）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 启动超时看门狗：25 秒内没完成初始化，就强制标记&quot;就绪&quot;</span></span>
+<span class="cl"><span class="kw">go</span> <span class="kw">func</span>() {</span>
+<span class="cl">    timer := time.NewTimer(25 * time.Second)</span>
+<span class="cl">    &lt;-timer.C</span>
+<span class="cl">    <span class="kw">if</span> !a.ready {</span>
+<span class="cl">        a.ready = true           <span class="com">// 强制放行（降级模式）</span></span>
+<span class="cl">        log.Println(<span class="str">&quot;STARTUP TIMEOUT: Forced system ready after 25s (degraded mode)&quot;</span>)</span>
+<span class="cl">    }</span>
+<span class="cl">}()</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 整个 startup 外面再兜一层 panic 恢复</span></span>
+<span class="cl"><span class="kw">defer</span> <span class="kw">func</span>() {</span>
+<span class="cl">    <span class="kw">if</span> r := recover(); r != <span class="kw">nil</span> {</span>
+<span class="cl">        log.Printf(<span class="str">&quot;[QuantBot] PANIC RECOVERED: %v&quot;</span>, r)</span>
+<span class="cl">        a.ready = true           <span class="com">// 同样强制放行，但日志里留下完整堆栈</span></span>
+<span class="cl">    }</span>
+<span class="cl">}()</span></code></pre></figure>
+
+这段代码在说什么：后端的初始化是在协程里跑的，它有两条“兜底绳”。第一条是 25 秒的看门狗——如果初始化卡住太久，就强制把 <code class="code">ready</code> 置真，让界面别再无限等下去（日志里明确写作降级模式）系统源码 <code class="sysfile">App.go</code> 的 <code class="code">startup(ctx)</code> 开头：<code class="code">time.NewTimer(25 * time.Second)</code> 的看门狗协程，以及紧随其后的 <code class="code">defer func() { if r := recover(); ... }()</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-12" href="#fn-ch24-12">12</a></sup>；第二条是 panic 恢复——初始化过程中任何一处 panic 都不会让进程带着半个状态沉默地死掉，而是先落栈、再放行。
+
+所以“等待”这件事有三层时间常数，我把它们摆在一起，免得你以后被某一层搞混：后端看门狗 25 秒，前端最多等 30 秒，AI 连通性探测本身 5 秒超时。至于整台机器的实际启动耗时，各人机器不同，本书不给估计值（启动耗时随机器与数据规模变化，系统库中无固定可引用的记录）<sup class="fn-ref"><a id="fnref-ch24-13" href="#fn-ch24-13">13</a></sup>。
+
+那“十步初始化”呢？日志里把它编号得很清楚，一共 10 步系统源码 <code class="sysfile">App.go</code> 的 <code class="code">startup(ctx)</code>：日志依次打印 <code class="code">[Step 1/10]</code> 配置、<code class="code">[Step 2/10]</code> SQLite、<code class="code">[Step 3/10]</code> DuckDB、<code class="code">[Step 4/10]</code> TDX 服务、<code class="code">[Step 5/10]</code> Harness、<code class="code">[Step 6/10]</code> LLM 客户端与 MCP、<code class="code">[Step 7/10]</code> 任务执行器、<code class="code">[Step 8/10]</code> 智能体与引擎、<code class="code">[Step 9/10]</code> 服务与审计、<code class="code">[Step 10/10]</code> 调度与编排。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-14" href="#fn-ch24-14">14</a></sup>：配置 → SQLite → DuckDB → TDX 服务 → Harness → LLM 与 MCP → 任务执行器 → 智能体与引擎 → 服务与审计 → 调度与编排。
+
+这里有两个顺手可以学的工程习惯。第一，TDX 初始化被单独包了一个局部 <code class="code">recover</code>，因为第三方库有已知的日历越界 panic，包住它就不会因为一个可选组件把后面的组合引擎一起拖死。第二，每步都打印耗时——出问题时你能一眼看出是“卡在哪一步”，而不是“好像很慢”。
+
+<h3 id="sec-24-5-4"><span class="hnum">24.5.4</span>第四步：点 × 不是退出</h3>
+
+现在讲最容易被误会的两个行为，先说那个叉号。
+
+标题栏右上角那个 ×，点了之后窗口消失了。<strong>程序没有退出。</strong>它做的是“隐藏到系统托盘”：进程还在跑，后台调度器还在按点上班（盘前、盘中、盘后各有任务，主循环每 30 秒扫一次时段）系统源码 <code class="sysfile">App.go</code> 的 <code class="code">HideToTray()</code>：注释写明“隐藏主窗口到系统托盘（标题栏×）：进程与后台任务（调度/回测/监控）继续运行”。调度主循环 30 秒 ticker 见系统事实清单第 6 节。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-15" href="#fn-ch24-15">15</a></sup>。想找回界面，去任务栏右下角找托盘图标：<strong>左键单击</strong>直接显示主界面，<strong>右键</strong>弹出菜单，里面两项——“显示主界面”和“退出”。
+
+真的要退出，必须走托盘菜单里的“退出”。这个“退出”走的是 Wails 的生命周期函数而不是 <code class="code">os.Exit(0)</code>，区别在于前者会执行关停清理（交易审批清理、调度器停止、审计日志刷新、数据库关闭）系统源码 <code class="sysfile">App.go</code> 的 <code class="code">WindowQuit()</code> 与 <code class="sysfile">tray_windows.go</code> 的 <code class="code">showTrayContextMenu()</code>：菜单项 ID 1 为“显示主界面”、2 为“退出”，回调分别触发 <code class="code">onTrayShow</code> / <code class="code">onTrayQuit</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-16" href="#fn-ch24-16">16</a></sup>。这一点和你在别的软件上的习惯正好相反，值得在第一次运行时试一次——本章最后的“动手试一试”里就安排了这一条。
+
+托盘本身是自实现的：Wails v2 在 Windows 侧没有提供托盘 API，系统直接用原生 <code class="code">Shell_NotifyIconW</code> 做了一个隐藏消息窗口，并在<strong>一条锁定的独立线程</strong>上跑它自己的消息泵系统源码 <code class="sysfile">tray_windows.go</code>：<code class="code">runTrayAsync</code> 里 <code class="code">runtime.LockOSThread()</code> 后创建窗口并进入 <code class="code">GetMessage</code> 循环；文件头注释记录了“Wails startup 常跑在非主线程且不带消息泵，托盘消息无人派发导致菜单弹不出来”这一真实问题。另监听 <code class="code">TaskbarCreated</code> 以便资源管理器重启后重建图标。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-17" href="#fn-ch24-17">17</a></sup>。为什么要额外一条线程？因为托盘回调消息只发给“创建那个窗口的线程”，而启动流程往往不在主线程上——不单独取消息，左键右键都会永远无人响应。
+
+再说第二件事：<strong>单实例</strong>。你双击了两次，只会有一个程序。机制很短：进程一启动就去申请一个命名互斥量，名字是 <code class="code">QuantBot_SingleInstance_Mutex_v5</code>；如果系统告诉你“这个名字已经存在”（Windows 错误码 183），说明已经有一个实例在跑，于是弹一个错误对话框然后退出系统源码 <code class="sysfile">single_instance_windows.go</code> 的 <code class="code">SingleInstance()</code>：<code class="code">CreateMutexW</code> + <code class="code">GetLastError() == ERROR_ALREADY_EXISTS(183)</code>，非首实例会 <code class="code">CloseHandle</code> 并返回 <code class="code">false</code>；<code class="sysfile">main.go</code> 中 <code class="code">!isFirst</code> 分支调用 <code class="code">showAlreadyRunningDialog()</code> 后 <code class="code">os.Exit(0)</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch24-18" href="#fn-ch24-18">18</a></sup>。
+
+这条设计不只是防手抖，它是一致性的前提：两个实例同时开着一份 SQLite 和一份 DuckDB，两份调度器会同时往同一个账本里写决策、同时去跑同一段回测。互斥量把这件事从“可能发生的数据打架”变成了“根本不会发生”。
+
+本章讲的“开机自检”，在界面上留下痕迹的地方是「设置 · 关于」页。
+
+<figure class="fig" id="fig:ch24-about"><img class="shot" style="width:72%" src="assets/ui/ui-about.png" alt=""><figcaption><span class="lbl">图 24.2</span>设置·关于：版本信息、组件状态与数据基准日</figcaption></figure>
+
+<h2 id="sec-24-6"><span class="hnum">24.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这是顺序反了，而且反得很自然。人总想先做“有技术含量”的那部分——挑策略、调参数、看回测曲线。可是请回想本章开头那句“好了吗”：在你连“今天能不能工作”都不知道之前，所有的策略讨论都建立在沙子上。
+
+举个非常具体的场景。你花了两个小时把双均线的参数调到历史回测最漂亮的组合，然后回到设置页一看，行情库的最新交易日停在上周，AI 的 Key 也从来没配过。那你这两个小时调出来的东西，是在一段<strong>已经过期的数据</strong>上调出来的，而它连一次实时的判断都做不了。
+
+正确的顺序就是本章的标题：<strong>安装 → 接模型 → 连数据</strong>，然后才是第 <a class="xref" href="ch25.html#ch:ch25">第二十五章</a> 章的数据维护、再往后的方案与策略。先让机器“今天能工作”，再谈它“工作得好不好”。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+几乎每个人的第一反应都是这样：弹窗挡路了，就把弹窗点掉；加载页说行情库不可用，就按“进入系统”接着用。反正界面能进去。
+
+但请把这句话读两遍：<strong>“能跑但数据是假的”，比“跑不起来”危险得多。</strong>跑不起来，你今天的动作是零；能跑但数据是假的，你会得到一个看起来很正常的错误决策，并且——按第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章的 T+1——它当天不可撤销。
+
+系统把这件事做成了一条硬约定：关键组件失败必须弹窗报错，<strong>严禁降级、严禁使用虚假数据</strong>。它宁可停在加载页上让你看见红灯，也不肯给你一个“用旧缓存顶上”的顺滑假象。那个“进入系统”的按钮是给你<strong>知情之后</strong>用的（比如你确认今天只是想让它在模拟盘上空转），不是给你绕过红灯用的。
+
+顺带一提，同样的诚实也写在数据层：行情源全部失败时，系统返回<strong>空</strong>，而不是伪造一条看起来合理的行情——这一条在第 <a class="xref" href="ch25.html#ch:ch25">第二十五章</a> 章会反复出现。
+</div></div>
+
+<h2 id="sec-24-7"><span class="hnum">24.7</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>首次运行向导（四步、默认初始资金、提供商与 Key 的保存时机、内置提供商默认表）：<code class="sysfile">ui/src/pages/WelcomeWizard.tsx</code>
+  </li><li>启动加载页的组件状态与关键标记、30 秒等待与“进入系统”按钮：<code class="sysfile">ui/src/components/InitialLoading.tsx</code>
+  </li><li>启动初始化 <code class="code">startup(ctx)</code>：十步日志、25 秒看门狗、panic 恢复、真实连通性探测 <code class="code">runStartupConnectivityCheck()</code>、<code class="code">IsReady()</code> 状态字段：<code class="sysfile">App.go</code>
+  </li><li>点 × 隐藏到托盘（<code class="code">HideToTray</code>）与真正退出（<code class="code">WindowQuit</code>）：<code class="sysfile">App.go</code>、<code class="sysfile">ui/src/components/TitleBar.tsx</code>
+  </li><li>原生 Win32 系统托盘（隐藏窗口 + 独立线程消息泵 + <code class="code">TaskbarCreated</code> 重建）：<code class="sysfile">tray_windows.go</code>
+  </li><li>单实例命名互斥量与“已在运行”对话框：<code class="sysfile">single_instance_windows.go</code>、<code class="sysfile">main.go</code>
+  </li><li>配置文件路径与出厂默认值（资金、提供商、模型、接口地址、交易模式）：<code class="sysfile">config/config.json</code>、<code class="sysfile">internal/config/config.go</code> 的 <code class="code">defaultConfig()</code>
+  </li><li>可执行文件目录推导、日志与崩溃转储路径：<code class="sysfile">main.go</code> 的 <code class="code">GetExecDir()</code>、<code class="code">setupLogging()</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十五分钟，今天就能做完）</div><div class="boxbody">
+<ol><li>把压缩包解压到一个<strong>不含中文和空格的路径</strong>（例如 <code class="code">D:</code> 盘根目录下的 <code class="code">quantbot</code> 文件夹），双击主程序，走完四步向导。第 1 步把初始资金留成默认的 100000<sup class="fn-ref"><a id="fnref-ch24-19" href="#fn-ch24-19">19</a></sup>，第 2 步选 <code class="code">deepseek</code> 并粘上你的 Key。
+  </li><li>盯着启动加载页，逐行看那几盏灯。你想要的终点是<strong>六项组件全绿</strong>（第七行“组合数据预热”也要绿）。只要有一盏红的，先别点“进入系统”，把红字读完——它已经告诉你缺什么了。
+  </li><li>进主界面后打开设置页，切到 AI 页签，核对三样东西：提供商、模型名、接口地址。再看一眼 Key 是否有效——如果启动时那次“ping”失败，加载页会明确告诉你 AI 不可用，而不是留一个空壳界面给你猜。
+  </li><li>点标题栏的 ×。窗口消失了，但程序没退：去任务栏右下角找到托盘图标，左键单击，看它是不是原样回来了。
+  </li><li>再双击一次主程序。你应该看到“程序已在运行中”的错误对话框，而不是第二个窗口——这说明单实例互斥量生效了。想真正退出，走托盘右键菜单里的“退出”。
+</li></ol>
+</div></div>
+
+到这里，机器通电了、模型接上了、通路也自检过了。你手上有一个“今天可以工作”的系统：它知道自己有多少钱、用哪个大脑、数据在哪。
+
+但“能打开行情库”和“行情库里的米是新鲜的”是两件事。下一章我们就来干这件最像家务、也最能决定后面所有结论的事——先把米下锅：数据维护的正确顺序。顺序错了，后面全是假结论。
+</article>
+<nav class="pager"><a class="prev" href="ch23.html"><span class="dir">上一页</span>第二十三章 A 股的几个硬规矩：T+1、整手与涨跌停</a><a class="next" href="ch25.html"><span class="dir">下一页</span>第二十五章 先把米下锅：数据维护的正确顺序</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch24-1"><strong>数据来源</strong> 前端 <code class="sysfile">ui/src/components/InitialLoading.tsx</code>：<code class="code">criticalFailed</code> 为真时渲染红色错误块，并显示“进入系统”按钮（<code class="code">showContinue</code>）；错误清单取自后端 <code class="code">IsReady()</code> 的 <code class="code">errors</code> 字段。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-1">↩</a></li><li id="fn-ch24-2"><strong>数据来源</strong> 系统源码 <code class="sysfile">main.go</code> 的 <code class="code">GetExecDir()</code>（<code class="code">os.Executable()</code> 取目录）与 <code class="code">setupLogging()</code>（日志写 <code class="code">exeDir/log/</code>）；崩溃转储用 <code class="code">debug.SetCrashOutput</code> 写到 <code class="code">exeDir/log/crash_dump.txt</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-2">↩</a></li><li id="fn-ch24-3"><strong>数据来源</strong> 系统源码 <code class="sysfile">main.go</code> 的 <code class="code">setupLogging()</code>：<code class="code">debug.SetCrashOutput(cf, debug.CrashOptions{})</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-3">↩</a></li><li id="fn-ch24-4"><strong>数据来源</strong> 前端 <code class="sysfile">ui/src/pages/WelcomeWizard.tsx</code>：<code class="code">step</code> 从 1 到 4，步进条为四个圆点；第 4 步的按钮触发 <code class="code">handleFinish</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-4">↩</a></li><li id="fn-ch24-5"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch24-5">↩</a></li><li id="fn-ch24-6"><strong>数据来源</strong> 默认值来自 <code class="code">WelcomeWizard</code> 里 <code class="code">useState('100000')</code>，与后端 <code class="sysfile">internal/config/config.go</code> 的 <code class="code">defaultConfig()</code> 中 <code class="code">InitialCapital: 100000.0</code> 一致。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-6">↩</a></li><li id="fn-ch24-7"><strong>数据来源</strong> 前端 <code class="sysfile">ui/src/pages/WelcomeWizard.tsx</code> 的 <code class="code">handleFinish</code>：先校验资金为正数，再 <code class="code">SetInitialCapital(capitalNum)</code>，<code class="code">apiKey.trim()</code> 非空才调 <code class="code">SetAISettings(provider, model, baseURL, apiKey)</code>，失败时在卡片里显示红色错误行。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-7">↩</a></li><li id="fn-ch24-8"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/config/config.go</code> 的 <code class="code">defaultConfig()</code>：<code class="code">AIProvider: "deepseek"</code>、<code class="code">AIModel: "deepseek-v4-flash"</code>、<code class="code">AIBaseURL: "https://api.deepseek.com"</code>；同一函数里默认交易模式为 <code class="code">simulated</code>、单票上限 <code class="code">MaxPositionSize: 0.30</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-8">↩</a></li><li id="fn-ch24-9"><strong>数据来源</strong> 前端 <code class="sysfile">ui/src/pages/WelcomeWizard.tsx</code> 的 <code class="code">AI_PROVIDER_DEFAULTS</code>：<code class="code">deepseek: { model: 'deepseek-chat', baseURL: 'https://api.deepseek.com' }</code>，<code class="code">openai</code> 为 <code class="code">gpt-4o</code>，<code class="code">claude</code> 为 <code class="code">claude-3-5-sonnet</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-9">↩</a></li><li id="fn-ch24-10"><strong>数据来源</strong> 前端 <code class="sysfile">ui/src/components/InitialLoading.tsx</code>：<code class="code">maxWaitTime = 30000</code>（单位毫秒），<code class="code">setTimeout(poll, 1000)</code> 顺序轮询，超时后置 <code class="code">initFailed=true</code> 并显示“进入系统”按钮。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-10">↩</a></li><li id="fn-ch24-11"><strong>数据来源</strong> 系统源码 <code class="sysfile">App.go</code> 的 <code class="code">runStartupConnectivityCheck()</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-11">↩</a></li><li id="fn-ch24-12"><strong>数据来源</strong> 系统源码 <code class="sysfile">App.go</code> 的 <code class="code">startup(ctx)</code> 开头：<code class="code">time.NewTimer(25 * time.Second)</code> 的看门狗协程，以及紧随其后的 <code class="code">defer func() { if r := recover(); ... }()</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-12">↩</a></li><li id="fn-ch24-13"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch24-13">↩</a></li><li id="fn-ch24-14"><strong>数据来源</strong> 系统源码 <code class="sysfile">App.go</code> 的 <code class="code">startup(ctx)</code>：日志依次打印 <code class="code">[Step 1/10]</code> 配置、<code class="code">[Step 2/10]</code> SQLite、<code class="code">[Step 3/10]</code> DuckDB、<code class="code">[Step 4/10]</code> TDX 服务、<code class="code">[Step 5/10]</code> Harness、<code class="code">[Step 6/10]</code> LLM 客户端与 MCP、<code class="code">[Step 7/10]</code> 任务执行器、<code class="code">[Step 8/10]</code> 智能体与引擎、<code class="code">[Step 9/10]</code> 服务与审计、<code class="code">[Step 10/10]</code> 调度与编排。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-14">↩</a></li><li id="fn-ch24-15"><strong>数据来源</strong> 系统源码 <code class="sysfile">App.go</code> 的 <code class="code">HideToTray()</code>：注释写明“隐藏主窗口到系统托盘（标题栏×）：进程与后台任务（调度/回测/监控）继续运行”。调度主循环 30 秒 ticker 见系统事实清单第 6 节。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-15">↩</a></li><li id="fn-ch24-16"><strong>数据来源</strong> 系统源码 <code class="sysfile">App.go</code> 的 <code class="code">WindowQuit()</code> 与 <code class="sysfile">tray_windows.go</code> 的 <code class="code">showTrayContextMenu()</code>：菜单项 ID 1 为“显示主界面”、2 为“退出”，回调分别触发 <code class="code">onTrayShow</code> / <code class="code">onTrayQuit</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-16">↩</a></li><li id="fn-ch24-17"><strong>数据来源</strong> 系统源码 <code class="sysfile">tray_windows.go</code>：<code class="code">runTrayAsync</code> 里 <code class="code">runtime.LockOSThread()</code> 后创建窗口并进入 <code class="code">GetMessage</code> 循环；文件头注释记录了“Wails startup 常跑在非主线程且不带消息泵，托盘消息无人派发导致菜单弹不出来”这一真实问题。另监听 <code class="code">TaskbarCreated</code> 以便资源管理器重启后重建图标。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-17">↩</a></li><li id="fn-ch24-18"><strong>数据来源</strong> 系统源码 <code class="sysfile">single_instance_windows.go</code> 的 <code class="code">SingleInstance()</code>：<code class="code">CreateMutexW</code> + <code class="code">GetLastError() == ERROR_ALREADY_EXISTS(183)</code>，非首实例会 <code class="code">CloseHandle</code> 并返回 <code class="code">false</code>；<code class="sysfile">main.go</code> 中 <code class="code">!isFirst</code> 分支调用 <code class="code">showAlreadyRunningDialog()</code> 后 <code class="code">os.Exit(0)</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch24-18">↩</a></li><li id="fn-ch24-19"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch24-19">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

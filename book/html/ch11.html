@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>什么叫“这只股票不错”？—— 从感觉到因子 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·什么叫“这只股票不错”？—— 从感觉到因子">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch11.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html" class="current"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a><ul class="sub"><li><a href="#sec-11-1">11.1 我的备注栏里，写着三十七个“不错”</a></li><li><a href="#sec-11-2">11.2 如果你说“不错”，我问你三个问题</a></li><li><a href="#sec-11-3">11.3 不把它变成数字，会发生什么</a></li><li><a href="#sec-11-4">11.4 因子，是一种可以被检验的偏见</a></li><li><a href="#sec-11-5">11.5 它在系统里长什么样</a></li><li><a href="#sec-11-6">11.6 本章的真实出处</a></li></ul></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<div class="part-banner"><div class="plabel">第二部分</div><div class="ptitle">量化交易原理：把“感觉”变成“可以计算的东西”</div></div><article class="page">
+<h1 id="ch:ch11"><span class="cnum">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</h1>
+
+
+
+
+
+<h2 id="sec-11-1"><span class="hnum">11.1</span>我的备注栏里，写着三十七个“不错”</h2>
+
+二零二六年九月十日，星期四，收盘之后。
+
+那天市场很难看。收盘后系统落库的判势记录里，市场标签是<strong>退潮风险</strong>，建议仓位系数 0.10<sup class="fn-ref"><a id="fnref-ch11-1" href="#fn-ch11-1">1</a></sup>系统运行库 <code class="dbtab">market_sixdim_daily</code> 的 2026-09-10 记录；核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch11-2" href="#fn-ch11-2">2</a></sup>。
+
+我关掉行情软件，打开自选股。备注栏是我自己加的小格子，平时随手写两个字，方便下次点进来时想起当初为什么把它放进来。
+
+那天我往下翻了一遍，数了数：备注栏里写着“不错”的，有三十七个。
+
+我挑出其中一只，试着把“为什么不错”讲清楚。讲得出完整理由的，不到五只。其余那些，我能说出口的句子长这样：
+
+<ul><li>“感觉它要动了。”
+  </li><li>“有人在进。”
+  </li><li>“跌不动了。”
+</li></ul>
+
+这三句话有一个共同点：它们都不可被检验。三个月以后再回来看，我甚至没法判断当初说对了没有——“要动了”没有一把尺子可以对。
+
+这就是我打算从这一章开始解决的事。第二部分整部分的题目只有一个：<strong>投资里哪些东西真的可以被计算，哪些不能；以及被计算的那部分，误差从哪来</strong>。
+
+<h2 id="sec-11-2"><span class="hnum">11.2</span>如果你说“不错”，我问你三个问题</h2>
+
+那天晚上，我给自己出了三道题。每题都只问一件事，而且都必须用一个数来回答。
+
+<strong>第一题：它比同行贵，还是便宜？</strong>
+不是问它的股价高不高，而是问它的价格相对它自己赚的钱、相对它自己的净资产，在同一个行业里排第几。我答不上来——因为我根本不知道同行现在的估值是多少。
+
+<strong>第二题：它的利润在增长吗？</strong>
+我有“印象”，但印象来自三个月前看过的某篇公众号。我更该知道的是：最近一期已公告的报表里，营业收入同比是多少，净利润同比是多少，公告日是哪天。这三个数我一个都报不出来。
+
+<strong>第三题：它最近是在走强，还是在走弱？</strong>
+这个我以为最不该答错。可我发现我连“最近”是指五个交易日还是二十个交易日都说不清，更别说跟大盘比、跟同板块比。
+
+三题问完，我得到一个不太舒服的结论：
+
+<strong>你答不上来，那你说出口的就不是观点，是情绪。</strong>
+
+情绪不是坏东西。它是我按下买入键的最后那点推力。但它不能是那个按键的<strong>理由</strong>——理由必须能拿出来给别人看，也要能在三个月后拿出来给我自己看。
+
+<div class="box intuition"><div class="boxbody">
+你四十岁，跟医生说“我身体挺好”。医生没跟你争，他开了一张单子：抽血、验尿、心电图、血压、肝功能、肾功能、血脂……二十项。
+
+三天后你拿到报告，其中三项标了红。
+
+你依然感觉“挺好”。可你已经不能再说“我身体挺好”了——你只能说“我有三项偏离了参考值，其中一项偏离得不轻”。
+
+“挺好的”和“有三项偏高”，差别不在准不准，而在<strong>能不能被核对</strong>。医生不需要相信你的感觉，他只需要看那二十个数字，并且知道每个数字是谁在什么时候测的。
+</div></div>
+
+<h2 id="sec-11-3"><span class="hnum">11.3</span>不把它变成数字，会发生什么</h2>
+
+我把“不量化”的代价数了一遍，一共四条。
+
+<strong>无法检验。</strong>“要动了”这句话永远对。涨了叫“果然”，跌了叫“被大盘拖累”。一句标准可以随时改口径的话，等于没有信息。
+
+<strong>无法复制。</strong>三个月后我想再做一次同样的判断，可我连当初依据的是哪几个数都找不回来。不能复制的东西，学不会，也改不动。
+
+<strong>无法排序。</strong>这是最要命的一条。假设自选股里有十只都被我判断为“不错”，我要买几只？买哪几只？资金只有五万，最多买五只。没有一把共同的尺子，我就只能凭“谁最近更让我心动”来排——那又回到了情绪。
+
+<strong>无法归咎。</strong>一笔亏损发生之后，我不知道该改哪一环。是选股选错了，还是买点错了，还是仓位给大了？如果没有把每个环节拆成可核对的小格，我的每一次“复盘”最后都会变成一句“下次注意”。
+
+四条代价指向同一件事：我需要一个中间层，把“不错”翻译成一组能被别人重复算出来的数。那个中间层，就是因子。
+
+<div class="box intuition"><div class="boxbody">
+一位老瓜农敲一敲就知道甜不甜。你问他凭什么，他说“手感”。
+
+手感是好东西——他自己靠它赚了几十年。但他没法把手感教给学徒，也没法验证自己今天手感有没有失灵。
+
+把“手感”拆开，它就变成几件别人也能测的事：敲击声的频率、瓜蒂的颜色、底部黄斑的面积。这三件事各自都不等于“甜”，但把它们合起来，就能得到一把学徒也能用、也能被检验的尺子。
+
+<strong>因子就是被拆开、被称过重量的手感。</strong>
+</div></div>
+
+<h2 id="sec-11-4"><span class="hnum">11.4</span>因子，是一种可以被检验的偏见</h2>
+
+先说一个“差不多对”的说法：因子就是给每只股票打一个分，分高的排前面。
+
+这句话抓住了七成。它漏掉的二成，恰恰是工程上最容易翻车的地方——<strong>这个“分”是从哪里来的</strong>。所以下面把它写严谨一点。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">11.1</span>（因子）</div>
+给定一个交易日 \(t\) 和一个股票集合 \(\mathcal{U}\)，一个<strong>因子</strong> \(f\) 是把每只股票映射成一个实数的函数
+<div class="math-scroll">\[f:\mathcal{U}\to\R,\qquad u\mapsto f(u).\]</div>
+\(f(u)\) 叫股票 \(u\) 在该因子上的<strong>原始值</strong>。同一交易日 \(t\) 上所有股票的原始值，构成一个<strong>横截面</strong>。
+</div>
+
+如果只写到这里，“因子”和“随便给个分”没有区别。要让它真的可用，必须同时满足三个条件。
+
+<strong>一是能取到。</strong>原始值必须能从可复现的数据源里按公式算出来。取不到就报错，不许用别的数据凑。
+系统里所有的行情与财务都来自本地行情库 <code class="dbtab">stock.ohlc</code> 与 <code class="dbtab">stock.financial_report</code>；选股入口先校验行情库是否挂载，未挂载时直接抛错“行情数据库(stock.duckdb)未挂载”，<strong>不返回假数据</strong>。
+
+<strong>二是能对齐。</strong>只有在同一个时间点上取到的值，才能放在一起比较。
+这里最常见的病叫<strong>前视偏差</strong>：拿二零二六年四月才公告的年报，去给二零二五年十二月的股票打分，等于翻到答案再考试。系统的做法是财务数据一律按公告日 <code class="field">ann_date</code> 取数，选股时只取“截至当天已经披露”的那一期。
+
+<strong>三是能排序。</strong>原始值必须能比大小，而且比的方向要写清楚。
+“波动率”这个因子，数值越大越差；“账面市值比”这个因子，数值越大越好。同一个“越大”，含义相反。方向写反一次，整张榜就倒过来了。
+
+<div class="box keybox"><div class="boxtitle">“可计算”的三个条件</div><div class="boxbody">
+<strong>能取到</strong>（有可复现的来源）\(\Rightarrow\) <strong>能对齐</strong>（同一时间截面）\(\Rightarrow\) <strong>能排序</strong>（方向明确）。<br>
+
+三条缺一条，得到的都不是因子，是说法。
+</div></div>
+
+三个条件都满足了，原始值仍然不能直接相加：市盈率 8 倍和 80 倍之间的距离，跟“动量 3% 和 30%”之间的距离，不是同一种距离。所以要先做<strong>横截面标准化</strong>，也就是常说的 z-score：
+
+<div class="math-scroll" id="eq:ch11-zscore">\[z_i \;=\; \frac{x_i-\mu}{\sigma},\qquad
+\mu=\frac{1}{n}\sum_{j=1}^{n}x_j,\qquad
+\sigma=\sqrt{\frac{1}{n}\sum_{j=1}^{n}(x_j-\mu)^2}, \tag{11.1}\]</div>
+
+这里 \(x_1,\dots,x_n\) 是横截面上 \(n\) 只股票的因子原始值。
+
+这个符号在讲什么：\(\mu\) 是这一群股票的平均水平，\(\sigma\) 是它们的分散程度。\(z_i\) 回答的是“这只股票比平均高了几个身位”。贵不贵、强不强，都被换算成了同一个单位——身位。
+
+这个换算有三个我一开始没想到的后果，它们全都属于“误差从哪来”：
+
+<strong>其一，\(z\) 只在当天这一群股票里有意义。</strong>今天算出的 \(z=1.5\)，是在今天的股票池里比平均高 1.5 个身位；换一个股票池，这个数就变了。它不是这只股票的固有属性。
+
+<strong>其二，\(\sigma\) 太小时会爆掉。</strong>如果横截面上所有股票的值几乎一样，\(\sigma\) 接近零，除法会把噪声放大成天文数字。系统在 <code class="sysfile">internal/screener/factor_engine.go</code> 里的处理是：当 \(\sigma&lt;10^{-10}\) 时强制令 \(\sigma=1\)。等于承认“这一群股票在这个因子上没有可分辨的差异”，于是谁都拿不到加分。
+
+<strong>其三，反向因子必须翻号。</strong>\(z_i\) 越大分越高，这对“越小越好”的因子是反的。低估的股票会被排到最后一名去。
+
+到这一步，我终于可以把“不错”翻译成一句可以被核对的话了：
+
+<div class="box keybox"><div class="boxtitle">“这只股票不错”的可检验版本</div><div class="boxbody">
+在二零二六年九月十日的全市场截面上，这只股票的<strong>价值因子分 78、质量因子分 65、动量因子分 41、低波动因子分 52、盈利稳定因子分 60、流动性因子分 88</strong>，按均衡模板加权后总分落在候选池前 \(5\%\)。
+</div></div>
+
+这句话可以被检验、可以被复制、可以被排序，也可以被归咎——如果它错了，我知道该去查哪一项。
+
+<h2 id="sec-11-5"><span class="hnum">11.5</span>它在系统里长什么样</h2>
+
+上面讲的都是“应该怎样”。系统里对应的是两个文件。
+
+第一件事，是把原始值变成分数。<code class="sysfile">internal/screener/factor_engine.go</code> 里有两把尺子，一把给正向因子，一把给反向因子：
+
+<figure class="listing" id="{lst:ch11-ruler}"><figcaption><span class="lbl">代码 11.1</span>两把尺子：正向与反向（节选自 <code class="sysfile">internal/screener/factor_engine.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 正向因子：值越大分越高</span></span>
+<span class="cl"><span class="kw">func</span> zScoreTo0100(value, mean, stdDev <span class="kw">float64</span>) <span class="kw">float64</span> {</span>
+<span class="cl">    z := (value - mean) / stdDev</span>
+<span class="cl">    sigmoid := 1.0 / (1.0 + math.Exp(-z))</span>
+<span class="cl">    <span class="kw">return</span> sigmoid * 100</span>
+<span class="cl">}</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 反向因子（值越低越好）</span></span>
+<span class="cl"><span class="kw">func</span> inverseZScoreTo0100(value, mean, stdDev <span class="kw">float64</span>) <span class="kw">float64</span> {</span>
+<span class="cl">    z := (mean - value) / stdDev</span>
+<span class="cl">    sigmoid := 1.0 / (1.0 + math.Exp(-z))</span>
+<span class="cl">    <span class="kw">return</span> sigmoid * 100</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：注意这里用的不是一条直线，而是一条 \(S\) 形曲线（logistic 函数）。它把 \(z\) 压到 \(0\) 到 \(100\) 之间，中间陡、两头平。第 12 章我会证明“压到两头平”意味着什么，也会讲清它和“线性截断”的区别。
+
+第二件事，是把分数合成一个总分。<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的主流程是这样一行一行加起来的：
+
+<figure class="listing" id="{lst:ch11-weight}"><figcaption><span class="lbl">代码 11.2</span>加权总分（节选自 <code class="sysfile">internal/screener/pro_factor_engine.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="kw">var</span> totalScore <span class="kw">float64</span></span>
+<span class="cl"><span class="kw">for</span> factorID, weight := <span class="kw">range</span> weights {</span>
+<span class="cl">    <span class="kw">if</span> fs, ok := factorScores[factorID]; ok {</span>
+<span class="cl">        totalScore += fs.Score * weight</span>
+<span class="cl">    }</span>
+<span class="cl">}</span>
+<span class="cl">totalScore = roundScore(totalScore)</span></code></pre></figure>
+
+这段话在说什么：总分没有别的玄机，就是把每个因子得分乘上它的权重，再加起来。注意那个 <code class="code">if ok</code>——只有这只股票在这个因子上有有效分数时才加。这个不起眼的判断，后面第 12 章会指出它是“不同股票之间可比性被打破”的入口。
+
+第三件事，是规定因子的展示顺序。因子在界面上、在公式字符串里、在日志里，都必须按同一套顺序出现——否则同一份策略，两个人看到的公式会不一样：
+
+<figure class="listing" id="{lst:ch11-order}"><figcaption><span class="lbl">代码 11.3</span>固定因子顺序（节选自 <code class="sysfile">internal/screener/factor_engine.go</code>）</figcaption><pre class="code"><code><span class="cl">factorOrder := []FactorID{</span>
+<span class="cl">    FactorValue,             <span class="com">// value               价值</span></span>
+<span class="cl">    FactorQuality,           <span class="com">// quality             质量</span></span>
+<span class="cl">    FactorMomentum,          <span class="com">// momentum            动量</span></span>
+<span class="cl">    FactorLowVolatility,     <span class="com">// low_volatility      低波动</span></span>
+<span class="cl">    FactorEarningsStability, <span class="com">// earnings_stability  盈利稳定</span></span>
+<span class="cl">    FactorLiquidity,         <span class="com">// liquidity           流动性</span></span>
+<span class="cl">    FactorOrderBook,         <span class="com">// order_book          盘口</span></span>
+<span class="cl">    FactorCointegration,     <span class="com">// cointegration       配对/协整</span></span>
+<span class="cl">}</span></code></pre></figure>
+
+八个因子的清单见表 <a class="xref" href="ch11.html#tab:ch11-factors">表 11.1</a>。请注意最后一列——它就是我前面说的“能排序”里那个方向，写错了整张榜会倒过来。
+
+<figure class="tbl" id="tab:ch11-factors"><div class="tbl-scroll"><table><caption><span class="lbl">表 11.1</span>系统里的八个因子（固定顺序）</caption><tbody><tr><td><strong>常量</strong></td><td><strong>序列化名</strong></td><td><strong>中文</strong></td><td><strong>方向（分数越高代表什么）</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td><code class="code">FactorValue</code></td><td><code class="code">value</code></td><td>价值</td><td>正向：相对更便宜</td></tr><tr><td><code class="code">FactorQuality</code></td><td><code class="code">quality</code></td><td>质量</td><td>正向：更能赚钱、负债更轻</td></tr><tr><td><code class="code">FactorMomentum</code></td><td><code class="code">momentum</code></td><td>动量</td><td>正向：近期走势更强</td></tr><tr><td><code class="code">FactorLowVolatility</code></td><td><code class="code">low_volatility</code></td><td>低波动</td><td>反向：波动越小越好（走反向尺子）</td></tr><tr><td><code class="code">FactorEarningsStability</code></td><td><code class="code">earnings_stability</code></td><td>盈利稳定</td><td>正向：越稳越好</td></tr><tr><td><code class="code">FactorLiquidity</code></td><td><code class="code">liquidity</code></td><td>流动性</td><td>正向：越容易买卖越好</td></tr><tr><td><code class="code">FactorOrderBook</code></td><td><code class="code">order_book</code></td><td>盘口</td><td>正向：买盘越主动越好</td></tr><tr><td><code class="code">FactorCointegration</code></td><td><code class="code">cointegration</code></td><td>配对协整</td><td>反向：相对市场越超卖越有吸引力（走反向尺子）</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabnote">序列化名即 <code class="dbtab">FactorQuality</code> 表中的 <code class="field">factor_name</code> 键；固定展示顺序由 <code class="code">buildFormulaString</code> 保证。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/screener/factor_engine.go</code>、<code class="sysfile">internal/screener/pro_factor_engine.go</code>；核对时间 2026-09-24。</p></figure>
+
+整条链路画出来只有五个格子：
+
+<figure class="fig" id="fig:ch11-chain"><img class="tikz" src="assets/tikz/tikz-07.svg" alt="示意图"><figcaption><span class="lbl">图 11.1</span>从“感觉”到“可排序”的五步。前三步在横向截面上完成，后两步才产生名次。</figcaption></figure>
+
+<div class="box pitfall"><div class="boxbody">
+我最早的一个误解是：既然因子能排名次，那选出来的第一名应该就是明天涨得最多的那只。
+
+不是。因子是一个<strong>排序工具</strong>，它只回答一个问题：<strong>在这群股票里，谁更靠前</strong>。
+
+“靠前”是一个相对的、统计意义上的说法。它意味着，把历史上所有这样的横截面都拿出来，靠前那一组的平均表现好于靠后那一组。它完全不承诺今天这一只、明天这一周会怎样。
+
+理解了这一点，就能接受两件让新手很难受的事：第一，因子选出的票照样会跌，而且经常跌得毫不含糊；第二，判断一个因子好不好，不能用“它上次选的那只涨没涨”，而要用第 14 章要讲的 IC 那类统计量——那是拿几百个横截面一起算出来的东西。
+
+把相对结论当绝对承诺，是量化里最常见的一种自伤。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“那我多加几个因子，是不是就更准了？”——我干过这件事，结果更差了。
+
+原因在于总分是加权求和（清单 代码 11.2）。每加一个因子，就等于在总分里掺进一股新的成分：
+<ul><li>如果这个因子携带的信息和已有的因子高度重复，它带来的<strong>不是新信息，而是权重的偏移</strong>——某一类特征被重复计了两次，总分开始偏向那一边；
+  </li><li>如果这个因子和自己的排名毫不相关，它带来的主要是噪声，会把真正有区分度的那几个因子的信号<strong>稀释</strong>掉。
+</li></ul>
+所以因子的数量不是越多越好，筛子反而是越干净越好：留下能吃住不同误差来源的那些因子，把重复的、无效的剔掉。第 14 章会给出判断“有没有效”的具体指标，第 15 章会给出判断“是不是碰巧有效”的检验。
+</div></div>
+
+<h2 id="sec-11-6"><span class="hnum">11.6</span>本章的真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>原始值统计量与 \(\sigma\) 退化保护（\(\sigma&lt;10^{-10}\Rightarrow\sigma=1\)）：<code class="sysfile">internal/screener/factor_engine.go</code> 的 <code class="code">computeStats</code>
+  </li><li>正向 / 反向两把尺子：<code class="sysfile">internal/screener/factor_engine.go</code> 的 <code class="code">zScoreTo0100</code>、<code class="code">inverseZScoreTo0100</code>
+  </li><li>固定因子顺序与公式字符串：<code class="sysfile">internal/screener/factor_engine.go</code> 的 <code class="code">buildFormulaString</code>
+  </li><li>加权总分主流程：<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">computeWeightedProScores</code>
+  </li><li>原始值收集（含财务按公告日取数）：<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">collectProFactorValues</code>
+  </li><li>选股入口与行情库校验：<code class="sysfile">internal/screener/screener_service.go</code> 的 <code class="code">ScreenStock</code>
+  </li><li>前端选股页与公式展示：<code class="sysfile">ui/src/pages/</code> 下的选股页面，路由表在 <code class="sysfile">ui/src/App.tsx</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十分钟）</div><div class="boxbody">
+<ol><li>打开系统，进入<strong>选股</strong>页，选上任意一个策略模板，让它在全市场跑一次。
+  </li><li>在结果列表里挑一只票，展开它的因子明细，看八个因子的分数。
+  </li><li>把界面上显示的公式抄下来。对照表 <a class="xref" href="ch11.html#tab:ch11-factors">表 11.1</a> 的顺序，确认它确实按 <code class="code">value</code> 到 <code class="code">order_book</code> 的顺序在展示。
+  </li><li>现在自己回答三个问题：这只票<em>为什么</em>排在前面？它在哪一项上赢了？如果它的流动性因子分只有 20 分，它还会出现在这张表里吗？（答案在第 12 章。）
+  </li><li>最后做一个思想实验：把这只票的原始值 \(x\) 换成全市场最高的一只票的原始值，它的分数会变成多高？再想一想：如果全市场的 \(\sigma\) 忽然变得很小，会发生什么？（回到本节讲 \(\sigma\) 退化保护那一段。）
+</li></ol>
+</div></div>
+
+到这里，“不错”已经被翻译成了八个 0 到 100 之间的数。但只写定义式是不够的：把 \(z\) 变成分数这一步，究竟<strong>丢掉了什么信息</strong>？把八个分数加权求和，又凭什么说总分高的一定“都不差”？
+
+下一章会把这两件事各写成一个命题，一步一步证给你看，然后再把六个体检科和盘口因子逐个拆开——它是我在系统里第一次遇到“今天几点几分的数据，明天才敢用”的地方。
+</article>
+<nav class="pager"><a class="prev" href="ch10.html"><span class="dir">上一页</span>第十章 黑匣子：怎么证明这个决策不是瞎猜的？</a><a class="next" href="ch12.html"><span class="dir">下一页</span>第十二章 给股票做一次体检：六大因子与盘口</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch11-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch11-1">↩</a></li><li id="fn-ch11-2"><strong>数据来源</strong> 系统运行库 <code class="dbtab">market_sixdim_daily</code> 的 2026-09-10 记录；核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch11-2">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

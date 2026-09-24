@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>给股票做一次体检：六大因子与盘口 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·给股票做一次体检：六大因子与盘口">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch12.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html" class="current"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a><ul class="sub"><li><a href="#sec-12-1">12.1 我的第一版选股，只量了一件事</a></li><li><a href="#sec-12-2">12.2 六个科室，各防一种病</a></li><li><a href="#sec-12-3">12.3 盘口：唯一一个“今天几点几分”的因子</a></li><li><a href="#sec-12-4">12.4 从原始值到分数：一个近似模型和它的三个结论</a></li><li><a href="#sec-12-5">12.5 它在系统里长什么样</a></li><li><a href="#sec-12-6">12.6 常见误解与纠偏</a></li><li><a href="#sec-12-7">12.7 本章的真实出处</a></li></ul></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch12"><span class="cnum">第十二章</span>给股票做一次体检：六大因子与盘口</h1>
+
+
+
+
+
+<h2 id="sec-12-1"><span class="hnum">12.1</span>我的第一版选股，只量了一件事</h2>
+
+上一章讲完因子，我做的第一件事是给代码加一个“涨幅榜选股”：谁最近二十天涨得最多，就排在前面。
+
+跑出来的前五名我到现在还记得——三只是同一个板块里的两融标的，走势几乎重叠。它们同一天涨，也同一天跌。
+
+那一刻我才明白我干了一件很蠢的事：我以为自己买了五只票，其实只下了<strong>一个注</strong>。这五只票的风险来自同一件事，它们只是同一件事的五种写法。
+
+更麻烦的是，我自己完全看不出来。涨幅榜只量了“最近涨了多少”这一件事，而让它们同时下跌的那个原因，恰好不在这一件事里。
+
+<div class="box intuition"><div class="boxbody">
+你去做体检，医生不会只给你量一项。
+
+量体重，看不出肝脏；查肝功能，看不出血脂；做心电图，看不出甲状腺。所以单子上列了二十项，每项都对应一类会出的问题。
+
+注意这张单子的写法：它不承诺“二十项全绿就等于健康”，也不承诺“有一项红就一定生病”。它给的是一张<strong>分工明确的清单</strong>——“这一项负责盯这个病，那一项负责盯那个病”。
+
+股市里的因子表就是这张化验单。区别只有一个：化验单是按器官分的，因子表是按<strong>人性偏差</strong>分的。
+</div></div>
+
+<h2 id="sec-12-2"><span class="hnum">12.2</span>六个科室，各防一种病</h2>
+
+为什么要六个，而不是一个或者二十个？上一章已经说过“指标多了会稀释信号”。所以这六个不是拍脑袋凑的，每一个都对应一类在真实市场里反复出现的、能被说清楚的偏差。
+
+下面这张表就是六个体检科的门牌。第三列是我最想让你记住的——每一项化验单，防的是哪种病。
+
+<figure class="tbl" id="tab:ch12-six"><div class="tbl-scroll"><table><caption><span class="lbl">表 12.1</span>六个体检科：每个因子试图捕捉哪种人性偏差、防哪种病</caption><tbody><tr><td><strong>因子（科室）</strong></td><td><strong>它试图捕捉的偏差</strong></td><td><strong>它防的那种病</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>价值</td><td>市场对“故事”反应过度、对“便宜”反应不足，好公司长期被定低价</td><td>为故事付出太高的价钱</td></tr><tr><td>质量</td><td>市场常把“增长快”当成“会赚钱”，忽略了盈利能不能变成现金</td><td>把会计利润错当成还款能力</td></tr><tr><td>动量</td><td>新信息出来以后，市场消化得比想象中慢，趋势会延续一段</td><td>抄底抄在半山腰、早早卖飞强势股</td></tr><tr><td>低波动</td><td>投资者偏爱“彩票型”资产，高波动股票被系统性追捧、低波动被冷落</td><td>账户天天坐过山车，拿不住</td></tr><tr><td>盈利稳定</td><td>业绩忽上忽下的公司更难被预测，市场为这种不确定性打折</td><td>重仓踩上业绩爆雷</td></tr><tr><td>流动性</td><td>小票有流动性溢价，但对小资金来说“买了跑不掉”是致命的</td><td>想卖的时候没人接</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">每个因子的方向与实现见 <code class="sysfile">internal/screener/pro_factor_engine.go</code>；“防哪种病”是本书对因子经济含义的归纳，不是源码里的注释。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/screener/pro_factor_engine.go</code>、<code class="sysfile">internal/screener/types.go</code>；核对时间 2026-09-24。</p></figure>
+
+六个科室里，价值与质量用的是<strong>真金白银的财报</strong>：价值因子优先取真实财务的 EP（每股收益除以现价）与 BP（每股净资产除以现价），也就是“按赚钱能力和家底算，这个价钱贵不贵”；质量因子取 ROE、毛利率、净利率，并把资产负债率<strong>取负号</strong>加进来。两者都在财务数据缺失时才退回技术代理值。
+
+动量因子取的是 1 月、3 月、6 月三个周期的收益，按 \(0.2/0.3/0.5\) 合成——短周期给低权重、长周期给高权重，因为短周期更容易被噪声带跑。
+
+低波动因子走的是反向尺子：波动越小，分越高。盈利稳定因子用的是成交量的变异系数取负号（成交越稳，越像一家“有正经生意”的公司）。流动性因子用近十个交易日的平均成交额，它同时是打分因子，也是下一节的硬门槛。
+
+<div class="box pitfall"><div class="boxbody">
+这是我最早也最贵的一个教训。
+
+分散不是说“持仓数量大于一”，而是说“持仓的风险来源不止一个”。上一章我用涨幅榜选出来的五只票，持仓数量是五，风险来源是一。
+
+判断自己是真分散还是假分散，不需要复杂的模型：把候选股的因子得分表打开，看那一列因子分数是不是<strong>齐刷刷朝同一个方向</strong>。如果五只票都是动量 90 分、价值 20 分，那你持有的不是五只股票，是一个方向的一倍杠杆。
+
+这也是为什么总分的加权是“把不同科室的结论加起来”，而不是“看谁喊得响”——第 13 章会证明这句话的数学含义。
+</div></div>
+
+<h2 id="sec-12-3"><span class="hnum">12.3</span>盘口：唯一一个“今天几点几分”的因子</h2>
+
+六个科室看的都是日线级别的历史。第七个因子不一样，它看的是<strong>盘口</strong>——也就是买卖挂单和成交方向。
+
+它想回答的是一个非常具体的问题：此刻这笔资金，是抢着买，还是急着卖？
+
+它由两半合成：
+
+<strong>一半是量比。</strong>量比衡量“今天的成交量是平时的几倍”。放量说明这只票今天有人来了。
+<strong>一半是内外盘。</strong>主动卖出的成交额算<strong>内盘</strong>，主动买入的算<strong>外盘</strong>。内盘占比越低，说明买盘越主动。所以这一半用的是 \((1-\text{内盘占比})\)。
+
+两半各占一半，合成一个 \(0\) 到 \(1\) 的原始值：
+
+<div class="math-scroll" id="eq:ch12-ob">\[\text{raw}_{\text{ob}} \;=\; \Bigl(0.5\cdot \tilde{v} \;+\; 0.5\cdot (1-\rho_{\text{in}})\Bigr)\cdot\bigl(1-p\bigr), \tag{12.1}\]</div>
+
+其中 \(\tilde{v}=\dfrac{\min(\max(\text{量比},0),\,5)}{5}\in[0,1]\) 是把量比先截断在 \([0,5]\) 再归一到 \(0\) 到 \(1\)，\(\rho_{\text{in}}\in[0,1]\) 是内盘占比，\(p\) 是状态罚分。
+
+这个符号在讲什么：前一个括号是“这只票今天有多活跃、买盘有多主动”，取值 \(0\) 到 \(1\)；后一个括号是“但今天它的交易状态值不值得信”，\(p\) 越大，折得越狠。
+
+罚分 \(p\) 是这一节最有意思的地方——它不是按“涨得多还是跌得多”来罚的，而是按“<strong>能不能成交</strong>”来罚的：
+
+<figure class="tbl" id="tab:ch12-penalty"><div class="tbl-scroll"><table><caption><span class="lbl">表 12.2</span>盘口状态罚分 \(p\)</caption><tbody><tr><td><strong>盘口状态</strong></td><td><strong>罚分 \(p\)</strong></td><td><strong>为什么这样罚</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>跌停封死</td><td>1.0</td><td>卖单压在跌停上排队，根本卖不掉</td></tr><tr><td>跌停打开</td><td>1.0</td><td>跌停被打开意味着随时可能再封回去，同样是“跑不掉”</td></tr><tr><td>巨量跌停</td><td>1.0</td><td>量比 \(\ge 2\) 且触及跌停，放量出逃</td></tr><tr><td>涨停封死</td><td>0.6</td><td>买单排到涨停上，买不进，选出来也成交不了</td></tr><tr><td>正常 / 涨停打开</td><td>0</td><td>能正常成交，不折价</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">盘口五态的判定在 <code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code>；封死阈值 <code class="code">sealThreshold</code> 取 \(\max(1000\text{ 手},\ \text{当日成交量}\times 10\%)\)。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">calcOrderBookFactorValue</code>、<code class="sysfile">internal/orderbook/orderbook.go</code>；核对时间 2026-09-24。</p></figure>
+
+注意“跌停封死”罚满（\(p=1\)）意味着原始值直接变成零——这只票在盘口因子上拿不到任何分。这是刻意的：一只今天卖不掉的票，无论它多便宜，都不该在“明天要买什么”的名单里排前面。
+
+<div class="box intuition"><div class="boxbody">
+相亲角的打分表上有身高、学历、收入、性格。每项都有权重。
+
+有意思的不是打分表，而是那张表背面写着的东西：为什么要有“收入”这一项？因为它防的是“聊得很来但完全没法过日子”；为什么要有“性格”这一项？因为它防的是“条件都好但待在一起很累”。
+
+<strong>每一项都不是为了夸人，是为了防一种失败。</strong>
+
+因子表也一样。价值防“买贵了”，低波动防“拿不住”，流动性防“跑不掉”，盘口防“买不进也卖不出”。你看到一份因子表，先别问“哪项最重要”，先问“每一项在防什么”。
+</div></div>
+
+<h2 id="sec-12-4"><span class="hnum">12.4</span>从原始值到分数：一个近似模型和它的三个结论</h2>
+
+原始值算出来以后，还要变成 \(0\) 到 \(100\) 的分数。这一步我在上一章给了公式，但没有证明它到底干了什么。现在补上。
+
+为了把性质看清楚，先用一个“差不多对”的模型：把 \(z\) 线性放大再截断，也就是
+<div class="math-scroll" id="eq:ch12-clamp">\[s_i \;=\; \clamp\bigl(50+10\,z_i,\ 0,\ 100\bigr),\qquad
+\clamp(u,0,100):=\min\bigl(\max(u,0),\,100\bigr). \tag{12.2}\]</div>
+这条规则的直觉是：\(z=0\)（等于截面平均）给 50 分，每高一个标准差加 10 分，每低一个标准差减 10 分，超出 \(0\) 到 \(100\) 的部分一律切平。
+
+系统真正用的不是这条直线，而是一条 \(S\) 形曲线（上一章那两把尺子里的 logistic 函数 \(100/(1+e^{-z})\)）。<strong>这个近似在哪里失效，我下面马上写清楚</strong>。先用直线，是因为它的性质能被一眼看穿。
+
+<div class="box keybox"><div class="boxtitle">四个结论，先看结论再看证明</div><div class="boxbody">
+<ol><li>排序不会被打乱：原始值高的，分数不会更低（命题 <a class="xref" href="ch12.html#prop:ch12-mono">命题 12.1</a>）。
+  </li><li>但“高一点”不等于“分高一点”：两端会被压平（命题 <a class="xref" href="ch12.html#prop:ch12-mono">命题 12.1</a>）。
+  </li><li>反向因子只是把整张名次表倒过来，一个数都不用重算（命题 <a class="xref" href="ch12.html#prop:ch12-reverse">命题 12.2</a>）。
+  </li><li>加权总分是“处处不差就一定不差”的（定理 <a class="xref" href="ch12.html#thm:ch12-weighted">定理 12.3</a>），前提是权重非负、和为 1。
+</li></ol>
+</div></div>
+
+<div class="thm plain" id="prop:ch12-mono"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">12.1</span>（分数映射的单调性与平坦化）</div>
+
+设某个交易日的截面原始值为 \(x_1,\dots,x_n\in\R\)，\(\sigma&gt;0\)，令 \(z_i=(x_i-\mu)/\sigma\)，\(s_i=\clamp(50+10z_i,0,100)\)。则
+<ol><li>若 \(x_i\le x_j\)，则 \(z_i\le z_j\) 且 \(s_i\le s_j\)；
+  </li><li>存在截面使 \(x_i&lt;x_j\) 而 \(s_i=s_j\)（严格序会被压平）；反过来，若 \(z_i&lt;z_j\) 且 \(z_i,z_j\in(-5,5)\)，则 \(s_i&lt;s_j\)。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>先把两条链拆开。\(z\) 是通过“先减常数、再乘正常数”得到的：
+<div class="math-scroll">\[x\;\longmapsto\; x-\mu \;\longmapsto\; \frac{x-\mu}{\sigma}.\]</div>
+（i）第一步是平移，保持大小关系；第二步乘以 \(\sigma^{-1}&gt;0\)，也保持大小关系（乘以正数不改变不等号方向）。所以 \(x_i\le x_j\Rightarrow z_i\le z_j\)。
+
+再看 \(z\mapsto s\) 这一步步：
+<div class="math-scroll">\[z\;\longmapsto\; 50+10z \;\longmapsto\; \max(50+10z,0)\;\longmapsto\; \min\bigl(\max(50+10z,0),100\bigr).\]</div>
+第一个映射 \(z\mapsto 50+10z\) 是斜率 \(10&gt;0\) 的直线，非降；第二个 \(u\mapsto\max(u,0)\) 非降（两个非降函数逐点取最大仍非降）；第三个 \(v\mapsto\min(v,100)\) 非降。三个非降函数的复合仍然非降，故 \(z_i\le z_j\Rightarrow s_i\le s_j\)。结合上一段，(i) 得证。
+
+（ii）第二段的映射在两处变成常数：\(z\ge 5\) 时 \(50+10z\ge 100\)，被 \(\min(\cdot,100)\) 一直压到 \(100\)；\(z\le-5\) 时 \(50+10z\le 0\)，被 \(\max(\cdot,0)\) 一直压到 \(0\)。在两块平地上，函数不是单射，这是“平坦化”的来源。
+
+给一个具体截面把它坐实。取 \(n=60\)：其中 \(58\) 只股票的原始值是 \(0\)，另外两只分别是 \(100\) 与 \(100.5\)。于是
+<div class="math-scroll">\[\mu=\frac{58\cdot 0+100+100.5}{60}=3.342\ (\text{保留三位}),\]</div>
+<div class="math-scroll">\[\sigma=\sqrt{\frac{58\cdot(0-3.342)^2+(100-3.342)^2+(100.5-3.342)^2}{60}}=17.995.\]</div>
+两只“极端票”的 \(z\) 分别是
+<div class="math-scroll">\[z_1=\frac{100-3.342}{17.995}=5.371,\qquad
+z_2=\frac{100.5-3.342}{17.995}=5.399.\]</div>
+两个都超过 \(5\)，所以两个都被压到
+<div class="math-scroll">\[s_1=s_2=100,\]</div>
+尽管原始值 \(100&lt;100.5\)。这就是“分数平坦化”：它不是代码写错了，而是 \(\clamp\) 的<strong>语义本身</strong>就是“超过上限的一律记成上限”。系统在提示“这只票极其便宜 / 极其强势”时，本来就无法区分“极其”到底有多极其。
+
+（本例是为命题构造的数学反例，不是从数据库里取出的真实截面；构造细节已写在证明里，任何人都能重算。）
+
+最后证充分条件。若 \(z_i&lt;z_j\) 且两者都落在 \((-5,5)\) 内，则 \(u_i=50+10z_i\) 与 \(u_j=50+10z_j\) 都落在 \((0,100)\) 内，此时 \(\clamp(u_i,0,100)=u_i\)、\(\clamp(u_j,0,100)=u_j\)（截断没有生效），于是
+<div class="math-scroll">\[s_i=u_i=50+10z_i&lt;50+10z_j=u_j=s_j .\]</div>
+（端点 \(z=\pm5\) 处截断也恰好取原值 \(0\) 或 \(100\)，所以条件可放宽为 \(z_i,z_j\in[-5,5]\)。）
+</div>
+
+命题 <a class="xref" href="ch12.html#prop:ch12-mono">命题 12.1</a> 说的是：这条尺子不会把好的说成差的，但它会在两端把差距抹掉。现在回到开头的问题——<strong>近似在哪里失效</strong>。
+
+系统用的是 logistic 映射
+<div class="math-scroll">\[s_i=\frac{100}{1+e^{-z_i}} .\]</div>
+它严格递增：对 \(z\) 求导得 \(\dfrac{100\,e^{-z}}{(1+e^{-z})^{2}}&gt;0\)，恒为正。所以对任意 \(z_i&lt;z_j\) 都有 \(s_i&lt;s_j\)——<strong>严格序永远不会丢</strong>，永远不会出现上面那种“原始值不同、分数完全相同”的情况。它丢的是<strong>分辨率</strong>：回到刚才那个截面，\(z_1=5.371\) 与 \(z_2=5.399\) 对应的分数是 \(99.537\) 与 \(99.550\)，相差 \(0.013\) 分。
+
+一句话总结这两个模型的关系：线性截断把极端样本之间的差距<strong>归零</strong>，logistic 把差距<strong>压到看不出</strong>。病是同一个病，只是程度不同。所以下面这条命题和上面那条，对两者都成立——“反向因子必须翻号”这件事，和用哪条曲线无关。
+
+<div class="thm plain" id="prop:ch12-reverse"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">12.2</span>（反向因子的处理）</div>
+
+设正向因子取 \(x'_i=-x_i\)。则截面均值变为 \(-\mu\)、标准差不变仍为 \(\sigma\)，标准化值满足 \(z'_i=-z_i\)，分数满足
+<div class="math-scroll">\[s'_i=\clamp\bigl(100-s_i,\ 0,\ 100\bigr),\]</div>
+且 \(s'\) 的名次与 \(s\) 的名次<strong>完全相反</strong>。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>第一步算均值。因为求和是线性的，
+<div class="math-scroll">\[\mu'=\frac{1}{n}\sum_{i=1}^{n}x'_i=\frac{1}{n}\sum_{i=1}^{n}(-x_i)=-\frac{1}{n}\sum_{i=1}^{n}x_i=-\mu .\]</div>
+
+第二步算标准差。每个离差都只差一个负号，平方以后负号消失：
+<div class="math-scroll">\[(x'_i-\mu')^{2}=(-x_i-(-\mu))^{2}=(-(x_i-\mu))^{2}=(x_i-\mu)^{2},\]</div>
+所以 \(\sigma'=\sqrt{\frac{1}{n}\sum_i(x_i-\mu)^2}=\sigma\)。注意结论是“标准差不变”，不是“标准差取负”——标准差是一个距离的平均，永远非负。
+
+第三步算标准化值：
+<div class="math-scroll">\[z'_i=\frac{x'_i-\mu'}{\sigma'}=\frac{-x_i+\mu}{\sigma}=-\frac{x_i-\mu}{\sigma}=-z_i .\]</div>
+到这里可以看清一件事：系统里 <code class="code">inverseZScoreTo0100</code> 做的事是 \((\text{mean}-\text{value})/\text{std}\)，这正是“先把原始值取负、再套正向公式”，与 \(z'_i=-z_i\) 是同一件事。
+
+第四步算分数。先用一条关于 \(\clamp\) 的恒等式：
+<div class="math-scroll" id="eq:ch12-clampid">\[100-\clamp(u,0,100)=\clamp(100-u,0,100)\qquad(\forall u\in\R). \tag{12.3}\]</div>
+分三段验证：若 \(u&lt;0\)，左边 \(=100-0=100\)；右边因为 \(100-u&gt;100\) 也被压到 \(100\)，相等。若 \(0\le u\le 100\)，左边 \(=100-u\in[0,100]\)；右边 \(100-u\) 本来就在 \([0,100]\) 内，截断不生效，也等于 \(100-u\)，相等。若 \(u&gt;100\)，左边 \(=100-100=0\)；右边 \(100-u&lt;0\) 被压到 \(0\)，相等。三段合并，(式 <a class="xref" href="ch12.html#eq:ch12-clampid">式 (12.3)</a>) 对一切实数 \(u\) 成立。
+
+于是，用 <a class="xref" href="ch12.html#eq:ch12-clampid">式 (12.3)</a> 把内层的截断搬到外面：
+<div class="math-scroll">\[\begin{aligned}
+s'_i&amp;=\clamp(50+10z'_i,0,100)=\clamp(50-10z_i,0,100)\\
+&amp;=\clamp\bigl(100-(50+10z_i),0,100\bigr)\\
+&amp;=100-\clamp(50+10z_i,0,100)=100-s_i .
+\end{aligned}\]</div>
+又因为 \(s_i\in[0,100]\)，所以 \(100-s_i\) 自动落在 \([0,100]\) 内，外层那个 \(\clamp\) 只是形式上的保险，不会改变数值，故 \(s'_i=\clamp(100-s_i,0,100)\)。
+
+最后证名次相反。若 \(s_i&lt;s_j\)，两边取负号加 \(100\)（这是一个严格递减的变换）得
+<div class="math-scroll">\[s'_i=100-s_i&gt;100-s_j=s'_j .\]</div>
+反过来若 \(s_i&gt;s_j\) 则 \(s'_i&lt;s'_j\)；若 \(s_i=s_j\) 则 \(s'_i=s'_j\)（并列保持并列）。也就是说，\(x\mapsto -x\) 这一步把整张名次表<strong>整体倒转</strong>，一个数都不用重算。
+</div>
+
+这条命题解释了系统为什么必须准备两把尺子。低波动因子的原始值方向是“越小越好”，协整因子的原始值方向也是“越小越好”（相对市场跌得越多，越有均值回归的吸引力）。如果它们误用了正向尺子，名次表就会整个反过来——最好的被排到最后一名，而这不是一个“差一点”的错误，是一个“完全相反”的错误。
+
+<div class="thm plain" id="thm:ch12-weighted"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">12.3</span>（加权综合评分的排序合理性）</div>
+
+设权重 \(w_k\ge 0\) 且 \(\sum_{k}w_k=1\)，每个因子分数 \(s_{i,k}\in[0,100]\)，总分
+<div class="math-scroll">\[S_i=\sum_{k}w_k\,s_{i,k}.\]</div>
+则：
+<ol><li>\(S_i\in[0,100]\)；
+  </li><li>若 \(s_{i,k}\ge s_{j,k}\) 对一切 \(k\) 成立，则 \(S_i\ge S_j\)；
+  </li><li>若在 (ii) 的前提下还存在某个 \(k^{\ast}\) 使得 \(s_{i,k^{\ast}}&gt;s_{j,k^{\ast}}\) 且 \(w_{k^{\ast}}&gt;0\)，则 \(S_i&gt;S_j\)。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>（i）下界：每一项 \(w_k s_{i,k}\ge 0\)（非负权重乘非负分数），有限个非负数之和非负，故 \(S_i\ge 0\)。
+上界：每一项 \(w_k s_{i,k}\le 100\,w_k\)（因为 \(s_{i,k}\le 100\) 且 \(w_k\ge 0\)），求和得
+<div class="math-scroll">\[S_i=\sum_k w_k s_{i,k}\le \sum_k 100\,w_k=100\sum_k w_k=100 .\]</div>
+所以 \(0\le S_i\le 100\)。
+
+（ii）逐项作差并求和（求和可以逐项进行，因为都是有限项）：
+<div class="math-scroll">\[S_i-S_j=\sum_k w_k s_{i,k}-\sum_k w_k s_{j,k}=\sum_k w_k\bigl(s_{i,k}-s_{j,k}\bigr).\]</div>
+在这个和式里，每一项都有 \(w_k\ge0\) 且 \(s_{i,k}-s_{j,k}\ge0\)，所以每一项都非负；有限个非负数之和非负，故 \(S_i-S_j\ge0\)，即 \(S_i\ge S_j\)。
+
+（iii）把和式拆成“第 \(k^\ast\) 项”和“其余项”：
+<div class="math-scroll">\[S_i-S_j=\underbrace{w_{k^{\ast}}\bigl(s_{i,k^{\ast}}-s_{j,k^{\ast}}\bigr)}_{&gt;0}
++\underbrace{\sum_{k\ne k^{\ast}}w_k\bigl(s_{i,k}-s_{j,k}\bigr)}_{\ge 0}.\]</div>
+第一项严格为正：\(w_{k^{\ast}}&gt;0\) 且括号里严格为正，正数乘正数仍为正。第二项按 (ii) 的逐项论证非负。于是 \(S_i-S_j&gt;0\)，即 \(S_i&gt;S_j\)。
+</div>
+
+这个定理在说什么：<strong>“处处不差”的股票，总分一定不低；“至少在一项上更好、而这一项还有话语权”的股票，总分一定更高。</strong>换句话说，加权求和不会平白无故把一只更好的股票排到后面去——这是它比“投票”更值得信任的地方。
+
+不过它有两个前提，缺了任何一个，结论就失效，这属于“误差从哪来”里最容易被忽略的一类：
+
+<strong>前提一是权重和为 1。</strong>系统对均衡模板给出的权重之和其实不是 \(1\)：六个主因子加起来是 \(1.00\)，再加盘口 \(0.05\) 与协整 \(0.04\)，合计 \(1.09\)。此时定理的上界要改成 \(100\times 1.09=109\)，逐项比较的结论一字不改（因为证明里只用到“权重非负”和“求和是线性的”）。这也是为什么归一化缩放（第 13 章的 <code class="code">scale</code>）必须整体进行——它是一个正的公共倍数，不影响任何名次。
+
+<strong>前提二是每只股票在同一组因子上都有分。</strong>回到上一章那个不起眼的判断 <code class="code">if ok</code>：如果因子 \(k\) 对股票 \(i\) 有分、对股票 \(j\) 没有分（数据不足被降级跳过），那么 \(j\) 在 \(k\) 上的贡献是 \(0\) 而不是一个真值。此时“\(s_{i,k}\ge s_{j,k}\)”这句话本身就没有意义，定理的前提被破坏，两只股票的总分<strong>不再可比</strong>。这不是理论上的边角情况——盘口因子在样本不足时就是整项不参与的，原因下一节马上讲。
+
+<div class="thm remark"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">12.4</span></div>系统在 \(S_i\) 之外还有一层：把总分除以 \(10\) 四舍五入后 \(\clamp\) 到 \([1,10]\)，得到界面上那个“AI 评分”。这层只是展示用的压缩，它单调非降，因此不改变名次；但它会把 \(100\) 分和 \(109\) 分压成同一个 \(10\) 分。
+</div>
+
+<h2 id="sec-12-5"><span class="hnum">12.5</span>它在系统里长什么样</h2>
+
+三个模板决定了“六个科室谁说话更响”。系统内置三套：<code class="code">balanced</code>（均衡配置）、<code class="code">defensive</code>（红利价值多头）、<code class="code">growth</code>（成长型）。它们的权重是一组写死的常量，具体数值我放到第 13 章的表 <a class="xref" href="ch13.html#tab:ch13-weights">表 13.1</a> 里逐格列出——因为那一章要论证“权重才是真正的观点”，放在那里更顺手。这里只说它们的<strong>脾气</strong>：
+
+<strong>均衡配置</strong>把六个主因子摊得很平（价值、质量、动量各 \(0.20\)，低波动、盈利稳定各 \(0.15\)，流动性 \(0.10\)），另外给盘口 \(0.05\)、协整 \(0.04\)。
+
+<strong>红利价值多头</strong>把 \(0.75\) 的权重压在质量、低波动、盈利稳定三项上（\(0.30/0.25/0.20\)），流动性给 \(0.00\)。
+
+<strong>成长型</strong>把 \(0.55\) 压在动量与质量上（\(0.30/0.25\)），价值只留 \(0.10\)。
+
+注意“流动性 \(0.00\)”这一格：它在防御模板里不参与<strong>打分</strong>，但<strong>不意味着流动性不重要</strong>——下一段你会看到，流动性还有一道不靠权重的硬门槛。
+
+当用户带着画像进来时，系统走的是智能组合：<code class="sysfile">internal/screener/smart_composer.go</code> 的 <code class="code">CalculateSmartWeights</code> 以模板权重为基础，叠加画像、市场状态、因子健康度与历史表现做<strong>保守微调</strong>（单因子调整幅度不超过其基础权重的 \(15\%\)），最后归一化；如果调整后与模板的相似度过低，还会按 \(0.6:0.4\) 混回模板，保证“策略还是那个策略”。
+
+接着是两道<strong>硬筛选</strong>。它们和“权重”不是一回事：权重是加减分，硬筛选是直接剔除，不降权、不保留。
+
+<ol><li><strong>流动性硬下限</strong>。<code class="sysfile">internal/screener/screener_service.go</code> 的 <code class="code">applyLiquidityFloor</code> 直接看流动性因子分：低于 <code class="code">minLiquidityScore</code>\(=30\) 的一律剔除。代码注释把理由写得很直白：小基金买了以后要能顺利离场，流动性是<strong>拒买门槛</strong>，不是一个“低权重扣分项”。它还有一条兜底——如果过滤后一只都不剩，就退回原结果，宁可放弃硬过滤，也不给用户一个空池。
+  </li><li><strong>流通市值区间</strong>。<code class="code">minFloatCap</code>\(=20\) 亿、<code class="code">maxFloatCap</code>\(=200\) 亿。流通市值 \(=\) 最新收盘价 \(\times\) 流通股本（缺流通股本时用总股本兜底）；小于 \(20\) 亿的微盘弹性太差、波动太剧，大于 \(200\) 亿的超大盘弹性太小，两端都剔除。缺股本资料时<strong>放行</strong>——不因为数据缺失误伤正常选股。
+</li></ol>
+
+最后是盘口因子的两条“自我约束”：
+
+<strong>一是样本门槛。</strong>取盘口原始值以后，系统先数一遍有效样本：<code class="code">orderBookSamples</code>\(\ge 20\) 才让它参与评分（协整因子同理，还要求配对基准可用）。样本不够时，整个因子<strong>不参与</strong>，而不是“参与但分数不可靠”。这就是定理 <a class="xref" href="ch12.html#thm:ch12-weighted">定理 12.3</a> 前提二在工程上的直接体现：宁可少一个因子，也不要一个歪的因子。
+
+<strong>二是零前视。</strong>盘口摘要由每日收盘后的 <code class="code">OrderBookDailyProcessor</code> 上的 <code class="code">RecordOrderBookDaily</code> 方法写入 <code class="dbtab">order_book_daily</code>，供<strong>次日</strong>盘口因子使用。也就是说，今天选股用到的盘口，来自上一个交易日的收盘——前视偏差为零。
+
+<div class="box keybox"><div class="boxtitle">一道现在就能验证的留白</div><div class="boxbody">
+系统运行库里 <code class="dbtab">order_book_daily</code> 当前有 0<sup class="fn-ref"><a id="fnref-ch12-1" href="#fn-ch12-1">1</a></sup> 条记录。这意味着：盘口因子在真实数据上<strong>这一版还没有参与过任何一次评分</strong>，有效样本数为 \(0\)，连 \(20\) 的门槛都不到。
+
+所以我不能给你任何一只股票的盘口因子真实得分——那种数字只能靠编。本书的做法是留白：表格里凡是盘口真实值的位置，一律写“—<sup class="fn-ref"><a id="fnref-ch12-2" href="#fn-ch12-2">2</a></sup>”。这不是漏写，是这一章最重要的一个示范——<strong>数据取不到的时候，正确的动作是停下来，而不是填一个看起来合理的数。</strong>
+</div></div>
+
+<h2 id="sec-12-6"><span class="hnum">12.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+“六个因子的意见合起来”——这句话听起来像开会：三项说买、两项说卖，投票多数说了算。
+
+系统里没有投票。总分是加法，加法里真正决定结果的不是“多少个因子同意”，而是“同意的那几个因子各占多重”。
+
+举个极端的例子：假设某只票质量 90 分、价值 20 分，其余都是 50 分。在成长模板下（质量 \(0.25\)、价值 \(0.10\)），质量贡献 \(0.25\times(90-50)=+10\)，价值贡献 \(0.10\times(20-50)=-3\)，净赚；在均衡模板下（两者都是 \(0.20\)），一个 \(+8\) 一个 \(-6\)，还是赚，但赚得少了。
+
+“几只票说买”不重要，“说话的那个人有几票”才重要。所以在调参界面上，真正需要你盯着看的一列是权重，不是因子数量。第 13 章整章都在讲这件事。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+盘口因子只在有效样本 \(\ge 20\) 只时才参与评分。我第一次读到这条规则时觉得浪费：明明已经有 12 只票有盘口数据了，为什么整项都不要？
+
+因为 \(z\) 是在截面上算的。样本太少时，估出来的均值 \(\mu\) 和标准差 \(\sigma\) 本身就是噪声——12 只票算出的“平均量比”和“量比的波动”，跟全市场真实水平可能差得很远。用这样的 \(\mu,\sigma\) 去标准化，得到的分数不是“不精确”，而是<strong>方向都可能反</strong>。
+
+更要紧的是它发生在横截面上：一只票的 \(\mu,\sigma\) 用歪了，被影响的不只是它自己，而是<strong>同一天所有票的相对名次</strong>——它们共享同一套 \(\mu,\sigma\)。少一个因子，损失的是一点信息；多一个歪因子，污染的是整张榜。
+</div></div>
+
+<h2 id="sec-12-7"><span class="hnum">12.7</span>本章的真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>盘口因子原始值与状态罚分：<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">calcOrderBookFactorValue</code>、<code class="code">penaltyForState</code>
+  </li><li>盘口因子样本门槛（\(\ge 20\)）：<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">computeAllProFactorScores</code>
+  </li><li>盘口五态判定与封单阈值：<code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code>
+  </li><li>盘口摘要落库（供次日使用）：<code class="code">OrderBookDailyProcessor.RecordOrderBookDaily</code>，写表 <code class="dbtab">order_book_daily</code>
+  </li><li>三套策略模板与默认权重：<code class="sysfile">internal/screener/types.go</code> 的 <code class="code">DefaultStrategies</code>
+  </li><li>智能组合权重：<code class="sysfile">internal/screener/smart_composer.go</code> 的 <code class="code">CalculateSmartWeights</code>
+  </li><li>流动性硬下限：<code class="sysfile">internal/screener/screener_service.go</code> 的 <code class="code">applyLiquidityFloor</code>
+  </li><li>流通市值硬区间（\(20\) 亿 -- \(200\) 亿）：<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">minFloatCap</code> / <code class="code">maxFloatCap</code> 与 <code class="code">computeWeightedProScores</code>
+  </li><li>前端选股页（因子明细、公式、模板切换）：<code class="sysfile">ui/src/pages/</code> 下的选股页面
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十分钟）</div><div class="boxbody">
+<ol><li>进<strong>选股</strong>页，同一个股票池分别用<strong>均衡配置</strong>和<strong>成长型</strong>跑一遍（注意不要改别的设置）。
+  </li><li>把两次结果的公式抄下来贴在一起看：同一批股票，两次的总分不一样，名次也不一样。找出“名次变化最大”的那只，看它的因子明细——它是不是在动量或质量上分数很高、在被降权的因子上分数很低？
+  </li><li>打开任意一只票的因子明细，找<strong>盘口（<code class="code">order_book</code>）</strong>那一行。它现在有分数吗？如果整列都是空的，回到本章那个留白框，确认一下原因。
+  </li><li>自己构造一个截面：五只股票的动量原始值取 \(0,0,0,0,100\)，手算 \(\mu\)、\(\sigma\)，再按式 <a class="xref" href="ch12.html#eq:ch12-clamp">式 (12.2)</a> 算出五只票的分数。做完再想一想：这就是命题 <a class="xref" href="ch12.html#prop:ch12-mono">命题 12.1</a> 里说的那种“被压平”吗？
+  </li><li>最后做一次反向检验：把上面五只票的动量原始值全部取负，按命题 <a class="xref" href="ch12.html#prop:ch12-reverse">命题 12.2</a> 预测新的名次，然后再手算一遍核对。
+</li></ol>
+</div></div>
+
+六个体检科说完了，硬门槛也说完了。但有一个问题从头到尾我都在绕开：<strong>为什么均衡模板给动量 0.20，而成长模板给它 0.30？为什么不是 0.50？</strong>这些数字不是从数据里推出来的，它们是三张被写死的表。那系统有没有办法让权重自己动起来？
+
+下一章讲自适应权重——以及它为什么必须给自己装一个 0.5 到 1.5 的笼子。
+</article>
+<nav class="pager"><a class="prev" href="ch11.html"><span class="dir">上一页</span>第十一章 什么叫“这只股票不错”？—— 从感觉到因子</a><a class="next" href="ch13.html"><span class="dir">下一页</span>第十三章 每个因子该占多少分？—— 权重从哪里来</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch12-1"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch12-1">↩</a></li><li id="fn-ch12-2"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch12-2">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

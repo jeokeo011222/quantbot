@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>出问题怎么办：日志、黑匣子与常见故障 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·出问题怎么办：日志、黑匣子与常见故障">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch33.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html" class="current"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a><ul class="sub"><li><a href="#sec-33-1">33.1 一次日志里什么都没写的闪退</a></li><li><a href="#sec-33-2">33.2 黑匣子的读法</a></li><li><a href="#sec-33-3">33.3 为什么致命错误会“静默消失”</a></li><li><a href="#sec-33-4">33.4 那个段错误的完整故事</a></li><li><a href="#sec-33-5">33.5 故障的三种类型，和三种查法</a></li><li><a href="#sec-33-6">33.6 现场清单：出事了先去哪几个地方</a></li><li><a href="#sec-33-6-1">33.6.1 常见故障速查</a></li><li><a href="#sec-33-7">33.7 最后一件事：回到第 1 章那个问题</a></li></ul></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch33"><span class="cnum">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</h1>
+
+
+
+
+
+<h2 id="sec-33-1"><span class="hnum">33.1</span>一次日志里什么都没写的闪退</h2>
+
+系统稳定跑了几天之后，出了第一个真正的怪事。
+
+下午两点四十分，我正在看持仓页。窗口“啪”地消失了。托盘图标也没了。进程干干净净地退出。
+
+我第一件事是打开日志目录，找那条最新生成的 <code class="sysfile">log/quantbot_&lt;时间戳&gt;.log</code>。翻到末尾——记录停在两分钟前的一句“刷新持仓行情”，后面什么都没有。
+
+没有异常、没有堆栈、没有“exit”。
+
+我又去看 Windows 事件查看器，想找一条应用程序错误。空的。
+
+那是整件事最让人不安的地方：<strong>一个程序死了，而它没有留下任何关于自己为什么死的记录。</strong>这不像“报错了”，更像“被抹掉了”。
+
+后来我们把原因找出来了。它不是玄学，是一段非常具体的代码——而且它精确地展示了本章要讲的三件事：为什么致命的错误会“静默消失”、该怎么给它专门造一条通道、以及拿到转储之后怎么复原现场。
+
+<h2 id="sec-33-2"><span class="hnum">33.2</span>黑匣子的读法</h2>
+
+<div class="box intuition"><div class="boxbody">
+一架飞机失事后，调查组的第一步不是猜“可能哪里坏了”，而是<strong>去找黑匣子</strong>。
+
+找到之后他们做什么？不是从头读一遍全部录音。他们做三件事：
+
+<strong>第一，确认记录装置本身是好的</strong>（别读一份损坏的磁带）；
+<strong>第二，按时间轴定位到最后一个异常点</strong>；
+<strong>第三，往前后各展开一点，看“异常之前发生了什么正常的操作”</strong>。
+
+这套读法的前提只有一个：<strong>那个装置必须存在，而且它必须能把最后那几秒写下来。</strong>
+
+程序排障是同一件事。所以第一个问题永远不是“哪儿错了”，而是——<strong>它把错误写在哪里了？</strong>
+</div></div>
+
+<h2 id="sec-33-3"><span class="hnum">33.3</span>为什么致命错误会“静默消失”</h2>
+
+先讲清楚本章开头那个现象。它是一个纯粹的语言运行时机制问题，没有任何神秘色彩。
+
+Go 语言里有两类“崩溃”：
+
+<ul><li><strong>普通 panic</strong>：可以用 <code class="code">recover</code> 接住，也可以被日志框架记录；
+  </li><li><strong>运行时致命错误</strong>（fatal error：栈溢出、内存越界导致的段错误等）：它<strong>不会被 <code class="code">recover</code> 捕获</strong>，直接终止进程。
+</li></ul>
+
+关键在于第二类写到哪去了。它输出到<strong>标准错误流</strong>（<code class="code">os.Stderr</code>）。而一个图形界面程序没有控制台窗口——标准错误没有人接，写进去就消失了。
+
+于是就有了那个现象：进程死了，日志干净，事件查看器干净。
+
+<div class="thm plain" id="prop:ch33-blind"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">33.1</span>（无痕故障的概率下界）</div>
+设系统在单位时间内发生<strong>致命错误</strong>的概率为 \(p&gt;0\)，且<strong>条件独立</strong>地，任一错误被写进某个可观测通道的概率为 \(q\in[0,1]\)。则
+<ol><li>“错误发生<strong>且</strong>无痕迹”的概率为
+  <div class="math-scroll">\[\Prob(\text{无痕故障})=p\,(1-q); \tag{33.1}\]</div>
+  </li><li>当 \(q=0\)（没有任何通道接收致命错误）时，该概率恰为 \(p\)——<strong>所有</strong>崩溃都无痕；
+  </li><li>系统连续运行 \(T\) 个时间单位，至少发生一次无痕故障的概率为
+  <div class="math-scroll">\[1-\bigl[1-p(1-q)\bigr]^{T}\;\xrightarrow[\;T\to\infty\;]{}\;1 . \tag{33.2}\]</div>
+</li></ol>
+</div>
+
+这个命题在说什么：它把“概率极小的崩溃在 7×24 运行的系统里是必然事件”这句话变成了一个极限。第 (ii) 条更狠——<strong>\(q=0\) 时，“发生”就等于“无痕”</strong>，你没有任何可观测性，不是可观测性变差了。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 设事件 \(E=\)“发生致命错误”，\(\Prob(E)=p\)；事件 \(R=\)“被记录”，\(\Prob(R\mid E)=q\)。则
+<div class="math-scroll">\[\Prob(\text{无痕})=\Prob(E\cap R^c)=\Prob(E)\Prob(R^c\mid E)=p(1-q).\]</div>
+
+<em>(ii)</em> 代入 \(q=0\)：\(p(1-0)=p\)。
+
+<em>(iii)</em> 设 \(T\) 个单位时间彼此独立（故障发生的独立性假设），每个单位时间内“无痕”的概率为 \(\rho:=p(1-q)\)。\(T\) 个单位全部<strong>没有</strong>无痕故障的概率为 \((1-\rho)^T\)，故至少一次的概率为 \(1-(1-\rho)^T\)。当 \(\rho&gt;0\) 时 \((1-\rho)^T\to0\)，故其趋于 \(1\)。\(\blacksquare\)
+</div>
+
+这个命题给出的行动项非常明确：<strong>你无法把 \(p\) 降到 0（那是硬件的噪声底），但你可以把 \(q\) 提到 1。</strong>而把 \(q\) 提到 1，只需要一行代码——把致命错误的输出重定向到一个文件：
+
+<figure class="listing" id="{lst:ch33-crashoutput}"><figcaption><span class="lbl">代码 33.1</span>把致命错误的输出重定向到文件（节选自 <code class="sysfile">main.go</code> 的 <code class="code">setupLogging()</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 把 Go 运行时致命错误（写 os.Stderr，不经 log 包）重定向到文件，</span></span>
+<span class="cl"><span class="com">// 否则 GUI 程序里没有人接收，崩溃现场会被静默丢弃。</span></span>
+<span class="cl">cf, _ := os.Create(filepath.Join(exeDir, <span class="str">&quot;log&quot;</span>, <span class="str">&quot;crash_dump.txt&quot;</span>))</span>
+<span class="cl">debug.SetCrashOutput(cf, debug.CrashOptions{})</span></code></pre></figure>
+
+这段话在说什么：它没有阻止崩溃，也没有让崩溃变少。它只做了一件事——<strong>把原来掉在地上的东西，接进了一个桶里。</strong>这一行是本章里性价比最高的一行代码。
+
+<h2 id="sec-33-4"><span class="hnum">33.4</span>那个段错误的完整故事</h2>
+
+现在讲本章开头那次闪退的真正原因。它在事实清单里是第 #1 条，也是全书我认为最值得完整复述的一次修复。
+
+<div class="box keybox"><div class="boxtitle">真实事故 #1（完整形态）</div><div class="boxbody">
+<strong>症状</strong>：程序运行中突然闪退，日志干净，Windows 事件日志无记录。<br>
+
+<strong>根因</strong>：决策完成后调用 <code class="code">agent.dll.Release()</code> <strong>卸载</strong>了这个 DLL；而它（一个 c-shared 的 Go DLL）内部<strong>还有后台 goroutine 在运行</strong>。卸载导致这些线程继续执行“已经被释放的内存空间里的代码”，触发 <code class="code">ACCESS_VIOLATION (0xC0000005)</code>。<br>
+
+<strong>修复</strong>：<strong>不再卸载 DLL</strong>，让它驻留整个进程生命周期。
+</div></div>
+
+为什么这个错误“无痕”？因为它是一个<strong>访问违例</strong>——它在 Go 运行时的层面是致命错误，按命题 <a class="xref" href="ch33.html#prop:ch33-blind">33.1</a>(ii)，\(q=0\)，所有痕迹都被丢掉了。
+
+为什么它“偶发”？因为它需要两个条件同时成立：卸载发生了，并且那个后台线程恰好还在跑。第二个条件带时序，所以它有时崩、有时不崩——这类“偶发”最容易被误判成玄学。
+
+<div class="thm plain" id="prop:ch33-uaf"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">33.2</span>（卸载后使用是这一类崩溃的充分条件）</div>
+设模块 \(M\)（DLL）被映射到地址区间 \(\mathcal A\)，并在其内部创建了线程 \(\tau\)。
+<ol><li>若 \(\tau\) 仍在运行，而 \(M\) 被<strong>卸载</strong>，则 \(\mathcal A\) 被解除映射（随后可能被分配给其它模块）；此时 \(\tau\) 的指令指针一旦落回 \(\mathcal A\) 范围，取指将访问<strong>不再是 \(\tau\) 所属代码</strong>的页面，产生访问违例。
+  </li><li>若<strong>不卸载</strong> \(M\)，则 \(\mathcal A\) 在整个进程生命周期内保持映射，\(\tau\) 无论何时被调度，其指令指针始终指向有效且正确的代码，上述崩溃<strong>不可能发生</strong>。
+</li></ol>
+</div>
+
+这个命题在说什么：它把“为什么不能卸载”和“为什么不再卸载就好了”写成了一对互补的陈述。(i) 是崩溃的成因链；(ii) 说明修复不是“降低概率”，而是<strong>移除了发生条件</strong>。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 卸载 \(M\) 意味着操作系统把 \(\mathcal A\) 从进程的地址空间中移除，并回收这些物理页。此后 \(\tau\) 若被调度器选中，CPU 要用 \(\tau\) 保存的指令指针 \(ip\in\mathcal A\) 去取指令。由于 \(ip\) 落在未映射区域（或已映射给别的数据），该次取指不可能是 \(M\) 原有的正确指令：要么触发缺页异常且无法被合法处理，要么取到已经变成别的内容的字节。二者都会让 \(\tau\) 进入一个非法的执行状态，表现为访问违例（<code class="code">0xC0000005</code>）。这里的关键点是：\(ip\) 落在 \(\mathcal A\) 内是充分条件——不需要知道那块内存被谁占了。
+
+<em>(ii)</em> 若不卸载，则 \(\mathcal A\) 与 \(M\) 的代码、数据在整个进程生命周期内一一对应且保持不变。\(\tau\) 的指令指针无论何时取指，读到的都是 \(M\) 被编译时的正确指令；访存地址也都落在仍然有效的 \(M\) 的段内。故 (i) 中描述的条件无法成立，该崩溃不发生。\(\blacksquare\)
+</div>
+
+这次修复之后，同一个流程再没有出现过同类闪退。它留下的教训可以写成一则通用经验：
+
+<div class="box keybox"><div class="boxtitle">一条通用经验：谁创建的线程，谁负责它的生命周期</div><div class="boxbody">
+卸载一个模块的前提是<strong>确认它创建的所有执行流都已结束</strong>。做不到这一点时，正确做法是<strong>不卸载</strong>——让它在进程里待着，代价是一点内存，收益是消除一整类不可观测的崩溃。
+</div></div>
+
+<h2 id="sec-33-5"><span class="hnum">33.5</span>故障的三种类型，和三种查法</h2>
+
+修完那一次之后，我给自己立了一条规矩：<strong>不要一上来就猜原因，先分类。</strong>因为三类故障的查法是<strong>完全不同</strong>的，混着查只会浪费时间。
+
+<figure class="tbl" id="tab:ch33-classes"><div class="tbl-scroll"><table><caption><span class="lbl">表 33.1</span>三类故障的判别与查法</caption><tbody><tr><td><strong>类型</strong></td><td><strong>特征</strong></td><td><strong>先看哪里</strong></td><td><strong>处理方式</strong></td></tr><tr class="rule"><td colspan="4"></td></tr><tr><td>配置类</td><td>必现、启动即错、文案明确</td><td>界面弹窗 / 启动日志</td><td>读错误信息，改配置，重启</td></tr><tr><td>数据类</td><td>必现、某功能不可用</td><td><code class="field">sources</code> 字段 / 数据维护页</td><td><strong>停下来</strong>——不降级、不伪造（第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章）</td></tr><tr><td>并发/内存类</td><td><strong>偶发</strong>、无日志、直接消失</td><td><code class="sysfile">log/crash_dump.txt</code></td><td>读转储里的栈，找出“创建了但没被收尾的执行流”</td></tr><tr class="rule"><td colspan="4"></td></tr></tbody></table></div><p class="tabsrc">系统事实清单第 15 节事故分类；系统源码 <code class="sysfile">main.go</code> 的 <code class="code">setupLogging()</code>；核对时间 2026-09-24。</p></figure>
+
+三类里最容易误判的是第二类。它表现得很像“功能坏了”，于是人的第一反应是“先让它能跑”。但第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章已经讲过：<strong>“能跑但数据是假的”比“跑不起来”危险得多。</strong>所以数据类故障的正确反应是<strong>停下来，然后去看它为什么缺</strong>。
+
+<h2 id="sec-33-6"><span class="hnum">33.6</span>现场清单：出事了先去哪几个地方</h2>
+
+下面这张表是我实际会按顺序查的清单。它的顺序就是“从最近发生的、到最底层的”。
+
+<figure class="tbl" id="tab:ch33-checklist"><div class="tbl-scroll"><table><caption><span class="lbl">表 33.2</span>排障现场清单（按查看顺序）</caption><tbody><tr><td><strong>顺序</strong></td><td><strong>位置</strong></td><td><strong>看什么</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>1</td><td><code class="sysfile">log/quantbot_&lt;时间戳&gt;.log</code></td><td>每次启动生成一个；按时间找最后几条正常记录，看它们卡在哪一步</td></tr><tr><td>2</td><td><code class="sysfile">log/crash_dump.txt</code></td><td><strong>致命崩溃的堆栈</strong>（命题 <a class="xref" href="ch33.html#prop:ch33-blind">33.1</a> 的修复产物）；<strong>闪退必读</strong></td></tr><tr><td>3</td><td>启动十步日志</td><td><code class="code">[Step 1/10]</code> 到 <code class="code">[Step 10/10]</code>，一眼看出“卡在哪一步”</td></tr><tr><td>4</td><td>启动加载页的六项状态</td><td>哪一盏灯是红的；关键组件失败会弹窗（第 <a class="xref" href="ch24.html#ch:ch24">第二十四章</a> 章）</td></tr><tr><td>5</td><td>审计日志页</td><td>决策、审批、订单的留痕（第 <a class="xref" href="ch10.html#ch:ch10">第十章</a> 章的黑匣子）</td></tr><tr><td>6</td><td><code class="sysfile">deliverables/&lt;日期&gt;/</code></td><td>双存储的交付物 JSON</td></tr><tr><td>7</td><td><code class="dbtab">agent_task_logs</code> 表</td><td>每个任务的状态与输出，含 <code class="code">SKIPPED</code> 与失败的 <code class="code">phaseErrs</code></td></tr><tr><td>8</td><td><code class="dbtab">market_sixdim_daily</code> 的 <code class="field">sources</code></td><td>判势当天的每个数字从哪来、有没有降级（第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章）</td></tr><tr><td>9</td><td><code class="sysfile">config/config.json</code></td><td>两个幂等标记、交易模式、风险硬限制（第 <a class="xref" href="ch32.html#ch:ch32">第三十二章</a> 章）</td></tr><tr><td>10</td><td><code class="sysfile">data/stock.duckdb</code></td><td>行情库是否存在、最新交易日是否更新到上一交易日</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabsrc">系统事实清单第 2、6、13、14 节；<code class="sysfile">ui/src/pages/AuditLog.tsx</code>；核对时间 2026-09-24。</p></figure>
+
+<h3 id="sec-33-6-1"><span class="hnum">33.6.1</span>常见故障速查</h3>
+
+<figure class="tbl" id="tab:ch33-common"><div class="tbl-scroll"><table><caption><span class="lbl">表 33.3</span>四个最常见的故障与处理</caption><tbody><tr><td><strong>现象</strong></td><td><strong>原因与处理</strong></td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td>选股/回测提示“行情数据库(<code class="code">stock.duckdb</code>)未挂载”</td><td>缺 <code class="sysfile">data/stock.duckdb</code>，或路径不对。这是<strong>明确报错、不返回假数据</strong>的设计（第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章）——按提示补数据，不要试图绕过。</td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td>决策没有 AI 产出</td><td>通常是 API Key 无效或未配置。系统会<strong>明确报错</strong>，不会返回一段假的分析。去设置页的 AI 页签核对提供商、模型名、接口地址、Key。</td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td>非交易时段不交易</td><td>这是<strong>正常行为</strong>。A 股的节奏就是节拍器（第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章）：休市时不产生订单。不要把它当成故障。</td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td>启动即闪退</td><td><strong>先确认版本</strong>（换错了包是最常见的原因），<strong>再读 <code class="sysfile">log/crash_dump.txt</code></strong>。若转储为空，说明崩溃发生在日志与转储初始化之前——那就要检查可执行文件所在目录是否可写。</td></tr><tr class="rule"><td colspan="2"></td></tr></tbody></table></div><p class="tabsrc">系统事实清单第 14 节；<code class="sysfile">docs/用户操作手册.md</code> 第 15 章 Q&amp;A；核对时间 2026-09-24。</p></figure>
+
+<div class="box pitfall"><div class="boxbody">
+“它有时候崩有时候不崩，说不清。”
+
+这句话不是结论，是<strong>还没分类</strong>。判断方法很简单：看它有没有规律地跟某个动作绑定。
+
+<ul><li>如果它总在同一句操作之后崩，那是<strong>配置类或数据类</strong>——必现，可复现，读错误信息就能定位；
+  </li><li>如果它<strong>偶发、无日志、直接消失</strong>，那几乎一定是<strong>并发/内存类</strong>——这时唯一有用的东西是崩溃转储，而不是重试。
+</li></ul>
+
+“偶发”是最容易被当作借口的三个字。事故 #1 就是标准的偶发：它需要“卸载”与“后台线程正在跑”同时发生。当你把这两个条件写出来，它就不再偶发了——它变成了一个<strong>有明确触发条件的确定性事件，只是触发时机不确定</strong>。
+
+这本书里另一个同类例子是事故 #3（托盘右键菜单弹不出来）。它的根因是：Wails 的启动流程常跑在非主线程上，而 Windows 的窗口消息只发给“创建那个窗口的线程”。所以托盘窗口必须在一条<strong>自己锁定的线程</strong>上创建，并跑自己的消息泵——否则左键右键都永远无人响应。它同样表现为“有时好有时坏”，同样不是玄学。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+这是全书反复出现的一条，放在最后一章是因为它最容易被“排障”这个场景重新触发。
+
+排障时人会有一种强烈的冲动：<strong>只要能让流程跑完，就先跑完。</strong>于是行情库缺了就找另一张表、API Key 无效就先跳过 AI、判势缺一个维度就随手给个 60。
+
+第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章已经给出结论：<strong>代理变量可以用，但必须当场标注；连代理都没有时，正确的动作是留空，而不是填一个看起来合理的数。</strong>
+
+因为在排障这个场景里，你做的每一个“临时”决定，都可能在系统里活很久——尤其是当它让流程看起来正常了之后，就再也没有人会回去检查它。
+
+系统把这条写成了硬约束：关键组件失败必须弹窗报错，<strong>严禁降级、严禁使用虚假数据</strong>。那个“仍然继续”的按钮是给你<strong>知情之后</strong>用的，不是给你绕过红灯用的。
+</div></div>
+
+<h2 id="sec-33-7"><span class="hnum">33.7</span>最后一件事：回到第 1 章那个问题</h2>
+
+第一章开头是这样一个问题：<strong>一个人，怎么同时当研究员、风控和操盘手？</strong>
+
+当时的回答是：不要找一个人，开一家五个人的小公司。
+
+现在全书读完了，我们可以把那个答案补完整。那家小公司之所以成立，不是因为它雇了五个很聪明的 AI。而是因为这六样东西被一条一条写进了代码：
+
+<ul><li><strong>分工</strong>——五个角色，每个角色有明确的任务类型（第 <a class="xref" href="ch01.html#ch:ch01">第一章</a>、<a class="xref" href="ch03.html#ch:ch03">第三章</a> 章）；
+  </li><li><strong>权限</strong>——谁能下单、谁能选股、谁有否决权，写在权限表里，不是写在提示词里（第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章）；
+  </li><li><strong>契约</strong>——派活的标准格式；不给它“编”的出口，它就编不出来（第 <a class="xref" href="ch03.html#ch:ch03">第三章</a> 章）；
+  </li><li><strong>证据</strong>——决策发生的同一时刻同步落证据，而不是事后补一段解释（第 <a class="xref" href="ch10.html#ch:ch10">第十章</a> 章）；
+  </li><li><strong>容错</strong>——只降不升的仓位、失败即拒的启动、AI 失联时的规则回退（第 <a class="xref" href="ch07.html#ch:ch07">第七章</a>、<a class="xref" href="ch09.html#ch:ch09">第九章</a>、<a class="xref" href="ch24.html#ch:ch24">第二十四章</a> 章）；
+  </li><li><strong>诚实</strong>——数据不可用就报错，代理变量必标注，样本不够就说“无法判定”（贯穿全书）。
+</li></ul>
+
+这六样，没有一样是“让模型更聪明”能替代的。它们的共同点是：<strong>都可以被写下来、被检查、被反驳。</strong>
+
+而这恰好也是本书想留下的东西。你读完之后不必拥有这套系统——你可能用别的软件、别的语言、甚至完全手工。但你手上应该多了一套问题，用来问任何一套自称“AI 帮你投资”的东西：
+
+<div class="box keybox"><div class="boxtitle">临走时带走的六个问题</div><div class="boxbody">
+<ol><li>它会不会拒绝？（有没有权限边界，还是谁都能下单）
+  </li><li>它会不会说“我不知道”？（有没有 <code class="code">DATA_UNAVAILABLE</code> 这样的出口）
+  </li><li>它算出来的数，我能自己复算一遍吗？（因子、分数、仓位，有没有公式）
+  </li><li>它的回测有没有偷看未来？（成交价口径、切分方式、成本项）
+  </li><li>它亏了之后，能查到当时看到了什么吗？（证据链、审计日志）
+  </li><li>它错了之后，明天会不一样吗？（复盘有没有产出参数变化）
+</li></ol>
+</div></div>
+
+我在第一章写过一个身份转换：从“操盘的人”，变成“开公司的人”。
+
+全书读完之后，我把它再补一句。你依然是那个开公司的人，但现在你手里多了一样东西——<strong>你不再需要相信它。</strong>你可以查它、算它、验它、关它。
+
+这就是这套系统最后想给你的一种感觉：<strong>不是“我把钱交给了一个很聪明的东西”，而是“我搭了一台我说得清楚的机器，并且它不敢骗我”。</strong>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>日志与崩溃转储：<code class="sysfile">main.go</code> 的 <code class="code">setupLogging()</code>、<code class="code">GetExecDir()</code>；<code class="sysfile">log/quantbot_&lt;时间戳&gt;.log</code>、<code class="sysfile">log/crash_dump.txt</code>
+  </li><li>启动十步与看门狗：<code class="sysfile">App.go</code> 的 <code class="code">startup(ctx)</code>（第 <a class="xref" href="ch24.html#ch:ch24">第二十四章</a> 章）
+  </li><li>审计与交付物：<code class="sysfile">internal/audit</code>、<code class="sysfile">internal/transparency</code>、<code class="sysfile">deliverables/&lt;日期&gt;/</code>、<code class="dbtab">agent_task_logs</code>
+  </li><li>任务失败与阶段错误收集：<code class="sysfile">internal/agentworkflow/workflow_engine.go</code> 的 <code class="code">ExecuteCompleteDailyWorkflow</code>
+  </li><li>前端审计日志页：<code class="sysfile">ui/src/pages/AuditLog.tsx</code>
+  </li><li>用户手册故障 Q&amp;A：<code class="sysfile">docs/用户操作手册.md</code> 第 15 章
+  </li><li>相关事故：#1（<code class="code">agent.dll</code> 卸载导致段错误）、#2（致命 panic 被静默丢弃）、#3（托盘消息泵线程）、#11（收盘后循环执行与日志重复刷）、#23（\(180\)&#8201;s 硬超时掐断深度复盘，延长至 \(30\) 分钟）
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（把本章变成一次演习）</div><div class="boxbody">
+<ol><li>打开 <code class="sysfile">log/</code> 目录，找到最新那个 <code class="sysfile">quantbot_*.log</code>，搜索 <code class="code">[Step</code>，数一数能不能凑齐十步。
+  </li><li>检查 <code class="sysfile">log/crash_dump.txt</code> 是否存在。若存在，读第一条；若不存在，说明本机还没发生过致命崩溃——但请确认那条重定向代码在运行（看 <code class="sysfile">main.go</code>）。
+  </li><li>去设置页的「数据维护」，看行情库最新更新到哪个交易日。若不是上一交易日，就按第 <a class="xref" href="ch25.html#ch:ch25">第二十五章</a> 章的顺序补一次。
+  </li><li>打开审计日志页，随便找一条决策，看看它能不能回答这个问题：“当时它看到了什么？”
+  </li><li>最后做一次“演习式提问”：假设现在选股页返回 \(0\) 只结果。请你按本章的清单，列出你会依次检查的三个地方，并说明每一个能排除哪种可能。
+</li></ol>
+</div></div>
+
+这本书到这里就结束了。它没有告诉你哪只股票会涨——它讲的是另一件事：<strong>一台机器，怎么把一件本来只能靠感觉的事，做得可以被检查。</strong>
+
+而那件事真正的难点，从来不是算法。是把“诚实”这种东西，写成一行一行的代码。
+
+</article>
+<nav class="pager"><a class="prev" href="ch32.html"><span class="dir">上一页</span>第三十二章 每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a><a class="next" href="appA.html"><span class="dir">下一页</span>附录 A 系统架构与包结构速查</a></nav>
+
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>怎么给 AI 派活，它才不会乱来？ · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·怎么给 AI 派活，它才不会乱来？">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch03.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html" class="current"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a><ul class="sub"><li><a href="#sec-3-1">3.1 “帮我看看今天的市场，然后决定买什么”</a></li><li><a href="#sec-3-2">3.2 两个合同里的常识</a></li><li><a href="#sec-3-3">3.3 如果不给合同，会怎样</a></li><li><a href="#sec-3-4">3.4 从“说清楚”到“可校验”</a></li><li><a href="#sec-3-5">3.5 它在系统里长什么样</a></li><li><a href="#sec-3-5-1">3.5.1 第一件东西：12 个约束字段</a></li><li><a href="#sec-3-5-2">3.5.2 第二件东西：每个任务都有自己的“什么都不做”</a></li><li><a href="#sec-3-5-3">3.5.3 第三件东西：输出守卫的三层检查</a></li><li><a href="#sec-3-6">3.6 真实出处、动手试一试与下一章</a></li></ul></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch03"><span class="cnum">第三章</span>怎么给 AI 派活，它才不会乱来？</h1>
+
+
+
+
+
+<h2 id="sec-3-1"><span class="hnum">3.1</span>“帮我看看今天的市场，然后决定买什么”</h2>
+
+这是我最早写下的一条指令，也是我这辈子写过的最贵的一句话。
+
+它的语法没有任何问题。它甚至听起来很礼貌——把一件事和另一件事串联起来，像跟人说话。
+
+问题是，我连着跑了三次。
+
+第一次，它给了我一段市场评论：情绪偏暖、量能温和、建议关注科技方向。第二次，它给了我三只股票代码和买入理由。第三次，它给了我一段宏观叙事，末尾加了一句“具体标的建议由专业投顾给出”。
+
+三次回答的差别不是“水平高低的差别”，而是<strong>“做的是三件不同的事”</strong>。第一次做了市场观察，第二次做了选股，第三次做了免责声明。
+
+我当时以为这是模型的“随机性”。后来我想明白了：<strong>不是它随机，是我没说清。</strong> “看看市场”这四个字，可以被做成至少十种产出；“决定买什么”这五个字，落在这个系统里根本没有接收方——第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章我们已经看过，选股权属于 CIO，下单权属于 Trader，两个动作都不在这段对话里。
+
+一句模糊的指令，最后必然会变成一种“没人接得住”的产出。
+
+在系统里，“看看今天的市场”这句话对应的不是一段话，而是一个有编号的任务。它叫 <code class="code">pre_planner</code>，我把它完整摘下来给你看：
+
+<div class="box keybox"><div class="boxtitle">“看看今天的市场”在系统里的样子</div><div class="boxbody">
+<strong>任务名</strong>：盘前市场分析　<strong>谁做</strong>：PLANNER　<strong>交付物</strong>：<code class="code">pre_market_plan</code>　<strong>超时</strong>：300&#8201;000 毫秒　<strong>重试</strong>：2 次
+
+<strong>必须做的 8 件事</strong>：判断隔夜市场状态 → 提取重大市场事件 → 判断事件涉及的资产 → 判断事件重要程度 → 形成今日市场观察事项 → 标记需要 Quant 验证的事项 → 标记需要 Risk 检查的事项 → 生成 <code class="code">pre_market_plan</code>
+
+<strong>严禁做的 9 件事</strong>：选股、股票排名、生成 Alpha、生成交易信号、计算目标仓位、修改仓位、风险否决、投资决策、交易执行
+
+<strong>产出必须包含的 7 个字段</strong>：<code class="code">market_status</code>、<code class="code">key_events</code>、<code class="code">affected_assets</code>、<code class="code">expected_impact</code>、<code class="code">items_for_quant</code>、<code class="code">items_for_risk</code>、<code class="code">confidence</code>
+
+<strong>交给谁</strong>：QUANT　<strong>什么都没发生时该说什么</strong>：<code class="code">NO_MAJOR_EVENT</code>以上数字全部来自系统源码 <code class="sysfile">internal/scheduler/task_scheduler.go</code> 中 <code class="code">pre_planner</code> 任务的定义（第 378--419 行）：<code class="code">RequiredActions</code> 8 条、<code class="code">ForbiddenActions</code> 9 条、<code class="code">OutputSchema</code> 7 项、<code class="code">Handoff="Quant"</code>、<code class="code">NOActionCode="NO_MAJOR_EVENT"</code>、<code class="code">TimeoutMs=300000</code>、<code class="code">MaxRetries=2</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch03-1" href="#fn-ch03-1">1</a></sup>
+</div></div>
+
+同一句话，两个版本：一段有礼貌的祈使句，和一份有交付物、有下游、有超时的任务书。这一章讲的就是后者——一份给 AI 的<strong>合同</strong>。
+
+<h2 id="sec-3-2"><span class="hnum">3.2</span>两个合同里的常识</h2>
+
+<div class="box intuition"><div class="boxbody">
+假设你要找一家外包公司做一个网站。你不会只发一句“帮我做个网站”。
+
+你会写清楚：<strong>目的</strong>（给谁看、解决什么问题）、<strong>我提供什么</strong>（素材、账号、品牌规范）、<strong>你必须做的</strong>（首页、内页、后台、适配手机）、<strong>你不许做的</strong>（不许用我的品牌色改我的 Logo、不许把数据传到境外服务器）、<strong>交付格式</strong>（源码、设计稿、可运行的测试地址）、<strong>什么时候停</strong>（验收通过就交付，不要顺手再加功能）、<strong>异常怎么办</strong>（素材缺了要提出来，不许自己编一张图顶上）。
+
+写这些不是为了互相提防，而是因为：<strong>一份没有边界的委托，最后一定会以“双方都觉得自己被坑了”结束。</strong>
+</div></div>
+
+<div class="box intuition"><div class="boxbody">
+好的合同都有一个看起来很奇怪的部分：<strong>不做成的时候算不算完成</strong>。
+
+比如“如果现场勘测发现地基不达标，承包方应当出具书面说明并停止施工”——这句话的意思是：<strong>停下来、写一份说明，本身就是一种合格的交付</strong>。
+
+如果合同里没有这一条，会发生什么？承包商不能停，因为停下就等于违约。于是他只能想办法让事情“看起来能继续”——比如先按图纸施工，把手上的钱花掉，然后跟你解释“情况比预期复杂”。
+
+一套不给“不做”留位置的委托，一定会长出伪造。
+</div></div>
+
+第二个类比是这一章真正的重点。我们后面会看到，系统给每一个任务都起了一个“什么都不做”时就该说的话——它叫 <code class="code">NOActionCode</code>。
+
+<h2 id="sec-3-3"><span class="hnum">3.3</span>如果不给合同，会怎样</h2>
+
+不给合同的代价有三种，而且都是<strong>慢性的</strong>：它们不会当场报错，只会让系统在几周后变得不可信。
+
+<strong>第一，产出接不住。</strong> 下游角色要的是一份可核对的东西，模型给的是一段散文。下游没法读散文——它要么放弃使用（于是这一步白干），要么自己从散文里“理解”一个结论（于是这一步的结论，实际上是下游编的）。
+
+<strong>第二，无休止扩写。</strong> 没有停止条件，模型就不知道什么时候该收笔。它会继续补充“进一步的建议”“值得关注的风险”“如果……那么……”。多出来的文字不是免费的：它进了下一轮的上下文，成为下一轮判断的依据。
+
+<strong>第三，没有出口，就只能编。</strong> 这是最要命的一条。任务需要一个数字，而这个数字取不到——如果契约里没有说“取不到就报 <code class="code">DATA_UNAVAILABLE</code>”，那么模型唯一能做的，就是生成一个看起来合理的数字。
+
+我在第 <a class="xref" href="ch01.html#ch:ch01">第一章</a> 章说过一句话，这里再说一遍，因为它是本章的发动机：<strong>如果不给模型留一个“我不知道”的出口，它就只能编。</strong>
+
+<h2 id="sec-3-4"><span class="hnum">3.4</span>从“说清楚”到“可校验”</h2>
+
+先给一个“差不多对”的模型：<strong>派活就是把要求说清楚。</strong>
+
+这个模型抓住了本质，但它在两个地方会失效，而且失效得很安静。
+
+<strong>失效一：说清楚不等于可校验。</strong> 我在提示词里写“请给出结构化的分析结果”——这句要求是对的，但它没法被执行。什么叫结构化？几个字段？字段名叫什么？谁来判断它有没有做到？全都停在我脑子里。等到输出回来，只能靠我肉眼判断“这个算不算结构化”。
+
+要让要求可校验，就必须把它变成<strong>能和输出逐条比对的清单</strong>：输出里必须出现哪些字段、哪些动作必须做过、哪些词不许出现。
+
+<strong>失效二：合同只约束“说什么”，不约束“怎么算”。</strong> 就算我把 12 个字段写得清清楚楚，模型依然可以在 <code class="code">confidence</code> 这一栏写一个它自己“感觉”出来的数字。合同管得住格式，管不住真实性。
+
+第二处失效，我们这一章先记下，第 <a class="xref" href="ch04.html#ch:ch04">第四章</a> 章专门解决——那才是“AI 的手”要管的事。
+
+严谨版本的合同长这样：一份任务契约 + 一道输出守卫。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">3.1</span>（任务契约与输出守卫）</div>
+任务契约（<em>task contract</em>） 是对一次任务的完整约束：目的、触发条件、输入、必须做的动作、禁止做的动作、决策边界、可用工具、输出字段、下游交付对象、无动作时的状态码、停止条件、异常策略。
+
+输出守卫（<em>output guard</em>） 是任务结束后的检查器：它把实际输出与契约逐字段比对，不通过就拒绝这次交付。
+</div>
+
+一句话解释：契约是事前发的活，守卫是事后收的货。
+
+<h2 id="sec-3-5"><span class="hnum">3.5</span>它在系统里长什么样</h2>
+
+<h3 id="sec-3-5-1"><span class="hnum">3.5.1</span>第一件东西：12 个约束字段</h3>
+
+<figure class="listing" id="{lst:ch03-contract}"><figcaption><span class="lbl">代码 3.1</span>任务契约 v1.0 的完整定义（<code class="sysfile">internal/scheduler/task_scheduler.go</code>，原文）</figcaption><pre class="code"><code><span class="cl"><span class="com">// TaskContract Task 契约 v1.0 完整定义</span></span>
+<span class="cl"><span class="kw">type</span> TaskContract <span class="kw">struct</span> {</span>
+<span class="cl">    Purpose          <span class="kw">string</span>   <span class="com">// 任务目的</span></span>
+<span class="cl">    Trigger          <span class="kw">string</span>   <span class="com">// 触发条件</span></span>
+<span class="cl">    Inputs           []<span class="kw">string</span> <span class="com">// 允许读取的输入</span></span>
+<span class="cl">    RequiredActions  []<span class="kw">string</span> <span class="com">// 必须执行的动作</span></span>
+<span class="cl">    ForbiddenActions []<span class="kw">string</span> <span class="com">// 严禁执行的动作</span></span>
+<span class="cl">    DecisionBoundary <span class="kw">string</span>   <span class="com">// 决策边界（可以决定什么/不能决定什么）</span></span>
+<span class="cl">    AllowedTools     []<span class="kw">string</span> <span class="com">// 允许调用的工具</span></span>
+<span class="cl">    OutputSchema     []<span class="kw">string</span> <span class="com">// 输出字段</span></span>
+<span class="cl">    Handoff          <span class="kw">string</span>   <span class="com">// 下游交付对象</span></span>
+<span class="cl">    NOActionCode     <span class="kw">string</span>   <span class="com">// NO_ACTION 状态码</span></span>
+<span class="cl">    StopCondition    <span class="kw">string</span>   <span class="com">// 停止条件</span></span>
+<span class="cl">    ExceptionPolicy  <span class="kw">string</span>   <span class="com">// 异常处理策略</span></span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：这 12 个字段不是文档目录，是代码里的结构体。一个任务如果没有被填满，它连编译都过不了——这是这一章最硬的一条保证：<strong>合同的完整性不是靠人检查，是靠类型检查。</strong>
+
+把这 12 个字段翻译成人话，就是外包合同的七个问题：
+
+<figure class="tbl" id="tab:ch03-fields"><div class="tbl-scroll"><table><caption><span class="lbl">表 3.1</span>12 个约束字段对应的人话</caption><tbody><tr><td><strong>字段</strong></td><td><strong>它在回答的问题</strong></td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td><code class="code">Purpose</code> / <code class="code">Trigger</code></td><td>为什么做这件事？什么时候做？</td></tr><tr><td><code class="code">Inputs</code> / <code class="code">AllowedTools</code></td><td>你能拿什么？你能用什么工具去拿？</td></tr><tr><td><code class="code">RequiredActions</code> / <code class="code">StopCondition</code></td><td>必须做哪几步？做到哪一步就该收手？</td></tr><tr><td><code class="code">ForbiddenActions</code> / <code class="code">DecisionBoundary</code></td><td>哪些动作碰都不能碰？你能决定什么、不能决定什么？</td></tr><tr><td><code class="code">OutputSchema</code> / <code class="code">Handoff</code></td><td>产出必须长什么样？交给谁？</td></tr><tr><td><code class="code">NOActionCode</code> / <code class="code">ExceptionPolicy</code></td><td>什么都不该做时说什么？出岔子时怎么办？</td></tr><tr class="rule"><td colspan="2"></td></tr></tbody></table></div><p class="tabnote"><code class="code">DecisionBoundary</code> 在 <code class="code">pre_planner</code> 里写作“可以决定市场环境判断；不能决定投资标的和交易行为”。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/scheduler/task_scheduler.go</code> 的 <code class="code">TaskContract</code> 定义（第 264--278 行）与 <code class="code">pre_planner</code> 实例（第 393--418 行）；核对时间 2026-09-24。</p></figure>
+
+还有一个字段值得单独说：任务定义里除了契约，还有一个 <code class="code">Scope</code>，分 <code class="code">Allowed</code> 与 <code class="code">NotAllowed</code> 两组。<code class="code">pre_planner</code> 的“允许”是 7 项（市场数据、新闻、公告、宏观数据、指数、行业事件、市场状态），“不许”是 6 项（个股打分、因子计算、风险计算、仓位计算、交易决策、交易执行）系统源码 <code class="sysfile">internal/scheduler/task_scheduler.go</code>，<code class="code">pre_planner</code> 的 <code class="code">Scope</code>（第 389--392 行）。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch03-2" href="#fn-ch03-2">2</a></sup>。
+
+契约管“产出”，Scope 管“读什么”。两个都要，因为一份干净的产出也可能来自一堆不该读的数据。
+
+<h3 id="sec-3-5-2"><span class="hnum">3.5.2</span>第二件东西：每个任务都有自己的“什么都不做”</h3>
+
+<figure class="tbl" id="tab:ch03-noaction"><div class="tbl-scroll"><table><caption><span class="lbl">表 3.2</span>系统里 16 个任务的无动作状态码（<code class="code">NOActionCode</code>）</caption><tbody><tr><td><strong>状态码</strong></td><td><strong>用在几个任务上</strong></td><td><strong>用在哪些任务上</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td><code class="code">NO_DECISION_CHANGE</code></td><td>4</td><td><code class="code">pre_cio</code>、<code class="code">in_event_cio</code>、<code class="code">post_cio</code>、<code class="code">night_cio</code></td></tr><tr><td><code class="code">NO_EXECUTION</code></td><td>3</td><td><code class="code">in_market_monitor</code>、<code class="code">in_event_trader</code>、<code class="code">post_trader</code></td></tr><tr><td><code class="code">RISK_NORMAL</code></td><td>3</td><td><code class="code">pre_risk</code>、<code class="code">in_risk_monitor</code>、<code class="code">post_risk</code></td></tr><tr><td><code class="code">NO_SIGNAL_CHANGE</code></td><td>3</td><td><code class="code">pre_quant</code>、<code class="code">in_signal_monitor</code>、<code class="code">night_quant</code></td></tr><tr><td><code class="code">NO_MAJOR_EVENT</code></td><td>2</td><td><code class="code">pre_planner</code>、<code class="code">in_event_risk</code></td></tr><tr><td><code class="code">NO_TUNE_NEEDED</code></td><td>1</td><td><code class="code">post_quant_tune</code></td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">状态码共 6 种，覆盖 16 个任务定义；同一状态码被不同角色共用（例如 <code class="code">RISK_NORMAL</code> 同时被风控师盘前、盘中、盘后三个任务使用）。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/scheduler/task_scheduler.go</code> 的 <code class="code">getOptimizedTasks()</code> 全部任务定义；核对时间 2026-09-24。</p></figure>
+
+这张表是全章我最想让你记住的东西。它说明系统给每一种“今天没什么要做的”都起了名字：
+
+风控师看完一圈，一切正常——这不是“没干活”，这是 <code class="code">RISK_NORMAL</code>。操盘手盯了一天，没有需要执行的动作——这不是失败，这是 <code class="code">NO_EXECUTION</code>。量化分析师复盘完因子，不需要调仓——这是 <code class="code">NO_TUNE_NEEDED</code>。
+
+给“不做”起名字有三个立刻见效的好处。
+
+<strong>第一，它可统计。</strong> “今天有多少个任务是 <code class="code">NO_EXECUTION</code>？”这个问题，能直接回答“系统是不是天天在瞎折腾”。
+
+<strong>第二，它不可伪造。</strong> 如果输出必须是这 6 个码之一，那么“编一个数字”这条路就变窄了——你必须先声明“今天本就无事发生”。
+
+<strong>第三，它让任务可以正常结束。</strong> 一个没有 <code class="code">NOActionCode</code> 的任务，遇到“确实不该做任何事”的局面时只剩两种选择：硬编一个动作出来，或者卡在那里。两种都不是好结局。
+
+<h3 id="sec-3-5-3"><span class="hnum">3.5.3</span>第三件东西：输出守卫的三层检查</h3>
+
+任务跑完，输出回来。系统里的 <code class="code">OutputGuard</code> 会按顺序做三件事系统源码 <code class="sysfile">internal/scheduler/output_guard.go</code> 的 <code class="code">ValidateOutput</code>（第 28--49 行）依次调用 <code class="code">validateOutputSchema</code>、<code class="code">validateForbiddenOutputs</code>、<code class="code">validateDecisionBoundary</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch03-3" href="#fn-ch03-3">3</a></sup>：
+
+<ol><li><strong>Schema 验证</strong>：输出里的字段名，有没有对得上契约里的 <code class="code">OutputSchema</code>；
+  </li><li><strong>禁止输出检查</strong>：输出里有没有出现这个角色不该出现的字段（例如风控师的输出里出现 <code class="code">stock_pick</code>）；
+  </li><li><strong>决策边界验证</strong>：这个角色有没有在自己的输出里“顺手做了决定”。
+</li></ol>
+
+第一层的写法是“警告”：当输出的字段名一个都对不上契约时，记一条 <code class="code">OUTPUT_SCHEMA_MISMATCH</code> 警告。
+
+第二层的写法是“违规”：它会命中就记 <code class="code">FORBIDDEN_OUTPUT</code>，并且直接把这次交付判为不通过。
+
+第三层的写法是“越权”：量化分析师输出 <code class="code">decision</code>、操盘手输出 <code class="code">recommendation</code>，都会被记成 <code class="code">DECISION_BOUNDARY_VIOLATION</code>。
+
+<div class="box pitfall"><div class="boxbody">
+写这一章的时候，我把守卫的三个函数逐行读了一遍，然后发现了一件很尴尬的事。
+
+第二层检查用的键名写成这样：“<code class="code">Planner</code>”、“<code class="code">Quant</code>”、“<code class="code">Risk</code>”、“<code class="code">Trader</code>”——首字母大写。而任务上记录的角色值是全大写：“<code class="code">PLANNER</code>”、“<code class="code">QUANT</code>”、“<code class="code">RISK</code>”、“<code class="code">TRADER</code>”。这两个字符串<strong>不相等</strong>，所以查表查不到，函数在第一行就返回了，什么也没检查。
+
+五个角色里只有 <code class="code">CIO</code> 恰好两边写法相同，于是它成了唯一真的被检查过的角色。
+
+第三层更彻底：它的 <code class="code">switch</code> 只列了 <code class="code">"Risk"</code>、<code class="code">"Quant"</code>、<code class="code">"Trader"</code>、<code class="code">"Planner"</code> 四个分支，同样一个都匹配不上。
+
+我把这件事写出来，不是为了自曝其短，而是因为这正是本章最容易产生的误解：<strong>把“检查清单”当成“检查器”。</strong> 一份写在纸上的三层检查，和一段真的会返回违规的代码，是两回事。任何一条“我们做了校验”的说法，都要能回答一个追问：<strong>它在哪个分支里返回 false？</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“模型又在胡编数字了”——这句话把问题归错了地方。
+
+模型的输出空间是“所有可能的文本”。只要“编一个数字”和“说我不知道”在产出上一样好用，它就一定会选那个让任务“看起来完成”的。这不是品德，这是目标函数。
+
+真正能改的是接口：把“我不知道”做成一个<strong>有名字、被接受、能通过校验</strong>的产出。系统里给这件事留了两个码——数据取不到时返回 <code class="code">DATA_UNAVAILABLE</code>，数据取到了但不合法（口径不对、越界、对不上）时返回 <code class="code">DATA_INVALID</code>两个码在任务定义中作为 <code class="code">ExceptionPolicy</code> 的指定返回写入，例如 <code class="code">pre_planner</code> 写“数据不可用时返回 <code class="code">DATA_UNAVAILABLE</code>，不得猜测或编造”，<code class="code">pre_quant</code> 写“数据异常时标记模型异常，返回 <code class="code">DATA_INVALID</code>，不得自行修改模型”；出处 <code class="sysfile">internal/scheduler/task_scheduler.go</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch03-4" href="#fn-ch03-4">4</a></sup>。
+
+这两个码的存在本身就是设计。它们不是“错误日志”，它们是<strong>一种合法的交付结果</strong>。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+我一开始把任务状态想成两态：成功，或者失败。
+
+系统里是五态：<code class="code">SUCCESS</code>、<code class="code">RUNNING</code>、<code class="code">FAILED</code>、<code class="code">PENDING</code>、<code class="code">SKIPPED</code>五态模型见 <code class="sysfile">docs/系统功能详细设计书.md</code> 第 10.4 节“任务状态与阶段”；核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch03-5" href="#fn-ch03-5">5</a></sup>。
+
+其中 <code class="code">SKIPPED</code> 和 <code class="code">PENDING</code> 是我最初完全没有想过的两种状态，而它们恰恰最常见。
+
+<code class="code">PENDING</code> 是“还没轮到它”——盘前七件事是排队做的，第五件事在前四件没做完之前，本来就应该是 <code class="code">PENDING</code>。
+
+<code class="code">SKIPPED</code> 是“这一轮不需要它”。它不是失败，也不是懒惰，它是一个被明确做出的决定。
+
+我后来的体会是：<strong>一个只有“成功 / 失败”的系统，会把大量“正常的不作为”误判成故障，然后你会开始忽略告警。</strong> 而忽略告警，比没有告警更危险。
+</div></div>
+
+<h2 id="sec-3-6"><span class="hnum">3.6</span>真实出处、动手试一试与下一章</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>任务契约 v1.0 的 12 个字段与 <code class="code">AgentTask</code> / <code class="code">TaskScope</code> 定义：<code class="sysfile">internal/scheduler/task_scheduler.go</code>（第 256--299 行）
+  </li><li>16 个任务的完整契约实例（含 <code class="code">pre_planner</code>、<code class="code">pre_quant</code>、<code class="code">pre_risk</code>）：同文件 <code class="code">getOptimizedTasks()</code>
+  </li><li>输出守卫三层检查与任务前置检查：<code class="sysfile">internal/scheduler/output_guard.go</code>（<code class="code">OutputGuard.ValidateOutput</code>、<code class="code">ConstraintChecker.CheckPreExecution</code>）
+  </li><li>契约不完整时的阻断：同文件 <code class="code">CheckPreExecution</code> 里 <code class="code">CONTRACT_INCOMPLETE</code> 违规与 <code class="code">NO_NO_ACTION_CODE</code> 警告
+  </li><li>27 个任务类型常量与 5 态任务状态：<code class="sysfile">internal/agentworkflow/models.go</code>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十分钟）</div><div class="boxbody">
+<ol><li>打开系统，进“实时活动”页，等它跑完一次盘前阶段。
+  </li><li>在“今日任务日志”里找到 <code class="code">pre_planner</code> 这条任务，看它的状态与耗时。
+  </li><li>找到同一次运行里风控师的那条风险检查任务，看它的结果状态。如果它今天给的是 <code class="code">RISK_NORMAL</code>，那么“风控师今天没干活”这句话是错的——它干完了活，结论是“无事”。
+  </li><li>把 <code class="code">pre_planner</code> 的 8 条必须动作抄下来，然后自己写一句话派活给一个真人同事，要求他做到同样的 8 步、产出同样 7 个字段。你会发现你写的那句话，比你想象的长得多。
+</li></ol>
+</div></div>
+
+合同签好了，每个角色都清楚自己该做什么、不许做什么、产出长什么样。但还有一个问题被我们刚刚按下没答：报 <code class="code">RISK_NORMAL</code> 之前，风控师是<strong>拿什么</strong>看出来“一切正常”的？它自己算了一遍波动率，还是它调用了某个会算的东西？<strong>合同规定了它能做什么，可它拿什么去做？</strong> 下一章我们去看它的手——它能动，但只能动你允许的那几样东西。
+</article>
+<nav class="pager"><a class="prev" href="ch02.html"><span class="dir">上一页</span>第二章 五个岗位，五条不能越过的线</a><a class="next" href="ch04.html"><span class="dir">下一页</span>第四章 AI 的手：它能动手，但只能动你允许的那几样东西</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch03-1"><strong>数据来源</strong> 以上数字全部来自系统源码 <code class="sysfile">internal/scheduler/task_scheduler.go</code> 中 <code class="code">pre_planner</code> 任务的定义（第 378--419 行）：<code class="code">RequiredActions</code> 8 条、<code class="code">ForbiddenActions</code> 9 条、<code class="code">OutputSchema</code> 7 项、<code class="code">Handoff="Quant"</code>、<code class="code">NOActionCode="NO_MAJOR_EVENT"</code>、<code class="code">TimeoutMs=300000</code>、<code class="code">MaxRetries=2</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch03-1">↩</a></li><li id="fn-ch03-2"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/scheduler/task_scheduler.go</code>，<code class="code">pre_planner</code> 的 <code class="code">Scope</code>（第 389--392 行）。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch03-2">↩</a></li><li id="fn-ch03-3"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/scheduler/output_guard.go</code> 的 <code class="code">ValidateOutput</code>（第 28--49 行）依次调用 <code class="code">validateOutputSchema</code>、<code class="code">validateForbiddenOutputs</code>、<code class="code">validateDecisionBoundary</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch03-3">↩</a></li><li id="fn-ch03-4"><strong>数据来源</strong> 两个码在任务定义中作为 <code class="code">ExceptionPolicy</code> 的指定返回写入，例如 <code class="code">pre_planner</code> 写“数据不可用时返回 <code class="code">DATA_UNAVAILABLE</code>，不得猜测或编造”，<code class="code">pre_quant</code> 写“数据异常时标记模型异常，返回 <code class="code">DATA_INVALID</code>，不得自行修改模型”；出处 <code class="sysfile">internal/scheduler/task_scheduler.go</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch03-4">↩</a></li><li id="fn-ch03-5"><strong>数据来源</strong> 五态模型见 <code class="sysfile">docs/系统功能详细设计书.md</code> 第 10.4 节“任务状态与阶段”；核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch03-5">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

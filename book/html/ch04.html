@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 的手：它能动手，但只能动你允许的那几样东西 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·AI 的手：它能动手，但只能动你允许的那几样东西">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch04.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html" class="current"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a><ul class="sub"><li><a href="#sec-4-1">4.1 为什么不让它自己算收益率</a></li><li><a href="#sec-4-2">4.2 给新员工开账号</a></li><li><a href="#sec-4-3">4.3 不给工具，会怎样</a></li><li><a href="#sec-4-4">4.4 从“给模型工具”到“工具契约”</a></li><li><a href="#sec-4-5">4.5 它在系统里长什么样</a></li><li><a href="#sec-4-5-1">4.5.1 一个工具的解剖</a></li><li><a href="#sec-4-5-2">4.5.2 取不到数据，工具会拒绝</a></li><li><a href="#sec-4-5-3">4.5.3 一张表决定谁能碰什么</a></li><li><a href="#sec-4-5-4">4.5.4 每个角色手里有几把工具</a></li><li><a href="#sec-4-5-5">4.5.5 运行时还有一次校验</a></li><li><a href="#sec-4-6">4.6 常见误解与纠偏</a></li><li><a href="#sec-4-7">4.7 真实出处、动手试一试与下一章</a></li></ul></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch04"><span class="cnum">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</h1>
+
+
+
+
+
+<h2 id="sec-4-1"><span class="hnum">4.1</span>为什么不让它自己算收益率</h2>
+
+我做过一个小实验，只花了十分钟，但那次之后我改掉了整套设计里的一块砖。
+
+我把一只股票最近 60 个交易日的收盘价粘进对话里，然后问它：“帮我算一下这 60 天的日收益率标准差。”
+
+它给了。数字看起来合理，格式很漂亮，还贴心地把百分比保留了两位小数。
+
+我又换了一个写法问同样的问题：“请用这 60 个数字，按总体标准差（除以 \(n\)）和样本标准差（除以 \(n-1\)）分别算一遍，两个都给我。”
+
+它给了两个数，而且<strong>两个数一模一样</strong>。
+
+这就是问题所在。它不是“算得不够准”，它是<strong>根本没有在算</strong>。它在生成一个“看起来像标准差”的数字——这个数字由价格量级、波动直觉和随机性共同决定，而不是由那 60 个数字决定。
+
+而真正让我后背发凉的，不是这个错误本身，是<strong>没有人会发现它</strong>。
+
+一个模型在报告里写“年化收益 18.7%”，你怎么核对？你得把那几百行价格重新拉出来自己算一遍。也就是说：<strong>凡是让模型“心算”出来的数字，它的成本不是错，而是不可核对。</strong>
+
+<div class="box keybox"><div class="boxtitle">这一章只有一条原则</div><div class="boxbody">
+<strong>LLM 负责理解与决策协作，量化引擎负责计算事实。</strong>
+
+翻译成人话：模型负责“这件事该不该做、怎么做更稳妥”，机器负责“这个数到底是多少”。两者之间不许互相串岗——模型不许算数，引擎不许做决定。
+</div></div>
+
+<h2 id="sec-4-2"><span class="hnum">4.2</span>给新员工开账号</h2>
+
+<div class="box intuition"><div class="boxbody">
+一个新人来上班，第一件事是开系统账号。
+
+你会给他“查库存”的权限，因为他的工作要用；你不会给他“改价格”的权限，因为他用不着——而且一旦他改错了，损失不会停在他自己那一格。
+
+你还得给他工具：一把能算的<strong>计算器</strong>，和一本能查的<strong>资料册</strong>。
+
+但你不会让他“用心算”。心算这件事的麻烦在于：它没有痕迹。他算对了，你没看见；他算错了，你也没看见。计算器不一样——它按了什么、算出什么，都是可以被复盘的。
+
+所以给 AI 配工具，其实在回答三个问题：<strong>它需要什么能力？哪些能力它不能有？它拿什么去做这些事？</strong> 前两个问题由第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章和第 <a class="xref" href="ch03.html#ch:ch03">第三章</a> 章回答过了，这一章回答第三个。
+</div></div>
+
+<div class="box intuition"><div class="boxbody">
+很多人以为“工具”是为了让模型更强、更快。
+
+不是。工具真正的价值在于<strong>把一次计算变成一个可以被检查的对象</strong>。
+
+心算的结果只有一个数字，你只能选择信或者不信。计算器按下去之后，会留下“输入是什么、用了哪个公式、输出是什么”。有了这三样，一个数字就从“结论”变成了“证据”。
+</div></div>
+
+<h2 id="sec-4-3"><span class="hnum">4.3</span>不给工具，会怎样</h2>
+
+三种代价，一种比一种深。
+
+<strong>第一，错得没有规律。</strong> 心算的错误不是随机噪声，它跟数字的“长相”有关：整数好看的数字容易被写对，带小数的数据容易出错。这意味错误不是均匀分布的，你没法用统计方法把它平均掉。
+
+<strong>第二，错得无法传播。</strong> 一个模型算出来的收益率，没法成为下一个模块的输入。因为下一个模块拿到的是一段字符串，不是数。它要么放弃使用，要么自己再“理解”一遍——而“理解”这一步又是一次心算。
+
+<strong>第三，错得无法追责。</strong> 这是最深的一层。如果系统里所有数字都是模型“说”出来的，那么当组合亏钱时，你无法区分三种情况：数据本身错了、计算错了、还是决策错了。三种情况的修复方式完全不同，而你连问题在哪一类都不知道。
+
+所以工具不是“增强”，工具是<strong>把计算从语言里搬到代码里</strong>。搬过去之后，计算才有痕迹。
+
+<h2 id="sec-4-4"><span class="hnum">4.4</span>从“给模型工具”到“工具契约”</h2>
+
+先给一个“差不多对”的模型：<strong>工具就是给模型几个可以调用的函数。</strong>
+
+这个模型是对的起点，但它在两处会塌。
+
+<strong>塌陷一：如果工具返回的是一句话，等于没有工具。</strong> 假设有一个工具叫“看看今天的市场”，它返回一段市场评论。那这段评论只能再喂给模型，模型还要再“理解”一次——我们又回到了心算。
+
+要让工具真的有用，它的返回值必须是<strong>结构化的</strong>：字段名固定、类型固定、能被下一个模块直接当输入用。比如不是“今天市场偏弱”，而是 <code class="code">market_tag="退潮风险"</code>、<code class="code">position_rate=0.06</code>。
+
+<strong>塌陷二：如果工具没有“谁能用”的属性，工具越多越危险。</strong> 一个工具的集合，同时也是一个人能触达的<strong>全部动作</strong>。给风控师装上“下单”工具，就等于给了它下单权——不管你提示词里怎么叮嘱。
+
+所以严格的工具不是函数，是一份<strong>四件套 + 一张可见性表</strong>。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">4.1</span>（工具契约）</div>
+一个工具由四部分组成：<strong>名字</strong>、<strong>说明</strong>、<strong>参数结构</strong>（JSON Schema 形式的输入声明）、<strong>执行方法</strong>。此外，每个工具还带一组<strong>可见角色</strong>——只有列在其中的角色才拿得到这个工具。
+</div>
+
+一句话解释：前四样决定“这个工具怎么被调用”，第五样决定“谁有资格调用它”。
+
+<h2 id="sec-4-5"><span class="hnum">4.5</span>它在系统里长什么样</h2>
+
+<h3 id="sec-4-5-1"><span class="hnum">4.5.1</span>一个工具的解剖</h3>
+
+<figure class="listing" id="{lst:ch04-interface}"><figcaption><span class="lbl">代码 4.1</span>工具的执行接口（<code class="sysfile">internal/tools/tools.go</code>，原文）</figcaption><pre class="code"><code><span class="cl"><span class="kw">type</span> Tool <span class="kw">interface</span> {</span>
+<span class="cl">    Name() <span class="kw">string</span></span>
+<span class="cl">    Description() <span class="kw">string</span></span>
+<span class="cl">    GetDefinition() ToolDefinition</span>
+<span class="cl">    Execute(ctx context.Context, args <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">interface</span>{}) (<span class="kw">interface</span>{}, error)</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：四个函数，四个问题。<code class="code">Name()</code> 答“我叫什么”；<code class="code">Description()</code> 答“我干什么”，而<strong>这段说明就是模型选择工具的唯一依据</strong>；<code class="code">GetDefinition()</code> 答“我的参数长什么样”，返回的是给 LLM 看的函数声明；<code class="code">Execute()</code> 才是真的动手。
+
+注意最后一行：它返回的是 <code class="code">(interface{}, error)</code>——一个结构化对象，加一个可能存在的错误。<strong>没有第三种返回方式。</strong> 工具不能说“我觉得大概是”，它只能给出结构，或者报错。
+
+<figure class="listing" id="{lst:ch04-sixdim-params}"><figcaption><span class="lbl">代码 4.2</span><code class="tool">market_sixdim_detect</code> 的参数声明（<code class="sysfile">internal/tools/sixdim_tool.go</code>，原文节选）</figcaption><pre class="code"><code><span class="cl">Parameters: <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">interface</span>{}{</span>
+<span class="cl">    <span class="str">&quot;type&quot;</span>: <span class="str">&quot;object&quot;</span>,</span>
+<span class="cl">    <span class="str">&quot;properties&quot;</span>: <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">interface</span>{}{</span>
+<span class="cl">        <span class="str">&quot;save&quot;</span>: <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">interface</span>{}{</span>
+<span class="cl">            <span class="str">&quot;type&quot;</span>:        <span class="str">&quot;boolean&quot;</span>,</span>
+<span class="cl">            <span class="str">&quot;description&quot;</span>: <span class="str">&quot;是否将本次判势结果落库到 market_sixdim_daily 表（默认 false）&quot;</span>,</span>
+<span class="cl">        },</span>
+<span class="cl">        <span class="str">&quot;action&quot;</span>: <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">interface</span>{}{</span>
+<span class="cl">            <span class="str">&quot;type&quot;</span>:        <span class="str">&quot;string&quot;</span>,</span>
+<span class="cl">            <span class="str">&quot;enum&quot;</span>:        []<span class="kw">string</span>{<span class="str">&quot;detect&quot;</span>, <span class="str">&quot;sources&quot;</span>},</span>
+<span class="cl">            <span class="str">&quot;description&quot;</span>: <span class="str">&quot;默认 detect=执行判势；sources=仅返回数据源配置与运行指标（不判势）&quot;</span>,</span>
+<span class="cl">        },</span>
+<span class="cl">    },</span>
+<span class="cl">    <span class="str">&quot;required&quot;</span>: []<span class="kw">string</span>{},</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：这个工具只有两个参数，而且第二个参数只能是两个值之一。参数写死在 JSON Schema 里，模型不能自己发明一个 <code class="code">action="随便试试"</code>。
+
+<h3 id="sec-4-5-2"><span class="hnum">4.5.2</span>取不到数据，工具会拒绝</h3>
+
+这是本章我最喜欢的一段代码。六维判势工具在动手之前，先检查一件事：
+
+<figure class="listing" id="{lst:ch04-guard}"><figcaption><span class="lbl">代码 4.3</span>工具在动手前先检查数据是否可用（<code class="sysfile">internal/tools/sixdim_tool.go</code>，原文）</figcaption><pre class="code"><code><span class="cl"><span class="kw">if</span> t.mkt == <span class="kw">nil</span> || !t.mkt.HasStockDB() {</span>
+<span class="cl">    <span class="kw">return</span> <span class="kw">nil</span>, fmt.Errorf(<span class="str">&quot;DuckDB 不可用，无法执行市场六维判势&quot;</span>)</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：数据库没挂上，工具不返回“零分”，也不返回“默认中性”，它返回一个错误。<strong>工具宁可不干活，也不编数据。</strong>
+
+这就是第 <a class="xref" href="ch03.html#ch:ch03">第三章</a> 章那两个拒答码在工具层的对应物：<code class="code">DATA_UNAVAILABLE</code> 不是一个礼貌用语，它是链条上每一环都要遵守的行为约定。
+
+拒绝之外的另一半，是它成功时交出来的东西：
+
+<figure class="listing" id="{lst:ch04-sixdim-return}"><figcaption><span class="lbl">代码 4.4</span>同一个工具的返回结构（<code class="sysfile">internal/tools/sixdim_tool.go</code>，原文节选）</figcaption><pre class="code"><code><span class="cl"><span class="kw">return</span> <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">interface</span>{}{</span>
+<span class="cl">    <span class="str">&quot;as_of&quot;</span>:                time.Now().Format(<span class="str">&quot;2006-01-02&quot;</span>),</span>
+<span class="cl">    <span class="str">&quot;dim_scores&quot;</span>:           report.DimScores,</span>
+<span class="cl">    <span class="str">&quot;dim_chinese&quot;</span>:          sixdim.DimChinese,</span>
+<span class="cl">    <span class="str">&quot;raw_total_score&quot;</span>:      report.RawTotalScore,</span>
+<span class="cl">    <span class="str">&quot;conflict_count&quot;</span>:       report.ConflictCount,</span>
+<span class="cl">    <span class="str">&quot;adjusted_total_score&quot;</span>: report.AdjustedTotalScore,</span>
+<span class="cl">    <span class="str">&quot;position_rate&quot;</span>:        report.PositionRate,</span>
+<span class="cl">    <span class="str">&quot;market_tag&quot;</span>:           report.MarketTag,</span>
+<span class="cl">    <span class="str">&quot;position_advice&quot;</span>:      fmt.Sprintf(<span class="str">&quot;策略信号仓位 = 原始信号仓位 × %.2f（%s）&quot;</span>, ...),</span>
+<span class="cl">    <span class="str">&quot;sources&quot;</span>:              report.Sources,</span>
+<span class="cl">    <span class="str">&quot;note&quot;</span>:                 <span class="str">&quot;技术/广度/量能来自DuckDB真实行情；...所有实时源失败均自动回退并标注，无伪造。&quot;</span>,</span>
+<span class="cl">}, <span class="kw">nil</span></span></code></pre></figure>
+
+这段话在说什么：它交出的不是一句话，而是一张表。六个维度的分数在一栏，冲突数在一栏，仓位系数在一栏，市场标签在一栏。
+
+最要紧的是 <code class="code">sources</code> 这一栏——每个数字“从哪来”和数字一起返回。第 <a class="xref" href="ch20.html#ch:ch20">第二十章</a> 章会看到，这一栏里留着的是“这天的数据是用哪个源算的”的原文记录。
+
+还有 <code class="code">note</code> 里那句朴素的话：“所有实时源失败均自动回退并标注，无伪造。” 这是工具对自己行为的公开承诺，而且是写在返回值里的，不是写在文档里的。
+
+而工具算出来的东西是能核对的。比如六维判势的结果落库之后，第二天可以逐条查：
+
+<figure class="tbl" id="tab:ch04-sixdim"><div class="tbl-scroll"><table><caption><span class="lbl">表 4.1</span><code class="tool">market_sixdim_detect</code> 最近的真实落库记录（节选两日）</caption><tbody><tr><td><strong>交易日</strong></td><td class="num"><strong>修正后总分</strong></td><td class="num"><strong>仓位系数</strong></td><td class="num"><strong>冲突数</strong></td><td><strong>市场标签</strong></td></tr><tr class="rule"><td colspan="5"></td></tr><tr><td>2026-09-10</td><td class="num">38.43</td><td class="num">0.10</td><td class="num">4</td><td>退潮风险</td></tr><tr><td>2026-09-11</td><td class="num">25.71</td><td class="num">0.06</td><td class="num">5</td><td>退潮风险</td></tr><tr class="rule"><td colspan="5"></td></tr></tbody></table></div><p class="tabnote">表中“总分”指冲突修正后的 <code class="code">adjusted_total_score</code>，“仓位系数”指 <code class="code">position_rate</code>，“冲突数”指 <code class="code">conflict_count</code>。</p>
+<p class="tabsrc">库 <code class="sysfile">data/stock.duckdb</code> 表 <code class="dbtab">market_sixdim_daily</code> 的真实记录；核对时间 2026-09-24。</p></figure>
+
+表里的“修正后总分”38.43 与 25.71<sup class="fn-ref"><a id="fnref-ch04-1" href="#fn-ch04-1">1</a></sup>、“仓位系数”0.10 与 0.06<sup class="fn-ref"><a id="fnref-ch04-2" href="#fn-ch04-2">2</a></sup>数值取自 <code class="dbtab">market_sixdim_daily</code> 表的 2026-09-10 与 2026-09-11 两条真实记录；同一表的原始总分、冲突数、数据来源字段亦一并入库。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch04-3" href="#fn-ch04-3">3</a></sup>，都是从库里直接读出来的，不是模型写的。<strong>工具的价值就在这里：它把“今天市场怎么样”从一句形容词，变成了一行可以复算的记录。</strong>
+
+<h3 id="sec-4-5-3"><span class="hnum">4.5.3</span>一张表决定谁能碰什么</h3>
+
+系统在装配团队时，逐个把工具挂到角色身上。当前版本一共 25 个工具注册入口，注册调用的代码集中在 <code class="sysfile">internal/brainhost/team_tools.go</code> 第 338--452 行区间该 25 个注册入口见系统事实清单第 5 节“工具清单”，核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch04-4" href="#fn-ch04-4">4</a></sup>。
+
+<figure class="listing" id="{lst:ch04-25}"><figcaption><span class="lbl">代码 4.5</span>25 个工具注册入口（<code class="sysfile">internal/brainhost/team_tools.go</code>）</figcaption><pre class="code"><code><span class="cl">portfolioOptimizerTool   marketDataTool        screenMarketTool</span>
+<span class="cl">stockPoolTool            getStockPoolTool      portfolioStateTool</span>
+<span class="cl">getPositionsTool         orderCostTool         macroSnapshotTool</span>
+<span class="cl">portfolioRiskViewTool    limitCheckTool        portfolioRiskMetricsTool</span>
+<span class="cl">factorReviewTool         searchMarketTool      marketStatsTool</span>
+<span class="cl">dailySettlementTool      marketRegimeTool      mandateComplianceTool</span>
+<span class="cl">sentimentMonitorTool     stopLossMonitorTool   decisionLogTool</span>
+<span class="cl">sixdimTool               orderBookTool         dailyStrategyTool</span>
+<span class="cl">backtestTool</span></code></pre></figure>
+
+这些工具的真身分布在 <code class="sysfile">internal/tools/</code> 下的 22 个源码文件里，包括 <code class="sysfile">sixdim_tool.go</code>、<code class="sysfile">daily_strategy_tool.go</code>、<code class="sysfile">factor_review_tool.go</code>、<code class="sysfile">order_book_tool.go</code>、<code class="sysfile">backtest_gap_tools.go</code>、<code class="sysfile">cninfo_tools.go</code> 等文件清单见系统事实清单第 5 节“工具源码文件”，核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch04-5" href="#fn-ch04-5">5</a></sup>。
+
+对外的工具名与可用角色，如表 <a class="xref" href="ch04.html#tab:ch04-visibility">4.2</a>。这张表建议你抄一遍——它是整本书里出现频率最高的一张表。
+
+<figure class="tbl" id="tab:ch04-visibility"><div class="tbl-scroll"><table><caption><span class="lbl">表 4.2</span>工具的角色可见性</caption><tbody><tr><td><strong>工具名</strong></td><td><strong>可用角色</strong></td><td><strong>它回答的问题</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td><code class="tool">get_tdx_stock_data</code></td><td>QUANT, RISK</td><td>这只股票的历史行情长什么样</td></tr><tr><td><code class="tool">search_tdx_stocks</code></td><td>QUANT, CIO</td><td>在几千只股票里找出符合条件的那几只</td></tr><tr><td><code class="tool">get_tdx_market_stats</code></td><td>CIO, RISK, QUANT, PLANNER, TRADER</td><td>全市场的基本统计数</td></tr><tr><td><code class="tool">get_tdx_common_stocks</code></td><td>CIO, QUANT</td><td>常见股票与 ETF 的基础资料</td></tr><tr><td><code class="tool">run_backtest</code></td><td>QUANT</td><td>这个策略放到历史上跑一遍，结果如何</td></tr><tr><td><code class="tool">optimize_portfolio</code></td><td>CIO, QUANT</td><td>这几只股票各买多少，组合波动最小</td></tr><tr><td><code class="tool">get_market_data</code></td><td>CIO, QUANT, RISK</td><td>市场真实数据（来自行情库）</td></tr><tr><td><code class="tool">search_market</code></td><td>CIO, QUANT</td><td>市场统计（来自行情库）</td></tr><tr><td><code class="tool">get_cninfo_info</code></td><td>PLANNER, QUANT, RISK, CIO</td><td>这家公司最近发了什么公告</td></tr><tr><td><code class="tool">market_sixdim_detect</code></td><td>CIO, PLANNER, RISK, QUANT</td><td>今天这个市场，适合下多少注</td></tr><tr><td><code class="tool">select_next_day_strategy</code></td><td>QUANT, CIO</td><td>明天用哪条策略来管持仓</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote"><code class="tool">optimize_portfolio</code> 为 Markowitz 均值--方差模型，支持激进 / 保守 / 平衡三种偏好；<code class="tool">market_sixdim_detect</code> 的 <code class="code">save</code> 参数控制是否落库；<code class="tool">select_next_day_strategy</code> 写入策略日计划表。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/brainhost/team_tools.go</code> 与 <code class="sysfile">internal/tools/</code>；同表见系统事实清单第 5 节。核对时间 2026-09-24。</p></figure>
+
+这张表里藏着一个很容易被忽略的不对称：
+
+<code class="tool">run_backtest</code> 只有 QUANT 能用。回测是“研究”，研究的结果必须经过风控和 CIO 才能变成动作——所以把它锁在链条的第二环上。
+
+<code class="tool">market_sixdim_detect</code> 有四个角色能用。“今天市场好不好”是共享上下文，不是谁的私产：规划师要靠它定配置、量化要靠它排候选、风控要靠它设限额、CIO 要靠它缩仓位。
+
+<code class="tool">get_cninfo_info</code> 是唯一覆盖四个角色（含 PLANNER）的“外部信息”工具。它查的是巨潮的公司公告——这是外部世界的事实，不属于任何岗位的私有财产。
+
+<h3 id="sec-4-5-4"><span class="hnum">4.5.4</span>每个角色手里有几把工具</h3>
+
+<figure class="tbl" id="tab:ch04-count"><div class="tbl-scroll"><table><caption><span class="lbl">表 4.3</span>装配完成后，每个角色实际挂载的工具数量</caption><tbody><tr><td><strong>角色</strong></td><td class="num"><strong>挂载工具数</strong></td><td><strong>值得注意的两项</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>CIO</td><td class="num">24</td><td>工具最多；但它的工具集里没有 <code class="code">place_trade</code>——下单不在它手里</td></tr><tr><td>QUANT</td><td class="num">17</td><td>独占回测工具与策略调参工具</td></tr><tr><td>RISK</td><td class="num">16</td><td>有组合风险指标与止损监控，没有交易执行类工具</td></tr><tr><td>PLANNER</td><td class="num">10</td><td>有方案与合规类工具，没有个股打分与回测</td></tr><tr><td>TRADER</td><td class="num">10</td><td>独占下单工具 <code class="code">place_trade</code>；工具集里没有选股工具</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">同一批工具被多个角色共用（例如市场统计工具 <code class="code">marketStatsTool</code> 五个角色都有），因此五个数字相加远大于 25。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/brainhost/team_tools.go</code> 的装配日志（第 403、438、488、538、565 行逐个列出各角色注册的工具名）；核对时间 2026-09-24。</p></figure>
+
+看最后一行和第一行，把它们对起来读：
+
+<strong>TRADER 独占下单工具，却没有选股工具；CIO 工具最多，却拿不到下单工具。</strong> 第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章那条“只有 Trader 能执行订单、只有 CIO 能选择股票”的硬约束，在这里第二次出现——这一次它是用工具清单写出来的。
+
+权限表是一道门，工具可见性是第二道门。两道门用不同的方式表达同一件事，谁改错了一道，另一道还拦得住。
+
+<h3 id="sec-4-5-5"><span class="hnum">4.5.5</span>运行时还有一次校验</h3>
+
+工具在装配时按角色挂载，只解决了“它有没有”的问题。系统里还有一个工具注册表（<code class="sysfile">internal/port/agent.go</code> 的 <code class="code">ToolRegistry</code>），每个工具的元数据里除了名字、分类、风险等级，还有一栏 <code class="code">Roles</code>：这个工具可以被哪些角色调用。
+
+中央注册表是这样建起来的：
+
+<figure class="listing" id="{lst:ch04-registry}"><figcaption><span class="lbl">代码 4.6</span>中央工具注册表与注册闭包（<code class="sysfile">internal/brainhost/team_tools.go</code>，第 223--238 行，原文）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 中央工具注册表：用于运行时权限强制校验（Runtime Enforcement）</span></span>
+<span class="cl">toolReg := port.NewToolRegistry()</span>
+<span class="cl">registerTeamTool := <span class="kw">func</span>(name, desc <span class="kw">string</span>, category port.ToolCategory, riskLevel <span class="kw">string</span>, roles []port.AgentRole, tool toolpkg.Tool) {</span>
+<span class="cl">    <span class="kw">if</span> tool == <span class="kw">nil</span> {</span>
+<span class="cl">        <span class="kw">return</span></span>
+<span class="cl">    }</span>
+<span class="cl">    _ = toolReg.Register(&amp;port.ToolMetadata{</span>
+<span class="cl">        Name:        name,</span>
+<span class="cl">        Description: desc,</span>
+<span class="cl">        Category:    category,</span>
+<span class="cl">        Roles:       roles,</span>
+<span class="cl">        RiskLevel:   riskLevel,</span>
+<span class="cl">        Version:     <span class="str">&quot;1.0.0&quot;</span>,</span>
+<span class="cl">        Tool:        AdaptTool(tool),</span>
+<span class="cl">    })</span>
+<span class="cl">}</span></code></pre></figure>
+
+每个工具在注册时，都必须当场写清它属于哪个分类、风险等级多高、允许哪些角色调用。三条最有代表性的注册声明长这样：
+
+<figure class="listing" id="{lst:ch04-register-calls}"><figcaption><span class="lbl">代码 4.7</span>三条注册声明（<code class="sysfile">internal/brainhost/team_tools.go</code>，第 244 行、第 250 行、第 270 行，原文节选）</figcaption><pre class="code"><code><span class="cl">registerTeamTool(<span class="str">&quot;run_backtest&quot;</span>, <span class="str">&quot;运行策略回测，验证历史表现（仅QUANT可使用）&quot;</span>,</span>
+<span class="cl">    port.CategoryBacktest, <span class="str">&quot;medium&quot;</span>, []port.AgentRole{port.RoleQuant}, backtestTool)</span>
+<span class="cl">registerTeamTool(<span class="str">&quot;place_trade&quot;</span>, <span class="str">&quot;执行买入/卖出订单（仅TRADER可使用，且需合法DecisionObject）&quot;</span>,</span>
+<span class="cl">    port.CategoryExecution, <span class="str">&quot;high&quot;</span>, []port.AgentRole{port.RoleTrader}, placeTradeTool)</span>
+<span class="cl">registerTeamTool(<span class="str">&quot;market_sixdim_detect&quot;</span>, <span class="str">&quot;基于六维判势评估A股市场环境：...&quot;</span>,</span>
+<span class="cl">    port.CategoryMarketData, <span class="str">&quot;low&quot;</span>,</span>
+<span class="cl">    []port.AgentRole{port.RoleCIO, port.RolePlanner, port.RoleRisk, port.RoleQuant}, sixdimTool)</span></code></pre></figure>
+
+三行声明里，三件事同时被写死：<code class="tool">run_backtest</code> 只给 QUANT，风险等级 <code class="code">medium</code>；<code class="tool">place_trade</code> 只给 TRADER，风险等级 <code class="code">high</code>；<code class="tool">market_sixdim_detect</code> 给 CIO、PLANNER、RISK、QUANT 四个角色，风险等级 <code class="code">low</code>。
+
+注意 <code class="tool">place_trade</code> 挂的是 <code class="code">high</code>，而六维判势挂的是 <code class="code">low</code>。在这份注册表里，标到最高风险等级的那一个，正是唯一能下单的那一个。<strong>能力越大的工具，它的元数据越扎眼</strong>——这不是为了好看，是为了让“谁在什么时候能调用什么”这件事变成可以逐条翻出来的记录，而不是藏在某段代码逻辑里。
+
+注册完之后，这份注册表被逐个注入每个智能体（第 329--334 行），由智能体在<strong>运行时</strong>调用工具前再校验一次角色。装配是静态的，校验是动态的——同一条边界，在两个时刻各自确认一次。
+
+我特意保留了这张表的“多余”：装配时已经按角色挂过工具了，为什么还要在运行时再查一遍？因为装配只发生在启动那一刻，而运行时校验发生在每一次调用。如果哪天有人加了一条新代码路径，绕过了装配直接调工具，第一道门不会拦——第二道门会。
+
+要提醒一句：这份注册表与前面那 25 个注册入口<em>不是同一份清单</em>——前者按工具登记“谁能用”，后者按角色登记“我有什么”。两份清单各自列举，也各自可以被单独核对。
+
+<h2 id="sec-4-6"><span class="hnum">4.6</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+“接上 Function Calling 就解决了”——这句话听起来像技术方案，其实是个情绪安慰。
+
+工具能不能解决问题，取决于三件非常具体的事：
+
+<strong>第一，返回值是不是结构化的。</strong> 返回一段自然语言，等于没返回。第 <a class="xref" href="ch02.html#ch:ch02">第二章</a> 章那张权限表能成立，是因为“允许/拒绝”是两个布尔值；如果它是“原则上可以”这种文本，这张表立刻失效。
+
+<strong>第二，取不到数据时它返回什么。</strong> 是报错，还是返回一个“默认中性 50 分”？后者看起来更“稳定”，代价是你会拿一堆假数据去做真决策。
+
+<strong>第三，谁能调用它。</strong> 没有这一条，Function Calling 只是把模型的手变长了，没有把它关进笼子里。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+我一度以为工具越多越好：给 CIO 挂 24 个工具，它应该更强。
+
+事实是：工具越多，<strong>选错工具的概率越大</strong>。每个工具都有一段说明，模型要在这些说明之间做选择。工具的功能越重叠、名字越接近，它越容易挑错——而挑错工具往往不会报错，只会拿回一份“看起来相关”的数据。
+
+所以工具数量的增长，必须伴随两件事：<strong>每个工具有明确的“不重叠”的说明</strong>，以及<strong>每个工具有明确的可见角色</strong>。
+
+表 <a class="xref" href="ch04.html#tab:ch04-count">4.3</a> 里那五个数字之所以有意义，不是因为它们大，而是因为它们<strong>不相等</strong>——不相等，说明有人被故意挡住了。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+工具说明不是文档，它是<strong>提示词的一部分</strong>。
+
+模型看不到工具的内部实现，它只看到名字和一段描述。所以“这个工具被正确使用”这件事，一半的责任在写工具的人身上，而不是在模型身上。
+
+反过来看 <code class="tool">market_sixdim_detect</code> 的说明：它把六个维度的名字、“输出各维度得分、冲突修正后总分、建议仓位系数 <code class="code">position_rate</code> 与市场标签”、以及最要紧的那句“策略信号仓位 = 原始信号仓位 × <code class="code">position_rate</code>”，全部写进了描述里。
+
+这不是啰嗦。这是在<strong>把“该怎么用我”提前告诉调用者</strong>。工具描述写得含糊，模型就只能猜；它一猜，你就得去核对它猜的对不对——于是你又回到了这一章开头那个“没有人会发现”的处境。
+</div></div>
+
+<h2 id="sec-4-7"><span class="hnum">4.7</span>真实出处、动手试一试与下一章</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>工具的执行接口与四个方法：<code class="sysfile">internal/tools/tools.go</code>（<code class="code">Tool</code> 接口，第 22--27 行）
+  </li><li>工具元数据与运行时校验用的注册表：<code class="sysfile">internal/port/agent.go</code>（<code class="code">ToolMetadata</code>、<code class="code">ToolRegistry</code>）与 <code class="sysfile">internal/port/port.go</code>（<code class="code">ToolExecutor</code>、<code class="code">ToolDefinition</code>）
+  </li><li>代表性工具：<code class="sysfile">internal/tools/sixdim_tool.go</code>（<code class="tool">market_sixdim_detect</code>）、<code class="sysfile">daily_strategy_tool.go</code>（<code class="tool">select_next_day_strategy</code>）、<code class="sysfile">factor_review_tool.go</code>、<code class="sysfile">order_book_tool.go</code>、<code class="sysfile">cninfo_tools.go</code>（<code class="tool">get_cninfo_info</code>）
+  </li><li>按角色装配与注册入口：<code class="sysfile">internal/brainhost/team_tools.go</code>（第 338--566 行）
+  </li><li>中央工具注册表与各工具的角色、风险等级声明：<code class="sysfile">internal/brainhost/team_tools.go</code>（第 223--334 行）；元数据结构见 <code class="sysfile">internal/port/agent.go</code> 的 <code class="code">ToolMetadata</code> 与 <code class="code">ToolRegistry</code>（第 303--355 行）
+  </li><li>六维判势结果的落库表：<code class="dbtab">market_sixdim_daily</code>（DuckDB <code class="sysfile">data/stock.duckdb</code>）
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十分钟）</div><div class="boxbody">
+<ol><li>打开系统，进“设置 → 数据源 → 市场信息数据”，找到六维判势那张卡片。
+  </li><li>不要改任何开关。只是把六个源的启用状态与优先级抄下来，然后去看“AI 团队”页里 PLANNER 的工具清单——它也有六维判势这个工具，但它没有下单工具。
+  </li><li>回到本章表 <a class="xref" href="ch04.html#tab:ch04-visibility">4.2</a>，找出“只有一个角色能用”的工具。本章提到的有两个：<code class="tool">run_backtest</code>（仅 QUANT）和表 <a class="xref" href="ch04.html#tab:ch04-count">4.3</a> 里的 <code class="code">place_trade</code>（仅 TRADER）。
+  </li><li>自己回答一个问题：如果明天要给系统加一个“读研报”的工具，你会把它给哪几个角色？为什么不能给 TRADER？
+</li></ol>
+</div></div>
+
+到这里，五个角色有了权力边界，有了任务合同，也有了各自的那几把工具。可它们还是“各自在干活”——今天先做什么、多久做一次、谁在几点喊开工，还没有人安排。<strong>工具齐了，一天的时间表是谁定的？</strong> 第 <a class="xref" href="ch05.html#ch:ch05">第五章</a> 章我们跟着时钟走一整天：9:00 的盘前、9:30 到 15:00 的盘中、15:00 之后的盘后，还有 20:00 的深夜复盘。
+</article>
+<nav class="pager"><a class="prev" href="ch03.html"><span class="dir">上一页</span>第三章 怎么给 AI 派活，它才不会乱来？</a><a class="next" href="ch05.html"><span class="dir">下一页</span>第五章 一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch04-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch04-1">↩</a></li><li id="fn-ch04-2"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch04-2">↩</a></li><li id="fn-ch04-3"><strong>数据来源</strong> 数值取自 <code class="dbtab">market_sixdim_daily</code> 表的 2026-09-10 与 2026-09-11 两条真实记录；同一表的原始总分、冲突数、数据来源字段亦一并入库。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch04-3">↩</a></li><li id="fn-ch04-4"><strong>数据来源</strong> 该 25 个注册入口见系统事实清单第 5 节“工具清单”，核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch04-4">↩</a></li><li id="fn-ch04-5"><strong>数据来源</strong> 文件清单见系统事实清单第 5 节“工具源码文件”，核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch04-5">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

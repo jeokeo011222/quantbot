@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>如果 AI 突然失联，交易还继续吗？ · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·如果 AI 突然失联，交易还继续吗？">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch09.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html" class="current"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a><ul class="sub"><li><a href="#sec-9-1">9.1 窗口没了</a></li><li><a href="#sec-9-2">9.2 不给它方向盘，会付出三种代价</a></li><li><a href="#sec-9-3">9.3 一个差不多对的模型：挂了就什么都不做</a></li><li><a href="#sec-9-4">9.4 第一层：单次调用失败，退回规则</a></li><li><a href="#sec-9-5">9.5 第二层：一个阶段失败了，其余阶段照跑</a></li><li><a href="#sec-9-6">9.6 第三层：后台任务崩了，进程还得活着</a></li><li><a href="#sec-9-6-1">9.6.1 那次闪退的根因：DLL 被拆走了</a></li><li><a href="#sec-9-7">9.7 真实出处与动手试一试</a></li></ul></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch09"><span class="cnum">第九章</span>如果 AI 突然失联，交易还继续吗？</h1>
+
+
+
+
+
+<h2 id="sec-9-1"><span class="hnum">9.1</span>窗口没了</h2>
+
+那是一个交易日的下午。
+
+我在做别的事，系统在后台跑。屏幕右下角的托盘图标还在，可当我点开主窗口的时候，它闪了一下就消失了。整台程序没了。
+
+我先去看日志。日志文件的最后一行是正常的——“[QuantBot] Logging system initialized successfully” 之后一路都是常规输出，没有报错、没有警告、没有异常堆栈。它写到某一刻，就停了。
+
+然后我去看 Windows 的事件查看器。什么都没有。
+
+一个程序在我面前消失，而我手上没有任何一条线索。那种感觉不是“出错了”，而是“出错这件事没有被记录下来”。我甚至不能说清它是几点几分死的、死在哪个环节。
+
+<div class="box intuition"><div class="boxbody">
+想象一辆自动驾驶汽车。它的转向、制动都由电子系统控制——效率高、响应快，这是它存在的理由。
+
+但没有任何一家车厂会说：“因为电子系统很可靠，所以方向盘可以拆掉。”
+
+方向盘留着的理由，不是“电子系统不够聪明”，而是“<strong>电子系统可以坏</strong>，而当它坏的那一刻，车上的人必须还有办法把车停下来”。
+
+机械备份的设计有一个共同点：<strong>它不追求和主系统一样好，它只追求在主系统消失之后，车还是可控的。</strong>
+</div></div>
+
+那台消失的程序，就是“主系统”；而它当时没有方向盘。
+
+<h2 id="sec-9-2"><span class="hnum">9.2</span>不给它方向盘，会付出三种代价</h2>
+
+我在复盘这件事的时候发现，问题不是一个，而是三个，而且它们的严重程度是递增的。
+
+<strong>代价一：一次调用失败，等于一天不做决定。</strong>如果那把“AI 失联就停下”的规则写死，那么模型接口一次抖动、一次超时、一次返回了格式不对的文本，当天的决策就整个空了。系统还活着，但它交出了方向盘——今天不选股、不调整、不出方案。
+
+<strong>代价二：一个环节失败，拖垮后面的所有环节。</strong>盘前、决策、风控、盘中、盘后是一条流水线。如果第一个环节抛出一个错误就让整条流水线停下来，那么“盘前因某个数据源超时而失败”会连带导致“盘后不复盘、不结算”。用户第二天打开软件，会看到账面数据是断的。
+
+<strong>代价三：进程直接死掉，什么都没留下。</strong>这是最严重的一种，也是我遇到的那种。前两种是“功能退化了”，第三种是“<strong>连退化这个词都无从谈起</strong>”——因为没有任何记录，你无法判断它是功能退化还是根本没跑。
+
+所以“AI 失联了怎么办”这个问题，正确的问法不是一句话，而是五句话：
+
+<ul><li>单次调用失败，怎么办？
+  </li><li>单个阶段失败，怎么办？
+  </li><li>单个后台任务崩了，怎么办？
+  </li><li>整个进程崩了，怎么办？
+  </li><li>那个“决策脑”本身坏了，怎么办？
+</li></ul>
+
+本章要讲的，就是这五个问题各自的答案。
+
+<h2 id="sec-9-3"><span class="hnum">9.3</span>一个差不多对的模型：挂了就什么都不做</h2>
+
+我先想到的模型最简单，也最安全：<strong>AI 一失联，今天就什么都不做。</strong>
+
+这个模型有它的道理。它的逻辑是：既然决策依赖 AI，那 AI 不在，就不该做决策——总比乱做强。在很多系统里，这是对的。
+
+但它在 A 股里有一个明显的裂缝：<strong>“什么都不做”本身也是一个决定，而且是有代价的决定。</strong>一个持仓已经触发止损的交易日，你不卖出，就是把风险留着过夜。所以“安全停摆”并不安全——它把“不决策”当成了中立，可市场不会因为你不决策就停止给你计分。
+
+第二个裂缝更隐蔽：这个模型把“AI 失联”当成一个<strong>整体</strong>事件，而它其实是一个<strong>局部</strong>事件。系统里一次决策要用到三次独立的模型调用（主张、异议、辩论），外加晨间简报这类各自独立的任务，它们不会一起挂。多数时候是某一路挂了，另外两路好好的。
+
+把这两条裂缝补上，模型就变成三层：
+
+<div class="box keybox"><div class="boxtitle">本章的骨架：退化的三层</div><div class="boxbody">
+<strong>第一层，退回规则。</strong>AI 给不出意见，就用规则本来就算出的那个数——规则门本身就是一份完整、可执行、可复盘的决定，不是“假数据”。
+
+<strong>第二层，局部降级。</strong>某一路意见缺席，就少一路；某个阶段失败，就记一笔，其余阶段照跑。缺席是合法的，编造不是。
+
+<strong>第三层，进程不灭。</strong>后台任务崩溃要留在日志里，致命崩溃要留在磁盘上，那个“决策脑”不允许被中途拆走。
+</div></div>
+
+<strong>这个模型的失效点在哪里？</strong>在于它只保证“系统继续运转”，不保证“系统继续像原来那么聪明”。一个靠规则门跑完的一天，和一个四路来源齐全地跑完的一天，产出质量不是一回事。所以这三层的目标必须写准：<strong>它们要保的是“不停工”和“有据可查”，不是“保证水平不下降”</strong>。想清楚这一点，才不会在事后把“退化运行”误读成“正常运行”（第 <a class="xref" href="ch10.html#ch:ch10">第十章</a> 章会讲怎么区分）。
+
+<h2 id="sec-9-4"><span class="hnum">9.4</span>第一层：单次调用失败，退回规则</h2>
+
+先看最小的一格：一次 LLM 调用失败了。
+
+这里的“失败”包括四种：模型没配置、调用报错、超时、以及返回了内容但解析不出结构。四种的处理方式完全一样——<strong>完全回退到规则决策</strong>，一个字的意见都不采纳。源码在这里写得很直白：
+
+<figure class="listing" id="{lst:ch09-fallback}"><figcaption><span class="lbl">代码 9.1</span>硬回退（节选，<code class="sysfile">internal/cio/proposal.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="kw">func</span> (c *CIOEngine) decideProposalGate(ctx context.Context, in proposalInput, ruleRate <span class="kw">float64</span>) *proposalGateResult {</span>
+<span class="cl">    evidence := buildEvidenceLines(in)</span>
+<span class="cl">    res := &amp;proposalGateResult{Evidence: evidence, Effective: ruleRate, KellyScale: 1.0}</span>
+<span class="cl"></span>
+<span class="cl">    prop := c.genDecisionProposal(ctx, in)   <span class="com">// Phase1 主张</span></span>
+<span class="cl">    <span class="kw">if</span> prop == <span class="kw">nil</span> {</span>
+<span class="cl">        log.Printf(<span class="str">&quot;[CIO] 决策主张不可用，完全回退规则决策（有效仓位=%.2f）&quot;</span>, ruleRate)</span>
+<span class="cl">        <span class="kw">return</span> res                            <span class="com">// 有效仓位 = ruleRate</span></span>
+<span class="cl">    }</span>
+<span class="cl">    ...</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：注意第二行 <code class="code">Effective: ruleRate</code>——<strong>在问 AI 之前，答案就已经先填成“规则给的那个数”了</strong>。这是一种很聪明的写法：回退不是“出错时才去补的补丁”，而是“默认状态”。AI 的意见如果成功拿到，就把这个默认值改小（后面所有的动作都只能把它改小）；拿不到，默认值原样留下。
+
+<code class="code">ruleRate</code> 是从哪来的？它是六维判势给出的仓位系数（第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a> 章）。这里有一个真实的细节值得记下来：<strong>六维判势本身也不可用时，<code class="code">ruleRate</code> 取 \(1.0\)</strong>——也就是“不因为 AI 挂了而额外惩罚，也不因为 AI 挂了而额外放行”，让后面的风控层去做它该做的事。
+
+另外三个 LLM 阶段（异议评审、多空辩论，以及主张官本身）各自设了 \(60\) 秒的超时。超时之后调用返回失败，于是走的就是上面那条路：返回 <code class="code">nil</code>、不改变门控。<strong>超时不是一个异常状态，它是一个设计好的出口。</strong>
+
+<h2 id="sec-9-5"><span class="hnum">9.5</span>第二层：一个阶段失败了，其余阶段照跑</h2>
+
+现在把视角放大一格：如果失败的不是一次调用，而是一整个阶段呢？
+
+系统的日常投资工作流有五步，固定顺序是：盘前 → CIO 决策 → 风控审查 → 盘中订单 → 盘后。它的写法不是“遇到错误就返回”，而是“<strong>把错误收集起来，继续往下走</strong>”：
+
+<figure class="listing" id="{lst:ch09-workflow}"><figcaption><span class="lbl">代码 9.2</span>单步失败不中断（节选，<code class="sysfile">internal/agentworkflow/workflow_engine.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="kw">var</span> phaseErrs []<span class="kw">string</span></span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// Step 1: 盘前阶段</span></span>
+<span class="cl"><span class="kw">if</span> err := we.ExecutePreMarketPhase(instance.InstanceID); err != <span class="kw">nil</span> {</span>
+<span class="cl">    log.Printf(<span class="str">&quot;[WorkflowEngine] 盘前阶段失败(继续后续阶段): %v&quot;</span>, err)</span>
+<span class="cl">    phaseErrs = append(phaseErrs, <span class="str">&quot;盘前:&quot;</span>+err.Error())</span>
+<span class="cl">}</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// Step 2: CIO决策阶段</span></span>
+<span class="cl"><span class="kw">if</span> err := we.ExecuteCIODecisionPhase(instance.InstanceID); err != <span class="kw">nil</span> {</span>
+<span class="cl">    log.Printf(<span class="str">&quot;[WorkflowEngine] CIO决策阶段失败(继续后续阶段): %v&quot;</span>, err)</span>
+<span class="cl">    phaseErrs = append(phaseErrs, <span class="str">&quot;CIO决策:&quot;</span>+err.Error())</span>
+<span class="cl">    decision = &amp;InvestmentDecision{} <span class="com">// 失败时用空决策占位，避免后续阶段解引用 nil</span></span>
+<span class="cl">}</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// Step 3: 风控审查阶段</span></span>
+<span class="cl"><span class="kw">if</span> err := we.ExecuteRiskReviewPhase(instance.InstanceID, decision.RelatedTaskIDs); err != <span class="kw">nil</span> {</span>
+<span class="cl">    phaseErrs = append(phaseErrs, <span class="str">&quot;风控审查:&quot;</span>+err.Error())</span>
+<span class="cl">}</span>
+<span class="cl"><span class="com">// Step 4~6: 盘中订单 → 盘后，同样各自收集错误，各自继续</span></span></code></pre></figure>
+
+这段话在说什么，三件事。
+
+<strong>第一，<code class="code">phaseErrs</code> 是一张“欠账清单”。</strong>每个阶段失败，就往里记一笔，然后继续。全部跑完之后，如果清单不空，函数返回一个错误，日志里写着“日常投资工作流完成（含 \(N\) 个阶段失败）”。注意这句话的措辞：<strong>它说的是“完成（含失败）”，不是“中止”</strong>。
+
+<strong>第二，空决策占位这个小动作，救的是下一行。</strong>看第二段：如果 CIO 决策阶段失败了，代码不是让 <code class="code">decision</code> 保持 <code class="code">nil</code>，而是把它赋成一个空的 <code class="code">InvestmentDecision</code>。为什么？因为第三段要读 <code class="code">decision.RelatedTaskIDs</code>——如果 <code class="code">decision</code> 是 <code class="code">nil</code>，这一读就是空指针解引用，在网络编程里叫“访问了不存在的东西”，在 Go 里就是一次 panic。<strong>一个为“防止下一行崩溃”而存在的空壳对象，是容错设计里最不起眼、也最不可省的一块砖。</strong>
+
+<strong>第三，这套写法有一个必须说清楚的代价。</strong>阶段会带着“上一步没成功”的状态继续跑。所以每个阶段自己必须能处理“输入不全”的情况——比如风控审查拿到的是一张空的任务 ID 列表。容错从来不是免费的，它的账单开在“<strong>每个下游都要能接受残缺的输入</strong>”上。
+
+调度层还有一条同源的规则：盘后分析的主周期如果出错，每日结算、盘口日频摘要、每日复盘这三件事<strong>仍然照常执行</strong>（<code class="sysfile">internal/scheduler/auto_scheduler.go</code> 的 <code class="code">runPostMarketAnalysis</code>）。理由很实在——盈亏结算和复盘一断，第二天的账面数据就是错的，而这个错误会一路传下去。
+
+<h2 id="sec-9-6"><span class="hnum">9.6</span>第三层：后台任务崩了，进程还得活着</h2>
+
+再放大一格：如果一个后台任务内部 panic 了呢？
+
+在 Go 里，一个 goroutine 里没有被 recover 的 panic 会直接终止整个进程。这句话的分量要体会一下：<strong>你为了不阻塞主流程而开出去的那个后台任务，反过来有能力杀死整个程序。</strong>
+
+所以系统的规矩是：后台 goroutine 一律带兜底。工具函数 <code class="code">SafeGo</code>（<code class="sysfile">internal/util/goroutine.go</code>）就是干这个的——它启动 goroutine 时先挂上一个 <code class="code">defer recover()</code>，崩了就把名字和原因写进日志，然后安静地结束：
+
+<figure class="listing" id="{lst:ch09-safego}"><figcaption><span class="lbl">代码 9.3</span>后台 goroutine 的兜底（节选，<code class="sysfile">internal/util/goroutine.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="kw">func</span> SafeGo(name <span class="kw">string</span>, fn <span class="kw">func</span>()) {</span>
+<span class="cl">    <span class="kw">go</span> <span class="kw">func</span>() {</span>
+<span class="cl">        <span class="kw">defer</span> <span class="kw">func</span>() {</span>
+<span class="cl">            <span class="kw">if</span> r := recover(); r != <span class="kw">nil</span> {</span>
+<span class="cl">                log.Printf(<span class="str">&quot;[Goroutine] Panic recovered in %s: %v&quot;</span>, name, r)</span>
+<span class="cl">            }</span>
+<span class="cl">        }()</span>
+<span class="cl">        fn()</span>
+<span class="cl">    }()</span>
+<span class="cl">}</span></code></pre></figure>
+
+<strong>但兜底只兜得住“可恢复的”崩溃。</strong>这就是我那次闪退的真相所在——它根本不是一次普通的 panic。
+
+<h3 id="sec-9-6-1"><span class="hnum">9.6.1</span>那次闪退的根因：DLL 被拆走了</h3>
+
+系统的“决策脑”是一个独立的 DLL 文件 <code class="code">agent.dll</code>。它是一个 c-shared 的 Go 动态库，独立资产，被主程序加载进同一个进程使用。
+
+问题出在那张“用完就还”的清单上。写代码的时候，我给它的加载器配了一个释放入口 <code class="code">Close()</code>，里面调的是 <code class="code">a.dll.Release()</code>——像一个规矩的程序员那样，加载了的东西用完就卸。
+
+出事的地方在于：<strong>这个 DLL 内部有它自己的后台 goroutine。</strong>主程序这边把 DLL 卸掉、内存回收，那些还活着的内部 goroutine 并不知道自己脚下的代码已经被搬走了。它们继续执行，于是访问了一段已经释放的内存。
+
+Windows 给这种行为起了个名字：<code class="code">ACCESS_VIOLATION</code>，错误码 <code class="code">0xC0000005</code>。它不是“程序逻辑错了”，它是“<strong>执行了一段不属于你的内存</strong>”。这种错误不经过 Go 的 <code class="code">log</code> 包，也不经过任何一层 <code class="code">recover</code>——它是操作系统级别的、立即生效的终止。
+
+于是就有了本章开头那一幕：程序消失、日志干净、事件查看器无记录。
+
+修复方式只有一句话：<strong>不再卸载它。</strong>让 DLL 在进程的整个生命周期里常驻——加载之后就不再释放。库里的那个 <code class="code">Close()</code> 入口还在，但决策脑不去调它。
+
+<div class="box pitfall"><div class="boxbody">
+我当时的想法很朴素：这个 DLL 只在决策时用，一天用一次，卸载的时候恰好撞上内部 goroutine 在跑，能有多大概率？
+
+先把这个“概率”算清楚。先做两个明确的假设。
+
+<div class="thm definition"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">9.1</span>（独立同概率的崩溃单元）</div>
+设系统每天执行 \(N\) 次“有可能触发该缺陷的单位操作”，每次触发的概率都是同一个 \(p\)，且各次相互独立。
+</div>
+
+在假设 9.1 之下，一年（按 \(365\) 天）里至少触发一次的概率是
+
+<div class="math-scroll" id="eq:crash-once">\[\Prob(\text{至少一次}) = 1 - (1-p)^{365N}. \tag{9.1}\]</div>
+
+现在代入两个数。系统的调度主循环是 \(30\) 秒一次 ticker，一天就是 \(N = 2880\) 次（这是一个真实的参数，见 <code class="sysfile">internal/scheduler/auto_scheduler.go</code>）。
+
+若单次概率 \(p = 10^{-8}\)（一亿分之一），代入式 <a class="xref" href="ch09.html#eq:crash-once">式 (9.1)</a> 得一年 \(1.0\%\)；若 \(p = 10^{-6}\)（百万分之一），得一年 \(65\%\)。
+
+两个数放在一起看：<strong>同一个“极小概率”，一亿分之一意味着大约九十五年才碰上一次，而百万分之一则是“大概率今年一定会遇上”。</strong>\(7 \times 24\) 运行的系统把次数放大了两千八百多倍——\(N\) 越大，\(p\) 有多小就越不重要。
+
+结论不是“要小心一点”，而是：<strong>在这类系统里，“会不会发生”不该是设计依据，“发生了会怎样”才是。</strong>判断标准应该换成一条：这个错误一旦发生，会不会让整个进程消失？如果会，它就必须有专门的、不依赖 recover 的记录通道。这才是那次闪退教我的东西。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+那次事故里，我最长一段时间被这个想法困住：日志最后一行很正常，所以我一直在查“那个正常的时刻之前发生了什么业务逻辑”，查了很久。
+
+方向从一开始就错了。<strong>Go 运行时的致命 panic 不走 <code class="code">log</code> 包</strong>，它直接写向标准错误输出；而这个程序是一个 GUI 程序（Wails），它没有给人看的控制台。于是致命崩溃的完整堆栈<strong>被写到一片没人接收的地方</strong>，然后消失。
+
+修复办法是给这条通道单独接一根管子：在主程序启动的最早阶段，用 <code class="code">debug.SetCrashOutput</code> 把运行时崩溃输出重定向到一个独立文件。
+
+<figure class="listing" id="{lst:ch09-crashout}"><figcaption><span class="lbl">代码 9.4</span>把致命崩溃接出来（节选，<code class="sysfile">main.go</code>）</figcaption><pre class="code"><code><span class="cl">crashPath := filepath.Join(logDir, <span class="str">&quot;crash_dump.txt&quot;</span>)</span>
+<span class="cl"><span class="kw">if</span> cf, cerr := os.OpenFile(crashPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0666); cerr == <span class="kw">nil</span> {</span>
+<span class="cl">    <span class="com">// SetCrashOutput 持有该文件供运行时写入，运行时负责其生命周期，勿手动 Close</span></span>
+<span class="cl">    debug.SetCrashOutput(cf, debug.CrashOptions{})</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：从这一刻起，任何没被 recover 的致命 panic，都会把完整堆栈写进 <code class="sysfile">log/crash_dump.txt</code>。注意代码注释里那句“运行时负责其生命周期，勿手动 Close”——这份文件的生命周期被交给了运行时，因为写它的时刻，程序已经在死了，你没法指望它还能优雅地关闭谁。
+
+这一条的教训可以推得很远：<strong>可观测性不是框架附赠的，它是一个必须被专门设计的部件。</strong>日志系统在正常工作的时候，你看不出它会不会漏掉什么；只有到崩溃那天，你才知道它到底兜住了哪一层。所以对“最后一层”必须单独安排：一条不经过业务代码、不依赖任何中间件的通路。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+这是对“回退”最常见的误读。很多人一听“AI 失败就退回规则”，第一反应是：那今天的结果是不是半真半假？
+
+不是。要区分两件事：<strong>降级使用假数据</strong>，和<strong>更换决策来源</strong>。
+
+规则门给出的仓位系数，是系统用真实行情算出来的、原本就一直在用的数——在引入 AI 之前，系统就是靠它运转的。AI 的主张之所以被加进来，是因为它能在规则之上再收紧一点；它挂掉，只是“收紧的那只手松开了”，规则门本身仍然是一份完整、可执行、可复盘的决策。
+
+真正的红线在另一个地方，而且前面几章反复出现过：<strong>不许为了跑完流程而填一个假意见。</strong>辩论解析不了，返回 <code class="code">nil</code>，不塞一个“中性”；主张拿不到，退回规则，不编一个方向。第 <a class="xref" href="ch08.html#ch:ch08">第八章</a> 章那条“缺数据就少投票，而不是补一个假票”的规矩，和“AI 挂了就退回规则，而不是编一个主张”的规矩，是同一条规矩的两种说法。
+</div></div>
+
+把上面三层拼起来，就是表 <a class="xref" href="ch09.html#tab:ch09-layers">9.1</a> 这张全景表。
+
+<figure class="tbl" id="tab:ch09-layers"><div class="tbl-scroll"><table><caption><span class="lbl">表 9.1</span>五级失效点与各自的兜底方式</caption><tbody><tr><td><strong>失效的层级</strong></td><td><strong>系统的行为</strong></td><td><strong>真实出处</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>单次 LLM 调用（未配置 / 失败 / 超时 / 解析失败）</td><td>完全回退规则；生效仓位直接取 <code class="code">ruleRate</code>；六维不可用时 <code class="code">ruleRate</code> 取 \(1.0\)</td><td><code class="sysfile">internal/cio/proposal.go</code></td></tr><tr><td>单个工作流阶段失败</td><td>错误记入 <code class="code">phaseErrs</code>，其余阶段继续；CIO 决策失败时用空决策占位防 nil 解引用</td><td><code class="sysfile">internal/agentworkflow/workflow_engine.go</code></td></tr><tr><td>盘后主周期失败</td><td>每日结算、盘口日频摘要、每日复盘仍照常执行</td><td><code class="sysfile">internal/scheduler/auto_scheduler.go</code></td></tr><tr><td>后台 goroutine 内 panic</td><td><code class="code">defer recover()</code> 记下任务名与原因，进程继续</td><td><code class="sysfile">internal/util/goroutine.go</code>、<code class="sysfile">main.go</code></td></tr><tr><td>未被 recover 的致命崩溃</td><td>堆栈写入 <code class="sysfile">log/crash_dump.txt</code>，不再静默消失</td><td><code class="sysfile">main.go</code></td></tr><tr><td>决策脑 DLL 被卸载</td><td>不再卸载：DLL 在进程整个生命周期内常驻</td><td><code class="sysfile">internal/agentdll/loader_windows.go</code></td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">表中“超时”指各 LLM 阶段各自的 \(60\) 秒调用超时；超时与失败走同一条回退路径。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/cio/proposal.go</code>、<code class="sysfile">internal/agentworkflow/workflow_engine.go</code>、<code class="sysfile">internal/scheduler/auto_scheduler.go</code>、<code class="sysfile">internal/util/goroutine.go</code>、<code class="sysfile">main.go</code>、<code class="sysfile">internal/agentdll/loader_windows.go</code>；事故与修复见本项目真实修复记录；核对时间 2026-09-24。</p></figure>
+
+<figure class="fig" id="fig:ch09-phases"><img class="tikz" src="assets/tikz/tikz-05.svg" alt="示意图"><figcaption><span class="lbl">图 9.1</span>五阶段流水线的容错方向：错误向上汇聚成一张清单，而不是向下传导成一次中断。</figcaption></figure>
+
+<h2 id="sec-9-7"><span class="hnum">9.7</span>真实出处与动手试一试</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>五阶段工作流与 <code class="code">phaseErrs</code>、空决策占位：<code class="sysfile">internal/agentworkflow/workflow_engine.go</code>，函数 <code class="code">ExecuteCompleteDailyWorkflow</code>。
+  </li><li>硬回退规则决策与 \(60\) 秒超时：<code class="sysfile">internal/cio/proposal.go</code>，函数 <code class="code">decideProposalGate</code> / <code class="code">genDecisionProposal</code> / <code class="code">challengeProposal</code> / <code class="code">debateProposal</code>。
+  </li><li>盘后主周期失败仍照常结算与复盘：<code class="sysfile">internal/scheduler/auto_scheduler.go</code>，函数 <code class="code">runPostMarketAnalysis</code>。
+  </li><li>后台 goroutine 兜底：<code class="sysfile">internal/util/goroutine.go</code> 的 <code class="code">SafeGo</code>，以及 <code class="sysfile">main.go</code> 的 <code class="code">appRecover</code>。
+  </li><li>致命崩溃输出重定向：<code class="sysfile">main.go</code>，<code class="code">debug.SetCrashOutput</code> \(\to\) <code class="sysfile">log/crash_dump.txt</code>。
+  </li><li>决策脑 DLL 的加载与释放入口：<code class="sysfile">internal/agentdll/loader_windows.go</code>（<code class="code">Close()</code> 调用 <code class="code">a.dll.Release()</code>）；“不再卸载”是本项目的真实修复决定。
+  </li><li>调度节拍（\(30\) 秒 ticker）：<code class="sysfile">internal/scheduler/auto_scheduler.go</code>。
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（二十分钟）</div><div class="boxbody">
+<ol><li>打开系统安装目录下的 <code class="sysfile">log/</code> 文件夹。里面应该至少有两类文件：按日期滚动的运行日志，和一个 <code class="sysfile">crash_dump.txt</code>。
+  </li><li>先看 <code class="sysfile">crash_dump.txt</code>。如果它是空的（长度为 \(0\)），说明到目前为止还没有发生过致命崩溃——这是好事，不是 Bug。
+  </li><li>然后做一个安全的破坏实验：<strong>在设置页里把 API Key 填成一个明显无效的值</strong>，保存，然后手动触发一次“生成今日决策”之类的动作。
+  </li><li>观察两件事：系统有没有报错？以及它有没有<em>停止工作</em>？正确的表现是——决策日志里能查到“决策主张不可用、完全回退规则决策”这类记录，而当天的仓位照常由规则门给出。
+  </li><li>最后一问：把 API Key 恢复回去之前，先问自己一句——<strong>刚才那一天，系统是“用假数据顶上了”，还是“换了个人拍板”？</strong>
+</li></ol>
+</div></div>
+
+到这里，第一部分最难的一半已经过去了：这个团队有分工、有权限、有契约、有工具，会吵、会投票，AI 挂了也倒不了。
+
+但它活下来这件事，只证明了它没死——<strong>没证明它没瞎干</strong>。
+
+亏钱的那一天，我打开系统，能不能查到它当时到底看到了什么、想了什么、谁否了谁？下一章我们去看那个“黑匣子”。
+</article>
+<nav class="pager"><a class="prev" href="ch08.html"><span class="dir">上一页</span>第八章 投票能不能比专家更靠谱？——多提案集成</a><a class="next" href="ch10.html"><span class="dir">下一页</span>第十章 黑匣子：怎么证明这个决策不是瞎猜的？</a></nav>
+
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>风控不是一堵墙，是三层走廊 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·风控不是一堵墙，是三层走廊">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch22.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html" class="current"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a><ul class="sub"><li><a href="#sec-22-1">22.1 「最多亏 10%」这句话，能兑现吗</a></li><li><a href="#sec-22-2">22.2 飞机不靠「更小心」</a></li><li><a href="#sec-22-3">22.3 为什么只有一堵墙会漏</a></li><li><a href="#sec-22-4">22.4 它在系统里长什么样：三层走廊</a></li><li><a href="#sec-22-4-1">22.4.1 第一层：规则风控门——把数写死，并且只写一遍</a></li><li><a href="#sec-22-4-2">22.4.2 第二层：AI 评审——只能更保守</a></li><li><a href="#sec-22-4-3">22.4.3 第三层：熔断与阻断——把开关按下去</a></li><li><a href="#sec-22-4-4">22.4.4 执行端的最后一厘米：buyRiskGate</a></li><li><a href="#sec-22-5">22.5 把「最多亏多少」变成可算的数</a></li><li><a href="#sec-22-5-1">22.5.1 VaR：一个分位数</a></li><li><a href="#sec-22-5-2">22.5.2 VaR 的致命缺陷：它不是次可加的</a></li><li><a href="#sec-22-5-3">22.5.3 CVaR：把分位数换成尾部均值</a></li><li><a href="#sec-22-5-4">22.5.4 CVaR 的一致性</a></li><li><a href="#sec-22-5-5">22.5.5 CVaR 至少和 VaR 一样大</a></li><li><a href="#sec-22-5-6">22.5.6 系统里的历史法：指标是怎么算出来的</a></li><li><a href="#sec-22-6">22.6 风控的最后一米：盘口五态</a></li><li><a href="#sec-22-7">22.7 跑不掉的仓位等于负债：流动性锁定指标</a></li><li><a href="#sec-22-8">22.8 常见误解与纠偏</a></li><li><a href="#sec-22-9">22.9 真实出处</a></li></ul></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch22"><span class="cnum">第二十二章</span>风控不是一堵墙，是三层走廊</h1>
+
+
+
+
+
+<h2 id="sec-22-1"><span class="hnum">22.1</span>「最多亏 10%」这句话，能兑现吗</h2>
+
+有人问我：我把最大回撤容忍设成 \(10\%\)，是不是就保证最多亏 \(10\%\)？
+
+我张口就答「是」。后来在纸上画出四种亏法，才发现答错了。<strong>一条线拦不住亏损，因为穿过这条线的方式有很多种。</strong>
+
+<strong>第一种，阴跌。</strong>每天跌 \(1\%\)，十天亏 \(10\%\)。这最「讲道理」：系统每天算回撤，\(8\%\) 预警、\(12\%\) 熔断降仓，线在这里有效。
+
+<strong>第二种，跳空。</strong>早上出重大利空，开盘直接 \(-10\%\)。昨天收盘回撤还是 \(0\)，今天开盘已亏 \(10\%\)。线不是被磨穿，是<strong>被跨过去了</strong>——昨晚设的那个数，上午就作废。
+
+<strong>第三种，停牌。</strong>票停牌两周，复牌后连续一字跌停，想卖也卖不掉——跌停价上的单子排成长队。回撤线早破了，可你连止损的动作都做不出来。
+
+<strong>第四种，整体性。</strong>组合里十只票各跌 \(1\%\)，却是同一天一起跌的。回撤不是某只票造成的，是整个水位一起下去了；你逐只检查，每只都「没超限」。
+
+四种亏法说的是同一件事：<strong>回撤是路径上的一个数，风险是一个分布。</strong>拿一个数管一个分布，注定有漏洞。
+
+这件事真的发生过一次。早期版本的单票上限与回撤容忍写在三处，数值却不一致——一处 \(30\%\)、一处 \(20\%\)系统事实清单第 15 节第 7 条。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-1" href="#fn-ch22-1">1</a></sup>。策略引擎以为自己在 \(20\%\) 的笼子里跑，执行端按 \(30\%\) 放行。<strong>硬限制有两套口径，就等于没有硬限制。</strong>
+
+这一章只回答一件事：怎么把「最多亏多少」从一句愿望，变成三层真的会拦住你的走廊。
+
+<h2 id="sec-22-2"><span class="hnum">22.2</span>飞机不靠「更小心」</h2>
+
+<div class="box intuition"><div class="boxbody">
+飞机有三套操纵系统：液压的、电动的、纯机械的（钢索直连）。它们不是「同一系统的三个备份」，而是<strong>三条独立的路</strong>：第一套坏了走第二套，第二套也坏了还能手动拉。飞行员并不比别人「更小心」，他只是坐在一架<strong>坏一套也不会掉下来</strong>的机器里。
+
+风控也一样。加一句「大家注意风险」不是风控，那只是语气；真正起作用的是：同一笔买单，要通过三条彼此独立的路，每条路都能单独把它拦下来。
+</div></div>
+
+「独立」是关键。三条路若共用同一个判断函数，它错一次，三条路一起错。所以三层必须由不同东西判断：第一层看<strong>写死的数</strong>，第二层看<strong>讲理（AI 评审）</strong>，第三层看<strong>开关（熔断与阻断）</strong>；失效模式不一样，才叫冗余。
+
+<h2 id="sec-22-3"><span class="hnum">22.3</span>为什么只有一堵墙会漏</h2>
+
+一堵墙——「设一个阈值，破了就停」——漏在四处：<strong>一是事后</strong>，回撤是算出来的，你看见它到 \(10\%\)，钱已经亏掉 \(10\%\)；<strong>二是单维</strong>，它只问亏了多少，不问亏得多集中、多难卖；<strong>三是静态</strong>，阈值是你今天拍的数，风险明天换形状；<strong>四是没接线</strong>，事故 #7 就是这样——限制写在那里，两个模块各信各的。
+
+所以系统不用一堵墙，用三层走廊：<strong>你必须依次走过三个房间，任何一个房间都可以把你请出去。</strong>
+
+<h2 id="sec-22-4"><span class="hnum">22.4</span>它在系统里长什么样：三层走廊</h2>
+
+<figure class="fig" id="fig:ch22-corridor"><img class="tikz" src="assets/tikz/tikz-13.svg" alt="示意图"><figcaption><span class="lbl">图 22.1</span>三层风控走廊：买单自上而下依次通过，任何一层都可以单独拦下它。拦截不是「静默丢单」，而是带结构化拒绝原因的留痕。</figcaption></figure>
+
+<h3 id="sec-22-4-1"><span class="hnum">22.4.1</span>第一层：规则风控门——把数写死，并且只写一遍</h3>
+
+第一层是写死的数字。它们集中在 <code class="sysfile">internal/policy/engine.go</code> 的 <code class="code">HardLimits</code> 里。
+
+<figure class="tbl" id="tab:ch22-hardlimits"><div class="tbl-scroll"><table><caption><span class="lbl">表 22.1</span>九项硬限制的默认值，以及它在拦什么</caption><tbody><tr><td><strong>限制名（结构体字段）</strong></td><td><strong>默认值</strong></td><td><strong>它在拦什么</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td><code class="code">MaxSinglePosition</code></td><td>\(0.30\)</td><td>单票占组合总资产上限</td></tr><tr><td><code class="code">MaxSectorExposure</code></td><td>\(0.50\)</td><td>单行业合计暴露上限</td></tr><tr><td><code class="code">MaxPortfolioLeverage</code></td><td>\(1.50\)</td><td>总杠杆（当前不融资，留接口）</td></tr><tr><td><code class="code">MaxDailyLoss</code></td><td>\(0.05\)</td><td>单日损失上限</td></tr><tr><td><code class="code">MaxDrawdown</code></td><td>\(0.10\)</td><td><strong>组合最大回撤容忍</strong>（事故 #7 统一后的口径）</td></tr><tr><td><code class="code">MaxOrderSize</code></td><td>\(100000\)</td><td>单笔名义金额上限（元）</td></tr><tr><td><code class="code">MaxTurnover</code></td><td>\(1.00\)</td><td>年化换手率上限</td></tr><tr><td><code class="code">MaxSlippage</code></td><td>\(0.005\)</td><td>单笔滑点上限</td></tr><tr><td><code class="code">MinLiquidity</code></td><td>\(0.10\)</td><td>流动性下限（越界即视为流动性风险）</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">值为 <code class="code">NewPolicyEngine</code> 的默认硬限制；「年化换手率」指单位资本一年内累计成交额倍数。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/policy/engine.go</code> 的 <code class="code">HardLimits</code> 结构体与 <code class="code">NewPolicyEngine</code> 默认值；核对时间 2026-09-24。</p></figure>
+
+表里有两个数要单独说：<strong>单票 \(30\%\)、回撤 \(10\%\)</strong>。它们是事故 #7 之后统一的权威口径，必须在三处同时成立：
+
+<ul><li><strong>风控师</strong>（<code class="code">RiskLimits</code>）：写进审查文案；
+  </li><li><strong>策略引擎</strong>（<code class="code">HardLimits</code>，上表）：下单前据此算违规；
+  </li><li><strong>风险中心</strong>（<code class="sysfile">internal/riskcenter/riskcenter.go</code> 的 <code class="code">buildCompliance</code>）：把「单票持仓上限」「最大回撤」做成两条独立校验，阈值取 <code class="code">hl.MaxSinglePosition</code> 与 <code class="code">hl.MaxDrawdown</code>系统源码 <code class="sysfile">internal/riskcenter/riskcenter.go</code> 的 <code class="code">buildCompliance</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-2" href="#fn-ch22-2">2</a></sup>。
+</li></ul>
+
+第三处不是重复劳动，而是<strong>对账</strong>：前两处任一被改坏，报告里都会亮出「超限」。
+
+还有两条硬约束：组合 <strong>CVaR（95）\(\le 8\%\)</strong>、<strong>压力损失 \(&gt;15\%\) 即否决</strong>系统事实清单第 11 节；情景构造见 <code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">generateStressScenarios</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-3" href="#fn-ch22-3">3</a></sup>。\(8\%\) 也用在综合风险评分：<code class="code">computeRiskScore</code> 把它当 CVaR 归一化基准（VaR <code class="code">0.05</code>、波动率 <code class="code">0.25</code>、回撤 <code class="code">0.15</code>）系统源码 <code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">computeRiskScore</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-4" href="#fn-ch22-4">4</a></sup>。
+
+<h3 id="sec-22-4-2"><span class="hnum">22.4.2</span>第二层：AI 评审——只能更保守</h3>
+
+第一层是死数，不会思考；第二层补的是「这段逻辑讲不讲得通」。做法是：规则先给一个建议仓位 <code class="code">ruleRate</code>，主张官与异议者各说一句，最后取最小：
+
+<div class="math-scroll" id="eq:ch22-effective">\[\text{Effective}=\min\Bigl(\text{ruleRate},\ \clamp(\text{主张},0.2,1.0),\ \clamp(\text{异议},0.2,1.0),\ \kelly\Bigr). \tag{22.1}\]</div>
+
+这个符号在讲什么：四个数取最小，意味着<strong>任何一个环节都不许把仓位放大</strong>。主张官说「加倍买」没用，因为 \(\clamp(\cdot,0.2,1.0)\) 把它锁在 \(1.0\) 以内；\(\text{ruleRate}\) 若只有 \(0.3\)，最终就是 \(0.3\)。
+
+更关键的是<strong>硬回退</strong>：AI 未配置、调用失败、超时或输出解析不了时，<strong>直接退回</strong> <code class="code">ruleRate</code>，不给一个「猜的」仓位系统事实清单第 7 节：LLM 未配置/失败/超时/解析失败时硬回退。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-5" href="#fn-ch22-5">5</a></sup>。这与第 <a class="xref" href="ch21.html#ch:ch21">第二十一章</a> 章同源：<strong>AI 只能让仓位变小</strong>；想放大必须回到第一层改硬限制，那是需要人签字的地方。
+
+<h3 id="sec-22-4-3"><span class="hnum">22.4.3</span>第三层：熔断与阻断——把开关按下去</h3>
+
+前两层都在算「这一笔该不该放行」。第三层管的是「今天整个车间还开不开机」。它有三个开关。
+
+<strong>开关一：净值回撤熔断。</strong>系统设两条线：预警线 \(8\%\)、止损线 \(12\%\)系统源码 <code class="sysfile">internal/cio/cio.go</code> 的常量 <code class="code">drawdownWarnPct = 8.0</code>、<code class="code">drawdownStopPct = 12.0</code>，判定函数 <code class="code">drawdownStatus</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-6" href="#fn-ch22-6">6</a></sup>。盘中触发预警线 → <strong>暂停新建仓</strong>；触发止损线 → 生成 <code class="code">DecisionPauseTrading</code> 决策并<strong>强制降仓</strong>：股票市值压回「总资产 \(\times 0.5\)」的现金目标，卖出量向下取整到 \(100\) 股系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">drawdownRiskReduceOrders</code>（<code class="code">cashTargetPct = 0.5</code>，<code class="code">sell = (sell/100)*100</code>）。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-7" href="#fn-ch22-7">7</a></sup>。
+
+<strong>开关二：暂停建仓（共享阻断开关）。</strong>它独立于紧急停止，真源在 Policy 引擎：<code class="code">pauseBuilding()</code> 读 <code class="code">policyEngine.IsPauseBuilding()</code>系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">pauseBuilding</code> 与 <code class="code">PauseBuilding</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-8" href="#fn-ch22-8">8</a></sup>。它<strong>只拦买入</strong>，卖出与止损照常。执行端在 <code class="code">engine.Buy</code> 最前面生效——<strong>连手动点「买入」都会被拦</strong>系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">Buy</code>：入口处 <code class="code">buyStopped()</code> 为真即返回错误，注释写明「执行层最终防线，独立于紧急停止——仅拦截买入」。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-9" href="#fn-ch22-9">9</a></sup>。
+
+<strong>开关三：紧急停止。</strong>这是最重的那个。它同时拦买入和卖出，覆盖 CIO 建仓、自动股票池、下单工具、审批补确认所有入口系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">emergencyStopped</code> 门控，同时出现在 <code class="code">Buy</code> 与 <code class="code">Sell</code> 开头；对照 <code class="sysfile">internal/portfolio/engine_test.go</code> 的 <code class="code">TestEmergencyStopGateBlocksTrades</code>。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-10" href="#fn-ch22-10">10</a></sup>。
+
+除这三个开关，还有一道来自第 <a class="xref" href="ch19.html#ch:ch19">第十九章</a> 章的闸门：六维判势为「退潮风险」或仓位系数 \(\posrate\le 0.15\) 时，<strong>禁止生成新买入订单</strong>。库里 <code class="dbtab">market_sixdim_daily</code> 的真实记录中有两天正踩在闸门内侧：\(2026\)-\(09\)-\(10\) 的 \(\posrate\) 为 \(0.10\)<sup class="fn-ref"><a id="fnref-ch22-11" href="#fn-ch22-11">11</a></sup>、\(2026\)-\(09\)-\(11\) 的 \(\posrate\) 为 \(0.06\)<sup class="fn-ref"><a id="fnref-ch22-12" href="#fn-ch22-12">12</a></sup>，两天的标签都是「退潮风险」系统事实清单第 13.3 节 <code class="dbtab">market_sixdim_daily</code> 的 5 条真实记录。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-13" href="#fn-ch22-13">13</a></sup>。那两天，系统只允许卖，不允许买。
+
+<h3 id="sec-22-4-4"><span class="hnum">22.4.4</span>执行端的最后一厘米：<code class="code">buyRiskGate</code></h3>
+
+就算前三条走廊都放行了，扣现金之前还有一道硬复核：<code class="code">buyRiskGate</code>系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyRiskGate</code>（行 888 起），调用点在 <code class="code">Buy</code> 中现金校验之前。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-14" href="#fn-ch22-14">14</a></sup>。它做两件事：
+
+<figure class="listing" id="{lst:ch22-gate}"><figcaption><span class="lbl">代码 22.1</span>buyRiskGate：执行端硬风控（节选）</figcaption><pre class="code"><code><span class="cl"><span class="kw">const</span> (</span>
+<span class="cl">    maxSinglePositionPct = 0.30 <span class="com">// 单票占组合市值上限（与 policy 默认一致）</span></span>
+<span class="cl">    maxBuyCongestPct     = 0.08 <span class="com">// 单笔买入名义金额 &lt;= 当日成交额的比例</span></span>
+<span class="cl">)</span>
+<span class="cl"><span class="com">// 1) 单票集中度：(已有持仓市值 + 本笔) / 总资产 &lt;= 30%</span></span>
+<span class="cl">afterPct := (existingVal + gross) / totalAssets</span>
+<span class="cl"><span class="kw">if</span> afterPct &gt; maxSinglePositionPct { <span class="kw">return</span> <span class="str">&quot;单票集中度超限：...&quot;</span> }</span>
+<span class="cl"><span class="com">// 2) 买入流动性拥挤度：本笔名义金额 &gt; 当日成交额 * 8% 则拒绝</span></span>
+<span class="cl"><span class="kw">if</span> snap.Turnover &gt; 0 &amp;&amp; gross &gt; snap.Turnover*maxBuyCongestPct {</span>
+<span class="cl">    <span class="kw">return</span> <span class="str">&quot;买入流动性拥挤：薄盘大单难成交/难离场，已拦截&quot;</span></span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：<strong>这道门只看买入，不看卖出</strong>，不过就返回结构化拒绝原因，绝不伪造成交。第二道校验的物理含义是：这一笔若超过当天该票成交额的 \(8\%\)，买进容易、卖出就难——<strong>在薄盘上，你的仓位就是你的对手盘</strong>。成交额读不到时跳过，不因缺数据误伤正常买入。
+
+这里如实记一笔口径差异：事实清单第 11 节把第二道校验概括为「近 20 日换手率与名义成交额需达阈值」，源码落地的判据却是「<strong>本笔名义金额 \(\le\) 当日成交额 \(\times 8\%\)</strong>」——以源码为准。这种「文档一句话、代码一个实现」的偏差，正是三层走廊要防的。
+
+<h2 id="sec-22-5"><span class="hnum">22.5</span>把「最多亏多少」变成可算的数</h2>
+
+现在回到开头那句话。要让「最多亏 \(10\%\)」有意义，先得把它从「一条路径上的一个数」翻译成「一个分布上的一个量」。
+
+先给一个差不多对的模型。只看一天的损失，记成随机变量 \(L\)（亏损为正）。最朴素的想法是：<strong>「我有 \(95\%\) 的把握不会亏超过某个数」</strong>——把「把握」当分位数，这个数就是后面要严格定义的 风险价值（<em>Value at Risk</em>）。它在哪里失效？一是只报一个数，不告诉你<strong>超过之后有多惨</strong>；二是可能不满足「分散化一定不亏」的直觉——这一点用反例说清楚。
+
+下面把它严谨化。先立三条假设，后面每一处引用都会点名。
+
+<div class="thm definition" id="asm:ch22-h1"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">22.1</span>（H1：可积性）</div>
+损失随机变量 \(L\) 满足 \(\E\abs{L}&lt;\infty\)。这条保证后文出现的分位数、条件期望与积分都有限、有意义。
+</div>
+
+<div class="thm definition" id="asm:ch22-h2"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">22.2</span>（H2：分布连续）</div>
+\(L\) 的分布函数 \(F_L(\ell)=\Prob(L\le\ell)\) 连续且在尾部严格递增。它保证「分位数形式」与「条件期望形式」的 CVaR 相等（见引理 <a class="xref" href="ch22.html#lem:ch22-equiv">22.9</a>）。<strong>去掉这条，两种形式会在有原子的地方分家</strong>——本章的离散算例会当场演示这一点。
+</div>
+
+<div class="thm definition" id="asm:ch22-h3"><div class="thmhead"><span class="thmname">假设</span> <span class="thmnum">22.3</span>（H3：二阶矩）</div>
+需要用到波动率、Sharpe、Beta 这些指标时，额外假设 \(\E[L^2]&lt;\infty\)。本章的三个定理都<strong>不需要</strong>它，标出来是为了说明：波动率类指标比 VaR/CVaR 类指标对分布的要求更强。
+</div>
+
+<h3 id="sec-22-5-1"><span class="hnum">22.5.1</span>VaR：一个分位数</h3>
+
+<div class="thm definition" id="def:ch22-var"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">22.4</span>（VaR）</div>
+给定置信水平 \(\alpha\in(0,1)\)，损失 \(L\) 的 \(\alpha\)-分位损失为
+<div class="math-scroll" id="eq:ch22-var">\[\mathrm{VaR}_\alpha(L)=\inf\{\ell\in\R:\ \Prob(L\le\ell)\ge\alpha\}. \tag{22.2}\]</div>
+口语一点：<strong>在任何「损失不超过 \(\ell\)」的概率已经不低于 \(\alpha\) 的 \(\ell\) 里，取最小的那个。</strong>
+</div>
+
+记 \(\mathcal{A}_\alpha(L)=\{\ell:\Prob(L\le\ell)\ge\alpha\}\)。\(\Prob(L\le\ell)\to1\)（\(\ell\to+\infty\)）说明它非空，分布函数单调不减说明它<strong>向上封闭</strong>，\(\Prob(L\le\ell)\to0\)（\(\ell\to-\infty\)）说明它下方有界——所以上面的下确界是<strong>有限实数</strong>，这个观察后面反复要用。
+
+<div class="thm plain" id="thm:ch22-var"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">22.5</span>（VaR 的三条好性质）</div>
+在假设 <a class="xref" href="ch22.html#asm:ch22-h1">22.1</a> 下，对任意 \(\alpha\in(0,1)\)：
+
+<em>(i)（单调性）</em> 若 \(L_1\le L_2\) 几乎处处，则 \(\mathrm{VaR}_\alpha(L_1)\le\mathrm{VaR}_\alpha(L_2)\)。
+
+<em>(ii)（正齐次性）</em> 对一切 \(\lambda&gt;0\)，\(\mathrm{VaR}_\alpha(\lambda L)=\lambda\,\mathrm{VaR}_\alpha(L)\)。
+
+<em>(iii)（平移不变性）</em> 对一切 \(c\in\R\)，\(\mathrm{VaR}_\alpha(L+c)=\mathrm{VaR}_\alpha(L)+c\)。
+</div>
+
+这个定理在说什么：(i) 亏得更多的那个，风险值不会更小；(ii) 仓位放大三倍，风险值放大三倍；(iii) 确定性地多亏 \(c\) 元，风险值整体平移 \(c\)。三条都符合直觉——VaR 在「形状」上是规矩的。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>先做一个统一的技术观察：三个部分的证明都归结为<em>集合 \(\mathcal{A}_\alpha\) 的比较</em>——集合越大，下确界越小。
+
+<em>(i)</em> 设 \(L_1\le L_2\) 几乎处处。固定任意 \(\ell\)。因为每个满足 \(L_2(\omega)\le\ell\) 的 \(\omega\) 都满足 \(L_1(\omega)\le L_2(\omega)\le\ell\)，除去零概率例外集后有
+<div class="math-scroll">\[\{L_2\le\ell\}\subseteq\{L_1\le\ell\}
+\quad\Longrightarrow\quad
+\Prob(L_1\le\ell)\ge\Prob(L_2\le\ell). \tag{22.3}\]</div>
+于是只要 \(\ell\in\mathcal{A}_\alpha(L_2)\)，就有 \(\Prob(L_1\le\ell)\ge\Prob(L_2\le\ell)\ge\alpha\)，即 \(\ell\in\mathcal{A}_\alpha(L_1)\)。故
+<div class="math-scroll">\[\mathcal{A}_\alpha(L_2)\subseteq\mathcal{A}_\alpha(L_1). \tag{22.4}\]</div>
+<em>一个集合变大，下确界只会变小</em>（集合里多了元素，可选的候选更多），所以 \(\inf\mathcal{A}_\alpha(L_1)\le\inf\mathcal{A}_\alpha(L_2)\)，即 (i)。
+
+<em>(ii)</em> 固定 \(\lambda&gt;0\)。对任意 \(\ell\)，
+<div class="math-scroll">\[\Prob(\lambda L\le\ell)=\Prob\!\ap{L\le \tfrac{\ell}{\lambda}}=F_L\!\ap{\tfrac{\ell}{\lambda}} . \tag{22.5}\]</div>
+于是
+<div class="math-scroll">\[\ell\in\mathcal{A}_\alpha(\lambda L)
+\iff F_L\!\ap{\tfrac{\ell}{\lambda}}\ge\alpha
+\iff \tfrac{\ell}{\lambda}\in\mathcal{A}_\alpha(L)
+\iff \ell\in\lambda\,\mathcal{A}_\alpha(L), \tag{22.6}\]</div>
+即 \(\mathcal{A}_\alpha(\lambda L)=\lambda\,\mathcal{A}_\alpha(L)\)。因为 \(\lambda&gt;0\) 保持实数大小次序不变，映射 \(\ell\mapsto\lambda\ell\) 把下确界映为下确界：\(\inf(\lambda\mathcal{A})=\lambda\inf\mathcal{A}\)。故 \(\mathrm{VaR}_\alpha(\lambda L)=\lambda\,\mathrm{VaR}_\alpha(L)\)。
+
+<em>(iii)</em> 认真算一遍。对任意 \(\ell\)，
+<div class="math-scroll">\[\Prob(L+c\le\ell)=\Prob(L\le\ell-c)=F_L(\ell-c). \tag{22.7}\]</div>
+于是 \(\ell\in\mathcal{A}_\alpha(L+c)\iff \ell-c\in\mathcal{A}_\alpha(L)\iff \ell\in\mathcal{A}_\alpha(L)+c\)，即 \(\mathcal{A}_\alpha(L+c)=\mathcal{A}_\alpha(L)+c\)。加法是保序的平移，平移不改变下确界相对结构，\(\inf(\mathcal{A}+c)=\inf\mathcal{A}+c\)。故 \(\mathrm{VaR}_\alpha(L+c)=\mathrm{VaR}_\alpha(L)+c\)。
+</div>
+
+<h3 id="sec-22-5-2"><span class="hnum">22.5.2</span>VaR 的致命缺陷：它不是次可加的</h3>
+
+三条好性质里少了一条。风险度量最该有的一条叫次可加性（<em>subadditivity</em>）：
+
+<div class="math-scroll" id="eq:ch22-subadd-def">\[\mathrm{VaR}_\alpha(L_1+L_2)\ \le\ \mathrm{VaR}_\alpha(L_1)+\mathrm{VaR}_\alpha(L_2). \tag{22.8}\]</div>
+
+它的现实含义是「分散化不会更糟」：两个东西合起来看的风险，不该超过各自风险之和。VaR 做不到，而且不是偶尔不成立，是<strong>结构性地不成立</strong>。
+
+<div class="thm plain" id="thm:ch22-var-fail"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">22.6</span>（VaR 一般不是次可加的）</div>
+存在同一概率空间上的损失 \(L_1,L_2\) 与 \(\alpha\in(0,1)\)，使
+<div class="math-scroll">\[\mathrm{VaR}_\alpha(L_1+L_2)&gt;\mathrm{VaR}_\alpha(L_1)+\mathrm{VaR}_\alpha(L_2). \tag{22.9}\]</div>
+也就是说，<a class="xref" href="ch22.html#eq:ch22-subadd-def">式 (22.8)</a> 不成立；VaR 因此<strong>不是</strong>一致风险度量。
+</div>
+
+这个定理在说什么：把两只「单独看都很安全」的资产放在一个组合里，VaR 会<strong>突然变大</strong>——它会把分散化读成风险上升。这就是引入 CVaR 的直接动机。
+
+<div class="thm definition" id="ex:ch22-counter"><div class="thmhead"><span class="thmname">例</span> <span class="thmnum">22.7</span>（两只独立债券：把反例算干净）</div>
+设组合里有两只债券 \(L_1,L_2\)，各自独立，违约概率都是 \(p=0.04\)，违约损失为 \(100\) 元，不违约损失为 \(0\)。取 \(\alpha=0.95\)。
+
+<strong>单只的 VaR。</strong>对 \(L_1\)：\(\Prob(L_1\le0)=0.96\ge0.95\)，而对任何 \(\ell&lt;0\) 有 \(\Prob(L_1\le\ell)=0&lt;0.95\)。故 \(\mathcal{A}_{0.95}(L_1)=[0,+\infty)\)，\(\mathrm{VaR}_{0.95}(L_1)=0\)。\(L_2\) 同理，也是 \(0\)。两者之和为
+<div class="math-scroll">\[\mathrm{VaR}_{0.95}(L_1)+\mathrm{VaR}_{0.95}(L_2)=0. \tag{22.10}\]</div>
+
+<strong>组合的 VaR。</strong>和 \(L_1+L_2\) 的分布是
+<div class="math-scroll">\begin{align}\Prob(L_1+L_2=0)&amp;=0.96^2=0.9216,\\
+\Prob(L_1+L_2=100)&amp;=2\times0.04\times0.96=0.0768,\\
+\Prob(L_1+L_2=200)&amp;=0.04^2=0.0016 . \tag{22.11}\end{align}</div>
+因为 \(0.9216&lt;0.95\le0.9984=0.9216+0.0768\)，而对 \(\ell\in[0,100)\) 有 \(\Prob(L_1+L_2\le\ell)=0.9216&lt;0.95\)，所以
+<div class="math-scroll">\[\mathcal{A}_{0.95}(L_1+L_2)=[100,+\infty),\qquad \mathrm{VaR}_{0.95}(L_1+L_2)=100 . \tag{22.12}\]</div>
+
+<strong>结论。</strong>\(100&gt;0+0\)，次可加性被打破：两个各自「\(95\%\) 把握一分不亏」的资产，合在一起却有 \(5\%\) 以上的概率至少亏 \(100\) 元本章为说明定理 <a class="xref" href="ch22.html#thm:ch22-var-fail">22.6</a> 构造的手算例子，非系统运行数据；两只债券独立、违约概率 \(0.04\)、违约损失 \(100\) 元。<sup class="fn-ref"><a id="fnref-ch22-15" href="#fn-ch22-15">15</a></sup>。注意这里 \(p=0.04&lt;1-\alpha=0.05\) 是关键：单只落在尾部之外，合起来就把尾部填满了。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>
+取 <a class="xref" href="ch22.html#ex:ch22-counter">例 22.7</a> 中的 \(L_1,L_2\) 与 \(\alpha=0.95\)。按定义 <a class="xref" href="ch22.html#def:ch22-var">22.4</a> 逐项计算（详细数值推导见上例），得
+<div class="math-scroll">\[\mathrm{VaR}_{0.95}(L_1)=\mathrm{VaR}_{0.95}(L_2)=0,\qquad
+\mathrm{VaR}_{0.95}(L_1+L_2)=100 , \tag{22.13}\]</div>
+于是 \(100&gt;0+0\)，<a class="xref" href="ch22.html#eq:ch22-subadd-def">式 (22.8)</a> 的反例成立。
+</div>
+
+<h3 id="sec-22-5-3"><span class="hnum">22.5.3</span>CVaR：把分位数换成尾部均值</h3>
+
+VaR 报的是一条线。既然这条线会骗人，那就别只要线——<strong>顺便问一句「线的那一边，平均有多惨」</strong>。
+
+<div class="thm definition" id="def:ch22-cvar"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">22.8</span>（CVaR）</div>
+对 \(\alpha\in(0,1)\)，损失 \(L\) 的 \(\alpha\)-条件风险价值定义为分位数对置信水平的积分平均：
+<div class="math-scroll" id="eq:ch22-cvar">\[\mathrm{CVaR}_\alpha(L)=\frac{1}{1-\alpha}\int_\alpha^1 \mathrm{VaR}_u(L)\,du . \tag{22.14}\]</div>
+当假设 <a class="xref" href="ch22.html#asm:ch22-h2">22.2</a> 成立时，它还有一种更好记的写法：
+<div class="math-scroll" id="eq:ch22-cvar-cond">\[\mathrm{CVaR}_\alpha(L)=\E\bigl[\,L\ \big|\ L\ge \mathrm{VaR}_\alpha(L)\,\bigr]. \tag{22.15}\]</div>
+口语一点：<strong>只看最坏的那 \(1-\alpha\) 段，把它们的损失取平均。</strong>
+</div>
+
+<div class="thm plain" id="lem:ch22-equiv"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">22.9</span>（两种写法在连续分布下相等）</div>
+设假设 <a class="xref" href="ch22.html#asm:ch22-h1">22.1</a>、<a class="xref" href="ch22.html#asm:ch22-h2">22.2</a> 成立，记 \(q=\mathrm{VaR}_\alpha(L)\)。则 <a class="xref" href="ch22.html#eq:ch22-cvar">式 (22.14)</a> 的积分等于 <a class="xref" href="ch22.html#eq:ch22-cvar-cond">式 (22.15)</a> 的条件期望。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>H2 说 \(F_L\) 连续严格递增，故它可逆，且 \(\mathrm{VaR}_u(L)=F_L^{-1}(u)\)、\(\Prob(L\ge q)=1-F_L(q)=1-\alpha\)。
+
+对 <a class="xref" href="ch22.html#eq:ch22-cvar">式 (22.14)</a> 做换元 \(u=F_L(x)\)，则 \(du=f_L(x)\,dx\)，且 \(F_L^{-1}(F_L(x))=x\)；下限 \(u=\alpha\) 对应 \(x=q\)，上限 \(u=1\) 对应 \(x\to+\infty\)。于是
+<div class="math-scroll">\[\int_\alpha^1 \mathrm{VaR}_u(L)\,du
+=\int_q^{+\infty} x\,f_L(x)\,dx
+=\E\bigl[L\,\ind{L\ge q}\bigr]. \tag{22.16}\]</div>
+两边同除以 \(1-\alpha=\Prob(L\ge q)\)：
+<div class="math-scroll">\[\frac{1}{1-\alpha}\int_\alpha^1 \mathrm{VaR}_u(L)\,du
+=\frac{\E\bigl[L\,\ind{L\ge q}\bigr]}{\Prob(L\ge q)}
+=\E\bigl[L\mid L\ge q\bigr]. \tag{22.17}\]</div>
+即 <a class="xref" href="ch22.html#eq:ch22-cvar">式 (22.14)</a> 与 <a class="xref" href="ch22.html#eq:ch22-cvar-cond">式 (22.15)</a> 相等。
+</div>
+
+<div class="thm remark" id="rem:ch22-h2"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">22.10</span>（H2 不是装饰）</div>
+<a class="xref" href="ch22.html#lem:ch22-equiv">引理 22.9</a> 用到两处 \(F_L\) 连续：可逆，以及 \(\Prob(L\ge q)=1-\alpha\)。\(L\) 若含原子（离散分布），\(F_L\) 在跳跃点不可逆，两种写法就分家。<a class="xref" href="ch22.html#ex:ch22-counter">例 22.7</a> 就是证据：按积分形式 <a class="xref" href="ch22.html#eq:ch22-cvar">式 (22.14)</a> 算得 \(80\)，按条件期望形式算得 \(\E[L_1\mid L_1\ge0]=4\)。同一个名字，两个数。<strong>系统的历史法实现取积分/尾部集合的口径</strong>。
+</div>
+
+<h3 id="sec-22-5-4"><span class="hnum">22.5.4</span>CVaR 的一致性</h3>
+
+一致风险度量要满足四条：单调、正齐次、平移不变、次可加。VaR 前三条有、第四条没有；CVaR 四条都有。
+
+<div class="thm plain" id="thm:ch22-cvar"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">22.11</span>（CVaR 满足四条一致性公理）</div>
+设假设 <a class="xref" href="ch22.html#asm:ch22-h1">22.1</a>、<a class="xref" href="ch22.html#asm:ch22-h2">22.2</a> 成立，\(\alpha\in(0,1)\)。则：
+
+<em>(i)（单调性）</em> \(L_1\le L_2\) 几乎处处 \(\Rightarrow\) \(\mathrm{CVaR}_\alpha(L_1)\le\mathrm{CVaR}_\alpha(L_2)\)；
+
+<em>(ii)（正齐次性）</em> \(\lambda&gt;0\Rightarrow \mathrm{CVaR}_\alpha(\lambda L)=\lambda\,\mathrm{CVaR}_\alpha(L)\)；
+
+<em>(iii)（平移不变性）</em> \(c\in\R\Rightarrow \mathrm{CVaR}_\alpha(L+c)=\mathrm{CVaR}_\alpha(L)+c\)；
+
+<em>(iv)（次可加性）</em> \(\mathrm{CVaR}_\alpha(L_1+L_2)\le\mathrm{CVaR}_\alpha(L_1)+\mathrm{CVaR}_\alpha(L_2)\)。
+</div>
+
+这个定理在说什么：VaR「把分散化读成风险上升」的毛病，CVaR 没有了。前三条继承自积分，第四条是它真正的价值；完整推导在 <a class="xref" href="appF.html#app:appF">附录 F</a>。
+
+<div class="thm plain" id="lem:ch22-dual"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">22.12</span>（CVaR 的共轭（上确界）表示）</div>
+设假设 <a class="xref" href="ch22.html#asm:ch22-h1">22.1</a>、<a class="xref" href="ch22.html#asm:ch22-h2">22.2</a> 成立，记 \(\lambda_\alpha=\frac{1}{1-\alpha}\)。令
+<div class="math-scroll">\[\mathcal{Z}_\alpha=\Bigl\{Z\ \Big|\ Z\ \text{可测},\ 0\le Z\le \lambda_\alpha\ \text{a.s.},\ \E Z=1\Bigr\}. \tag{22.18}\]</div>
+则
+<div class="math-scroll" id="eq:ch22-dual">\[\mathrm{CVaR}_\alpha(L)=\sup_{Z\in\mathcal{Z}_\alpha}\E[ZL]. \tag{22.19}\]</div>
+</div>
+
+这个引理在说什么：把所有「重新加权概率、最多放大 \(\lambda_\alpha\) 倍」的测度拿来，对损失求期望再取最大——最大值恰好是 CVaR。它把「尾部平均」翻译成「最坏重加权的平均」。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>第一步：证明一个中间表示（Rockafellar--Uryasev 形式）</strong>
+<div class="math-scroll" id="eq:ch22-ru">\[\mathrm{CVaR}_\alpha(L)=\inf_{t\in\R}\Bigl\{t+\lambda_\alpha\,\E\bigl[(L-t)^+\bigr]\Bigr\},
+\qquad (x)^+=\max(x,0), \tag{22.20}\]</div>
+并且 \(t=q=\mathrm{VaR}_\alpha(L)\) 处取到下确界。
+
+先证「\(\le\)」。对任意 \(t\)，每个 \(u\) 都有 \(\mathrm{VaR}_u(L)\le t+\bigl(\mathrm{VaR}_u(L)-t\bigr)^+\)，两边在 \([\alpha,1]\) 上积分：
+<div class="math-scroll">\[\int_\alpha^1 \mathrm{VaR}_u(L)\,du\ \le\ (1-\alpha)\,t+\int_\alpha^1\bigl(\mathrm{VaR}_u(L)-t\bigr)^+\,du . \tag{22.21}\]</div>
+再看被积项：因假设 <a class="xref" href="ch22.html#asm:ch22-h2">22.2</a> 下 \(\mathrm{VaR}_u(L)=F_L^{-1}(u)\)，换元 \(u=F_L(x)\) 得
+<div class="math-scroll">\[\int_{F_L(t)}^{1}\bigl(F_L^{-1}(u)-t\bigr)^+\,du
+=\int_t^{+\infty}(x-t)\,f_L(x)\,dx=\E\bigl[(L-t)^+\bigr]. \tag{22.22}\]</div>
+而 \([\alpha,1]\) 与 \([F_L(t),1]\) 的位置关系决定方向：若 \(F_L(t)\le\alpha\)，被积函数非负，区间更短的 \([\alpha,1]\) 上积分不超过 \([F_L(t),1]\) 上的；若 \(F_L(t)&gt;\alpha\)，则 \([\alpha,F_L(t)]\) 上 \(F_L^{-1}(u)\le t\)、被积函数为 \(0\)，两段相等。合起来：
+<div class="math-scroll">\[\int_\alpha^1\bigl(\mathrm{VaR}_u(L)-t\bigr)^+\,du\ \le\ \E\bigl[(L-t)^+\bigr]. \tag{22.23}\]</div>
+代入并除以 \(1-\alpha\) 得 \(\mathrm{CVaR}_\alpha(L)\le t+\lambda_\alpha\E[(L-t)^+]\) 对一切 \(t\) 成立，故
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L)\le\inf_{t}\Bigl\{t+\lambda_\alpha\E\bigl[(L-t)^+\bigr]\Bigr\}. \tag{22.24}\]</div>
+
+再证「\(\ge\)」，即在 \(t=q\) 处取到。由 H2，\(F_L(q)=\alpha\)，上面那个换元在这一情形取等号，故 \(\int_\alpha^1(\mathrm{VaR}_u-q)^+du=\E[(L-q)^+]\)。于是
+<div class="math-scroll">\begin{align}q+\lambda_\alpha\E\bigl[(L-q)^+\bigr]
+&amp;=q+\lambda_\alpha\int_\alpha^1\bigl(\mathrm{VaR}_u(L)-q\bigr)\,du\\
+&amp;=q+\lambda_\alpha\int_\alpha^1\mathrm{VaR}_u(L)\,du-\lambda_\alpha\,q\,(1-\alpha)
+=\mathrm{CVaR}_\alpha(L), \tag{22.25}\end{align}</div>
+最后一步用了 \(\lambda_\alpha(1-\alpha)=1\)。故下确界不超过 \(\mathrm{CVaR}_\alpha(L)\)，与上一段合起来即得 <a class="xref" href="ch22.html#eq:ch22-ru">式 (22.20)</a>。
+
+<strong>第二步：证明 <a class="xref" href="ch22.html#eq:ch22-dual">式 (22.19)</a> 的两个方向。</strong>
+
+<em>（\(\le\)）</em>任取 \(Z\in\mathcal{Z}_\alpha\) 与任意 \(t\in\R\)。由 \(L-t\le(L-t)^+\) 且 \(Z\ge0\) 得 \((L-t)Z\le(L-t)^+Z\)；再由 \((L-t)^+\ge0\) 且 \(Z\le\lambda_\alpha\) 得 \((L-t)^+Z\le\lambda_\alpha(L-t)^+\)。取期望：
+<div class="math-scroll">\[\E[ZL]=\E[Z]\,t+\E[(L-t)Z]=t+\E[(L-t)Z]\le t+\lambda_\alpha\E\bigl[(L-t)^+\bigr]. \tag{22.26}\]</div>
+（第二个等号用了 \(\E Z=1\)。）对 \(t\) 取下确界并用 <a class="xref" href="ch22.html#eq:ch22-ru">式 (22.20)</a> 得 \(\E[ZL]\le\mathrm{CVaR}_\alpha(L)\)；再对 \(Z\) 取上确界：\(\sup_{Z\in\mathcal{Z}_\alpha}\E[ZL]\le\mathrm{CVaR}_\alpha(L)\)。
+
+<em>（\(\ge\)）</em>取 \(q=\mathrm{VaR}_\alpha(L)\)，构造 \(Z^\star=\lambda_\alpha\ind{L&gt;q}\)。它合法：\(0\le Z^\star\le\lambda_\alpha\)；由 H2 的连续性 \(\Prob(L&gt;q)=\Prob(L\ge q)=1-\alpha\)，故
+<div class="math-scroll">\[\E Z^\star=\lambda_\alpha\Prob(L&gt;q)=\frac{1-\alpha}{1-\alpha}=1 . \tag{22.27}\]</div>
+再算期望，用 <a class="xref" href="ch22.html#lem:ch22-equiv">引理 22.9</a>：
+<div class="math-scroll">\[\E[Z^\star L]=\lambda_\alpha\E\bigl[L\ind{L&gt;q}\bigr]=\E\bigl[L\mid L&gt;q\bigr]=\mathrm{CVaR}_\alpha(L). \tag{22.28}\]</div>
+所以 \(\sup_{Z\in\mathcal{Z}_\alpha}\E[ZL]\ge\mathrm{CVaR}_\alpha(L)\)。两个方向合起来就是 <a class="xref" href="ch22.html#eq:ch22-dual">式 (22.19)</a>。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>
+<em>(i)</em> 由定理 <a class="xref" href="ch22.html#thm:ch22-var">22.5</a>(i)，对每个 \(u\) 有 \(\mathrm{VaR}_u(L_1)\le\mathrm{VaR}_u(L_2)\)。被积函数逐点不大，积分就不大，两边同乘 \(\lambda_\alpha&gt;0\) 得
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L_1)\le\mathrm{CVaR}_\alpha(L_2). \tag{22.29}\]</div>
+
+<em>(ii)</em> 由定理 <a class="xref" href="ch22.html#thm:ch22-var">22.5</a>(ii)，\(\mathrm{VaR}_u(\lambda L)=\lambda\,\mathrm{VaR}_u(L)\) 对每个 \(u\) 成立。常数可以提出积分：
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(\lambda L)
+=\lambda_\alpha\!\int_\alpha^1\!\lambda\,\mathrm{VaR}_u(L)\,du
+=\lambda\,\lambda_\alpha\!\int_\alpha^1\!\mathrm{VaR}_u(L)\,du
+=\lambda\,\mathrm{CVaR}_\alpha(L). \tag{22.30}\]</div>
+
+<em>(iii)</em> 由定理 <a class="xref" href="ch22.html#thm:ch22-var">22.5</a>(iii)，\(\mathrm{VaR}_u(L+c)=\mathrm{VaR}_u(L)+c\)。于是
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L+c)
+=\lambda_\alpha\!\int_\alpha^1\!\bigl(\mathrm{VaR}_u(L)+c\bigr)du
+=\mathrm{CVaR}_\alpha(L)+\lambda_\alpha\,c\,(1-\alpha)
+=\mathrm{CVaR}_\alpha(L)+c, \tag{22.31}\]</div>
+末步用 \(\lambda_\alpha(1-\alpha)=1\)。
+
+<em>(iv)</em> 这一步只能走共轭表示——积分对「和的尾部区间」没有直接控制。任取 \(Z\in\mathcal{Z}_\alpha\)，期望对加法线性：
+<div class="math-scroll">\[\E\bigl[Z(L_1+L_2)\bigr]=\E[ZL_1]+\E[ZL_2]\le\mathrm{CVaR}_\alpha(L_1)+\mathrm{CVaR}_\alpha(L_2), \tag{22.32}\]</div>
+末步对两项分别用引理 <a class="xref" href="ch22.html#lem:ch22-dual">22.12</a>。右边与 \(Z\) 无关，故对 \(Z\) 取上确界仍不超过它：
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L_1+L_2)=\sup_{Z\in\mathcal{Z}_\alpha}\E\bigl[Z(L_1+L_2)\bigr]\le\mathrm{CVaR}_\alpha(L_1)+\mathrm{CVaR}_\alpha(L_2). \tag{22.33}\]</div>
+（第一个等号再次用引理 <a class="xref" href="ch22.html#lem:ch22-dual">22.12</a>；这张引理之所以要证得那么细，就是因为这里。）(i)--(iv) 即四条一致性公理。
+</div>
+
+顺手把 <a class="xref" href="ch22.html#ex:ch22-counter">例 22.7</a> 里的 CVaR 算出来对照：\(\mathrm{CVaR}_{0.95}(L_1)=\mathrm{CVaR}_{0.95}(L_2)=80\)，\(\mathrm{CVaR}_{0.95}(L_1+L_2)=103.2\)，于是 \(80+80\ge103.2\)——<strong>VaR 破的那条线，CVaR 守住了</strong>同一算例按定义 <a class="xref" href="ch22.html#def:ch22-cvar">22.8</a> 的积分形式手算；非系统运行数据。<sup class="fn-ref"><a id="fnref-ch22-16" href="#fn-ch22-16">16</a></sup>。
+
+<h3 id="sec-22-5-5"><span class="hnum">22.5.5</span>CVaR 至少和 VaR 一样大</h3>
+
+最后补一条直觉上「必须成立」的性质，它说明 CVaR 不是换了个东西，而是 VaR 的<strong>加严版</strong>。
+
+<div class="thm plain" id="lem:ch22-var-monotone"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">22.13</span>（VaR 关于置信水平单调）</div>
+设 \(0&lt;\alpha\le\beta&lt;1\)，则 \(\mathrm{VaR}_\alpha(L)\le\mathrm{VaR}_\beta(L)\)。
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>若 \(\ell\in\mathcal{A}_\beta(L)\)，则 \(\Prob(L\le\ell)\ge\beta\ge\alpha\)，故 \(\ell\in\mathcal{A}_\alpha(L)\)，即 \(\mathcal{A}_\beta(L)\subseteq\mathcal{A}_\alpha(L)\)，取下确界得 \(\mathrm{VaR}_\alpha(L)\le\mathrm{VaR}_\beta(L)\)。
+</div>
+
+<div class="thm plain" id="thm:ch22-cvar-ge-var"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">22.14</span>（\(\mathrm{CVaR}\ge\mathrm{VaR}\)）</div>
+设假设 <a class="xref" href="ch22.html#asm:ch22-h1">22.1</a> 成立，则对一切 \(\alpha\in(0,1)\)，
+<div class="math-scroll">\[\mathrm{CVaR}_\alpha(L)\ \ge\ \mathrm{VaR}_\alpha(L). \tag{22.34}\]</div>
+</div>
+
+这个定理在说什么：别以为「换个更高级的指标」能把风险数字变小。CVaR 只会更悲观——它算尾部整段的平均，VaR 只看那段最轻的一点。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>由引理 <a class="xref" href="ch22.html#lem:ch22-var-monotone">22.13</a>，函数 \(u\mapsto\mathrm{VaR}_u(L)\) 在 \([\alpha,1]\) 上非减，故对每个 \(u\in[\alpha,1]\) 有 \(\mathrm{VaR}_u(L)\ge\mathrm{VaR}_\alpha(L)\)。在区间上逐点比较后积分：
+<div class="math-scroll">\[\int_\alpha^1\mathrm{VaR}_u(L)\,du\ \ge\ \int_\alpha^1\mathrm{VaR}_\alpha(L)\,du=(1-\alpha)\,\mathrm{VaR}_\alpha(L). \tag{22.35}\]</div>
+两边同除 \(1-\alpha&gt;0\)，得 \(\mathrm{CVaR}_\alpha(L)\ge\mathrm{VaR}_\alpha(L)\)。
+</div>
+
+<h3 id="sec-22-5-6"><span class="hnum">22.5.6</span>系统里的历史法：指标是怎么算出来的</h3>
+
+系统里的风险指标有两个引擎，各司其职：
+
+<ul><li><strong>传统风控</strong>（<code class="sysfile">internal/risk/engine.go</code>）：<code class="code">RiskMetrics</code> 里排开 <code class="code">VaR95</code>、<code class="code">VaR99</code>、<code class="code">CVaR95</code>、<code class="code">Volatility</code>、<code class="code">SharpeRatio</code>、<code class="code">MaxDrawdown</code>、<code class="code">Beta</code>、<code class="code">SortinoRatio</code>、<code class="code">CalmarRatio</code>（外加 <code class="code">R2</code>、<code class="code">DownsideDev</code>、<code class="code">UpsideDev</code>）；止损止盈在 <code class="code">DefaultStopLossConfig</code>：初始止损 \(0.05\)、移动止损 \(0.03\)、ATR 倍数 \(2.0\)、最大持仓 \(120\) 天、止盈锁定 \(0.20\)/回撤 \(0.10\)。
+  </li><li><strong>计算中台</strong>（<code class="sysfile">internal/intelligence/risk_engine.go</code>）：<code class="code">ComputePortfolioRisk</code> 输出 VaR/ES、年化波动率、最大回撤、Beta、相关性、集中度（HHI）、流动性代理与压力测试六情景，合成 <code class="code">OverallScore</code> 与 <code class="code">NORMAL/WATCH/WARNING/CRITICAL</code> 四档（分界 \(0.3/0.5/0.7\)）。
+</li></ul>
+
+两边都是<strong>历史法</strong>：排序收益率序列，用序号定位分位数。以 <code class="code">internal/risk/engine.go</code> 为例，<code class="code">CalculateVaR</code> 取 \(\mathrm{idx}=\lfloor(1-\text{confidence})\cdot n\rfloor\)，<code class="code">CalculateCVaR</code> 取排序后前 \(\mathrm{idx}+1\) 个（最坏尾部）的绝对值均值系统源码 <code class="sysfile">internal/risk/engine.go</code> 的 <code class="code">CalculateVaR</code>、<code class="code">CalculateCVaR</code>；<code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">computeHistoricalVaR</code>、<code class="code">computeHistoricalCVaR</code> 同口径。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-17" href="#fn-ch22-17">17</a></sup>。这与本章理论口径有三处差别：样本有限（分位数落在某根真实 K 线上，不插值）、序号取整、损失取绝对值。压力测试六情景的冲击写死在源码里：\(-15\%/-5\%/-8\%/-10\%/-12\%/-7\%\)，估计损失按「基准波动率 \(\times\) 倍数 \(\times\) 冲击 \(\times10\)」计算并封顶到 \(1.0\)系统源码 <code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">generateStressScenarios</code>（<code class="code">shock</code> 依次为上列六值）。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-18" href="#fn-ch22-18">18</a></sup>。
+
+这些指标的<strong>输入</strong>也要交代。组合日收益率由 <code class="code">computePositionReturns</code> 给出：每个持仓取最近 <strong>120 天</strong>收盘价算日收益率，按市值占比加权，再按日期对齐相加；历史不足 \(10\) 个点的标的跳过，记「无法计算可靠的 VaR/ES」系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">computePositionReturns</code>（<code class="code">historyDays = 120</code>）；事实清单第 11 节：无历史时用沪深 300 参考。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-19" href="#fn-ch22-19">19</a></sup>。这条「不够就跳过、不伪造」的纪律跟全书一致。
+
+这些指标本章只给口径、不给数值：口径可核对，数值不猜<sup class="fn-ref"><a id="fnref-ch22-20" href="#fn-ch22-20">20</a></sup>本书写作时未取到可核对的运行数值；系统库中对应记录不作为引用依据。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-21" href="#fn-ch22-21">21</a></sup>。<code class="code">MaxDrawdown</code> 是净值曲线峰谷最大跌幅；<code class="code">Beta</code>、<code class="code">Sortino</code>、<code class="code">Calmar</code> 分别是对基准回归、下行偏差、年化收益比回撤。
+
+<h2 id="sec-22-6"><span class="hnum">22.6</span>风控的最后一米：盘口五态</h2>
+
+前三层管的是「你的账」，最后一米管的是「市场答不答应」：想卖得有人接，想买得有人卖。A 股把这最后一米压成五种状态。
+
+<code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code> 是个<strong>纯函数</strong>：吃进现价、涨跌停价、买一卖一的价与量、内外盘、量比、当日成交量，吐出一个状态，靠两条经验阈值：
+
+<div class="math-scroll">\[\text{封单量阈值}=\max\bigl(1000\ \text{手},\ \text{当日成交量}\times10\%\bigr),\qquad
+\text{放量阈值}=2.0 . \tag{22.36}\]</div>
+
+<figure class="tbl" id="tab:ch22-orderbook"><div class="tbl-scroll"><table><caption><span class="lbl">表 22.2</span>盘口五态：判定条件与后果</caption><tbody><tr><td><strong>状态</strong></td><td><strong>英文枚举</strong></td><td><strong>判定条件与后果</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>涨停封死</td><td><code class="code">sealed_limit_up</code></td><td>触涨停 <strong>且</strong> 买一价 \(\ge\) 涨停价 <strong>且</strong> 买一量 \(\ge\) 封单阈值</td></tr><tr><td>涨停打开</td><td><code class="code">opened_limit_up</code></td><td>触涨停但封单薄，可成交</td></tr><tr><td>跌停封死</td><td><code class="code">sealed_limit_down</code></td><td>触跌停 <strong>且</strong> 卖一价 \(\le\) 跌停价 <strong>且</strong> 卖一量 \(\ge\) 封单阈值</td></tr><tr><td>跌停打开</td><td><code class="code">opened_limit_down</code></td><td>触跌停但封单薄（常伴巨量换手），可离场</td></tr><tr><td>正常</td><td><code class="code">normal</code></td><td>未触及涨跌停</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">另两条信号：<strong>巨量跌停</strong>=触及跌停且量比 \(\ge2.0\)；<strong>抛压占优</strong>=内盘占比 \(&gt;0.60\)（<code class="code">InVolDominant</code>）。涨跌停判定带浮点容差 \(10^{-6}\)。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code>、<code class="code">sealThreshold</code> 与常量 <code class="code">MinSealVolHands=1000</code>、<code class="code">SealVolRatio=0.10</code>、<code class="code">HugeVolumeRatio=2.0</code>、<code class="code">InVolDominant=0.60</code>；核对时间 2026-09-24。</p></figure>
+
+这五种状态怎么变成拦截规则？执行端只做三件事系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyBlockReason</code> 与 <code class="code">sellBlockReason</code>；<code class="code">LimitPctForSymbol</code> 提供各板块涨跌停幅度。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-22" href="#fn-ch22-22">22</a></sup>：
+
+<strong>买入拦两样：跌停板，和涨停封死。</strong>拦跌停板是拦「接飞刀」：现价 \(\le\) 跌停价（容差 \(10^{-9}\)）即拒；拦涨停封死是拦「排队买不进」：挂上去大概率当天成交不了，系统不装作成交。
+
+<strong>卖出只拦一样：跌停封死。</strong>封死时你的单子排在长队里，当天卖不掉；拦下来反而保留持仓。
+
+<strong>跌停打开要放行。</strong>这条最反直觉：跌停打开意味着封单薄、换手大——<strong>门开着，赶紧按跌停价走</strong>。原则很明确：拦截是为了「别做无效的事」，不是「留住仓位」——封死的保留，打开的放行；行情读不到时一律不拦。
+
+<h2 id="sec-22-7"><span class="hnum">22.7</span>跑不掉的仓位等于负债：流动性锁定指标</h2>
+
+买了卖不掉的仓位，等于没有流动性。系统为此单独算一个指标：<code class="code">liquidityLockMetrics</code>系统源码 <code class="sysfile">internal/tools/investment_tools.go</code> 的 <code class="code">liquidityLockMetrics</code>（行 734 起），供 <code class="code">PortfolioRiskMetricsTool</code> 使用。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-23" href="#fn-ch22-23">23</a></sup>——遍历持仓，逐只按实时快照判定盘口状态，「跌停封死」的市值算进「锁定市值」。
+
+<figure class="tbl" id="tab:ch22-liqlock"><div class="tbl-scroll"><table><caption><span class="lbl">表 22.3</span>流动性锁定指标的字段与含义</caption><tbody><tr><td><strong>字段</strong></td><td><strong>含义</strong></td></tr><tr class="rule"><td colspan="2"></td></tr><tr><td><code class="code">liquidity_locked_positions</code></td><td>「跌停封死」的持仓只数</td></tr><tr><td><code class="code">liquidity_locked_value</code></td><td>这些持仓的市值合计（元）</td></tr><tr><td><code class="code">position_value</code></td><td>全部持仓市值合计（元）</td></tr><tr><td><code class="code">liquidity_locked_ratio_pct</code></td><td>锁定市值占持仓市值百分比</td></tr><tr><td><code class="code">liquidity_locked_note</code></td><td>数据来源与降级说明（无持仓 / 引擎未初始化时写明原因）</td></tr><tr class="rule"><td colspan="2"></td></tr></tbody></table></div><p class="tabnote">这组指标与收益历史无关：即使组合收益率不足、算不出 VaR，它照样算得出来。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/tools/investment_tools.go</code> 的 <code class="code">liquidityLockMetrics</code> 与 <code class="code">PortfolioRiskMetricsTool.Execute</code>；核对时间 2026-09-24。</p></figure>
+
+库里没有可引用的锁定比例记录，留白：<sup class="fn-ref"><a id="fnref-ch22-24" href="#fn-ch22-24">24</a></sup>该指标依赖实时盘口快照，<code class="sysfile">data/stock.duckdb</code> 中无对应历史落库记录。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-25" href="#fn-ch22-25">25</a></sup>。
+
+盘口数据本身会落库。每天收盘后，<code class="code">OrderBookDailyProcessor.RecordOrderBookDaily</code> 把可交易股票池当日的盘口摘要写进 <code class="dbtab">order_book_daily</code>，供<strong>次日</strong>的盘口因子使用——是次日，所以没有前视偏差系统源码 <code class="sysfile">internal/scheduler/auto_scheduler.go</code> 的 <code class="code">RecordOrderBookDaily</code>、<code class="sysfile">internal/data/duckdb.go</code> 中该表的建表与写入。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-26" href="#fn-ch22-26">26</a></sup>。这张表必须点名留白：写入路径存在，但<strong>当前表内 \(0\) 行</strong>，本章任何「盘口因子回测结果」都无从引用\(0\) 行<sup class="fn-ref"><a id="fnref-ch22-27" href="#fn-ch22-27">27</a></sup>系统事实清单第 13.2 节：<code class="dbtab">order_book_daily</code> 实测 \(0\) 行，引用时必须标「数据缺失」。核对时间 2026-09-24。<sup class="fn-ref"><a id="fnref-ch22-28" href="#fn-ch22-28">28</a></sup>。
+
+<h2 id="sec-22-8"><span class="hnum">22.8</span>常见误解与纠偏</h2>
+
+<div class="box pitfall"><div class="boxbody">
+这也是我一开始的想法：风控做得越严，亏得越少，最好一分不亏。
+
+错在把「风控」和「不交易」画了等号。风控的目标只有一句话：<strong>不让钱以你无法承受的方式亏掉。</strong>能承受的亏损照样会发生，那是换收益的成本。系统的拦截规则都贯彻这条：拦接飞刀、拦薄盘大单、拦排队买不进，却从不拦按计划的止损——跌停打开那天它甚至主动放行。
+
+一个把仓位全部冻结的系统看起来「零风险」，其实是在替你做一个没授权的决定。这就是「暂停建仓」与「紧急停止」必须分成两个开关的原因：前者只拦买入，后者才全部停下——<strong>严格程度必须分级，「可控」才是目的。</strong>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+这是本章最重要的纠偏，因为系统真的在这里翻过车。
+
+事故 #7 的根因是：单票上限和回撤容忍在两个模块里数值不一致，一处 \(30\%\)、一处 \(20\%\)（出处见本章第 1 节的同一事故脚注）。写的人以为「都是限制」，读的人以为「都一致」；结果是策略层按 \(20\%\) 算违规、执行层按 \(30\%\) 放行，谁也没错，限制却不存在。
+
+修法不是「把两处改成一样」这么轻，而是<strong>让同一件事有多个可对账的地方</strong>：三处都写这两个数，且风险中心把「单票持仓上限」「最大回撤」做成报告里两条独立条目——谁被改坏，报告里马上出现「超限」。<strong>一致性不是靠约定，是靠对账。</strong>
+
+这条经验对全部配置都成立：同一个限制出现在两个地方，就必须有一处是对账方而非执行方。
+</div></div>
+
+<h2 id="sec-22-9"><span class="hnum">22.9</span>真实出处</h2>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>硬限制九项默认值（<code class="code">MaxSinglePosition=0.30</code>、<code class="code">MaxDrawdown=0.10</code>、<code class="code">MaxDailyLoss=0.05</code> 等）与第三条对账口径：<code class="sysfile">internal/policy/engine.go</code> 的 <code class="code">HardLimits</code>、<code class="code">NewPolicyEngine</code>；<code class="sysfile">internal/riskcenter/riskcenter.go</code> 的 <code class="code">buildCompliance</code>
+  </li><li>执行端硬风控（单票集中度复核 + 买入流动性拥挤度，<code class="code">maxSinglePositionPct=0.30</code>、<code class="code">maxBuyCongestPct=0.08</code>）：<code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyRiskGate</code>
+  </li><li>盘口拦截（<code class="code">buyBlockReason</code>、<code class="code">sellBlockReason</code>）、暂停建仓（<code class="code">buyStopped</code>）、紧急停止（<code class="code">emergencyStopped</code>）；开关真源 <code class="sysfile">internal/policy/engine.go</code> 的 <code class="code">IsPauseBuilding</code>
+  </li><li>净值回撤熔断（预警 \(8\%\)、止损 \(12\%\)、降仓到现金 \(50\%\)）：<code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">drawdownStatus</code>、<code class="code">drawdownRiskReduceOrders</code>
+  </li><li>AI 评审门控与硬回退（\(\text{Effective}=\min(\text{ruleRate},\clamp(\cdot,0.2,1.0),\kelly)\)）：系统事实清单第 7 节
+  </li><li>风险指标双引擎、历史法 VaR/CVaR、止损止盈默认参数、压力测试六情景：<code class="sysfile">internal/risk/engine.go</code>、<code class="sysfile">internal/intelligence/risk_engine.go</code>
+  </li><li>组合日收益率序列（每持仓 \(120\) 天、按市值加权、样本不足跳过）：<code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">computePositionReturns</code>
+  </li><li>盘口五态与阈值：<code class="sysfile">internal/orderbook/orderbook.go</code> 的 <code class="code">Classify</code>、<code class="code">sealThreshold</code>
+  </li><li>流动性锁定指标：<code class="sysfile">internal/tools/investment_tools.go</code> 的 <code class="code">liquidityLockMetrics</code>
+  </li><li>盘口日频摘要落库与读取：<code class="sysfile">internal/scheduler/auto_scheduler.go</code> 的 <code class="code">RecordOrderBookDaily</code>、<code class="sysfile">internal/data/duckdb.go</code> 的 <code class="dbtab">order_book_daily</code>、<code class="sysfile">internal/screener/pro_factor_engine.go</code> 的 <code class="code">loadOrderBookCache</code>
+  </li><li>长推导（共轭表示、Rockafellar--Uryasev 形式）：<a class="xref" href="appF.html#app:appF">附录 F</a>
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试</div><div class="boxbody">
+<ol><li><strong>手算反例。</strong>两条独立债券：违约概率各 \(0.04\)、违约损失 \(100\)，取 \(\alpha=0.95\)。按定义 <a class="xref" href="ch22.html#def:ch22-var">22.4</a> 算得 \(\mathrm{VaR}_{0.95}(L_1)=0\)、\(\mathrm{VaR}_{0.95}(L_1+L_2)=100\)；把违约概率改成 \(0.01\) 再算——\(\mathrm{VaR}_{0.95}(L_1+L_2)\) 变回 \(0\)，次可加性这次成立。可见 VaR 的失效取决于尾部概率与置信水平的具体关系。
+  </li><li><strong>核对三处一致。</strong><code class="sysfile">internal/policy/engine.go</code> 的 <code class="code">NewPolicyEngine</code>（<code class="code">MaxSinglePosition</code>、<code class="code">MaxDrawdown</code>）、<code class="sysfile">internal/riskcenter/riskcenter.go</code> 的 <code class="code">buildCompliance</code>（两条同名校验）、<code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyRiskGate</code>（<code class="code">maxSinglePositionPct</code>）。三处都应是 \(0.30\) / \(0.10\)，任何一处不同就是事故 #7 复现。
+  </li><li><strong>验证流动性锁定口径。</strong>读 <code class="sysfile">internal/tools/investment_tools.go</code> 的 <code class="code">liquidityLockMetrics</code>，看它把哪一类盘口状态算作「锁定」；再到 <code class="sysfile">internal/orderbook/orderbook.go</code> 看该状态的条件——它需要<strong>卖一价与卖一量</strong>，不是只看现价。
+  </li><li><strong>压力测试复算。</strong>用 <code class="code">generateStressScenarios</code> 的公式（基准波动 \(\times\) 倍数 \(\times\) 冲击 \(\times10\)，封顶 \(1.0\)）算六个情景。若沪深 300 年化波动率为 \(0.20\)，「市场暴跌」情景（倍数 \(3.0\)、冲击 \(-0.15\)）的损失是多少？是否触发「\(&gt;15\%\) 否决」？
+</li></ol>
+</div></div>
+
+到这里风控闭环了：三层走廊保证「不放大」，<code class="code">buyRiskGate</code> 保证「拦得住」，盘口五态保证「拦得对」——拦无效动作、放有效动作。数学上，「最多亏多少」从一个数变成两个量：VaR 告诉你线在哪，CVaR 告诉你线那边有多惨；只有 CVaR 满足四条一致性公理，所以组合层面能相加、能优化的只有它。
+
+可是这一切都有个前提：市场允许你交易。A 股自己还有脾气——今天买进的 \(1000\) 股今天不能卖；想卖时它可能躺在跌停板上；钱刚够买 \(90\) 股，规则却只认 \(100\) 股整手。这些不是模型的误差，是<strong>规则的形状</strong>。第 <a class="xref" href="ch23.html#ch:ch23">第二十三章</a> 章就讲这些硬规矩。
+</article>
+<nav class="pager"><a class="prev" href="ch21.html"><span class="dir">上一页</span>第二十一章 决定“下多少注”：仓位系数是怎么算出来的</a><a class="next" href="ch23.html"><span class="dir">下一页</span>第二十三章 A 股的几个硬规矩：T+1、整手与涨跌停</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch22-1"><strong>数据来源</strong> 系统事实清单第 15 节第 7 条。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-1">↩</a></li><li id="fn-ch22-2"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/riskcenter/riskcenter.go</code> 的 <code class="code">buildCompliance</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-2">↩</a></li><li id="fn-ch22-3"><strong>数据来源</strong> 系统事实清单第 11 节；情景构造见 <code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">generateStressScenarios</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-3">↩</a></li><li id="fn-ch22-4"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">computeRiskScore</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-4">↩</a></li><li id="fn-ch22-5"><strong>数据来源</strong> 系统事实清单第 7 节：LLM 未配置/失败/超时/解析失败时硬回退。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-5">↩</a></li><li id="fn-ch22-6"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的常量 <code class="code">drawdownWarnPct = 8.0</code>、<code class="code">drawdownStopPct = 12.0</code>，判定函数 <code class="code">drawdownStatus</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-6">↩</a></li><li id="fn-ch22-7"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">drawdownRiskReduceOrders</code>（<code class="code">cashTargetPct = 0.5</code>，<code class="code">sell = (sell/100)*100</code>）。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-7">↩</a></li><li id="fn-ch22-8"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">pauseBuilding</code> 与 <code class="code">PauseBuilding</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-8">↩</a></li><li id="fn-ch22-9"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">Buy</code>：入口处 <code class="code">buyStopped()</code> 为真即返回错误，注释写明「执行层最终防线，独立于紧急停止——仅拦截买入」。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-9">↩</a></li><li id="fn-ch22-10"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">emergencyStopped</code> 门控，同时出现在 <code class="code">Buy</code> 与 <code class="code">Sell</code> 开头；对照 <code class="sysfile">internal/portfolio/engine_test.go</code> 的 <code class="code">TestEmergencyStopGateBlocksTrades</code>。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-10">↩</a></li><li id="fn-ch22-11"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch22-11">↩</a></li><li id="fn-ch22-12"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch22-12">↩</a></li><li id="fn-ch22-13"><strong>数据来源</strong> 系统事实清单第 13.3 节 <code class="dbtab">market_sixdim_daily</code> 的 5 条真实记录。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-13">↩</a></li><li id="fn-ch22-14"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyRiskGate</code>（行 888 起），调用点在 <code class="code">Buy</code> 中现金校验之前。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-14">↩</a></li><li id="fn-ch22-15"><strong>数据来源</strong> 本章为说明定理 <a class="xref" href="ch22.html#thm:ch22-var-fail">22.6</a> 构造的手算例子，非系统运行数据；两只债券独立、违约概率 \(0.04\)、违约损失 \(100\) 元。 <a class="fn-back" href="#fnref-ch22-15">↩</a></li><li id="fn-ch22-16"><strong>数据来源</strong> 同一算例按定义 <a class="xref" href="ch22.html#def:ch22-cvar">22.8</a> 的积分形式手算；非系统运行数据。 <a class="fn-back" href="#fnref-ch22-16">↩</a></li><li id="fn-ch22-17"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/risk/engine.go</code> 的 <code class="code">CalculateVaR</code>、<code class="code">CalculateCVaR</code>；<code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">computeHistoricalVaR</code>、<code class="code">computeHistoricalCVaR</code> 同口径。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-17">↩</a></li><li id="fn-ch22-18"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/intelligence/risk_engine.go</code> 的 <code class="code">generateStressScenarios</code>（<code class="code">shock</code> 依次为上列六值）。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-18">↩</a></li><li id="fn-ch22-19"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/cio/cio.go</code> 的 <code class="code">computePositionReturns</code>（<code class="code">historyDays = 120</code>）；事实清单第 11 节：无历史时用沪深 300 参考。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-19">↩</a></li><li id="fn-ch22-20"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch22-20">↩</a></li><li id="fn-ch22-21"><strong>数据来源</strong> 本书写作时未取到可核对的运行数值；系统库中对应记录不作为引用依据。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-21">↩</a></li><li id="fn-ch22-22"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/portfolio/engine.go</code> 的 <code class="code">buyBlockReason</code> 与 <code class="code">sellBlockReason</code>；<code class="code">LimitPctForSymbol</code> 提供各板块涨跌停幅度。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-22">↩</a></li><li id="fn-ch22-23"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/tools/investment_tools.go</code> 的 <code class="code">liquidityLockMetrics</code>（行 734 起），供 <code class="code">PortfolioRiskMetricsTool</code> 使用。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-23">↩</a></li><li id="fn-ch22-24"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch22-24">↩</a></li><li id="fn-ch22-25"><strong>数据来源</strong> 该指标依赖实时盘口快照，<code class="sysfile">data/stock.duckdb</code> 中无对应历史落库记录。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-25">↩</a></li><li id="fn-ch22-26"><strong>数据来源</strong> 系统源码 <code class="sysfile">internal/scheduler/auto_scheduler.go</code> 的 <code class="code">RecordOrderBookDaily</code>、<code class="sysfile">internal/data/duckdb.go</code> 中该表的建表与写入。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-26">↩</a></li><li id="fn-ch22-27"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch22-27">↩</a></li><li id="fn-ch22-28"><strong>数据来源</strong> 系统事实清单第 13.2 节：<code class="dbtab">order_book_daily</code> 实测 \(0\) 行，引用时必须标「数据缺失」。核对时间 2026-09-24。 <a class="fn-back" href="#fnref-ch22-28">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

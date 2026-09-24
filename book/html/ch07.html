@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升” · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch07.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html" class="current"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a><ul class="sub"><li><a href="#sec-7-1">7.1 信心六十分，共识七十分，这算看好吗</a></li><li><a href="#sec-7-2">7.2 先看一场预算审批</a></li><li><a href="#sec-7-3">7.3 不这么设计，会怎样</a></li><li><a href="#sec-7-4">7.4 一个差不多对的模型，和一个严谨的版本</a></li><li><a href="#sec-7-5">7.5 它在系统里长什么样</a></li></ul></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch07"><span class="cnum">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</h1>
+
+
+
+
+
+<h2 id="sec-7-1"><span class="hnum">7.1</span>信心六十分，共识七十分，这算看好吗</h2>
+
+上一章结束时，我们手上攒了一堆形容词：看多、看空、中性、可以认可、需要留意、明显有风险。
+
+这一章要干的事很土：把这些话，变成一个能乘进订单里的数。
+
+先看一个具体的场面。假设决策日志里有这样一行（这一行的措辞是示意，数字的含义下面马上讲清楚）：
+
+<div class="center">
+主张：看多｜信心 60&#8195; 辩论：看多｜共识 70&#8195; Kelly 仓位 ×0.65
+</div>
+
+我第一次看到这行字的时候，脑子里的反应是：“两个都看多，那不就是看好嘛。”
+
+然后我停住了。<strong>信心只有 60 分，共识只有 70 分。这真的算“看好”吗？</strong>
+
+如果算，那它跟“信心 95、共识 90”有什么分别？如果不算，那它到底算什么？系统又凭什么用一个 0.65 去表达这种“算也不算”？
+
+更让我不安的是另一件事。这个数是从哪冒出来的？谁给它这个权力，让它去乘我的仓位？如果某一天模型心情好，给了“信心 100、共识 100”，是不是仓位就该被放大到 1.0？
+
+那天我翻到库里的真实记录，看到 2026-09-11 那一天的仓位系数是 0.06<sup class="fn-ref"><a id="fnref-ch07-1" href="#fn-ch07-1">1</a></sup><code class="dbtab">market_sixdim_daily</code> 表，trade_date = 2026-09-11；只读查询于 2026-09-24。<sup class="fn-ref"><a id="fnref-ch07-2" href="#fn-ch07-2">2</a></sup>。百分之一都不到。
+
+我就想：在这一天，如果 AI 兴高采烈地说“信心 100、共识 100”，它能把这个仓位抬起来吗？
+
+这个问题，就是本章的全部。答案是<strong>不能</strong>——而且这件事是可以用式子证明的。
+
+<h2 id="sec-7-2"><span class="hnum">7.2</span>先看一场预算审批</h2>
+
+在我搞懂这个公式之前，我先搞懂了另一个场景：报销。
+
+假设你在一家公司管报销。一个部门要办活动，报上来一个预算：三万。
+
+这一份申请会经过好几个人。先是部门主管签字，然后是财务核预算余额，再是分管领导看这笔钱合不合规，最后是大老板看要不要批。
+
+现在注意一个细节：<strong>这几个人里，没有一个人能在流程里给自己加钱。</strong>
+
+主管可以把三万砍成两万五。财务可以说“这个季度超支了，最多一万五”。分管领导可以说“这个科目不批”。大老板可以说“再降一点”。
+
+但没有任何一个人，能在别人的意见之上写一句“我觉得可以，加到四万”。
+
+<div class="box intuition"><div class="boxbody">
+审批链的形状，不是一个平均值，也不是一次投票。
+
+平均值长这样：三个人说三万、两万、一万，最后取两万。可实际上，财务说一万五的时候，那不是“一个建议”，那是一道<strong>上限</strong>。
+
+投票长这样：多数说三万，那就三万。可实际上，只要有一个部门说“这个不批”，这事就是办不成——不需要多数同意他。
+
+审批链真正的形状是：<strong>每一道签字，都是在上一道的基础上，把数字往下压，或者不动。</strong>最后批下来的数，是所有签字的<strong>最小值</strong>。
+
+这个形状有一个漂亮的后果：最终批下来的钱，一定不超过最初申请的那个数，也一定不超过任何一道签字允许的数。也就是说，<strong>你不需要去管前面的签字有多随意，只要它们的方向都是“只能往下”，这个系统的上限就是锁死的。</strong>
+
+这套系统里，AI 的意见扮演的是“签字”的角色，不是“投票”的角色。
+</div></div>
+
+<h2 id="sec-7-3"><span class="hnum">7.3</span>不这么设计，会怎样</h2>
+
+我先试着想了两种“更自然”的设计，结果两种都会出事。
+
+<strong>第一种：取平均。</strong>
+
+主张官说仓位 0.8，异议审查官说 0.5，那就取 0.65。看起来公平、温和、考虑了双方。
+
+问题在于，平均是<strong>双向</strong>的。如果主张官今天特别乐观，说 1.0，而异议官说 0.4，平均出来是 0.7——比异议官想给的还多。也就是说，<strong>只要有一个角色敢报大数，它就能通过“平均”把别人的保守意见稀释掉。</strong>
+
+异议官的存在意义，本来是“拦住冒进”。可平均法让它的作用变成了“提供一个可以被拉平的数字”。这等于把刹车装在了油门上。
+
+<strong>第二种：谁有信心听谁的。</strong>
+
+主张官信心 90，异议官信心 40，那就听主张官的。
+
+这更糟。因为它<strong>奖励自信</strong>。而语言模型最容易犯的毛病，恰恰是“用很确定的语气说一件没把握的事”。你在第 <a class="xref" href="ch06.html#ch:ch06">第六章</a> 章已经见过一次了：同一个模型，同一份证据，只在末尾加一句“请找出你的错处”，它立刻换了口气。
+
+也就是说，在这套系统里，<strong>自信程度本身不是一个可以拿来加权的可信度指标</strong>。它可以用来“减少下注”，但绝不能用来“增加下注”。
+
+两次试错之后，我要的东西清楚了：
+
+<div class="box keybox"><div class="boxtitle">我需要的一个数</div><div class="boxbody">
+我要一个系数 \(\kelly\)，它同时满足三条：
+
+<strong>一、有下界。</strong>它不能被压到零。因为信心和共识度是可以因为“这两个数据没拿到”而变成 0 的，如果把那种情况和“确定度极低”混为一谈，一次数据缺失就会把仓位清零。
+
+<strong>二、有上界，且上界不超过 1。</strong>它可以降低仓位，永远不能提高仓位。
+
+<strong>三、单调。</strong>信心或共识度越高，这个系数只能越大或持平，绝不能出现“信心从 60 涨到 80，系数反而变小”这种荒唐事。
+
+一个单调、有界、只在 \([0.4,1]\) 里走的函数，就够了。
+</div></div>
+
+<h2 id="sec-7-4"><span class="hnum">7.4</span>一个差不多对的模型，和一个严谨的版本</h2>
+
+近似模型非常朴素：<strong>确定度 = 信心 × 共识度，确定度越高，仓位越接近满仓。</strong>
+
+这个模型的直觉是对的。信心是“我有多确信我的判断”，共识度是“我的理由之间有多一致”（上一章讲过，它是那块冰的厚度）。两件事都强，才叫真的确定。
+
+但它有两处会出事，必须补。
+
+<strong>第一处：纯乘积没有下界。</strong>如果共识度是 1（几乎完全分歧），乘积就贴到 0，仓位跟着归零。可这是一种<strong>过度反应</strong>——“吵得厉害”意味着该小注，不意味着该空仓。空仓是另一个更重的决定，不应该被一个口径模糊的数字顺手做掉。
+
+<strong>第二处：纯乘积没有上界保护。“</strong>确定度 1 就该满仓”这句话听起来没问题,但它把“这一路意见”和“规则层给的仓位基准”混成了一件事。第 <a class="xref" href="ch21.html#ch:ch21">第二十一章</a> 章会讲清楚：判断“今天该下多少注”是市场判势的职责，AI 的责任只是“在它之上，帮忙踩一脚刹车”。所以这个系数的作用域必须被限制在 1 以下。
+
+补完这两处，严谨版本长这样。
+
+<div class="thm definition" id="def:ch07-kelly"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">7.1</span>（确定度与 Kelly 缩放系数）</div>
+
+设归一化置信度 \(c \in [0,1]\) 与归一化共识度 \(a \in [0,1]\)。其中 \(c\) 由主张官字段 <code class="field">confidence</code> 除以 100 得到，\(a\) 由辩论裁决官字段 <code class="field">agreement</code> 除以 100 得到。称
+<div class="math-scroll" id="eq:ch07-certainty">\[\mathrm{certainty}(c,a) \;=\; c\cdot a \tag{7.1}\]</div>
+为<strong>确定度</strong>，并定义<strong>Kelly 仓位缩放系数</strong>
+<div class="math-scroll" id="eq:ch07-kelly">\[\kelly(c,a) \;=\; \min\bigl(1,\; 0.4 + 0.6\,c\,a\bigr). \tag{7.2}\]</div>
+</div>
+
+式 <a class="xref" href="ch07.html#eq:ch07-kelly">(7.2)</a> 在讲什么：括号里那一坨 \(\bigl(0.4 + 0.6ca\bigr)\) 是一个从 0.4 走到 1.0 的滑杆。两边都满格（\(c=a=1\)），滑杆推到底，得 1.0，也就是“不缩放”；确定度归零，滑杆落到底座 0.4，也就是“最多留下四成”。外面那个 \(\min(1,\cdot)\) 是一道围栏，防止它越过 1。
+
+现在把三条要求逐条证明。
+
+<div class="thm plain" id="thm:ch07-bound"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">7.2</span>（\(\kelly\) 的有界性）</div>
+
+对任意 \(c, a \in [0,1]\)，式 <a class="xref" href="ch07.html#eq:ch07-kelly">(7.2)</a> 定义的 \(\kelly(c,a)\) 满足
+<div class="math-scroll" id="eq:ch07-bound">\[0.4 \;\le\; \kelly(c,a) \;\le\; 1 . \tag{7.3}\]</div>
+</div>
+
+这个定理在说什么：不管信心和共识度给成什么样，这个系数永远落在 \([0.4,\,1]\) 这一段里——既不会把仓位砍到零，也永远不会超过 1。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>分四步。
+
+<strong>第一步：先定住乘积 \(ca\)。</strong>
+由 \(c \in [0,1]\)、\(a \in [0,1]\)，两个数都非负，故 \(ca \ge 0\)；又 \(ca \le 1\cdot 1 = 1\)。于是
+<div class="math-scroll" id="eq:ch07-ca">\[c\,a \in [0,1]. \tag{7.4}\]</div>
+
+<strong>第二步：定住内层表达式。</strong>
+把式 <a class="xref" href="ch07.html#eq:ch07-ca">(7.4)</a> 乘以 \(0.6\)，得 \(0.6ca \in [0,\,0.6]\)；再加 \(0.4\)，得
+<div class="math-scroll" id="eq:ch07-inner">\[g(c,a) \;:=\; 0.4 + 0.6\,c\,a \;\in\; [0.4,\;1.0]. \tag{7.5}\]</div>
+
+<strong>第三步：取下界。</strong>
+\(\min(1,\cdot)\) 关于它的第二个自变量是单调不减的：若 \(u \le v\)，则 \(\min(1,u) \le \min(1,v)\)。由式 <a class="xref" href="ch07.html#eq:ch07-inner">(7.5)</a> 知 \(g(c,a) \ge 0.4\)，于是
+<div class="math-scroll">\[\kelly(c,a) = \min\bigl(1, g(c,a)\bigr) \;\ge\; \min(1,\,0.4) = 0.4 . \tag{7.6}\]</div>
+
+<strong>第四步：取上界。</strong>
+由定义，\(\kelly(c,a) = \min(1,g(c,a))\) 是 \(1\) 与另一个数的较小者，故恒有
+<div class="math-scroll">\[\kelly(c,a) \;\le\; 1 . \tag{7.7}\]</div>
+
+综合第三、四步，得 \(0.4 \le \kelly(c,a) \le 1\)。
+</div>
+
+<div class="thm plain" id="thm:ch07-mono"><div class="thmhead"><span class="thmname">定理</span> <span class="thmnum">7.3</span>（\(\kelly\) 的单调性）</div>
+
+固定 \(a \in [0,1]\)，映射 \(c \mapsto \kelly(c,a)\) 在 \([0,1]\) 上单调不减；固定 \(c \in [0,1]\)，映射 \(a \mapsto \kelly(c,a)\) 在 \([0,1]\) 上单调不减。特别地，当 \(c = 0\) 或 \(a = 0\) 时，\(\kelly\) 取到它的下限
+<div class="math-scroll" id="eq:ch07-bdry">\[\kelly(0,a) = \kelly(c,0) = 0.4 . \tag{7.8}\]</div>
+</div>
+
+这个定理在说什么：信心和共识度是“越多越好”的两个旋钮，往哪个方向拧，系数都只会往上走或者不动，绝不会反过来。而且只要有一个旋钮拧到底（归零），系数就落在 0.4 这个底座上——这是“最保守档”，不是“清仓档”。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div>先证明关于 \(c\) 的单调性。
+
+<strong>第一步：把内层看成 \(c\) 的函数。</strong>
+固定 \(a\)，令
+<div class="math-scroll">\[g_a(c) \;=\; 0.4 + 0.6\,a\,c . \tag{7.9}\]</div>
+这是关于 \(c\) 的一次函数，斜率是 \(0.6a\)。对 \(c\) 求偏导：
+<div class="math-scroll" id="eq:ch07-dgc">\[\frac{\partial g_a}{\partial c} \;=\; 0.6\,a \;\ge\; 0, \tag{7.10}\]</div>
+因为 \(a \ge 0\) 而 \(0.6 &gt; 0\)。斜率非负，故 \(g_a\) 在 \([0,1]\) 上单调不减。
+
+<strong>第二步：复合上 \(\min\)。</strong>
+由式 <a class="xref" href="ch07.html#eq:ch07-dgc">(7.10)</a>，对任意 \(0 \le c_1 \le c_2 \le 1\) 有 \(g_a(c_1) \le g_a(c_2)\)。又 \(\min(1,\cdot)\) 单调不减，于是
+<div class="math-scroll">\[\kelly(c_1,a) = \min\bigl(1,g_a(c_1)\bigr) \;\le\; \min\bigl(1,g_a(c_2)\bigr) = \kelly(c_2,a). \tag{7.11}\]</div>
+即 \(c \mapsto \kelly(c,a)\) 单调不减。
+
+<strong>第三步：关于 \(a\) 同理。</strong>
+固定 \(c\)，令 \(g_c(a) = 0.4 + 0.6\,c\,a\)，对 \(a\) 求偏导得
+<div class="math-scroll">\[\frac{\partial g_c}{\partial a} \;=\; 0.6\,c \;\ge\; 0 , \tag{7.12}\]</div>
+同样得到 \(a \mapsto \kelly(c,a)\) 单调不减。
+
+<strong>第四步：边界值。</strong>
+令 \(c = 0\)，则 \(g(0,a) = 0.4 + 0 = 0.4\)，故 \(\kelly(0,a) = \min(1,0.4) = 0.4\)。令 \(a = 0\) 同理得 \(\kelly(c,0) = 0.4\)。结合定理 <a class="xref" href="ch07.html#thm:ch07-bound">7.2</a> 的下界 \(0.4\)，这正是 \(\kelly\) 能取到的最小值。
+</div>
+
+<div class="thm remark" id="rem:ch07-guard"><div class="thmhead"><span class="thmname">注</span> <span class="thmnum">7.4</span>（公式与实现的一处差异，必须说清楚）</div>
+
+定理 <a class="xref" href="ch07.html#thm:ch07-mono">7.3</a> 说的是：当确定度归零时，系数落到下限 \(0.4\)。但系统代码里还有一道守卫——当输入的信心或共识度<strong>小于等于零</strong>时，函数直接返回 \(1.0\)，也就是“完全不缩放”。
+
+这不是矛盾，是两个不同的语义被写在了同一个位置上。在系统里，\(0\) 这个值出现的场合，是“这个数没拿到”（模型没给出、解析失败、字段缺失），而不是“信心真的很低”。对一次数据缺失就动刀，等于让一次失联决定仓位，所以实现选了“不动”。
+
+换句话说：<strong>式 <a class="xref" href="ch07.html#eq:ch07-kelly">(7.2)</a> 描述的是“数据都在时的保守度曲线”，而代码的守卫描述的是“数据不在时干脆不做判断”。</strong>读者自己接这套代码时，这两件事必须分开考虑，否则会得到一个“AI 一失败、仓位自动腰斩”的系统——这跟本章反复强调的“AI 单点故障不得阻断交易”正好相反。
+</div>
+
+最后一块拼图。有了 \(\kelly\)，谁来保证它真的只是“踩刹车”？答案是那个 \(\min\)。
+
+<div class="thm plain" id="lem:ch07-only-down"><div class="thmhead"><span class="thmname">引理</span> <span class="thmnum">7.5</span>（只降不升）</div>
+
+设 \(A = \text{ruleRate}\) 为规则层给出的仓位基准，\(p\) 为主张官的建议仓位，\(o\) 为异议审查官的建议仓位，\(\kelly\) 为式 <a class="xref" href="ch07.html#eq:ch07-kelly">(7.2)</a> 的缩放系数。记
+<div class="math-scroll" id="eq:ch07-effective">\[\text{Effective} \;=\; \min\Bigl(\;A,\;\; \clamp(p,\,0.2,\,1.0),\;\; \clamp(o,\,0.2,\,1.0),\;\; \kelly\;\Bigr), \tag{7.13}\]</div>
+则
+<div class="math-scroll" id="eq:ch07-onlydown">\[\text{Effective} \;\le\; A = \text{ruleRate}. \tag{7.14}\]</div>
+</div>
+
+这个引理在说什么：生效仓位是四个数的较小者，所以它一定不超过其中任何一个。特别地，它不超过规则层给的 \(A\)。AI 无论说什么，都不可能把仓位抬过规则层划的那条线。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><strong>第一步：\(\min\) 的基本性质。</strong>
+设 \(S = \{A,\; \clamp(p,0.2,1.0),\; \clamp(o,0.2,1.0),\; \kelly\}\) 是一个由四个实数组成的有限集合。由 \(\min\) 的定义，\(\min S\) 是 \(S\) 中的最小元素，因此对 \(S\) 中<strong>每一个</strong>元素 \(x\) 都有
+<div class="math-scroll">\[\min S \;\le\; x . \tag{7.15}\]</div>
+这是“最小者不超过任何成员”的直接推论，不需要任何额外假设。
+
+<strong>第二步：代入 \(A\)。</strong>
+取 \(x = A\)，得
+<div class="math-scroll">\[\text{Effective} = \min S \;\le\; A = \text{ruleRate}, \tag{7.16}\]</div>
+即式 <a class="xref" href="ch07.html#eq:ch07-onlydown">(7.14)</a>。
+
+<strong>第三步：说明“放大”不可能发生。</strong>
+把式 <a class="xref" href="ch07.html#eq:ch07-effective">(7.13)</a> 里四项逐一检查它们的上界：由 <a class="xref" href="ch07.html#def:ch07-kelly">定义 7.1</a> 的 \(\clamp\) 定义，\(\clamp(p,0.2,1.0) \le 1.0\) 且 \(\clamp(o,0.2,1.0) \le 1.0\)；由定理 <a class="xref" href="ch07.html#thm:ch07-bound">7.2</a>，\(\kelly \le 1\)。也就是说，除 \(A\) 以外的三项<strong>顶到天也只有 1</strong>，它们只能往下拉，不可能往上顶。而 \(A\) 是由规则层决定的、AI 无权修改的量。所以：<strong>生效仓位超过 ruleRate 的唯一路径，是 ruleRate 自己变大；而 AI 在这条路径上没有任何话语权。</strong>
+
+<strong>第四步（附带结论）：下界。</strong>
+由 \(\clamp(\cdot,0.2,1.0)\) 的定义，\(B := \clamp(p,0.2,1.0) \ge 0.2\)，\(C := \clamp(o,0.2,1.0) \ge 0.2\)；由定理 <a class="xref" href="ch07.html#thm:ch07-bound">7.2</a>，\(\kelly \ge 0.4\)。故
+<div class="math-scroll">\[\text{Effective} = \min(A,B,C,\kelly) \;\ge\; \min(A,\,0.2). \tag{7.17}\]</div>
+当 \(A \ge 0.2\) 时，生效仓位落在 \([0.2,\,1]\) 内；而当 \(A &lt; 0.2\) 时（下面会看到，真实记录里确实有过 \(A = 0.06\) 的日子），生效仓位的上界就是 \(A\) 本身，比 \(0.2\) 更小。
+</div>
+
+<h2 id="sec-7-5"><span class="hnum">7.5</span>它在系统里长什么样</h2>
+
+函数本身只有五行。
+
+<figure class="listing" id="{lst:ch07-kelly}"><figcaption><span class="lbl">代码 7.1</span>Kelly 仓位缩放（<code class="sysfile">internal/cio/proposal.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// kellyPositionScale 用「LLM 主张置信度 × 多空共识度」计算 Kelly 仓位缩放系数。</span></span>
+<span class="cl"><span class="com">// certainty = conf/100 × agreement/100 in [0,1]；scale = 0.4 + 0.6×certainty in [0.4,1]。</span></span>
+<span class="cl"><span class="com">// 只在信心或多空共识不足时下调买入仓位，绝不放大到超出规则门。</span></span>
+<span class="cl"><span class="kw">func</span> kellyPositionScale(conf, agreement <span class="kw">int</span>) <span class="kw">float64</span> {</span>
+<span class="cl">    <span class="kw">if</span> conf &lt;= 0 || agreement &lt;= 0 {</span>
+<span class="cl">        <span class="kw">return</span> 1.0</span>
+<span class="cl">    }</span>
+<span class="cl">    certainty := clampF(<span class="kw">float64</span>(conf)/100*<span class="kw">float64</span>(agreement)/100, 0, 1)</span>
+<span class="cl">    <span class="kw">return</span> clampF(0.4+0.6*certainty, 0.4, 1.0)</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：第 3 行就是注 <a class="xref" href="ch07.html#rem:ch07-guard">7.4</a> 里那道守卫。第 5 行算确定度，顺手用 <code class="code">clampF</code> 夹进 \([0,1]\)。第 6 行就是式 <a class="xref" href="ch07.html#eq:ch07-kelly">(7.2)</a>，只不过这里没有写 \(\min(1,\cdot)\)——因为输入已经被夹在 \([0.4,1]\) 之间了，\(\min(1,\cdot)\) 变成了多余的保险。两者等价。
+
+这道系数在哪里被用上？在 <code class="code">decideProposalGate</code> 里：
+
+<figure class="listing" id="{lst:ch07-gate}"><figcaption><span class="lbl">代码 7.2</span>Kelly 缩放进入门控（节选，<code class="sysfile">internal/cio/proposal.go</code>）</figcaption><pre class="code"><code><span class="cl">gate := math.Min(ruleRate, clampF(prop.TargetPositionRate, 0.2, 1.0))</span>
+<span class="cl"><span class="kw">if</span> ver := c.challengeProposal(ctx, in, prop); ver != <span class="kw">nil</span> {   <span class="com">// Phase2 异议</span></span>
+<span class="cl">    gate = math.Min(gate, clampF(ver.SuggestedRate, 0.2, 1.0))</span>
+<span class="cl">}</span>
+<span class="cl"><span class="kw">if</span> db := c.debateProposal(ctx, in, prop); db != <span class="kw">nil</span> {        <span class="com">// Phase3 辩论</span></span>
+<span class="cl">    res.KellyScale = math.Min(1.0, kellyPositionScale(prop.Confidence, db.Agreement))</span>
+<span class="cl">    gate = math.Min(gate, res.KellyScale)                    <span class="com">// Phase4 Kelly</span></span>
+<span class="cl">}</span>
+<span class="cl">res.Effective = gate</span></code></pre></figure>
+
+这段话在说什么：三个 <code class="code">math.Min</code> 摞在一起，就是式 <a class="xref" href="ch07.html#eq:ch07-effective">(7.13)</a> 逐项落地的过程。每加一道意见，就把 <code class="code">gate</code> 和那道意见取一次较小值。\(\kelly\) 也只是其中一道——它没有任何特权，不会覆盖别人，只会再压一层。
+
+顺带说明：Phase5 的多提案集成还会再压一层（明显偏空时收敛到 0.5 以下，轻度偏空收敛到 0.75 以下），那是第 <a class="xref" href="ch08.html#ch:ch08">第八章</a> 章的内容。它同样只有 \(\min\)，没有 \(\max\)。
+
+数字会被留下来吗？会。<code class="code">attachProposal</code> 把辩论结果、Kelly 系数、集成结果一起塞进 <code class="code">CIODecision.Evidence</code> 的一个结构里（<code class="code">decisionProposalPayload</code>），字段名 <code class="field">kelly_position_scale</code>。
+
+<figure class="listing" id="{lst:ch07-evidence}"><figcaption><span class="lbl">代码 7.3</span>证据链负载（节选，<code class="sysfile">internal/cio/proposal.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="kw">type</span> decisionProposalPayload <span class="kw">struct</span> {</span>
+<span class="cl">    SuggestedPositionRate <span class="kw">float64</span>        `json:<span class="str">&quot;suggested_position_rate&quot;</span>`</span>
+<span class="cl">    EffectivePositionRate <span class="kw">float64</span>        `json:<span class="str">&quot;effective_position_rate&quot;</span>`</span>
+<span class="cl">    Debate                *debateVerdict `json:<span class="str">&quot;debate,omitempty&quot;</span>`</span>
+<span class="cl">    KellyScale            <span class="kw">float64</span>        `json:<span class="str">&quot;kelly_position_scale,omitempty&quot;</span>`</span>
+<span class="cl">    Ensemble              *ensembleVerdict `json:<span class="str">&quot;ensemble,omitempty&quot;</span>`</span>
+<span class="cl">    Evidence              []<span class="kw">string</span>       `json:<span class="str">&quot;evidence&quot;</span>`</span>
+<span class="cl">    GeneratedAt           <span class="kw">string</span>         `json:<span class="str">&quot;generated_at&quot;</span>`</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：注意 <code class="field">suggested_position_rate</code>（AI 建议的）和 <code class="field">effective_position_rate</code>（实际生效的）是两个字段，并排放着。这是刻意设计——第 <a class="xref" href="ch10.html#ch:ch10">第十章</a> 章会讲，审计时要能一眼看出“AI 说了多少”和“最后用了多少”之间的差距。如果这两个数被合并成一个，事后追因就无从下手。
+
+现在用真实数据检验一遍引理 <a class="xref" href="ch07.html#lem:ch07-only-down">7.5</a>。
+
+<figure class="tbl" id="tab:ch07-realrate"><div class="tbl-scroll"><table><caption><span class="lbl">表 7.1</span>引理 <a class="xref" href="ch07.html#lem:ch07-only-down">7.5</a> 在真实记录上的表现：生效仓位的上界就是 ruleRate</caption><tbody><tr><td><strong>交易日</strong></td><td><strong>修正后总分</strong></td><td><strong>标签</strong></td><td><strong>ruleRate（真实）</strong></td><td><strong>生效仓位上界</strong></td></tr><tr class="rule"><td colspan="5"></td></tr><tr><td>2026-08-31</td><td>52.30</td><td>结构性震荡</td><td>0.80<sup class="fn-ref"><a id="fnref-ch07-3" href="#fn-ch07-3">3</a></sup></td><td>\(\text{Effective} \le 0.80\)</td></tr><tr><td>2026-09-02</td><td>41.82</td><td>偏弱</td><td>0.21<sup class="fn-ref"><a id="fnref-ch07-4" href="#fn-ch07-4">4</a></sup></td><td>\(\text{Effective} \le 0.21\)</td></tr><tr><td>2026-09-09</td><td>40.40</td><td>偏弱</td><td>0.20<sup class="fn-ref"><a id="fnref-ch07-5" href="#fn-ch07-5">5</a></sup></td><td>\(\text{Effective} \le 0.20\)</td></tr><tr><td>2026-09-10</td><td>38.43</td><td>退潮风险</td><td>0.10<sup class="fn-ref"><a id="fnref-ch07-6" href="#fn-ch07-6">6</a></sup></td><td>\(\text{Effective} \le 0.10\)</td></tr><tr><td>2026-09-11</td><td>25.71</td><td>退潮风险</td><td>0.06<sup class="fn-ref"><a id="fnref-ch07-7" href="#fn-ch07-7">7</a></sup></td><td>\(\text{Effective} \le 0.06\)</td></tr><tr class="rule"><td colspan="5"></td></tr></tbody></table></div><p class="tabnote">最后一列不是算出来的另一个数，而是引理 <a class="xref" href="ch07.html#lem:ch07-only-down">7.5</a> 的直接结论：不论 AI 说了什么，那一格的生效仓位都不可能超过它左边的 ruleRate。</p>
+<p class="tabsrc"><code class="dbtab">market_sixdim_daily</code> 表全部 5 条真实记录，区间 2026-08-31 至 2026-09-11；只读查询于 2026-09-24。</p></figure>
+
+2026-09-11 那一行最说明问题。那天规则层给的 \(A = 0.06\)。无论主张官多有信心、辩论多一致，生效仓位都<strong>不可能超过 0.06</strong>。AI 的最高权限，是把这个 0.06 再往下压一点。
+
+再单独看 \(\kelly\) 这条曲线。
+
+<figure class="tbl" id="tab:ch07-kurve"><div class="tbl-scroll"><table><caption><span class="lbl">表 7.2</span>\(\kelly\) 的取值（按式 <a class="xref" href="ch07.html#eq:ch07-kelly">(7.2)</a> 计算）</caption><tbody><tr><td><strong>信心 \(c\)（示意）</strong></td><td><strong>共识度 \(a\)（示意）</strong></td><td><strong>确定度 \(ca\)</strong></td><td><strong>\(\kelly\)</strong></td><td><strong>含义</strong></td></tr><tr class="rule"><td colspan="5"></td></tr><tr><td>1.00</td><td>1.00</td><td>1.000</td><td>1.000</td><td>两样都满格：不缩放</td></tr><tr><td>0.80</td><td>0.70</td><td>0.560</td><td>0.736</td><td>都偏高：几乎不缩放</td></tr><tr><td>0.60</td><td>0.70</td><td>0.420</td><td>0.652</td><td>本章开头那一行</td></tr><tr><td>0.50</td><td>0.50</td><td>0.250</td><td>0.550</td><td>两样都一般</td></tr><tr><td>0.20</td><td>0.30</td><td>0.060</td><td>0.436</td><td>都很低：接近底座</td></tr><tr><td>0.00</td><td>任意</td><td>0.000</td><td>0.400</td><td>公式取到下限（实现见注 <a class="xref" href="ch07.html#rem:ch07-guard">7.4</a>）</td></tr><tr class="rule"><td colspan="5"></td></tr></tbody></table></div><p class="tabnote">置信度与共识度两列在系统库中没有持久化的辩论记录可供引用（该库未保存当日 <code class="field">confidence</code> 与 <code class="field">agreement</code> 原始值）<sup class="fn-ref"><a id="fnref-ch07-8" href="#fn-ch07-8">8</a></sup>，此处取值用于演示式 <a class="xref" href="ch07.html#eq:ch07-kelly">(7.2)</a> 的形态；\(\kelly\) 一列严格按该式计算，可由读者手算复核。</p>
+<p class="tabsrc">公式出处 <code class="sysfile">internal/cio/proposal.go</code> 的 <code class="code">kellyPositionScale</code>；置信度/共识度示意。</p></figure>
+
+第三行就是本章开头那一行：“信心 60、共识 70”，乘出确定度 0.42，代进滑杆得 0.652。所以那行“Kelly 仓位 ×0.65”的意思不是“系统很看好”，是“<strong>系统把这一路意见按六五折采纳</strong>”。
+
+<div class="box pitfall"><div class="boxbody">
+名字撞车，是这件事最容易出错的地方。
+
+教科书里的凯利公式，回答的是“给定赔率和胜率，长期增长率最大的下注比例是多少”。它的形式里有一项是<strong>赔率</strong>——赢的时候赚多少、输的时候亏多少。它给出的数字可以大于 1（意味着该用杠杆），它的目标是<strong>最大化长期增长率</strong>。
+
+本章这个 \(\kelly\) 有三个地方和它完全不同：
+
+第一，它<strong>没有赔率</strong>。整个公式里只有两个输入：信心和共识度。它压根不知道这笔交易赢面多大。
+
+第二，它<strong>有上界 1</strong>，靠 \(\min\) 和 \(\clamp\) 双保险锁死。真正的凯利公式不会给你锁上界。
+
+第三，它的目标是<strong>更保守</strong>，不是最大化增长率。它有下界 0.4，就是为了防止“确定度低”被过度解释成“空仓”。
+
+所以请把它当成一个<strong>保守度控制器</strong>，而不是一个下注比例。它的作用只有一个：<strong>把 AI 那一路意见，按它的自我确信程度打个折。</strong>名字里带“Kelly”只是因为它借用了“确定度越高、仓位越足”这个直觉，而不是因为它继承了那个公式的任何数学性质。
+
+如果有一天你把它换成真正的凯利公式，你会得到一个能加杠杆的系统——那和这套系统“AI 只能踩刹车”的设计前提是直接冲突的。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+这是我曾经觉得最“稳妥”的做法：如果今天模型没响应，那就沿用昨天的仓位系数，或者干脆取个保守值 0.5。
+
+这个做法的问题在于：它让<strong>一次技术故障变成了一个交易决策</strong>。
+
+看代码里那条硬回退线。LLM 没配置、调用失败、超时、输出解析不了——主张官返回 <code class="code">nil</code>，<code class="code">decideProposalGate</code> 立刻带着 \(A = \text{ruleRate}\) 返回，\(\text{Effective} = A\)。也就是说，<strong>生效仓位完全等于规则层给的基准，一个百分点都不打折，也一个百分点都不多加。</strong>
+
+为什么不是“打个折更保险”？因为打折是一个<strong>判断</strong>，判断需要理由，而此刻系统手里恰好没有任何新理由——它手里只有一个“我失败了”。用一次失败去推动仓位变化，是在把不确定性从一个地方搬到另一个地方。
+
+更严重的是它会<strong>掩盖故障</strong>。如果 AI 挂了之后仓位自动变成 0.5，那么从最终订单上看，你和“AI 正常但不太看好”的情况几乎分不出来。等到哪天你发现决策质量莫名其妙变差了，再回头查，就什么都查不到了。
+
+<strong>规则层给出的 \(A\)，本来就是这套系统里“没有 AI 也该执行”的答案。</strong>AI 的价值是让它更保守，不是替代它。所以 AI 失联时，正确答案是“回到 \(A\)”，而不是“回到 \(A\) 的某个折扣”。
+</div></div>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>Kelly 缩放函数：<code class="sysfile">internal/cio/proposal.go</code>，<code class="code">kellyPositionScale</code>。
+  </li><li>生效仓位的四项 \(\min\) 门控与硬回退：同文件，<code class="code">decideProposalGate</code>（\(\text{Effective} = \min(\text{ruleRate}, \clamp(\text{主张},0.2,1), \clamp(\text{异议},0.2,1), \kelly)\)）。
+  </li><li>证据链落库（含 <code class="field">kelly_position_scale</code>、<code class="field">suggested_position_rate</code>、<code class="field">effective_position_rate</code>）：同文件，<code class="code">attachProposal</code> 与 <code class="code">decisionProposalPayload</code>。
+  </li><li>真实 ruleRate 记录：<code class="dbtab">market_sixdim_daily</code> 表（5 条，2026-08-31 至 2026-09-11）。
+  </li><li>前端展示：CIO 页【多空辩论】区块里的“Kelly 仓位 ×系数”，以及决策日志中的证据链。
+</li></ul>
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（十分钟）</div><div class="boxbody">
+<ol><li>拿出一张纸，手算一遍本章开头那一行：\(c = 0.60\)、\(a = 0.70\)，求 \(\mathrm{certainty}\) 与 \(\kelly\)。答案应该是 \(0.42\) 与 \(0.652\)。
+  </li><li>再算 \(c = 0.20\)、\(a = 0.30\)，答案是 \(0.06\) 与 \(0.436\)。你会发现：信心和共识度都掉了一半，系数却只从 0.652 掉到 0.436——<strong>底座 0.4 一直在下面托着</strong>。
+  </li><li>现在算 \(c = 1.00\)、\(a = 1.00\)。答案必须是 1.000，不是 1.4、也不是 1.6。这就是 \(\min\) 和 \(\clamp\) 的作用。
+  </li><li>打开系统，进入<strong>首席投资官（CIO）</strong>页，找一条有 Kelly 系数的决策，把它的 \(\text{Effective}\) 与当天的 ruleRate 对一下。检验引理 <a class="xref" href="ch07.html#lem:ch07-only-down">7.5</a>：前者一定不超过后者。
+  </li><li>最后一问：如果明天你把 \(0.4\) 改成 \(0.1\)，系统会更容易满仓还是会更容易空仓？先想清楚再动手（改完记得改回来）。
+</li></ol>
+</div></div>
+
+到这里，一路意见的折算讲完了：主张说了多少、异议说了多少、辩论一致到什么程度，全都折算成了一个不超过 1 的系数。
+
+可你数一数：主张、异议、辩论、规则——<strong>手上已经有四路意见了</strong>。它们方向不同、语气不同、权重也不该一样。
+
+那么下一个问题很自然：<strong>如果不止两个意见呢？这四路话，怎么合成一句？</strong>
+</article>
+<nav class="pager"><a class="prev" href="ch06.html"><span class="dir">上一页</span>第六章 让 AI 自己吵一架：多空辩论</a><a class="next" href="ch08.html"><span class="dir">下一页</span>第八章 投票能不能比专家更靠谱？——多提案集成</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch07-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch07-1">↩</a></li><li id="fn-ch07-2"><strong>数据来源</strong> <code class="dbtab">market_sixdim_daily</code> 表，trade_date = 2026-09-11；只读查询于 2026-09-24。 <a class="fn-back" href="#fnref-ch07-2">↩</a></li><li id="fn-ch07-3"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch07-3">↩</a></li><li id="fn-ch07-4"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch07-4">↩</a></li><li id="fn-ch07-5"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch07-5">↩</a></li><li id="fn-ch07-6"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch07-6">↩</a></li><li id="fn-ch07-7"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch07-7">↩</a></li><li id="fn-ch07-8"><strong>数据缺失</strong> 该系统库中此项无有效记录。本书遵照系统“数据不可用即报错、不降级、不伪造”的原则，此处留白、不填充估计值。 <a class="fn-back" href="#fnref-ch07-8">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>

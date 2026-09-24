@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今天能不能下注？（下）—— 数据从哪来，缺数怎么办 · 未来已来：AI 驱动的量化交易</title>
+<meta name="description" content="《未来已来：AI 驱动的量化交易》·今天能不能下注？（下）—— 数据从哪来，缺数怎么办">
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="assets/book.css">
+<script>try{var t=localStorage.getItem('quantbot-book-theme')||'auto';var d=(t==='dark')||(t==='auto'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.setAttribute('data-theme',d?'dark':'light');}catch(e){}</script>
+</head>
+<body data-page="ch20.html">
+<header class="topbar">
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="打开目录">☰</button>
+  <a class="brand" href="index.html"><img src="assets/logo.png" alt="">未来已来 · AI 驱动的量化交易</a>
+  <span class="spacer"></span>
+  <a class="btn" href="lists.html">图表清单</a>
+  <a class="btn" href="index.html">总目录</a>
+  <button id="theme-btn" type="button">☀ 亮色</button>
+</header>
+<div class="scrim"></div>
+<div class="wrap">
+<nav class="side" id="side"><h2>开始</h2><ul><li><a data-page="cover.html" href="cover.html">封面</a></li><li><a data-page="preface.html" href="preface.html">前言</a></li><li><a data-page="lists.html" href="lists.html">图表与代码清单</a></li><li><a data-page="howtoread.html" href="howtoread.html">怎么读这本书</a></li><li><a data-page="notation.html" href="notation.html">记号表</a></li></ul><h2>第一部分</h2><ul><li><a data-page="ch01.html" href="ch01.html"><span class="num">第一章</span>一个人，怎么同时当研究员、风控和操盘手？</a></li><li><a data-page="ch02.html" href="ch02.html"><span class="num">第二章</span>五个岗位，五条不能越过的线</a></li><li><a data-page="ch03.html" href="ch03.html"><span class="num">第三章</span>怎么给 AI 派活，它才不会乱来？</a></li><li><a data-page="ch04.html" href="ch04.html"><span class="num">第四章</span>AI 的手：它能动手，但只能动你允许的那几样东西</a></li><li><a data-page="ch05.html" href="ch05.html"><span class="num">第五章</span>一天是怎么过完的？—— 盘前、盘中、盘后、深夜</a></li><li><a data-page="ch06.html" href="ch06.html"><span class="num">第六章</span>让 AI 自己吵一架：多空辩论</a></li><li><a data-page="ch07.html" href="ch07.html"><span class="num">第七章</span>意见不一致时，谁来拍板？—— Kelly 缩放与“只降不升”</a></li><li><a data-page="ch08.html" href="ch08.html"><span class="num">第八章</span>投票能不能比专家更靠谱？——多提案集成</a></li><li><a data-page="ch09.html" href="ch09.html"><span class="num">第九章</span>如果 AI 突然失联，交易还继续吗？</a></li><li><a data-page="ch10.html" href="ch10.html"><span class="num">第十章</span>黑匣子：怎么证明这个决策不是瞎猜的？</a></li></ul><h2>第二部分</h2><ul><li><a data-page="ch11.html" href="ch11.html"><span class="num">第十一章</span>什么叫“这只股票不错”？—— 从感觉到因子</a></li><li><a data-page="ch12.html" href="ch12.html"><span class="num">第十二章</span>给股票做一次体检：六大因子与盘口</a></li><li><a data-page="ch13.html" href="ch13.html"><span class="num">第十三章</span>每个因子该占多少分？—— 权重从哪里来</a></li><li><a data-page="ch14.html" href="ch14.html"><span class="num">第十四章</span>因子也要写体检报告：IC、RankIC、分组与衰减</a></li><li><a data-page="ch15.html" href="ch15.html"><span class="num">第十五章</span>怎样识破一个“看起来很厉害”的因子？</a></li><li><a data-page="ch16.html" href="ch16.html"><span class="num">第十六章</span>十七种策略：它们其实只做一件事</a></li><li><a data-page="ch17.html" href="ch17.html"><span class="num">第十七章</span>回测到底在验证什么？—— 成本、前视与样本池</a></li><li><a data-page="ch18.html" href="ch18.html"><span class="num">第十八章</span>机器学习的陷阱：五个模型为什么常常输给三条均线</a></li><li><a data-page="ch19.html" href="ch19.html"><span class="num">第十九章</span>今天能不能下注？（上）—— 市场六维判势怎么打分</a></li><li><a data-page="ch20.html" href="ch20.html" class="current"><span class="num">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</a><ul class="sub"><li><a href="#sec-20-1">20.1 一个“总是很淡”的市场广度</a></li><li><a href="#sec-20-2">20.2 体检设备的精度说明</a></li><li><a href="#sec-20-3">20.3 先讲最贵的那个错：抽样抽歪了</a></li><li><a href="#sec-20-4">20.4 第二个安静的错误：差一根 K 线</a></li><li><a href="#sec-20-5">20.5 六维的来源与降级链</a></li><li><a href="#sec-20-5-1">20.5.1 缓存与限流：不是性能优化，是纪律</a></li><li><a href="#sec-20-6">20.6 它在系统里长什么样</a></li></ul></li><li><a data-page="ch21.html" href="ch21.html"><span class="num">第二十一章</span>决定“下多少注”：仓位系数是怎么算出来的</a></li><li><a data-page="ch22.html" href="ch22.html"><span class="num">第二十二章</span>风控不是一堵墙，是三层走廊</a></li><li><a data-page="ch23.html" href="ch23.html"><span class="num">第二十三章</span>A 股的几个硬规矩：T+1、整手与涨跌停</a></li></ul><h2>第三部分</h2><ul><li><a data-page="ch24.html" href="ch24.html"><span class="num">第二十四章</span>第一天：安装、接模型、连数据</a></li><li><a data-page="ch25.html" href="ch25.html"><span class="num">第二十五章</span>先把米下锅：数据维护的正确顺序</a></li><li><a data-page="ch26.html" href="ch26.html"><span class="num">第二十六章</span>生成属于你的第一份投资方案</a></li><li><a data-page="ch27.html" href="ch27.html"><span class="num">第二十七章</span>读懂仪表盘：控制中心、AI 团队与实时活动</a></li><li><a data-page="ch28.html" href="ch28.html"><span class="num">第二十八章</span>读懂决策：CIO 决策中心里的每一行字</a></li><li><a data-page="ch29.html" href="ch29.html"><span class="num">第二十九章</span>我的投资：持仓、成交与“以数据库为准”的盈亏</a></li><li><a data-page="ch30.html" href="ch30.html"><span class="num">第三十章</span>研究与调参：选股、策略、回测、每日策略</a></li><li><a data-page="ch31.html" href="ch31.html"><span class="num">第三十一章</span>安全开关：模拟、实盘、暂停建仓与紧急停止</a></li><li><a data-page="ch32.html" href="ch32.html"><span class="num">第三十二章</span>每天进步一点的机制：复盘 \(\to\) 改权重 \(\to\) 换策略</a></li><li><a data-page="ch33.html" href="ch33.html"><span class="num">第三十三章</span>出问题怎么办：日志、黑匣子与常见故障</a></li></ul><h2>附录</h2><ul><li><a data-page="appA.html" href="appA.html"><span class="num">附录 A</span>系统架构与包结构速查</a></li><li><a data-page="appB.html" href="appB.html"><span class="num">附录 B</span>数据表速查</a></li><li><a data-page="appC.html" href="appC.html"><span class="num">附录 C</span>工具清单与可用角色</a></li><li><a data-page="appD.html" href="appD.html"><span class="num">附录 D</span>十七种策略的信号逻辑与默认参数</a></li><li><a data-page="appE.html" href="appE.html"><span class="num">附录 E</span>六维判势的数据源与降级矩阵</a></li><li><a data-page="appF.html" href="appF.html"><span class="num">附录 F</span>风险指标的数学定义与推导</a></li><li><a data-page="appG.html" href="appG.html"><span class="num">附录 G</span>术语表（中英对照）</a></li><li><a data-page="appH.html" href="appH.html"><span class="num">附录 H</span>真实事故索引</a></li><li><a data-page="appI.html" href="appI.html"><span class="num">附录 I</span>数据诚信原则与免责声明</a></li><li><a data-page="appJ.html" href="appJ.html"><span class="num">附录 J</span>系统标识符索引</a></li></ul><h2>结尾</h2><ul><li><a data-page="colophon.html" href="colophon.html">版本与说明</a></li></ul></nav>
+<main>
+<article class="page">
+<h1 id="ch:ch20"><span class="cnum">第二十章</span>今天能不能下注？（下）—— 数据从哪来，缺数怎么办</h1>
+
+
+
+
+
+<h2 id="sec-20-1"><span class="hnum">20.1</span>一个“总是很淡”的市场广度</h2>
+
+上一章末尾我留了一个尾巴：九月二日那条判势记录的市场广度，只有 18<sup class="fn-ref"><a id="fnref-ch20-1" href="#fn-ch20-1">1</a></sup> 分。
+
+可我记得那几天盘面并不难看。涨停板上是有票的，只是系统说“上涨家数 0”。
+
+我去查了这一天的 <code class="field">sources</code>，广度的三个来源写得很清楚：
+
+<ul><li><code class="code">breadth_highlow</code>：<code class="code">采样300只20日新高/新低(98/8)</code>；
+  </li><li><code class="code">breadth_rise</code>：<span class="mono">全市场涨跌家数(涨0/总9533)=0%</span>；
+  </li><li><code class="code">breadth_limit</code>：<code class="code">采样涨停/跌停(0/0)</code>。
+</li></ul>
+
+“涨 0 / 总 9533”这行字，我当时读了三遍才反应过来：<strong>在 9533 只股票里，没有一只在上涨</strong>。这在任何一天都不可能发生，除非那天的行情库坏了。
+
+行情库没坏。坏的是取样本的那一句 SQL。
+
+<h2 id="sec-20-2"><span class="hnum">20.2</span>体检设备的精度说明</h2>
+
+<div class="box intuition"><div class="boxbody">
+你去体检，拿到一台家用体温计，盒子上印着“精度 \(\pm 0.5\,^\circ\mathrm C\)”。
+
+你不会因为这台机器不准就把它砸了。你会<strong>换一种用法</strong>：它测出 37.8，你不会据此判断“发烧了”，你会说“可能有点低烧，再用水银的确认一下”。
+
+更关键的是：如果某天它显示 “--”，你知道那意味着<strong>没测出来</strong>，而不是“体温是零”。
+
+数据源也是同一回事。每一个外部数据源都有它的<strong>精度、时效和失效方式</strong>；一个负责任的系统，要做的不是假装它们都一样准，而是<strong>把每一格的来源和可信度写在旁边</strong>。
+</div></div>
+
+这一章只回答一个问题：上一章那六个维度的分数，每一下是<strong>从哪儿取来的</strong>；取不到的时候，系统<strong>做什么</strong>。
+
+答案有一条贯穿始终的底线。它写在这个包的源代码文件头上：
+
+<div class="box keybox"><div class="boxtitle">包级硬约束（原文，<code class="sysfile">internal/marketsixdim/fetcher.go</code> 文件头注释）</div><div class="boxbody">
+“数据来源原则（对应项目硬约束「严禁伪造数据」）：……缺失源用真实代理指标并标注……保证「严禁伪造数据」——<strong>任何无真实数据源的维度都明确标注为中性默认，不猜测。</strong>”
+</div></div>
+
+这句话拆成三条可执行的规则：
+
+<ol><li><strong>能取到真实值，就用真实值</strong>，并把来源写进 <code class="field">sources</code>；
+  </li><li><strong>取不到真实值，可以退而用“代理指标”</strong>，但必须在 <code class="field">sources</code> 里写明“这是代理”，并说清代理是什么；
+  </li><li><strong>连代理都没有，就给中性默认（50 分 / 0 / false）</strong>，同样标注，<strong>绝不猜一个“看起来合理”的数</strong>。
+</li></ol>
+
+<h2 id="sec-20-3"><span class="hnum">20.3</span>先讲最贵的那个错：抽样抽歪了</h2>
+
+上面那条“涨 0 / 总 9533”，来自一个现在已经修掉、但值得单独立一章的错误。系统的真实事故清单把它列在第 #4 条：
+
+<div class="box keybox"><div class="boxtitle">真实事故 #4（摘录自系统事实清单）</div><div class="boxbody">
+<strong>症状</strong>：市场广度“总是很淡”，与盘面感觉不符。<br>
+
+<strong>根因</strong>：旧版 <code class="code">ORDER BY symbol LIMIT 300</code> 字典序截断，样本几乎全落在北交所 + 沪 600。<br>
+
+<strong>修复</strong>：改分层代表样本 + 固定种子 <code class="code">20240901</code> 可复现。
+</div></div>
+
+这个 bug 最值得讲的地方是：<strong>它不会报错</strong>。SQL 语法正确，返回 300 行，程序照常往下走。它只是安静地给你一个错的答案。
+
+先把“错”写成可证明的东西。
+
+<div class="thm definition" id="def:ch20-strata"><div class="thmhead"><span class="thmname">定义</span> <span class="thmnum">20.1</span>（板块分层与真实占比）</div>
+设股票宇宙 \(\mathcal U\) 被划分为 \(B\) 个<strong>板块</strong>（沪主板、深主板、创业板、科创板、北交所），第 \(b\) 个板块含 \(N_b\) 只股票，\(N=\sum_b N_b\)。记真实占比
+<div class="math-scroll">\[p_b=\frac{N_b}{N},\qquad \sum_{b=1}^{B}p_b=1 . \tag{20.1}\]</div>
+设第 \(b\) 个板块内“上涨股票”的比例为 \(\theta_b\in[0,1]\)，则全市场上涨比例为
+<div class="math-scroll">\[\theta=\sum_{b=1}^{B}p_b\,\theta_b . \tag{20.2}\]</div>
+任一抽样方案给出板块构成的估计 \(\widehat p_b\)，其与真值的<strong>全变差距离</strong>为
+<div class="math-scroll">\[d_{\mathrm{TV}}(\widehat p,p)=\frac12\sum_{b=1}^{B}\abs{\widehat p_b-p_b}\in[0,1]. \tag{20.3}\]</div>
+</div>
+
+<div class="thm plain" id="prop:ch20-lex"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">20.2</span>（字典序截断的偏差）</div>
+设符号列 <code class="code">symbol</code> 的字典序把 B 个板块排成一个严格顺序，其中板块 \(b^\ast\) 的全部符号都小于其余所有板块的符号。令 \(n\) 为样本量，且 \(n\le N_{b^\ast}\)。则字典序截断 \((\code{ORDER BY symbol LIMIT }n)\) 得到的样本满足
+<div class="math-scroll">\[\widehat p_{b^\ast}=1,\qquad \widehat p_b=0\ (b\ne b^\ast). \tag{20.4}\]</div>
+于是
+<ol><li>全变差距离 \(d_{\mathrm{TV}}=1-p_{b^\ast}\)，即偏差<strong>完全由被过度代表的那一个板块决定</strong>；
+  </li><li>样本上涨比例 \(\widehat\theta=\widehat\theta_{b^\ast}\)，其期望为
+  <div class="math-scroll" id="eq:ch20-lexbias">\[\E[\widehat\theta]=\theta_{b^\ast},
+  \qquad
+  \text{偏差}\quad \E[\widehat\theta]-\theta=\sum_{b\ne b^\ast}p_b\,(\theta_{b^\ast}-\theta_b); \tag{20.5}\]</div>
+  </li><li>偏差为零当且仅当所有板块的上涨比例相等（\(\theta_b\equiv\theta\)）。
+</li></ol>
+</div>
+
+这个命题在说什么：它把“抽样抽歪”从一句抱怨变成一条公式。第 (iii) 条最要紧——<strong>只要各板块表现不同（而它们永远不同），字典序截断就必然有偏</strong>，而且这个偏差和样本量 \(n\) 无关：你把 300 加到 3000，偏差一模一样，只是更自信地错。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 由 \(n\le N_{b^\ast}\)，“最小的 \(n\) 个符号”全部落在板块 \(b^\ast\) 内，故 \(\widehat p_{b^\ast}=1\)，其余 \(\widehat p_b=0\)。于是
+<div class="math-scroll">\[d_{\mathrm{TV}}=\frac12\Bigl(\abs{1-p_{b^\ast}}+\sum_{b\ne b^\ast}\abs{0-p_b}\Bigr)
+=\frac12\Bigl((1-p_{b^\ast})+(1-p_{b^\ast})\Bigr)=1-p_{b^\ast}.\]</div>
+
+<em>(ii)</em> 样本全在板块 \(b^\ast\) 内，故样本上涨比例只反映该板块：\(\widehat\theta=\widehat\theta_{b^\ast}\)。若板块内为简单随机抽样，则 \(\E[\widehat\theta_{b^\ast}]=\theta_{b^\ast}\)，于是 \(\E[\widehat\theta]=\theta_{b^\ast}\)。再用 \(\sum_b p_b=1\) 与 \(\theta=\sum_b p_b\theta_b\)：
+<div class="math-scroll">\[\theta_{b^\ast}-\theta
+=\theta_{b^\ast}\sum_{b}p_b-\sum_{b}p_b\theta_b
+=\sum_{b}p_b\,(\theta_{b^\ast}-\theta_b)
+=\sum_{b\ne b^\ast}p_b\,(\theta_{b^\ast}-\theta_b),\]</div>
+因为 \(b=b^\ast\) 那一项为零。
+
+<em>(iii)</em> 由式 <a class="xref" href="ch20.html#eq:ch20-lexbias">(20.5)</a>，偏差是 \(\{\theta_{b^\ast}-\theta_b\}_{b\ne b^\ast}\) 关于权重 \(p_b\) 的加权和。若所有 \(\theta_b\) 相等，每项为零，偏差为零；反之若存在 \(b\) 使 \(\theta_b\ne\theta_{b^\ast}\) 而 \(p_b&gt;0\)，则该项非零，且因其余项不改变符号（在极端情形下全同号），加权和不为零。\(\blacksquare\)
+</div>
+
+用库里真实的样本量算一遍，就知道这个偏差有多大。<code class="dbtab">stock_basic</code> 里可交易个股的板块分布是：沪主板 1710<sup class="fn-ref"><a id="fnref-ch20-2" href="#fn-ch20-2">2</a></sup>、深主板 1497<sup class="fn-ref"><a id="fnref-ch20-3" href="#fn-ch20-3">3</a></sup>、创业板 1409<sup class="fn-ref"><a id="fnref-ch20-4" href="#fn-ch20-4">4</a></sup>、科创板 617<sup class="fn-ref"><a id="fnref-ch20-5" href="#fn-ch20-5">5</a></sup>、北交所 351<sup class="fn-ref"><a id="fnref-ch20-6" href="#fn-ch20-6">6</a></sup>，合计 5584<sup class="fn-ref"><a id="fnref-ch20-7" href="#fn-ch20-7">7</a></sup>。
+
+若按字典序截断取 300 只，且“北交所”恰好排在字典序最前（\(b^\ast=\) 北交所，\(N_{b^\ast}=351\ge300\)），则：
+
+<figure class="tbl" id="tab:ch20-lex"><div class="tbl-scroll"><table><caption><span class="lbl">表 20.1</span>字典序截断 300 只 vs. 分层等比例配额 300 只（真实板块规模）</caption><tbody><tr><td><strong>板块</strong></td><td class="num"><strong>全市场只数</strong></td><td class="num"><strong>真实占比 \(p_b\)</strong></td><td class="num"><strong>字典序截断</strong></td><td class="num"><strong>等比例配额 \(n_b\)</strong></td><td class="num"><strong>配额占比</strong></td></tr><tr class="rule"><td colspan="6"></td></tr><tr><td>沪主板</td><td class="num">1710<sup class="fn-ref"><a id="fnref-ch20-8" href="#fn-ch20-8">8</a></sup></td><td class="num">\(30.62\%\)</td><td class="num">\(0\)</td><td class="num">\(91\)</td><td class="num">\(30.33\%\)</td></tr><tr><td>深主板</td><td class="num">1497<sup class="fn-ref"><a id="fnref-ch20-9" href="#fn-ch20-9">9</a></sup></td><td class="num">\(26.81\%\)</td><td class="num">\(0\)</td><td class="num">\(80\)</td><td class="num">\(26.67\%\)</td></tr><tr><td>创业板</td><td class="num">1409<sup class="fn-ref"><a id="fnref-ch20-10" href="#fn-ch20-10">10</a></sup></td><td class="num">\(25.23\%\)</td><td class="num">\(0\)</td><td class="num">\(75\)</td><td class="num">\(25.00\%\)</td></tr><tr><td>科创板</td><td class="num">617<sup class="fn-ref"><a id="fnref-ch20-11" href="#fn-ch20-11">11</a></sup></td><td class="num">\(11.05\%\)</td><td class="num">\(0\)</td><td class="num">\(33\)</td><td class="num">\(11.00\%\)</td></tr><tr><td>北交所</td><td class="num">351<sup class="fn-ref"><a id="fnref-ch20-12" href="#fn-ch20-12">12</a></sup></td><td class="num">\(6.29\%\)</td><td class="num">\(300\)</td><td class="num">\(18\)</td><td class="num">\(6.00\%\)</td></tr><tr class="rule"><td colspan="6"></td></tr><tr><td>合计</td><td class="num">5584<sup class="fn-ref"><a id="fnref-ch20-13" href="#fn-ch20-13">13</a></sup></td><td class="num">\(100\%\)</td><td class="num">\(300\)</td><td class="num">\(297+3\)</td><td class="num">\(100\%\)</td></tr><tr class="rule"><td colspan="6"></td></tr></tbody></table></div><p class="tabnote">字典序截断一列的全变差距离 \(d_{\mathrm{TV}}=1-0.0629=0.937\)——样本的板块构成与总体几乎完全无关。等比例配额一列按 \(\lfloor nN_b/N\rfloor\) 取整，得 297 只，余下 3 只按顺序补给仍有容量的板块，凑满 300。</p>
+<p class="tabsrc">只读查询 <code class="dbtab">stock_basic</code>，按 <code class="code">sh6</code> / <code class="code">sz00</code> / <code class="code">sz30</code> / <code class="code">sh688</code> / <code class="code">bj</code> 前缀分板块计数；配额按 <code class="sysfile">internal/data/duckdb.go</code> 的 <code class="code">ListRepresentativeSymbols</code> 公式复算；查询日 2026-09-24。</p></figure>
+
+修复方案也写在这个文件里。核心是三行代码：
+
+<figure class="listing" id="{lst:ch20-strat}"><figcaption><span class="lbl">代码 20.1</span>分层等比例配额抽样（节选自 <code class="sysfile">internal/data/duckdb.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// repSampleSeed 代表性抽样的固定随机种子。固定种子保证多次判势/重启间</span></span>
+<span class="cl"><span class="com">// 采样结果可复现，避免样本在两次判势间随机漂移导致广度信号抖动。</span></span>
+<span class="cl"><span class="kw">const</span> repSampleSeed = 20240901</span>
+<span class="cl"></span>
+<span class="cl"><span class="com">// 各板块按其在全宇宙中的占比等比例配额</span></span>
+<span class="cl">rng := rand.New(rand.NewSource(repSampleSeed))</span>
+<span class="cl">order := []<span class="kw">string</span>{<span class="str">&quot;sh&quot;</span>, <span class="str">&quot;sz&quot;</span>, <span class="str">&quot;cy&quot;</span>, <span class="str">&quot;kc&quot;</span>, <span class="str">&quot;bj&quot;</span>, <span class="str">&quot;other&quot;</span>}</span>
+<span class="cl">quota := <span class="kw">map</span>[<span class="kw">string</span>]<span class="kw">int</span>{}</span>
+<span class="cl">assigned := 0</span>
+<span class="cl"><span class="kw">for</span> _, b := <span class="kw">range</span> order {</span>
+<span class="cl">    buckets[b] = shuffleSymbols(rng, buckets[b])   <span class="com">// 板内可复现随机排列</span></span>
+<span class="cl">    q := n * len(buckets[b]) / len(all)            <span class="com">// 等比例配额</span></span>
+<span class="cl">    <span class="kw">if</span> q &lt; 0 { q = 0 }</span>
+<span class="cl">    quota[b] = q</span>
+<span class="cl">    assigned += q</span>
+<span class="cl">}</span>
+<span class="cl"><span class="com">// 余量分配给仍有容量的板块（按顺序），保证总数正好 n</span></span></code></pre></figure>
+
+这段话在说什么：三件事。第一，配额公式 \(q_b=\lfloor n\,N_b/N\rfloor\) 就是定义 <a class="xref" href="ch20.html#def:ch20-strata">20.1</a> 里那个 \(p_b\) 的样本版本；第二，板内用<strong>固定种子</strong>打乱，所以同样的宇宙必然得到同样的样本——这叫<strong>可复现</strong>；第三，余量补足，保证样本量正好是 300。
+
+<div class="thm plain" id="prop:ch20-strat-unbiased"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">20.3</span>（等比例配额的样本占比无偏）</div>
+设各板块按 \(n_b=\lfloor n N_b/N\rfloor\) 取配额，板块内为简单随机抽样（不放回），板块 \(b\) 内上涨比例 \(\theta_b\) 的估计为 \(\widehat\theta_b\)。记样本总量 \(n^\ast=\sum_b n_b\le n\)。则
+<ol><li>\(\displaystyle\sum_{b}\frac{n_b}{n^\ast}\widehat\theta_b\) 是 \(\theta\) 的<strong>无偏</strong>估计，当配额可整除（\(n_b=nN_b/N\)，\(\sum_b n_b=n\)）时；
+  </li><li>板块占比估计 \(\widehat p_b=n_b/n\) 满足 \(\E[\widehat p_b]=p_b\)（整除时），\(d_{\mathrm{TV}}\to0\)（\(n\to\infty\)，整除）；
+  </li><li>与命题 <a class="xref" href="ch20.html#prop:ch20-lex">20.2</a> 对比：字典序截断的偏差<strong>不随 \(n\) 减小</strong>，而等比例配额的偏差随 \(n\) 消失。
+</li></ol>
+</div>
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 板块 \(b\) 内为简单随机抽样，故 \(\E[\widehat\theta_b]=\theta_b\)（样本比例是总体比例的无偏估计）。于是
+<div class="math-scroll">\[\E\Bigl[\sum_b\frac{n_b}{n^\ast}\widehat\theta_b\Bigr]
+=\sum_b\frac{n_b}{n^\ast}\E[\widehat\theta_b]
+=\sum_b\frac{n_b}{n^\ast}\theta_b .\]</div>
+若配额整除，\(n_b=nN_b/N\)，则 \(n^\ast=\sum_b n N_b/N=n\)，且
+<div class="math-scroll">\[\frac{n_b}{n^\ast}=\frac{nN_b/N}{n}=\frac{N_b}{N}=p_b ,\]</div>
+代入得 \(\sum_b p_b\theta_b=\theta\)，故无偏。
+
+<em>(ii)</em> \(\widehat p_b=n_b/n\) 为常数（配额是确定性的），整除时 \(\widehat p_b=nN_b/(Nn)=N_b/N=p_b\)，于是 \(d_{\mathrm{TV}}=\frac12\sum_b\abs{p_b-p_b}=0\)。配额的取整误差 \(|n_b-nN_b/N|&lt;1\)，故 \(\widehat p_b\to p_b\)，\(d_{\mathrm{TV}}\to0\)。
+
+<em>(iii)</em> 命题 <a class="xref" href="ch20.html#prop:ch20-lex">20.2</a> 的偏差式 <a class="xref" href="ch20.html#eq:ch20-lexbias">(20.5)</a> 里<strong>没有 \(n\)</strong>：它只由各板块的 \(\theta_b\) 差异与 \(p_b\) 决定，加大样本量不改变它。而 (i) 的偏差恰为零，且 (ii) 的 \(d_{\mathrm{TV}}\le\frac{B}{2n}\to0\)。\(\blacksquare\)
+</div>
+
+<div class="box keybox"><div class="boxtitle">这一节真正要记住的一句话</div><div class="boxbody">
+抽样偏差<strong>不会报错</strong>。SQL 会成功，数字会返回，曲线会画出来。<br>
+
+它只在你看不见的地方，把你的读数朝着某个方向推——推到你自己都相信“市场就是这么淡”为止。<br>
+
+所以任何“采样”都要能回答两个问题：<strong>样本的构成是什么？样本量是多少？</strong>
+</div></div>
+
+<h2 id="sec-20-4"><span class="hnum">20.4</span>第二个安静的错误：差一根 K 线</h2>
+
+抽样偏差是“选错了对象”，还有一类错误是“数错了格子”。事故 #5 就是它。
+
+<div class="box keybox"><div class="boxtitle">真实事故 #5（摘录自系统事实清单）</div><div class="boxbody">
+<strong>症状</strong>：标注“20 日新高”，但实际只比对了 19 根。<br>
+
+<strong>根因</strong>：<code class="code">bars[len-20:]</code> 把当前 bar 混入窗口。<br>
+
+<strong>修复</strong>：改为 <code class="code">bars[len-21 : len-1]</code>。
+</div></div>
+
+<div class="thm plain" id="prop:ch20-offbyone"><div class="thmhead"><span class="thmname">命题</span> <span class="thmnum">20.4</span>（窗口混入当前 bar 的后果）</div>
+设第 \(t\) 日的收盘价为 \(c_t\)。按定义，第 \(t\) 日为“20 日新高”当且仅当
+<div class="math-scroll">\[c_t\;&gt;\;\max\{c_{t-20},c_{t-19},\dots,c_{t-1}\}
+\tag{$\star$}\]</div>
+即当前价高于此前 20 个交易日的最高收盘。设长度为 \(L\) 的数组 <code class="code">bars</code> 以 <code class="code">bars[L-1]</code> 为当前 bar。则
+<ol><li>正确窗口为 <code class="code">bars[L-21 : L-1]</code>，其下标集合是 \(\{L-21,\dots,L-2\}\)，恰好 \(20\) 个元素，对应 \(c_{t-20},\dots,c_{t-1}\)；
+  </li><li>若误用 <code class="code">bars[L-20 : L]</code>，其下标集合是 \(\{L-20,\dots,L-1\}\)，含当前 bar，对应 \(\{c_{t-19},\dots,c_t\}\)；
+  </li><li>此时：若判定写 \(c_t\ge\max(\cdot)\)，条件退化为“\(c_t\) 不低于前 19 日”，即<strong>19 日新高</strong>，标签与口径不符；若判定写严格不等号 \(c_t&gt;\max(\cdot)\)，则条件<strong>恒假</strong>，新高计数恒为 \(0\)（新低同理）。
+</li></ol>
+</div>
+
+这个命题在说什么：一根 K 线的错位，会让两个截然不同的结论同时发生——要么把“20 日新高”偷换成“19 日新高”，要么让它<strong>永远数不出一个</strong>。而两种情况在界面上都表现为“新高很少”，也就是事故清单里那句“市场广度总是很淡”。
+
+<div class="proof"><div class="proofhead">证明<span class="qed">■</span></div><em>(i)</em> 数组下标从 \(0\) 计，总长 \(L\)，当前 bar 下标 \(L-1\)，对应 \(t\)。切片 <code class="code">bars[L-21:L-1]</code> 含左端不含右端，下标集合为
+<div class="math-scroll">\[\{L-21,\;L-20,\;\dots,\;L-2\},\]</div>
+元素个数为 \((L-2)-(L-21)+1=20\)。逐项对应：下标 \(L-21\) 即 \(t-20\)，……，下标 \(L-2\) 即 \(t-1\)。故恰为 \(\{c_{t-20},\dots,c_{t-1}\}\)，与 \((\star)\) 的窗口一致。
+
+<em>(ii)</em> 切片 <code class="code">bars[L-20:L]</code> 的下标集合为 \(\{L-20,\dots,L-1\}\)，元素数 \((L-1)-(L-20)+1=20\)，对应 \(\{c_{t-19},\dots,c_t\}\)，其中最后一项 \(c_t\) 就是当前 bar。
+
+<em>(iii)</em> 记 \(M=\max\{c_{t-19},\dots,c_t\}\)。
+<ul><li>若判定为 \(c_t\ge M\)：因 \(c_t\) 是取最大值的候选之一，\(M\ge c_t\) 恒成立，故 \(c_t\ge M\iff c_t=M\iff c_t=\max\{c_{t-19},\dots,c_{t-1}\}\)（最后一步用了 \(c_t=M\) 时 \(M\) 由其余项决定）。即“不低于前 19 日的最高收盘”，是 19 日新高的定义，而非 20 日。
+  </li><li>若判定为 \(c_t&gt;M\)：因 \(c_t\le M\) 恒成立，故 \(c_t&gt;M\) 恒为假，计数恒为 \(0\)。新低同理（\(c_t&lt;\min\{c_{t-19},\dots,c_t\}\) 恒假）。
+</li></ul>
+\(\blacksquare\)
+</div>
+
+修复后的两个好处值得点出来：一是窗口正好 20 根，口径与标签一致；二是<strong>窗口严格落在当前 bar 之前</strong>，所以它在时间上只用了过去，没有偷看今天——这和第 <a class="xref" href="ch17.html#ch:ch17">第十七章</a> 章讲的前视偏差是同一条纪律。
+
+<h2 id="sec-20-5"><span class="hnum">20.5</span>六维的来源与降级链</h2>
+
+现在把六个维度的真实来源摆出来。这张表是本章的核心，它回答的是“每个数从哪儿来”。
+
+<figure class="tbl" id="tab:ch20-sources"><div class="tbl-scroll"><table><caption><span class="lbl">表 20.2</span>六个维度的首选源、备选源与兜底代理</caption><tbody><tr><td><strong>维度</strong></td><td><strong>首选源</strong></td><td><strong>备选 / 兜底（逐级降级）</strong></td></tr><tr class="rule"><td colspan="3"></td></tr><tr><td>技术趋势</td><td>DuckDB 真实指数日 K</td><td>直接取 <code class="code">sh000001</code>；不够 60 根时该维度留中性 50</td></tr><tr><td>市场广度</td><td>DuckDB 真实行情 + 代表样本</td><td>涨跌停比优先东财 <code class="code">push2ex</code> 全市场池，失败回退代表样本</td></tr><tr><td>量能流动性</td><td>DuckDB 全市场成交额</td><td>相对 20 日均值；数据不足则该维度留中性</td></tr><tr><td>资金结构</td><td>同花顺 <code class="code">hsgtApi</code> 北向实时净流入</td><td>（1）东财融资余额趋势 → （2）<strong>兜底代理</strong>“成交额连续放量天数”</td></tr><tr><td>情绪赚钱效应</td><td>同花顺官方涨停/跌停/炸板池 + 连板天梯</td><td>（1）东财 <code class="code">push2ex</code> → （2）DuckDB 全市场统计 → （3）采样日线代理</td></tr><tr><td>外部约束</td><td>腾讯全球指数实时（4&#8201;s 超时 + 5&#8201;min 缓存）</td><td><strong>兜底代理</strong>：上证指数开盘跳空幅度</td></tr><tr class="rule"><td colspan="3"></td></tr></tbody></table></div><p class="tabnote">“代理”不是“伪造”：代理是一个<strong>真实但含义不同</strong>的指标，用它时必须写明它代理的是什么。表中每一行的实际取值都会写进 <code class="field">sources</code> 字段。</p>
+<p class="tabsrc">系统源码 <code class="sysfile">internal/marketsixdim/fetcher.go</code> 与系统事实清单第 8 节；核对时间 2026-09-24。</p></figure>
+
+把这张表和第一章末尾那个真实的 <code class="field">sources</code> 对照着读，会看出系统的“成长”：
+
+<figure class="listing" id="{lst:ch20-sources}"><figcaption><span class="lbl">代码 20.2</span><code class="field">sources</code> 字段的两个真实版本（原文摘录，仅截取关键片段）</figcaption><pre class="code"><code><span class="cl"><span class="com"># 2026-09-02（早期版本：多处降级、口径不一）</span></span>
+<span class="cl">breadth_highlow : 采样300只20日新高/新低(98/8)</span>
+<span class="cl">breadth_rise    : 全市场涨跌家数(涨0/总9533)=0%</span>
+<span class="cl">capital         : 北向无实时源→成交额连续放量天数代理=0；资金集中度=行业Top3成交额占比&gt;=40%(true)</span>
+<span class="cl">external        : 无隔夜美股/事件实时源→用上证指数开盘跳空代理(开盘缺口-0.16%(中性))</span>
+<span class="cl">sentiment       : 采样300只日K(全市场统计不可用降级): 涨停0/跌停0/炸板率0%(日线代理)</span>
+<span class="cl"></span>
+<span class="cl"><span class="com"># 2026-09-09（改善后：多源就位，逐项标注）</span></span>
+<span class="cl">breadth_rise    : 代表样本涨跌家数(涨171/总300)=57%</span>
+<span class="cl">breadth_highlow : 代表样本20日新高/新低(57/16)</span>
+<span class="cl">capital         : 北向实时(同花顺hsgtApi): 当日净流入370亿→连续流入口径5</span>
+<span class="cl">external        : 真实隔夜外围(tencent(qt.gtimg.cn) 全球指数实时:偏空)融合指数跳空(开盘缺口0.07%(中性))</span>
+<span class="cl">sentiment       : 同花顺官方特色数据(实时): 涨停48/跌停7/炸板率36%(炸板27)</span>
+<span class="cl">volume          : 全市场成交额120584亿/20日均值105122亿=1.15，5日/20日量能趋势=0.95(综合1.07)</span></code></pre></figure>
+
+这段话在说什么：九月二日的每一行几乎都带着“无实时源”“→代理”“降级”这样的字样，而且<strong>广度四成分的口径是混的</strong>——“采样 300 只”和“全市场”混在一起用，结果就是“涨 0/总 9533”这种自相矛盾的读数。九月九日之后，四个成分统一到<strong>同一个代表样本</strong>上（涨 171/总 300），情绪换成了同花顺官方实时池，资金结构拿到了北向实时净流入。
+
+<h3 id="sec-20-5-1"><span class="hnum">20.5.1</span>缓存与限流：不是性能优化，是纪律</h3>
+
+外部数据源（同花顺、东财、腾讯）都有一个共同特点：<strong>请求太密会被封</strong>。而盘中判势每 5 分钟跑一次，每次要覆盖约 300 只样本的最新价。
+
+系统的处理写在 <code class="sysfile">internal/marketsixdim/fetcher.go</code> 里：一个包级的 <code class="code">ttlCache</code>，实时快照的 TTL 设成 30 秒；外部源另有最小请求间隔限流。
+
+<figure class="listing" id="{lst:ch20-cache}"><figcaption><span class="lbl">代码 20.3</span>实时快照的 TTL 缓存与非交易时段短路（节选自 <code class="sysfile">internal/marketsixdim/fetcher.go</code>）</figcaption><pre class="code"><code><span class="cl"><span class="com">// 批量实时快照缓存：广度维度每次判势会请求整组代表样本(~300只)的实时快照，</span></span>
+<span class="cl"><span class="com">// 是判势链路最贵的外部调用。</span></span>
+<span class="cl">realtimeSnapCache = newTTLCache[realtimeSnapsEntry](30 * time.Second)</span>
+<span class="cl">...</span>
+<span class="cl"><span class="com">// 非交易时段实时报价即昨收，直接用 DuckDB 历史，避免对 ~300 只样本的无谓外部请求。</span></span>
+<span class="cl"><span class="kw">if</span> !inTradingSession { /* 走 DuckDB，不请求外部源 */ }</span>
+<span class="cl">...</span>
+<span class="cl"><span class="com">// 覆盖数为 0 时必须告警，而不是静默降级</span></span>
+<span class="cl"><span class="kw">if</span> !cached &amp;&amp; len(snaps) &gt; 0 &amp;&amp; rt.covered == 0 {</span>
+<span class="cl">    log.Printf(<span class="str">&quot;[SixDim] 实时快照覆盖 0/%d ...&quot;</span>, len(codes))</span>
+<span class="cl">}</span></code></pre></figure>
+
+这段话在说什么：三个动作。<strong>第一，加 TTL</strong>——30 秒内的重复请求直接吃缓存，既省请求也去抖。<strong>第二，非交易时段短路</strong>——收盘后“最新价”就是收盘价，库里有，不必去外部问一遍，这是事故 #18 的修复。<strong>第三，覆盖数为 0 时报出来</strong>——这是事故 #28 的修复；这一条最像本书反复讲的那个原则：<strong>降级可以是设计，但降级必须被看见</strong>。
+
+还有一条口径标注规则：样本数小于 100 时，在 <code class="field">sources</code> 里标“低可信度”。
+
+<h2 id="sec-20-6"><span class="hnum">20.6</span>它在系统里长什么样</h2>
+
+把本章的东西串起来，是四层：
+
+<figure class="fig" id="fig:ch20-chain"><img class="tikz" src="assets/tikz/tikz-12.svg" alt="示意图"><figcaption><span class="lbl">图 20.1</span>六维判势的取数链。左边是首选，越往右越是兜底；无论走到哪一站，来源都必须写进 <code class="field">sources</code>。</figcaption></figure>
+
+<div class="box provenance"><div class="boxbody">
+<ul><li>分层代表样本抽样、固定种子 <code class="code">20240901</code>、等比例配额与余量补足：<code class="sysfile">internal/data/duckdb.go</code> 的 <code class="code">ListRepresentativeSymbols</code>、<code class="code">repSampleSeed</code>
+  </li><li>六维取数与降级链、TTL 缓存、非交易时段短路、覆盖数告警：<code class="sysfile">internal/marketsixdim/fetcher.go</code> 的 <code class="code">fetchSampleBars</code>、<code class="code">aggregateSampleStats</code>、<code class="code">realtimeSnapCache</code>、<code class="code">ttlCache</code>
+  </li><li>判势结果落库：<code class="sysfile">internal/marketsixdim/persist.go</code> 与 <code class="dbtab">market_sixdim_daily</code>
+  </li><li>五个维度的真实 <code class="field">sources</code> 原文：<code class="dbtab">market_sixdim_daily</code> 的 <code class="field">sources</code> 字段
+  </li><li>真实板块规模：<code class="dbtab">stock_basic</code>（沪主板 1710 / 深主板 1497 / 创业板 1409 / 科创板 617 / 北交所 351）
+  </li><li>相关事故：#4 字典序抽样落到北交所、#5 20 日新高 off-by-one、#18 六维延迟与限流、#28 覆盖数 0 无告警、#29 样本不足未提示
+</li></ul>
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+这是最危险的一句话，因为它的动机是“把活干完”。
+
+本章里所有的兜底（北向没有就用融资余额、再没有就用成交额连续放量天数；外围没有就用指数跳空）看起来正像是“拿别的顶上”。它们和“编一个数”的区别在哪里？
+
+区别只有一个：<strong>代理指标是真实发生的另一个量，而且它的名字被写在旁边。</strong>
+
+“北向连续流入 5 天”和“成交额连续放量 3 天”是两个不同的东西，后者不是前者。你可以在拿到前者之前先用后者做一次粗判断，但你<strong>必须知道自己在用后者</strong>——否则三个月后读这条记录的人（很可能是你自己）会以为那天真有北向数据。
+
+系统把这条写进了包约束：“<strong>代理变量必标注</strong>”。而“数据缺失”这一类（<code class="dbtab">order_book_daily</code> 表当前 0 条记录，见第 <a class="xref" href="ch12.html#ch:ch12">第十二章</a> 章）就老老实实留白，连代理都不编。
+</div></div>
+
+<div class="box pitfall"><div class="boxbody">
+“我取 300 只不行，那我取 3000 只。”
+
+看命题 <a class="xref" href="ch20.html#prop:ch20-lex">20.2</a> 的偏差式 <a class="xref" href="ch20.html#eq:ch20-lexbias">(20.5)</a>——里面<strong>没有 \(n\) 这个符号</strong>。字典序截断的偏差完全由“各板块的差异”决定，样本量再大也不减一分。你只是从“300 只全错”升级到了“3000 只全错”，而且更理直气壮。
+
+这是抽样偏差最反直觉的地方：<strong>它随样本量增大而变得更自信，而不是更准确。</strong>无偏才是第一位的，样本量是第二位的。
+
+系统里对应的一处细节值得抄笔记：<strong>样本数 \(&lt;100\) 时标注低可信度</strong>。这句话在数学上什么都没保证，但它承认了一件事——<strong>可信度是一个需要被说出来的东西</strong>。宁可标注“这次样本少，请谨慎”，也不假装每一条记录同样可靠。
+</div></div>
+
+<div class="box keybox"><div class="boxtitle">动手试一试（二十分钟，全部可在界面上核对）</div><div class="boxbody">
+<ol><li>打开 <strong>CIO 决策中心</strong> 的【市场六维判势】卡片，展开任意一天的明细，找到它的来源说明（对应库里的 <code class="field">sources</code>）。
+  </li><li>逐维读一遍：哪几个维度写着“真实源”，哪几个写着“→代理”，哪几个写着“降级”。把它们列成两栏。
+  </li><li>打开 <strong>设置 \(\to\) 数据源 \(\to\) 市场信息数据</strong>，看【六维判势】那张卡片。它列出了 6 个源的启用开关与优先级——这里面每一个开关，对应的就是表 <a class="xref" href="ch20.html#tab:ch20-sources">20.2</a> 里的一行。
+  </li><li>做一道手算题：把表 <a class="xref" href="ch20.html#tab:ch20-lex">20.1</a> 里“字典序截断”那一列换成“只取前 50 只”。新的 \(d_{\mathrm{TV}}\) 是多少？偏差会变大还是变小？为什么？（提示：看命题 <a class="xref" href="ch20.html#prop:ch20-lex">20.2</a>(i)。）
+  </li><li>最后做一个思想实验：如果某一维度的首选源和所有备选源<strong>全部</strong>失效，系统的选择是什么？请回到本节开头那三条规则，说出它的具体动作，以及你会在哪里看到这个动作的痕迹。
+</li></ol>
+</div></div>
+
+到这里，问题“今天能不能下注”有了一个数：仓位系数。可它是怎么变成<strong>真金白银的下单量</strong>的？选股说“买 10 万”，判势说“今天只能下四成”，最后到底买了多少、这个缩放发生在哪一层、为什么卖出不受它影响——下一章讲这件事。那里还会看到一条被反复强调的不对称设计：<strong>离场永远比进场更该被放行。</strong>
+
+</article>
+<nav class="pager"><a class="prev" href="ch19.html"><span class="dir">上一页</span>第十九章 今天能不能下注？（上）—— 市场六维判势怎么打分</a><a class="next" href="ch21.html"><span class="dir">下一页</span>第二十一章 决定“下多少注”：仓位系数是怎么算出来的</a></nav>
+<section class="fn-list"><h2>注释</h2><ol><li id="fn-ch20-1"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-1">↩</a></li><li id="fn-ch20-2"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-2">↩</a></li><li id="fn-ch20-3"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-3">↩</a></li><li id="fn-ch20-4"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-4">↩</a></li><li id="fn-ch20-5"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-5">↩</a></li><li id="fn-ch20-6"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-6">↩</a></li><li id="fn-ch20-7"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-7">↩</a></li><li id="fn-ch20-8"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-8">↩</a></li><li id="fn-ch20-9"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-9">↩</a></li><li id="fn-ch20-10"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-10">↩</a></li><li id="fn-ch20-11"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-11">↩</a></li><li id="fn-ch20-12"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-12">↩</a></li><li id="fn-ch20-13"><strong>真实数据</strong> 本数字直接取自系统运行库 <code>data/stock.duckdb</code>，未做任何模拟或平滑。 <a class="fn-back" href="#fnref-ch20-13">↩</a></li></ol></section>
+<footer class="bookfoot">
+  <p>《未来已来：AI 驱动的量化交易》· QuantBot Lab · <a href="https://github.com/jeokeo011222/quantbot" rel="noopener">github.com/jeokeo011222/quantbot</a> · 读者交流群 QQ 179590131</p>
+  <p>本书所述系统与文中全部数字，取自系统真实运行数据；市场存在风险，本书不构成任何投资建议。</p>
+</footer>
+</main>
+</div>
+<script src="assets/book.js"></script>
+<script src="assets/tex-svg.js" id="MathJax-script"></script>
+</body>
+</html>
