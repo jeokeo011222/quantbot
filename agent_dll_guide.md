@@ -1,9 +1,9 @@
 # agent.dll 决策脑 — 接口说明与编译调用指南
 
-`agent.dll` 是 QuantBot 的**决策脑二进制**（含 5 Agent 协作、多空辩论、Kelly 缩放、投资规划与每日决策循环）。源码为闭源；本仓库只发布 DLL：
+`agent.dll` 是 QuantBot 的**决策脑二进制**（含 5 Agent 协作、多空辩论、Kelly 缩放、投资规划与每日决策循环）。**源码已全量开源**，位于仓库 `internal/brain/`（agents / llm / planner / port / toolkit / intelligence / sixdim）与 `dll/`（C ABI 导出层）：
 
-- 最终用户拿到 **开源宿主仓库 + 本 DLL**，即可编译出完整可用的 exe。
-- 决策脑核心（`internal/brain` 的 `agents / llm / planner / port / toolkit`）已编译进 DLL，仓库不含这些源码。
+- 最终用户可直接克隆仓库，`go build` 编译完整 exe；`bin/agent.dll` 二进制仅供快速部署 / 免编译场景使用。
+- 若需自行构建决策脑 DLL：`cd dll && go build -buildmode=c-shared`（详见第 8 节）。
 
 ---
 
@@ -159,11 +159,12 @@ int main() {
 
 ## 6. 从源码构建 exe（最终用户）
 
-前提：安装 **Go 1.22+**（cgo 依赖 gcc；Windows 建议用 `mingw-w64`）。仓库不含 `internal/brain`，也不需要在本地编译 DLL。
+前提：安装 **Go 1.22+**（cgo 依赖 gcc；Windows 建议用 `mingw-w64`）。决策脑源码已全量开源（`internal/brain` + `dll/` 已入库），不需要单独下载 DLL。
 
 ```bash
-# 1) 把 agent.dll 放到项目根 bin/ 目录
-mkdir -p bin && cp /path/to/agent.dll bin/
+# 1) （可选）自行构建决策脑 DLL 并放到项目根 bin/ 目录
+mkdir -p bin
+cd dll && go build -buildmode=c-shared -o ../bin/agent.dll . && cd ..
 
 # 2) 构建（wails, 产物含 exe + 自动拷贝的 agent.dll + manifest）
 ./build.ps1
