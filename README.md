@@ -13,11 +13,11 @@
 
 ## 📥 立即下载
 
-**👉 [下载 QuantBot v1.6.0（Windows x64，ZIP 免安装包）](https://github.com/jeokeo011222/quantbot/releases/download/v1.6.0/QuantBot-v1.6.0.zip)**
+**👉 [下载 QuantBot v1.7.0（Windows x64，ZIP 免安装包）](https://github.com/jeokeo011222/quantbot/releases/download/v1.7.0/QuantBot-v1.7.0.zip)**
 
 > 下载 → 解压 → 运行 `QuantBot.exe` → 配置 API Key 即可开始。
 
-**🔧 [仅下载决策脑 agent.dll（从源码构建 exe 时使用）](https://github.com/jeokeo011222/quantbot/releases/download/v1.6.0/agent.dll)**
+**🔧 [仅下载决策脑 agent.dll（从源码构建 exe 时使用）](https://github.com/jeokeo011222/quantbot/releases/download/v1.7.0/agent.dll)**
 
 > 源码仓库已**全量开源（含决策脑源码）**。从源码编译 exe 时，直接 `go build` 即可（`internal/brain` + `dll/` 已入库），无需额外下载 DLL。接口与编译调用详见 [agent_dll_guide.md](agent_dll_guide.md)。
 
@@ -27,7 +27,7 @@
 [![Wails](https://img.shields.io/badge/Wails-v2-C2185B?logo=wails&logoColor=white)](https://wails.io)
 [![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev)
 [![License](https://img.shields.io/badge/License-Proprietary-red.svg)](#-disclaimer)
-[![Release](https://img.shields.io/badge/Release-v1.6.0-2ea44f)](https://github.com/jeokeo011222/quantbot/releases/download/v1.6.0/QuantBot-v1.6.0.zip)
+[![Release](https://img.shields.io/badge/Release-v1.7.0-2ea44f)](https://github.com/jeokeo011222/quantbot/releases/download/v1.7.0/QuantBot-v1.7.0.zip)
 
 **⭐ 如果你觉得 AI + 量化投资很酷，请给这个项目一个 Star**
 
@@ -272,7 +272,7 @@ AI 建立在量化数据和系统状态之上，而不是凭感觉猜股票。
 
 ```bash
 # 1. 下载解压
-# 下载地址：https://github.com/jeokeo011222/quantbot/releases/download/v1.6.0/QuantBot-v1.6.0.zip
+# 下载地址：https://github.com/jeokeo011222/quantbot/releases/download/v1.7.0/QuantBot-v1.7.0.zip
 
 # 2. 运行 QuantBot.exe
 

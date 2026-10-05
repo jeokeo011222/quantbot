@@ -46,6 +46,10 @@ export function CalculateStructureRisk(arg1) {
   return window['go']['main']['App']['CalculateStructureRisk'](arg1);
 }
 
+export function CancelBrokerOrder(arg1) {
+  return window['go']['main']['App']['CancelBrokerOrder'](arg1);
+}
+
 export function CheckForUpdate() {
   return window['go']['main']['App']['CheckForUpdate']();
 }
@@ -68,6 +72,10 @@ export function ConfirmTradeApproval(arg1, arg2) {
 
 export function ConnectNativeTDX() {
   return window['go']['main']['App']['ConnectNativeTDX']();
+}
+
+export function ConnectPtrade() {
+  return window['go']['main']['App']['ConnectPtrade']();
 }
 
 export function ConnectQMT() {
@@ -96,6 +104,10 @@ export function DeleteStrategy(arg1) {
 
 export function DeleteTradeableStock(arg1) {
   return window['go']['main']['App']['DeleteTradeableStock'](arg1);
+}
+
+export function DisconnectPtrade() {
+  return window['go']['main']['App']['DisconnectPtrade']();
 }
 
 export function DisconnectQMT() {
@@ -426,6 +438,10 @@ export function GetProfitHistory(arg1) {
   return window['go']['main']['App']['GetProfitHistory'](arg1);
 }
 
+export function GetPtradeConfig() {
+  return window['go']['main']['App']['GetPtradeConfig']();
+}
+
 export function GetQMTConfig() {
   return window['go']['main']['App']['GetQMTConfig']();
 }
@@ -658,6 +674,14 @@ export function PublishWorkflowEvent(arg1, arg2, arg3, arg4) {
   return window['go']['main']['App']['PublishWorkflowEvent'](arg1, arg2, arg3, arg4);
 }
 
+export function QueryPtradeAsset() {
+  return window['go']['main']['App']['QueryPtradeAsset']();
+}
+
+export function QueryPtradePositions() {
+  return window['go']['main']['App']['QueryPtradePositions']();
+}
+
 export function QueryQMTAsset() {
   return window['go']['main']['App']['QueryQMTAsset']();
 }
@@ -794,12 +818,16 @@ export function SetMarket(arg1) {
   return window['go']['main']['App']['SetMarket'](arg1);
 }
 
+export function SetPtradeConfig(arg1, arg2, arg3) {
+  return window['go']['main']['App']['SetPtradeConfig'](arg1, arg2, arg3);
+}
+
 export function SetQMTApplyAutoExecution(arg1) {
   return window['go']['main']['App']['SetQMTApplyAutoExecution'](arg1);
 }
 
-export function SetQMTConfig(arg1, arg2, arg3, arg4, arg5, arg6, arg7) {
-  return window['go']['main']['App']['SetQMTConfig'](arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+export function SetQMTConfig(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8) {
+  return window['go']['main']['App']['SetQMTConfig'](arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
 }
 
 export function SetSixDimSourceConfig(arg1) {
@@ -880,6 +908,10 @@ export function TestDataProvider(arg1) {
 
 export function TestNativeTDX() {
   return window['go']['main']['App']['TestNativeTDX']();
+}
+
+export function TestPtradeConnection() {
+  return window['go']['main']['App']['TestPtradeConnection']();
 }
 
 export function TestQMTConnection() {

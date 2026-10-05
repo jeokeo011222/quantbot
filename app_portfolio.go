@@ -274,8 +274,8 @@ func (a *App) PlaceTrade(action string, symbol string, stockName string, price f
 
 	switch action {
 	case "BUY":
-		// 实盘模式：真实下单 QMT，成交回报异步记账
-		if a.broker != nil && a.broker.Mode() == broker.ModeLive {
+		// 实盘模式：真实下单券商（QMT / Ptrade），成交回报异步记账
+		if a.broker != nil && broker.IsLiveMode(a.broker.Mode()) {
 			ext, err := a.submitOrderLive(symbol, broker.SideBuy, quantity, price, reason, "")
 			if err != nil {
 				return nil, err
@@ -305,8 +305,8 @@ func (a *App) PlaceTrade(action string, symbol string, stockName string, price f
 		}, nil
 
 	case "SELL":
-		// 实盘模式：真实下单 QMT，成交回报异步记账
-		if a.broker != nil && a.broker.Mode() == broker.ModeLive {
+		// 实盘模式：真实下单券商（QMT / Ptrade），成交回报异步记账
+		if a.broker != nil && broker.IsLiveMode(a.broker.Mode()) {
 			ext, err := a.submitOrderLive(symbol, broker.SideSell, quantity, price, reason, "")
 			if err != nil {
 				return nil, err

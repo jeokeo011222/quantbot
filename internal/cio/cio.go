@@ -336,7 +336,7 @@ func (c *CIOEngine) liveAutoExecEnabled() bool {
 	c.liveBrokerSetterMu.RLock()
 	defer c.liveBrokerSetterMu.RUnlock()
 	return c.autoExecutionEnabled && c.liveBroker != nil &&
-		c.liveBroker.Mode() == broker.ModeLive && c.liveBroker.IsLive()
+		broker.IsLiveMode(c.liveBroker.Mode()) && c.liveBroker.IsLive()
 }
 
 // getLiveBroker 返回实盘桥引用（加锁读取，保证并发安全）。

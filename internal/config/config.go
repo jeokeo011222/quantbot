@@ -76,9 +76,16 @@ type AppConfig struct {
 	QMTMiniQMT      bool   `json:"qmt_mini_qmt"`      // MiniQMT 模式
 	QMTStrategyName string `json:"qmt_strategy_name"` // 策略名
 	QMTStrategyPath string `json:"qmt_strategy_path"` // 策略路径
+	QmtHTTPPort     int    `json:"qmt_http_port"`     // 客户端内策略桥 HTTP 端口（默认 8892）
 	// 盘中自动买卖实盘开关：QMT 实盘模式下，是否把盘中自动买入/自动卖出/止盈止损也真实下发券商。
 	// 独立于手动/确认下单：默认关闭，避免自动执行在未充分验证时触碰真实资金。
 	QMTApplyAutoExecution bool `json:"qmt_auto_execution"`
+
+	// Ptrade (恒生 Ptrade) 实盘交易接口
+	PtradeEnabled   bool   `json:"ptrade_enabled"`    // 是否启用 Ptrade 实盘交易
+	PtradeHTTPPort  int    `json:"ptrade_http_port"`  // 桥接策略 HTTP 端口（默认 8891）
+	PtradeAccount   string `json:"ptrade_account"`    // 资金账号
+	PtradeScriptDir string `json:"ptrade_script_dir"` // 桥接策略目录（默认 exe 目录 Ptrade/）
 
 	// 数据源接口
 	DataProvider string `json:"data_provider"` // native_tdx, tdx_mcp, mcp, tdx_terminal
@@ -239,6 +246,12 @@ func (cm *ConfigManager) load() error {
 		needMigrate = true
 	}
 
+	// 9. QMT 客户端内策略桥端口默认值（旧配置无 qmt_http_port 字段时默认 8892）
+	if config.QmtHTTPPort <= 0 {
+		config.QmtHTTPPort = 8892
+		needMigrate = true
+	}
+
 	cm.config = &config
 
 	// 配置版本迁移
@@ -309,7 +322,12 @@ func (cm *ConfigManager) defaultConfig() *AppConfig {
 		QMTMiniQMT:             true,
 		QMTStrategyName:        "QuantBot",
 		QMTStrategyPath:        "",
+		QmtHTTPPort:            8892,
 		QMTApplyAutoExecution:  false,
+		PtradeEnabled:          false,
+		PtradeHTTPPort:         8891,
+		PtradeAccount:          "",
+		PtradeScriptDir:        "",
 		DataProvider:           "native_tdx",
 		TDXPath:                "D:\\tdx",
 		MCPURL:                 "http://127.0.0.1:8765", // LLM MCP 服务地址
@@ -489,9 +507,12 @@ func (cm *ConfigManager) SetQMTApplyAutoExecution(enabled bool) error {
 }
 
 // SetQMTConfig 设置 QMT (迅投 XtQuant) 实盘交易接口配置
-func (cm *ConfigManager) SetQMTConfig(enabled bool, path, account, accountType string, miniQMT bool, strategyName, strategyPath string) error {
+func (cm *ConfigManager) SetQMTConfig(enabled bool, path, account, accountType string, miniQMT bool, strategyName, strategyPath string, port int) error {
 	if accountType != "STOCK" && accountType != "CREDIT" {
 		return fmt.Errorf("invalid QMT account type: %s (must be 'STOCK' or 'CREDIT')", accountType)
+	}
+	if enabled && port <= 0 {
+		port = 8892
 	}
 	return cm.UpdateConfig(func(cfg *AppConfig) {
 		cfg.QMTEnabled = enabled
@@ -501,6 +522,19 @@ func (cm *ConfigManager) SetQMTConfig(enabled bool, path, account, accountType s
 		cfg.QMTMiniQMT = miniQMT
 		cfg.QMTStrategyName = strategyName
 		cfg.QMTStrategyPath = strategyPath
+		cfg.QmtHTTPPort = port
+	})
+}
+
+// SetPtradeConfig 设置 Ptrade (恒生) 实盘交易接口配置
+func (cm *ConfigManager) SetPtradeConfig(enabled bool, port int, account string) error {
+	if enabled && port <= 0 {
+		port = 8891
+	}
+	return cm.UpdateConfig(func(cfg *AppConfig) {
+		cfg.PtradeEnabled = enabled
+		cfg.PtradeHTTPPort = port
+		cfg.PtradeAccount = account
 	})
 }
 

@@ -125,6 +125,8 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.light': 'Light',
     'settings.dark': 'Dark',
     'settings.general': 'General',
+    'settings.simTradeInterface': 'Simulated Trading Interface',
+    'settings.simTradeWarning': 'This interface is for simulated trading only and cannot be used for live trading.',
     'settings.enablePopup': 'Enable Popup',
     'settings.market': 'Market',
     'settings.us': 'US',
@@ -148,6 +150,27 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.initialCapital': 'Initial Capital',
     'settings.auditLog': 'Audit Log',
     'settings.auditLogDesc': 'View system audit logs and operation history',
+
+    // Trading Interface (QMT / Ptrade)
+    'settings.brokerEnabled': 'Enabled',
+    'settings.brokerSave': 'Save',
+    'settings.brokerSaved': 'Trading interface config saved',
+    'settings.brokerConnect': 'Connect',
+    'settings.brokerConnecting': 'Connecting…',
+    'settings.brokerConnected': 'Trading bridge connected',
+    'settings.brokerConnectFailed': 'Connection failed',
+    'settings.brokerStatusMode': 'Mode',
+    'settings.brokerStatusConn': 'Status',
+    'settings.connected': 'Connected',
+    'settings.disconnected': 'Disconnected',
+    'settings.qmtPath': 'XtQuant Path',
+    'settings.qmtAccountType': 'Account Type',
+    'settings.qmtPort': 'Bridge Port',
+    'settings.qmtScriptHint': 'Bridge script generated at build/bin/XtQuant/qmt_bridge.py. Run it in QMT client "Strategy Trading" panel.',
+    'settings.ptradePort': 'Bridge Port',
+    'settings.ptradeScriptDir': 'Bridge Script Directory',
+    'settings.ptradeScriptDirHint': 'Auto-generated after enabling Ptrade',
+    'settings.saveFailed': 'Save failed',
 
     // Data Source
     'settings.dataSource': 'Data Source',
@@ -178,7 +201,6 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.testFailed': 'Connection failed',
 
     // Broker Interface
-    'settings.brokerInterface': 'Trading Interface',
     'settings.brokerType': 'Broker Type',
     'settings.simulatedBroker': 'Simulated',
     'settings.brokerBaseURL': 'Broker API URL',
@@ -412,6 +434,8 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.light': '浅色',
     'settings.dark': '深色',
     'settings.general': '通用',
+    'settings.simTradeInterface': '模拟交易接口',
+    'settings.simTradeWarning': '此接口仅用于模拟交易严禁，严禁用于实盘。',
     'settings.enablePopup': '启用弹窗',
     'settings.market': '市场',
     'settings.us': '美股',
@@ -435,6 +459,27 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.initialCapital': '初始资金',
     'settings.auditLog': '审计日志',
     'settings.auditLogDesc': '查看系统审计日志和操作历史',
+
+    // Trading Interface (QMT / Ptrade)
+    'settings.brokerEnabled': '启用',
+    'settings.brokerSave': '保存',
+    'settings.brokerSaved': '交易接口配置已保存',
+    'settings.brokerConnect': '连接',
+    'settings.brokerConnecting': '连接中…',
+    'settings.brokerConnected': '交易桥已连接',
+    'settings.brokerConnectFailed': '连接失败',
+    'settings.brokerStatusMode': '模式',
+    'settings.brokerStatusConn': '连接',
+    'settings.connected': '已连接',
+    'settings.disconnected': '未连接',
+    'settings.qmtPath': 'XtQuant 路径',
+    'settings.qmtAccountType': '账号类型',
+    'settings.qmtPort': '桥接端口',
+    'settings.qmtScriptHint': '策略脚本生成于 build/bin/XtQuant/qmt_bridge.py，需在 QMT 客户端「策略交易」面板中新建策略并粘贴运行。',
+    'settings.ptradePort': '桥接端口',
+    'settings.ptradeScriptDir': '桥接策略目录',
+    'settings.ptradeScriptDirHint': '启用 Ptrade 后自动生成',
+    'settings.saveFailed': '保存失败',
 
     // Data Source
     'settings.dataSource': '数据源',
@@ -465,7 +510,6 @@ export const translations: Record<Language, TranslationDict> = {
     'settings.testFailed': '连接失败',
 
     // Broker Interface
-    'settings.brokerInterface': '交易接口',
     'settings.brokerType': '接口类型',
     'settings.simulatedBroker': '模拟接口',
     'settings.brokerBaseURL': '券商 API 地址',

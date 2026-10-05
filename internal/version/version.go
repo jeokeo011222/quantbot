@@ -9,7 +9,7 @@ import (
 // 应用元信息（唯一权威来源，避免多处硬编码导致不一致）
 const (
 	AppName = "QuantBot AI"
-	Version = "1.6.0" // 语义化版本 major.minor.patch
+	Version = "1.7.0" // 语义化版本 major.minor.patch
 	Channel = "stable"
 )
 

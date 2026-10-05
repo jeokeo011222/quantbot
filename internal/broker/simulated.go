@@ -31,6 +31,9 @@ func (b *SimulatedBroker) SubmitOrder(o Order) (string, error) {
 	return b.genID(), nil
 }
 
+// CancelOrder 模拟模式无真实委托，直接返回成功。
+func (b *SimulatedBroker) CancelOrder(orderID string) error { return nil }
+
 func (b *SimulatedBroker) genID() string {
 	n := atomic.AddInt64(&b.counter, 1)
 	return time.Now().Format("SIM20060102150405") + "-" + itoa(int(n))

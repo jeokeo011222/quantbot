@@ -243,7 +243,7 @@ func (h *TradeablePoolHandler) checkRiskBeforeBuy(stock *data.TradeableStock) er
 // 经 CIOEngine 注入的实盘桥下单；成交回报由应用层 onBrokerFill 异步回填账本，此处不做 PORTFOLIO 记账。
 func (h *TradeablePoolHandler) submitLive(side broker.Side, stock *data.TradeableStock, qty int, price float64, reason string) (string, error) {
 	lb := h.cioEngine.getLiveBroker()
-	if lb == nil || lb.Mode() != broker.ModeLive || !lb.IsLive() {
+	if lb == nil || !broker.IsLiveMode(lb.Mode()) || !lb.IsLive() {
 		return "", fmt.Errorf("实盘桥未就绪")
 	}
 	symbol := strings.ToLower(strings.TrimSpace(stock.Market)) + stock.StockCode

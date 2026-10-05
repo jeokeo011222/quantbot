@@ -1,6 +1,6 @@
 import hashlib, json, os, zipfile
 
-VER = "1.6.0"
+VER = "1.7.0"
 BASE = r"d:\Code\Quant Harness\AIQuant\build\bin"
 DIST = r"d:\Code\Quant Harness\AIQuant\dist"
 ZIP = os.path.join(DIST, f"QuantBot-{VER}.zip")

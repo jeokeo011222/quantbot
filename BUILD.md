@@ -106,15 +106,15 @@ python _make_release.py
 
 | 路径 | 说明 |
 |------|------|
-| `dist\QuantBot-1.6.0.zip` | 发布包（可执行布局，含 exe / DLL / 配置 / 数据库 / 模型） |
-| `dist\QuantBot-1.6.0.zip.sha256` | ZIP 的 SHA-256 校验值 |
+| `dist\QuantBot-1.7.0.zip` | 发布包（可执行布局，含 exe / DLL / 配置 / 数据库 / 模型） |
+| `dist\QuantBot-1.7.0.zip.sha256` | ZIP 的 SHA-256 校验值 |
 | `build\bin\manifest.json` | 增量更新清单（exe / DLL / 模型 / stock_dict.json 的哈希） |
 
 ### 打包规则
 
 - **包含**：`QuantBot.exe`、`agent.dll`、`用户手册.md`、`manifest.json`、`config/`、`data/`（白名单）、`database/`、`models/`
 - **排除**：`data/trades/`、`data/market/`、`log/`、`reports/`（运行时 / 临时数据）
-- **版本号**：脚本顶部 `VER` 变量（当前 `1.6.0`），发布前如需升版改此处
+- **版本号**：脚本顶部 `VER` 变量（当前 `1.7.0`），发布前如需升版改此处
 
 ## 六、典型工作流
 
@@ -123,7 +123,7 @@ python _make_release.py
 1. cd dll && go build -buildmode=c-shared -o ../bin/agent.dll .   # 编译决策脑 DLL
 2. .\build.ps1                                                      # 构建 exe + 拷 DLL
 3. python _make_release.py                                          # 打包 dist zip + sha256
-4. 上传 dist\QuantBot-1.6.0.zip 与 .sha256 到 GitHub Release
+4. 上传 dist\QuantBot-1.7.0.zip 与 .sha256 到 GitHub Release
 ```
 
 ## 七、常见问题

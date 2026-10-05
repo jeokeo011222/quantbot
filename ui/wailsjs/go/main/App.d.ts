@@ -28,6 +28,8 @@ export function CIOReviewPlan(arg1:string):Promise<any>;
 
 export function CalculateStructureRisk(arg1:Array<string>):Promise<any>;
 
+export function CancelBrokerOrder(arg1:string):Promise<void>;
+
 export function CheckForUpdate():Promise<Record<string, any>>;
 
 export function CheckLLMConnectivity():Promise<boolean>;
@@ -39,6 +41,8 @@ export function ClearAgentTaskLogs(arg1:string):Promise<any>;
 export function ConfirmTradeApproval(arg1:string,arg2:boolean):Promise<void>;
 
 export function ConnectNativeTDX():Promise<any>;
+
+export function ConnectPtrade():Promise<void>;
 
 export function ConnectQMT():Promise<void>;
 
@@ -53,6 +57,8 @@ export function DeleteDailyReview(arg1:number):Promise<any>;
 export function DeleteStrategy(arg1:number):Promise<any>;
 
 export function DeleteTradeableStock(arg1:string):Promise<any>;
+
+export function DisconnectPtrade():Promise<void>;
 
 export function DisconnectQMT():Promise<void>;
 
@@ -218,6 +224,8 @@ export function GetProfile():Promise<any>;
 
 export function GetProfitHistory(arg1:number):Promise<any>;
 
+export function GetPtradeConfig():Promise<any>;
+
 export function GetQMTConfig():Promise<any>;
 
 export function GetResearchTimeline(arg1:number):Promise<any>;
@@ -334,6 +342,10 @@ export function ProcessTradeablePool(arg1:context.Context):Promise<void>;
 
 export function PublishWorkflowEvent(arg1:string,arg2:string,arg3:string,arg4:Record<string, any>):Promise<any>;
 
+export function QueryPtradeAsset():Promise<broker.Asset>;
+
+export function QueryPtradePositions():Promise<Array<broker.Position>>;
+
 export function QueryQMTAsset():Promise<broker.Asset>;
 
 export function QueryQMTPositions():Promise<Array<broker.Position>>;
@@ -402,9 +414,11 @@ export function SetMCPConfig(arg1:string,arg2:string):Promise<void>;
 
 export function SetMarket(arg1:string):Promise<void>;
 
+export function SetPtradeConfig(arg1:boolean,arg2:number,arg3:string):Promise<void>;
+
 export function SetQMTApplyAutoExecution(arg1:boolean):Promise<void>;
 
-export function SetQMTConfig(arg1:boolean,arg2:string,arg3:string,arg4:string,arg5:boolean,arg6:string,arg7:string):Promise<void>;
+export function SetQMTConfig(arg1:boolean,arg2:string,arg3:string,arg4:string,arg5:boolean,arg6:string,arg7:string,arg8:number):Promise<void>;
 
 export function SetSixDimSourceConfig(arg1:config.SixDimSourceConfig):Promise<void>;
 
@@ -445,6 +459,8 @@ export function TestAIConnection(arg1:string,arg2:string,arg3:string,arg4:string
 export function TestDataProvider(arg1:string):Promise<any>;
 
 export function TestNativeTDX():Promise<any>;
+
+export function TestPtradeConnection():Promise<any>;
 
 export function TestQMTConnection():Promise<any>;
 

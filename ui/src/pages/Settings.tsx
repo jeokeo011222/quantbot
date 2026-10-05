@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, Globe, Rocket, Loader2, HeartHandshake, BarChart3, Activity, Calendar } from 'lucide-react'
+import { Settings as SettingsIcon, Cpu, Database, Zap, Key, Save, TestTube, FileText, Info, CheckCircle, RefreshCw, AlertTriangle, Wrench, Trash2, HardDrive, Download, HeartPulse, Globe, Rocket, Loader2, HeartHandshake, BarChart3, Activity, Calendar, Plug } from 'lucide-react'
 import { EventsOn, EventsOff } from '../../wailsjs/runtime/runtime'
 import { useI18nStore } from '../store/i18nStore'
 import type { Language } from '../store/i18nStore'
@@ -12,7 +12,7 @@ import qqVipImg from '../../image/QQvip1群.jpg'
 import qqFreeImg from '../../image/QQFree1群.jpg'
 import wxBizImg from '../../image/WX商务.jpg'
 
-type TabKey = 'general' | 'ai' | 'datasource' | 'audit' | 'maintenance' | 'health' | 'about' | 'contact'
+type TabKey = 'general' | 'trading' | 'ai' | 'datasource' | 'audit' | 'maintenance' | 'health' | 'about' | 'contact'
 
 // Wails 后端 API 访问助手
 type AppMethod = (...args: unknown[]) => Promise<unknown> | undefined
@@ -171,6 +171,26 @@ export default function Settings() {
   const [healthLoading, setHealthLoading] = useState(false)
   const [healthError, setHealthError] = useState<string | null>(null)
 
+  // 交易接口：QMT / Ptrade 实盘桥
+  const [brokerType, setBrokerType] = useState<'qmt' | 'ptrade'>('qmt')
+  // QMT 配置
+  const [qmtEnabled, setQmtEnabled] = useState(false)
+  const [qmtPath, setQmtPath] = useState('')
+  const [qmtAccount, setQmtAccount] = useState('')
+  const [qmtAccountType, setQmtAccountType] = useState('STOCK')
+  const [qmtPort, setQmtPort] = useState(8892)
+  // Ptrade 配置
+  const [ptradeEnabled, setPtradeEnabled] = useState(false)
+  const [ptradePort, setPtradePort] = useState(8891)
+  const [ptradeAccount, setPtradeAccount] = useState('')
+  const [ptradeScriptDir, setPtradeScriptDir] = useState('')
+  // 连接状态与操作结果
+  const [brokerStatus, setBrokerStatus] = useState<any>(null)
+  const [brokerConnecting, setBrokerConnecting] = useState(false)
+  const [brokerMsg, setBrokerMsg] = useState('')
+  const [ptradeTesting, setPtradeTesting] = useState(false)
+  const [ptradeTestResult, setPtradeTestResult] = useState<any>(null)
+
   // 加载配置
   useEffect(() => {
     loadConfig()
@@ -200,6 +220,18 @@ export default function Settings() {
         setThsEnabled(!!cfg.ths_source?.enabled)
         setThsApiKey(cfg.ths_source?.api_key || '')
         setThsBaseUrl(cfg.ths_source?.base_url || '')
+        // 交易接口：QMT
+        setQmtEnabled(!!cfg.qmt_enabled)
+        setQmtPath(cfg.qmt_path || '')
+        setQmtAccount(cfg.qmt_account || '')
+        setQmtAccountType(cfg.qmt_account_type || 'STOCK')
+        setQmtPort(cfg.qmt_http_port || 8892)
+        // 交易接口：Ptrade
+        setPtradeEnabled(!!cfg.ptrade_enabled)
+        setPtradePort(cfg.ptrade_http_port || 8891)
+        setPtradeAccount(cfg.ptrade_account || '')
+        setPtradeScriptDir(cfg.ptrade_script_dir || '')
+        setBrokerType(cfg.qmt_enabled ? 'qmt' : (cfg.ptrade_enabled ? 'ptrade' : 'qmt'))
       }
     } catch (e) {
       console.error('Failed to load config:', e)
@@ -299,6 +331,64 @@ export default function Settings() {
       setThsSaved(true)
     } catch (e: any) {
       setSaveError(`同花顺官方数据源: ${e?.message || '保存失败'}`)
+    }
+  }
+
+  // ==================== 交易接口（QMT / Ptrade） ====================
+
+  // 保存 QMT 配置（XtQuant 路径 + 资金账号 + 账号类型）
+  const handleSaveQMT = async () => {
+    setBrokerMsg('')
+    try {
+      await callApp<void>('SetQMTConfig', qmtEnabled, qmtPath.trim(), qmtAccount.trim(), qmtAccountType, false, '', '', qmtPort)
+      setBrokerMsg(t('settings.brokerSaved'))
+    } catch (e: any) {
+      setBrokerMsg(e?.message || t('settings.saveFailed'))
+    }
+  }
+
+  // 保存 Ptrade 配置（HTTP 端口 + 资金账号）
+  const handleSavePtrade = async () => {
+    setBrokerMsg('')
+    try {
+      await callApp<void>('SetPtradeConfig', ptradeEnabled, ptradePort, ptradeAccount.trim())
+      setBrokerMsg(t('settings.brokerSaved'))
+    } catch (e: any) {
+      setBrokerMsg(e?.message || t('settings.saveFailed'))
+    }
+  }
+
+  // 连接/断开当前券商桥，并刷新状态
+  const handleConnect = async () => {
+    setBrokerConnecting(true)
+    setBrokerMsg('')
+    try {
+      if (brokerType === 'qmt') {
+        await callApp<void>('ConnectQMT')
+      } else {
+        await callApp<void>('ConnectPtrade')
+      }
+      const st = await callApp<any>('GetBrokerStatus')
+      setBrokerStatus(st)
+      setBrokerMsg(t('settings.brokerConnected'))
+    } catch (e: any) {
+      setBrokerMsg(e?.message || t('settings.brokerConnectFailed'))
+    } finally {
+      setBrokerConnecting(false)
+    }
+  }
+
+  // 测试 Ptrade 桥接网关连通性（无需切换交易模式，仅验证 HTTP 桥可达）
+  const handleTestPtrade = async () => {
+    setPtradeTesting(true)
+    setPtradeTestResult(null)
+    try {
+      const r = await callApp<any>('TestPtradeConnection')
+      setPtradeTestResult(r)
+    } catch (e: any) {
+      setPtradeTestResult({ success: false, message: e?.message || t('settings.testFailed') })
+    } finally {
+      setPtradeTesting(false)
     }
   }
 
@@ -735,6 +825,7 @@ export default function Settings() {
 
   const tabs = [
     { key: 'general' as TabKey, icon: SettingsIcon, label: t('settings.general') },
+    { key: 'trading' as TabKey, icon: Plug, label: t('settings.simTradeInterface') },
     { key: 'ai' as TabKey, icon: Cpu, label: t('settings.aiProvider') },
     { key: 'datasource' as TabKey, icon: Database, label: t('settings.dataSource') },
     { key: 'maintenance' as TabKey, icon: Wrench, label: '数据维护' },
@@ -839,6 +930,7 @@ export default function Settings() {
                 </div>
               </div>
 
+
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
@@ -920,6 +1012,208 @@ export default function Settings() {
                 <button onClick={handleSave} className="btn-primary">
                   {t('settings.save')}
                 </button>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'trading' && (
+            <div className="space-y-5">
+              <h2 className="text-base font-semibold text-slate-800 dark:text-slate-100">{t('settings.simTradeInterface')}</h2>
+
+              {/* 合规警示：本接口仅用于模拟交易 */}
+              <div className="p-3 rounded-lg border border-red-400 bg-red-50 text-red-600 dark:bg-red-900/40 dark:text-red-300 text-xs font-semibold">
+                {t('settings.simTradeWarning')}
+              </div>
+
+              {/* QMT / Ptrade 实盘桥配置 */}
+              <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-3">
+                {/* 券商选择 */}
+                <div className="flex gap-1.5">
+                  {(['qmt', 'ptrade'] as const).map((bt) => (
+                    <button
+                      key={bt}
+                      onClick={() => setBrokerType(bt)}
+                      className={`flex-1 px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                        brokerType === bt
+                          ? 'bg-brand-500 text-white'
+                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600'
+                      }`}
+                    >
+                      {bt === 'qmt' ? 'QMT (xtquant)' : 'Ptrade (恒生)'}
+                    </button>
+                  ))}
+                </div>
+
+                {brokerType === 'qmt' ? (
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                        {t('settings.brokerEnabled')}
+                      </label>
+                      <button
+                        onClick={() => setQmtEnabled(!qmtEnabled)}
+                        className={`relative w-11 h-6 rounded-full transition-colors shrink-0 ${qmtEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                        aria-pressed={qmtEnabled}
+                      >
+                        <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${qmtEnabled ? 'left-[22px]' : 'left-0.5'}`} />
+                      </button>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+                        {t('settings.qmtPath')}
+                      </label>
+                      <input
+                        type="text"
+                        value={qmtPath}
+                        onChange={(e) => setQmtPath(e.target.value)}
+                        placeholder="D:\\国金证券QMT交易端\\bin\\xtquant"
+                        className="input-field"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+                        {t('settings.brokerAccount')}
+                      </label>
+                      <input
+                        type="text"
+                        value={qmtAccount}
+                        onChange={(e) => setQmtAccount(e.target.value)}
+                        placeholder="资金账号"
+                        className="input-field"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+                        {t('settings.qmtAccountType')}
+                      </label>
+                      <select
+                        value={qmtAccountType}
+                        onChange={(e) => setQmtAccountType(e.target.value)}
+                        className="input-field"
+                      >
+                        <option value="STOCK">STOCK（股票）</option>
+                        <option value="CREDIT">CREDIT（信用）</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+                        {t('settings.qmtPort')}
+                      </label>
+                      <input
+                        type="number"
+                        value={qmtPort}
+                        onChange={(e) => setQmtPort(Number(e.target.value) || 0)}
+                        className="input-field"
+                        min={1}
+                        max={65535}
+                      />
+                    </div>
+                    <div className="text-xs text-slate-500 dark:text-slate-400 px-1">
+                      {t('settings.qmtScriptHint')}
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <button
+                        onClick={handleSaveQMT}
+                        className="flex-1 px-2.5 py-1.5 rounded-md text-xs font-medium bg-brand-500 text-white hover:bg-brand-600"
+                      >
+                        {t('settings.brokerSave')}
+                      </button>
+                      <button
+                        onClick={handleConnect}
+                        disabled={brokerConnecting}
+                        className="flex-1 px-2.5 py-1.5 rounded-md text-xs font-medium bg-slate-700 text-white hover:bg-slate-600 disabled:opacity-50"
+                      >
+                        {brokerConnecting ? t('settings.brokerConnecting') : t('settings.brokerConnect')}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-medium text-slate-600 dark:text-slate-400">
+                        {t('settings.brokerEnabled')}
+                      </label>
+                      <button
+                        onClick={() => setPtradeEnabled(!ptradeEnabled)}
+                        className={`relative w-11 h-6 rounded-full transition-colors shrink-0 ${ptradeEnabled ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                        aria-pressed={ptradeEnabled}
+                      >
+                        <span className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow transition-all ${ptradeEnabled ? 'left-[22px]' : 'left-0.5'}`} />
+                      </button>
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+                        {t('settings.ptradePort')}
+                      </label>
+                      <input
+                        type="number"
+                        value={ptradePort}
+                        onChange={(e) => setPtradePort(Number(e.target.value) || 0)}
+                        className="input-field"
+                        min={1}
+                        max={65535}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+                        {t('settings.brokerAccount')}
+                      </label>
+                      <input
+                        type="text"
+                        value={ptradeAccount}
+                        onChange={(e) => setPtradeAccount(e.target.value)}
+                        placeholder="资金账号"
+                        className="input-field"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1.5">
+                        {t('settings.ptradeScriptDir')}
+                      </label>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 px-1">
+                        {ptradeScriptDir || t('settings.ptradeScriptDirHint')}
+                      </div>
+                    </div>
+                    <div className="flex gap-2 pt-1">
+                      <button
+                        onClick={handleSavePtrade}
+                        className="flex-1 px-2.5 py-1.5 rounded-md text-xs font-medium bg-brand-500 text-white hover:bg-brand-600"
+                      >
+                        {t('settings.brokerSave')}
+                      </button>
+                      <button
+                        onClick={handleTestPtrade}
+                        disabled={ptradeTesting}
+                        className="flex-1 px-2.5 py-1.5 rounded-md text-xs font-medium bg-slate-700 text-white hover:bg-slate-600 disabled:opacity-50"
+                      >
+                        {ptradeTesting ? t('settings.testing') : t('settings.testConnection')}
+                      </button>
+                      <button
+                        onClick={handleConnect}
+                        disabled={brokerConnecting}
+                        className="flex-1 px-2.5 py-1.5 rounded-md text-xs font-medium bg-slate-700 text-white hover:bg-slate-600 disabled:opacity-50"
+                      >
+                        {brokerConnecting ? t('settings.brokerConnecting') : t('settings.brokerConnect')}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* 连接状态与操作结果 */}
+                {brokerStatus && (
+                  <div className="text-xs text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700/50 rounded-md px-2.5 py-2 space-y-0.5">
+                    <div>{t('settings.brokerStatusMode')}: {brokerStatus.mode || '-'} · {t('settings.brokerStatusConn')}: {brokerStatus.connected ? t('settings.connected') : t('settings.disconnected')}</div>
+                    {brokerStatus.account && <div>{t('settings.brokerAccount')}: {brokerStatus.account}</div>}
+                    {brokerStatus.message && <div>{brokerStatus.message}</div>}
+                  </div>
+                )}
+                {ptradeTestResult && (
+                  <div className={`text-xs rounded-md px-2.5 py-2 ${ptradeTestResult.success ? 'bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-300' : 'bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-300'}`}>
+                    {ptradeTestResult.success ? '✓ ' : '✗ '}
+                    {ptradeTestResult.message || t('settings.testFailed')}
+                  </div>
+                )}
+                {brokerMsg && <div className="text-xs text-slate-500 dark:text-slate-400 px-1">{brokerMsg}</div>}
               </div>
             </div>
           )}

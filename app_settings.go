@@ -11,6 +11,7 @@ import (
 	"github.com/quantpilot/quantpilot/internal/plannerhost"
 	"github.com/quantpilot/quantpilot/internal/marketsixdim"
 	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
+	"github.com/quantpilot/quantpilot/internal/broker"
 	"github.com/quantpilot/quantpilot/internal/cio"
 	"github.com/quantpilot/quantpilot/internal/config"
 	"github.com/quantpilot/quantpilot/internal/data"
@@ -18,6 +19,7 @@ import (
 	"github.com/quantpilot/quantpilot/internal/llmstore"
 	"github.com/quantpilot/quantpilot/internal/mcp"
 	"github.com/quantpilot/quantpilot/internal/pricing"
+	"github.com/quantpilot/quantpilot/internal/ptrade"
 	"github.com/quantpilot/quantpilot/internal/thssdk"
 	"github.com/quantpilot/quantpilot/internal/tools"
 	"github.com/quantpilot/quantpilot/internal/xtquant"
@@ -350,7 +352,9 @@ func (a *App) GetTradingMode() (interface{}, error) {
 }
 
 // SetQMTConfig 设置 QMT (迅投 XtQuant) 实盘交易接口配置
-func (a *App) SetQMTConfig(enabled bool, path, account, accountType string, miniQMT bool, strategyName, strategyPath string) error {
+// 客户端内策略桥：配置写入 XtQuant 目录 config.json（host/port/account/poll_interval），
+// 策略脚本在启动后生成于 build/bin/XtQuant/qmt_bridge.py，需在 QMT 客户端「策略交易」中运行。
+func (a *App) SetQMTConfig(enabled bool, path, account, accountType string, miniQMT bool, strategyName, strategyPath string, port int) error {
 	if accountType != "STOCK" && accountType != "CREDIT" {
 		return fmt.Errorf("QMT 账号类型无效: %s (必须为 STOCK 或 CREDIT)", accountType)
 	}
@@ -358,7 +362,7 @@ func (a *App) SetQMTConfig(enabled bool, path, account, accountType string, mini
 		return fmt.Errorf("启用 QMT 实盘交易前，请先填写 XtQuant 路径")
 	}
 
-	err := a.configManager.SetQMTConfig(enabled, path, account, accountType, miniQMT, strategyName, strategyPath)
+	err := a.configManager.SetQMTConfig(enabled, path, account, accountType, miniQMT, strategyName, strategyPath, port)
 	if err != nil {
 		return err
 	}
@@ -370,22 +374,18 @@ func (a *App) SetQMTConfig(enabled bool, path, account, accountType string, mini
 		}
 	}
 
-	// 将配置写入 XtQuant 文件夹下的 config.json
-	if a.configManager.GetConfig().QMTPath != "" {
-		_ = xtquant.WriteConfig(map[string]interface{}{
-			"path":          path,
-			"account":       account,
-			"account_type":  accountType,
-			"mini_qmt":      miniQMT,
-			"strategy_name": strategyName,
-			"strategy_path": strategyPath,
-		})
-	}
+	// 将配置写入 XtQuant 文件夹下的 config.json（客户端内策略桥加载）
+	_ = xtquant.WriteConfig(map[string]interface{}{
+		"host":          "127.0.0.1",
+		"port":          port,
+		"account":       account,
+		"poll_interval": 2,
+	})
 
 	if a.auditService != nil {
 		a.auditService.LogConfigChange("qmt_config", "", fmt.Sprintf("enabled=%v account=%s", enabled, account), "user")
 	}
-	log.Printf("[QuantBot] QMT config updated: enabled=%v path=%s account=%s", enabled, path, account)
+	log.Printf("[QuantBot] QMT config updated: enabled=%v path=%s account=%s port=%d", enabled, path, account, port)
 	return nil
 }
 
@@ -421,6 +421,7 @@ func (a *App) GetQMTConfig() (interface{}, error) {
 		"mini_qmt":       cfg.QMTMiniQMT,
 		"strategy_name":  cfg.QMTStrategyName,
 		"strategy_path":  cfg.QMTStrategyPath,
+		"port":           cfg.QmtHTTPPort,
 		"auto_execution": cfg.QMTApplyAutoExecution,
 		"folder_status":  xtquant.CheckStatus(),
 	}, nil
@@ -447,6 +448,75 @@ func (a *App) GetXtQuantFolderPath() (interface{}, error) {
 	return map[string]interface{}{
 		"path":  xtquant.GetFolderPath(),
 		"files": xtquant.GetInterfaceFiles(),
+	}, nil
+}
+
+// SetPtradeConfig 设置 Ptrade (恒生) 实盘交易接口配置
+func (a *App) SetPtradeConfig(enabled bool, port int, account string) error {
+	if port <= 0 {
+		port = 8891
+	}
+	if enabled && strings.TrimSpace(account) == "" {
+		return fmt.Errorf("启用 Ptrade 实盘交易前，请先填写资金账号")
+	}
+
+	if err := a.configManager.SetPtradeConfig(enabled, port, account); err != nil {
+		return err
+	}
+
+	// 同步：启用 Ptrade 时强制切换为实盘交易模式
+	if enabled && a.configManager.GetConfig().TradingMode != "live" {
+		if err := a.SetTradingMode("live"); err != nil {
+			log.Printf("[QuantBot] Warning: failed to switch to live mode: %v", err)
+		}
+	}
+
+	// 将配置写入 Ptrade 文件夹下的 config.json
+	if err := ptrade.WriteConfig(map[string]interface{}{
+		"host":    "127.0.0.1",
+		"port":    port,
+		"account": account,
+	}); err != nil {
+		log.Printf("[QuantBot] Warning: failed to write Ptrade config: %v", err)
+	}
+
+	if a.auditService != nil {
+		a.auditService.LogConfigChange("ptrade_config", "", fmt.Sprintf("enabled=%v account=%s", enabled, account), "user")
+	}
+	log.Printf("[QuantBot] Ptrade config updated: enabled=%v port=%d account=%s", enabled, port, account)
+	return nil
+}
+
+// GetPtradeConfig 获取 Ptrade 配置与文件夹状态
+func (a *App) GetPtradeConfig() (interface{}, error) {
+	cfg := a.configManager.GetConfig()
+	return map[string]interface{}{
+		"enabled":     cfg.PtradeEnabled,
+		"port":        cfg.PtradeHTTPPort,
+		"account":     cfg.PtradeAccount,
+		"script_dir":  cfg.PtradeScriptDir,
+		"folder_path": ptrade.GetFolderPath(),
+	}, nil
+}
+
+// TestPtradeConnection 测试 Ptrade 桥接网关连通性（需 Ptrade 客户端已运行桥接策略）
+func (a *App) TestPtradeConnection() (interface{}, error) {
+	cfg := a.configManager.GetConfig()
+	pb := broker.NewPtradeBroker(broker.PtradeConfig{
+		HTTPPort: cfg.PtradeHTTPPort,
+		Account:  cfg.PtradeAccount,
+	})
+	if err := pb.Connect(); err != nil {
+		log.Printf("[QuantBot] Ptrade connection test failed: %v", err)
+		return map[string]interface{}{"success": false, "message": err.Error()}, nil
+	}
+	defer pb.Close()
+	st := pb.Status()
+	return map[string]interface{}{
+		"success":   true,
+		"connected": st.Connected,
+		"account":   st.Account,
+		"message":   st.Message,
 	}, nil
 }
 

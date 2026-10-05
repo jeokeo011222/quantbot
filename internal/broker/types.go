@@ -16,7 +16,12 @@ const (
 	ModeSimulated Mode = "simulated"
 	// ModeLive QMT 实盘成交。
 	ModeLive Mode = "qmt"
+	// ModePtrade 恒生 Ptrade 实盘成交。
+	ModePtrade Mode = "ptrade"
 )
+
+// IsLiveMode 是否任意实盘模式（QMT / Ptrade）。模拟模式返回 false。
+func IsLiveMode(m Mode) bool { return m == ModeLive || m == ModePtrade }
 
 // Side 买卖方向。
 type Side string
@@ -59,13 +64,14 @@ type Position struct {
 }
 
 // Asset 券商侧资金与市值。
+// json tag 与 Python 网关输出字段（下划线命名）保持一致，否则 Unmarshal 后数值恒为 0。
 type Asset struct {
-	Cash            float64
-	MarketValue     float64
-	TotalAssets     float64
-	Frozen          float64 // 冻结资金
-	Available       float64
-	ExternalMessage string
+	Cash            float64 `json:"cash"`
+	MarketValue     float64 `json:"market_value"`
+	TotalAssets     float64 `json:"total_assets"`
+	Frozen          float64 `json:"frozen"`
+	Available       float64 `json:"available"`
+	ExternalMessage string  `json:"external_message,omitempty"`
 }
 
 // Status 连接/环境状态。
@@ -88,8 +94,10 @@ type Broker interface {
 	// IsLive 是否实盘真实下单。
 	IsLive() bool
 	// SubmitOrder 提交订单，返回券商/本地订单引用。
-	// 模拟模式返回本地占位单号；实盘模式返回 QMT 委托号。
+	// 模拟模式返回本地占位单号；实盘模式返回 QMT/Ptrade 委托号。
 	SubmitOrder(o Order) (string, error)
+	// CancelOrder 撤单。模拟模式返回 nil；实盘模式按券商委托号撤单。
+	CancelOrder(orderID string) error
 	// QueryPositions 查询券商侧当前持仓。
 	QueryPositions() ([]Position, error)
 	// QueryAsset 查询券商侧资金/资产。

@@ -1,12 +1,12 @@
 export namespace broker {
 	
 	export class Asset {
-	    Cash: number;
-	    MarketValue: number;
-	    TotalAssets: number;
-	    Frozen: number;
-	    Available: number;
-	    ExternalMessage: string;
+	    cash: number;
+	    market_value: number;
+	    total_assets: number;
+	    frozen: number;
+	    available: number;
+	    external_message?: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new Asset(source);
@@ -14,12 +14,12 @@ export namespace broker {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.Cash = source["Cash"];
-	        this.MarketValue = source["MarketValue"];
-	        this.TotalAssets = source["TotalAssets"];
-	        this.Frozen = source["Frozen"];
-	        this.Available = source["Available"];
-	        this.ExternalMessage = source["ExternalMessage"];
+	        this.cash = source["cash"];
+	        this.market_value = source["market_value"];
+	        this.total_assets = source["total_assets"];
+	        this.frozen = source["frozen"];
+	        this.available = source["available"];
+	        this.external_message = source["external_message"];
 	    }
 	}
 	export class Position {

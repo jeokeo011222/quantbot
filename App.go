@@ -1,4 +1,4 @@
-﻿package main
+package main
 
 import (
 	"context"
@@ -18,16 +18,16 @@ import (
 	"github.com/quantpilot/quantpilot/internal/audit"
 	"github.com/quantpilot/quantpilot/internal/backtest"
 	brainhost "github.com/quantpilot/quantpilot/internal/brainhost"
+	"github.com/quantpilot/quantpilot/internal/llmhost"
+	"github.com/quantpilot/quantpilot/internal/plannerhost"
 	"github.com/quantpilot/quantpilot/internal/broker"
 	"github.com/quantpilot/quantpilot/internal/cio"
 	"github.com/quantpilot/quantpilot/internal/config"
 	"github.com/quantpilot/quantpilot/internal/data"
 	"github.com/quantpilot/quantpilot/internal/harness"
-	"github.com/quantpilot/quantpilot/internal/llmhost"
 	"github.com/quantpilot/quantpilot/internal/llmstore"
 	"github.com/quantpilot/quantpilot/internal/mcp"
 	"github.com/quantpilot/quantpilot/internal/orchestrator"
-	"github.com/quantpilot/quantpilot/internal/plannerhost"
 	"github.com/quantpilot/quantpilot/internal/policy"
 	"github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/portfolio"
@@ -474,8 +474,8 @@ func (a *App) startup(ctx context.Context) {
 					log.Printf("[TradeApproval] 补确认决策校验未通过，继续执行(订单由系统排队): %s %s %d@%.2f: %v", action, symbol, quantity, price, err)
 				}
 			}
-			// 实盘模式：订单真实下发 QMT，成交回报经 onBrokerFill 异步记入账本
-			if a.broker != nil && a.broker.Mode() == broker.ModeLive {
+			// 实盘模式：订单真实下发券商（QMT / Ptrade），成交回报经 onBrokerFill 异步记入账本
+			if a.broker != nil && broker.IsLiveMode(a.broker.Mode()) {
 				side := broker.SideSell
 				if action == "BUY" {
 					side = broker.SideBuy
@@ -1354,6 +1354,15 @@ func (a *App) shutdown(ctx context.Context) {
 	// 停止自动调度器
 	if a.autoScheduler != nil {
 		a.autoScheduler.Stop()
+	}
+
+	// 关闭实盘交易桥（停止 QMT 网关进程 / Ptrade 回报轮询）
+	if a.broker != nil {
+		if err := a.broker.Close(); err != nil {
+			log.Printf("[QuantBot] 关闭交易桥失败: %v", err)
+		} else {
+			log.Printf("[QuantBot] 交易执行桥已关闭")
+		}
 	}
 
 	// 记录系统关闭审计
