@@ -69,6 +69,8 @@ add_dir("config")
 add_dir("data", exclude_pred=lambda r: r in ("data/stock.duckdb.new",))
 add_dir("database")
 add_dir("models")
+add_dir("Ptrade")   # Ptrade 桥接脚本 + 接入手册
+add_dir("XtQuant")  # QMT 桥接脚本 + 接入手册
 
 # --- write zip ---
 os.makedirs(DIST, exist_ok=True)
