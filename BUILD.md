@@ -6,8 +6,9 @@
 
 | 脚本 | 类型 | 用途 |
 |------|------|------|
-| `build.ps1` | PowerShell | **主构建**：wails build 产出 `QuantBot.exe`，并把决策脑 DLL 拷到产物目录 |
-| `build.bat` | CMD | 与 `build.ps1` 等价的主构建（CMD 环境备用） |
+| `build.ps1` | PowerShell | **主构建**：wails build 产出 `QuantBot.exe`，把决策脑 DLL 拷到产物目录，并同步桥接脚本 |
+| `build.bat` | CMD | 与 `build.ps1` 等价的主构建（CMD 环境备用，同样拷贝 DLL 与桥接脚本） |
+| `dll\build.bat` | CMD | **决策脑 DLL 构建**：`go build -buildmode=c-shared` 产出 `bin\agent.dll` + `bin\agent.h` |
 | `dev.bat` | CMD | **开发模式**：`wails dev` 热重载，代码改动自动刷新 |
 | `_make_release.py` | Python | **发布打包**：把 `build\bin` 打包成可分发的 ZIP + sha256 + manifest |
 
@@ -43,7 +44,8 @@ build.bat
 2. **环境变量**：设置 `GOROOT=D:\go`、`GOPATH=C:\Users\JokerZ\go`、`PATH`
 3. **构建**：`wails build -platform windows/amd64`（**无 `-clean`**，保留 `build\bin` 全部数据）
 4. **验证输出**：确认 `build\bin\QuantBot.exe` 存在，打印大小与时间
-5. **拷贝决策脑 DLL**（仅 `build.ps1`）：`bin\agent.dll` → `build\bin\agent.dll`
+5. **拷贝决策脑 DLL**：`bin\agent.dll` → `build\bin\agent.dll`（`build.bat` 与 `build.ps1` 均会执行）
+6. **同步桥接脚本**：`third_party\Ptrade` / `third_party\XtQuant` → `build\bin\Ptrade` / `build\bin\XtQuant`（桥接策略 + 接入手册随每个构建分发）
 
 ### 产物
 
@@ -53,10 +55,10 @@ build.bat
 | `build\bin\agent.dll` | 决策脑 DLL（随 exe 分发，缺失时宿主回退 harness 直连） |
 | `build\bin\agent.h` | C ABI 头文件（随 DLL 一并拷贝） |
 
-> **DLL 构建注意**：`build.ps1` 只负责**拷贝**已有 `bin\agent.dll`。首次构建前需先编译 DLL：
+> **DLL 构建注意**：`build.ps1` / `build.bat` 只负责**拷贝**已有 `bin\agent.dll`。首次构建前需先编译 DLL：
 >
-> ```bash
-> cd dll && go build -buildmode=c-shared -o ../bin/agent.dll . && cd ..
+> ```bat
+> dll\build.bat
 > ```
 >
 > 决策脑源码（`internal/brain` + `dll/`）现已全量开源，任何人可自行编译。
@@ -120,8 +122,8 @@ python _make_release.py
 
 ```text
 # 完整发布流程
-1. cd dll && go build -buildmode=c-shared -o ../bin/agent.dll .   # 编译决策脑 DLL
-2. .\build.ps1                                                      # 构建 exe + 拷 DLL
+1. dll\build.bat                                                    # 编译决策脑 DLL（bin\agent.dll + agent.h）
+2. .\build.ps1                                                      # 构建 exe + 拷 DLL + 同步桥接脚本
 3. python _make_release.py                                          # 打包 dist zip + sha256
 4. 上传 dist\QuantBot-1.7.0.zip 与 .sha256 到 GitHub Release
 ```

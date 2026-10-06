@@ -96,6 +96,24 @@ if (Test-Path $SrcDll) {
     Write-Host "[warn] bin\agent.dll not found; this exe will fall back to harness (no agent.dll decision brain)" -ForegroundColor Yellow
 }
 
+# 7. Sync bridge strategy folders from third_party into build\bin.
+#    (Ptrade / XtQuant ship with every build: bridge scripts + manuals)
+$BridgePairs = @(
+    @{ Src = "third_party\Ptrade";  Dst = "Ptrade" },
+    @{ Src = "third_party\XtQuant"; Dst = "XtQuant" }
+)
+foreach ($bp in $BridgePairs) {
+    $src = Join-Path $ProjectRoot $bp.Src
+    $dst = Join-Path $BuildBin $bp.Dst
+    if (Test-Path $src) {
+        if (-not (Test-Path $dst)) { New-Item -ItemType Directory -Path $dst -Force | Out-Null }
+        Copy-Item -Path (Join-Path $src '*') -Destination $dst -Force -Recurse
+        Write-Host "[OK] Synced $($bp.Src) -> build\bin\$($bp.Dst)" -ForegroundColor Green
+    } else {
+        Write-Host "[warn] $($bp.Src) not found; bridge scripts not synced" -ForegroundColor Yellow
+    }
+}
+
 Write-Host ""
 Write-Host "============================================"
 Write-Host "  Build complete! (build\bin data fully preserved)"

@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 title QuantBot Build Script
 color 0A
 
-set "PROJECT=QuantBot AI量化机器人"
+set "PROJECT=QuantBot Build"
 set "OUTPUT=QuantBot.exe"
 set "OUTPUT_DIR=build\bin"
 
@@ -76,6 +76,31 @@ echo   Output: %cd%\%OUTPUT_DIR%\%OUTPUT%
 echo   Size:   %SIZE_MB% MB
 echo   Date:   %FILE_DATE%
 echo.
+
+rem Copy decision-brain DLL next to the exe (bin\agent.dll -> build\bin\agent.dll)
+if exist "bin\agent.dll" (
+    copy /Y "bin\agent.dll" "%OUTPUT_DIR%\agent.dll" >nul
+    echo [OK] Copied agent.dll
+    if exist "bin\agent.h" (
+        copy /Y "bin\agent.h" "%OUTPUT_DIR%\agent.h" >nul
+        echo [OK] Copied agent.h
+    )
+) else (
+    echo [warn] bin\agent.dll not found; exe will fall back to harness
+)
+
+rem Sync bridge strategy folders from third_party (ship with every build)
+if exist "third_party\Ptrade" (
+    if not exist "%OUTPUT_DIR%\Ptrade" mkdir "%OUTPUT_DIR%\Ptrade"
+    xcopy "third_party\Ptrade\*" "%OUTPUT_DIR%\Ptrade\" /E /I /Y >nul
+    echo [OK] Synced third_party\Ptrade -^> build\bin\Ptrade
+)
+if exist "third_party\XtQuant" (
+    if not exist "%OUTPUT_DIR%\XtQuant" mkdir "%OUTPUT_DIR%\XtQuant"
+    xcopy "third_party\XtQuant\*" "%OUTPUT_DIR%\XtQuant\" /E /I /Y >nul
+    echo [OK] Synced third_party\XtQuant -^> build\bin\XtQuant
+)
+
 echo ============================================================
 echo   [OK] BUILD SUCCESSFUL (build\bin data fully preserved)
 echo ============================================================
