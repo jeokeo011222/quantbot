@@ -85,6 +85,9 @@ type AutoScheduler struct {
 	planRefreshProcessor PlanRefreshProcessor
 	lastPlanRefreshDate  string
 
+	// 每日策略失效诊断处理器（P2 RSI 升级）
+	strategyDiagnosisProcessor StrategyDiagnosisProcessor
+
 	// 每日结算处理器
 	dailySettlementProcessor DailySettlementProcessor
 
@@ -195,6 +198,31 @@ func (s *AutoScheduler) SetOrderBookDailyProcessor(processor OrderBookDailyProce
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.orderBookDailyProcessor = processor
+}
+
+// SetStrategyDiagnosisProcessor 设置每日策略失效诊断处理器（P2 RSI 升级）
+func (s *AutoScheduler) SetStrategyDiagnosisProcessor(processor StrategyDiagnosisProcessor) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.strategyDiagnosisProcessor = processor
+}
+
+// runStrategyDiagnosis 执行每日策略失效诊断（P2 RSI 升级）
+// 诊断失败不阻断后续流程——HEALTHY 策略可安全跳过当日调参。
+func (s *AutoScheduler) runStrategyDiagnosis() {
+	s.mu.RLock()
+	proc := s.strategyDiagnosisProcessor
+	s.mu.RUnlock()
+
+	if proc == nil {
+		log.Println("[AutoScheduler] StrategyDiagnosisProcessor 未设置，跳过策略失效诊断")
+		return
+	}
+
+	if err := proc.TriggerStrategyDiagnosis(s.ctx); err != nil {
+		log.Printf("[AutoScheduler] 策略失效诊断失败（不阻断后续流程）: %v", err)
+		return
+	}
 }
 
 // Start 启动自动调度器
@@ -400,6 +428,9 @@ func (s *AutoScheduler) triggerPhaseAction(phase util.MarketPhase) {
 	case util.PhaseMorningSession, util.PhaseAfternoonSession:
 		s.logIntradayStart()
 	case util.PhasePostMarket:
+		// P2 RSI 升级：先做策略失效诊断（用昨日已落库数据），
+		// 诊断结果写入 daily_diagnosis_log，供后续 tune_strategy_params 决定要不要调参
+		s.runStrategyDiagnosis()
 		s.runPostMarketAnalysis()
 	case util.PhaseReview:
 		// 复盘阶段：确保每日复盘报告已生成（幂等，已生成则跳过）

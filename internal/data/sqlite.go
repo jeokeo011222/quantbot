@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/quantpilot/quantpilot/internal/optimization"
 	"github.com/quantpilot/quantpilot/internal/version"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -170,6 +171,10 @@ func InitSQLite() (*gorm.DB, error) {
 		&MarketRiskReport{},
 		// 投资组合中心-组合优化记录
 		&PortfolioOptimization{},
+		// === 递归自我改进（RSI）实验记录 ===
+		&optimization.ExperimentLedger{},
+		&optimization.OptimizerMetaEval{},
+		&optimization.DailyDiagnosisLog{},
 	); err != nil {
 		return nil, fmt.Errorf("failed to auto migrate: %w", err)
 	}

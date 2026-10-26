@@ -11,6 +11,7 @@ import (
 
 	"github.com/quantpilot/quantpilot/internal/backtest"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/optimization"
 	"github.com/quantpilot/quantpilot/internal/tdx"
 	"gorm.io/gorm"
 )
@@ -31,11 +32,35 @@ type StrategyTunerTool struct {
 	sqliteManager  *data.SQLiteManager
 	duckdbManager  *data.DuckDBManager
 	refreshMetrics func() error // 调优完成后统一刷新所有策略最新指标并写入（由智能体调参后自动写入）
+
+	// RSI 升级：实验日志 + 多目标验证
+	ledger    *optimization.Ledger
+	evaluator *optimization.Evaluator
 }
 
 // NewStrategyTunerTool 创建自动化调参工具
 func NewStrategyTunerTool(sqliteManager *data.SQLiteManager, duckdbManager *data.DuckDBManager) *StrategyTunerTool {
-	return &StrategyTunerTool{sqliteManager: sqliteManager, duckdbManager: duckdbManager}
+	tool := &StrategyTunerTool{
+		sqliteManager: sqliteManager,
+		duckdbManager: duckdbManager,
+		evaluator:     optimization.NewEvaluator(),
+	}
+	if sqliteManager != nil {
+		tool.ledger = optimization.NewLedger(sqliteManager.GetDB())
+	}
+	return tool
+}
+
+// SetLedger 允许延迟注入实验日志记录器（如果 sqliteManager 还不可用）
+func (t *StrategyTunerTool) SetLedger(db *gorm.DB) {
+	if db != nil {
+		t.ledger = optimization.NewLedger(db)
+	}
+}
+
+// SetEvaluator 允许自定义验证器配置
+func (t *StrategyTunerTool) SetEvaluator(cfg optimization.EvaluationConfig) {
+	t.evaluator = optimization.NewEvaluatorWithConfig(cfg)
 }
 
 // SetRefreshMetrics 设置调优完成后的指标刷新回调
@@ -105,6 +130,7 @@ type strategyMetrics struct {
 	TotalReturn float64 `json:"return"`
 	MaxDrawdown float64 `json:"max_drawdown"`
 	WinRate     float64 `json:"win_rate"`
+	Turnover    float64 `json:"turnover"`
 	Trades      int     `json:"trades"`
 }
 
@@ -216,6 +242,22 @@ func (t *StrategyTunerTool) tuneOne(st *data.Strategy, bars []tdx.KlineBar, benc
 		Applied:      false,
 	}
 
+	// --- P2 RSI 升级：诊断门控 ---
+	// 如果今天已有诊断记录且结论是 HEALTHY + DO_NOTHING，跳过网格扫描
+	if t.sqliteManager != nil {
+		var latest optimization.DailyDiagnosisLog
+		err := t.sqliteManager.GetDB().
+			Where("strategy_id = ?", st.ID).
+			Order("diagnose_date DESC").Limit(1).
+			First(&latest).Error
+		if err == nil && latest.Conclusion == optimization.ConclusionHealthy &&
+			latest.Recommendation == optimization.RecDoNothing {
+			res.Reason = fmt.Sprintf("诊断 HEALTHY + DO_NOTHING，跳过调参（date=%s）", latest.DiagnoseDate)
+			log.Printf("[StrategyTuner] %s: %s", st.StrategyType, res.Reason)
+			return res
+		}
+	}
+
 	stopLoss, takeProfit := st.StopLossPct, st.TakeProfitPct
 	if stopLoss <= 0 {
 		stopLoss = 0.05
@@ -297,19 +339,81 @@ func (t *StrategyTunerTool) tuneOne(st *data.Strategy, bars []tdx.KlineBar, benc
 
 	// 写回策略表
 	res.Improved = true
+
+	// --- RSI 升级：多目标约束验证 ---
+	// 构造 old/new config JSON 用于参数幅度检查
+	oldConfigJSON := st.ConfigJSON
+	newConfig := cloneParams(baseParams)
+	for k, v := range best.combo {
+		newConfig[k] = v
+	}
+	newConfigJSONBytes, _ := json.Marshal(newConfig)
+	newConfigJSON := string(newConfigJSONBytes)
+
+	// 构造 baseline / candidate 指标
+	baselineMetrics := &optimization.SampleMetrics{
+		Sharpe:   oldMetrics.SharpeRatio,
+		Return:   oldMetrics.TotalReturn,
+		MaxDD:    oldMetrics.MaxDrawdown,
+		WinRate:  oldMetrics.WinRate,
+		Turnover: oldMetrics.Turnover,
+		Trades:   oldMetrics.Trades,
+	}
+	candidateMetrics := &optimization.SampleMetrics{
+		Sharpe:   best.metrics.SharpeRatio,
+		Return:   best.metrics.TotalReturn,
+		MaxDD:    best.metrics.MaxDrawdown,
+		WinRate:  best.metrics.WinRate,
+		Turnover: best.metrics.Turnover,
+		Trades:   best.metrics.Trades,
+	}
+
+	// 使用注入的 evaluator（而非临时 NewEvaluator，确保 SetEvaluator 配置生效）
+	ev := t.evaluator
+	if ev == nil {
+		ev = optimization.NewEvaluator()
+	}
+	evalResult := ev.Evaluate(candidateMetrics, baselineMetrics, oldConfigJSON, newConfigJSON)
+	optimization.LogEvaluation(st.StrategyType, evalResult)
+
+	// --- RSI 升级：无论通过/拒绝，都写实验日志 ---
+	if t.ledger != nil {
+		entry := &optimization.ExperimentLedger{
+			ExperimentDate:   time.Now().Format("2006-01-02"),
+			StrategyID:       st.ID,
+			StrategyType:     st.StrategyType,
+			TriggeredBy:      optimization.TriggerDailyTune,
+			SearchMethod:     optimization.SearchMethodGrid,
+			SearchSpace:      "max_combos=400",
+			OldConfig:        oldConfigJSON,
+			NewConfig:        newConfigJSON,
+			SampleInSharpe:   oldMetrics.SharpeRatio,
+			SampleOutSharpe:  best.metrics.SharpeRatio,
+			SampleOutReturn:  best.metrics.TotalReturn,
+			SampleOutMaxDD:   best.metrics.MaxDrawdown,
+			SampleOutWinRate: best.metrics.WinRate,
+			SampleOutTrades:  best.metrics.Trades,
+			Verdict:          evalResult.Verdict,
+			VerdictReason:    evalResult.Reason,
+			ParamDeltaPct:    evalResult.ParamDeltaPct,
+			BaselineCompare:  optimization.BuildBaselineCompare(baselineMetrics, candidateMetrics),
+			MarketRegime:     "", // P2 诊断阶段接入六维判势后填实际值
+		}
+		t.ledger.RecordAsync(entry)
+	}
+
+	// --- 决策：只有 Verdict=APPROVED + apply=true 才写回 ---
+	// Verdict=SHADOW_RUN 暂不写回（影子运行跟踪延后到 P1.5 实现）
+	verdictPassed := evalResult.Verdict == optimization.VerdictApproved
+	if !verdictPassed {
+		res.Reason = fmt.Sprintf("多目标验证未通过: %s (Verdict=%s)", evalResult.Reason, evalResult.Verdict)
+		return res
+	}
+
 	if apply {
-		newConfig := cloneParams(baseParams)
-		for k, v := range best.combo {
-			newConfig[k] = v
-		}
-		newConfigJSON, err := json.Marshal(newConfig)
-		if err != nil {
-			res.Reason = fmt.Sprintf("序列化配置失败: %v", err)
-			return res
-		}
 		now := time.Now()
 		if err := t.sqliteManager.GetDB().Model(&data.Strategy{}).Where("id = ?", st.ID).Updates(map[string]interface{}{
-			"config_json":   string(newConfigJSON),
+			"config_json":   newConfigJSON,
 			"sharpe_ratio":  best.metrics.SharpeRatio,
 			"max_drawdown":  best.metrics.MaxDrawdown,
 			"total_return":  best.metrics.TotalReturn,
@@ -321,8 +425,8 @@ func (t *StrategyTunerTool) tuneOne(st *data.Strategy, bars []tdx.KlineBar, benc
 			return res
 		}
 		res.Applied = true
-		res.Reason = fmt.Sprintf("%s %.2f→%.2f (交易 %d→%d)",
-			metric, baseScore, bestScore, oldMetrics.Trades, best.metrics.Trades)
+		res.Reason = fmt.Sprintf("%s %.2f→%.2f (交易 %d→%d, Verdict=%s)",
+			metric, baseScore, bestScore, oldMetrics.Trades, best.metrics.Trades, evalResult.Verdict)
 	} else {
 		res.Reason = fmt.Sprintf("apply=false，仅评估：%s %.2f→%.2f (交易 %d→%d)",
 			metric, baseScore, bestScore, oldMetrics.Trades, best.metrics.Trades)
@@ -382,6 +486,7 @@ func toMetrics(r *backtest.BacktestResult, capital float64) *strategyMetrics {
 		TotalReturn: totalReturn,
 		MaxDrawdown: r.MaxDrawdown,
 		WinRate:     r.WinRate,
+		Turnover:    r.Turnover,
 		Trades:      r.TotalTrades,
 	}
 }

@@ -765,6 +765,9 @@ func (a *App) startup(ctx context.Context) {
 			a.autoScheduler.SetDailySettlementProcessor(a)
 			a.autoScheduler.SetOrderBookDailyProcessor(a)
 			a.autoScheduler.SetPlanRefreshProcessor(a)
+			// P2 RSI 升级：策略失效诊断处理器
+			a.autoScheduler.SetStrategyDiagnosisProcessor(scheduler.NewStrategyDiagnosisProcessor(
+				a.sqliteManager.GetDB(), a.duckdbManager))
 			log.Println("[QuantBot] Tradeable Pool Processor, CIO Intraday Plan Processor, Daily Review Processor, Daily Settlement Processor, OrderBook Daily Processor and Plan Refresh Processor set to Auto Scheduler")
 		}
 		a.autoScheduler.Start()
