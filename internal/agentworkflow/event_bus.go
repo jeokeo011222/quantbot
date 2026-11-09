@@ -1,30 +1,41 @@
 package agentworkflow
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"time"
 
+	"github.com/quantpilot/quantpilot/internal/agentownership"
 	"gorm.io/gorm"
 )
 
 // EventBus 事件总线
+// 吸收 dsh-superagent follow-up ownership 机制：
+//   - 注入 *agentownership.Registry 统一管理用户追问归属
+//   - FOLLOWUP 事件自动登记归属，Agent 处理不了时调用 Handback 返回主编排器
+//   - 所有事件都可带 "agent_owner" 字段，Registry 据此做归属
 type EventBus struct {
 	db       *gorm.DB
 	handlers map[string][]EventHandler
+	// OwnershipRegistry 用户追问归属表（可选：nil 则跳过归属逻辑）
+	OwnershipRegistry *agentownership.Registry
 }
 
 // EventHandler 事件处理器接口
 type EventHandler interface {
 	HandleEvent(event *Event) error
 	GetSupportedEventTypes() []string
+	// GetAgentRole 该 Handler 对应的 Agent 角色（用于追问归属路由）
+	GetAgentRole() string
 }
 
 // NewEventBus 创建事件总线
 func NewEventBus(db *gorm.DB) *EventBus {
 	return &EventBus{
-		db:       db,
-		handlers: make(map[string][]EventHandler),
+		db:                db,
+		handlers:          make(map[string][]EventHandler),
+		OwnershipRegistry: agentownership.NewRegistry(), // 默认初始化空注册表
 	}
 }
 
@@ -68,6 +79,19 @@ func (eb *EventBus) processEvent(event *Event) {
 	eb.db.Model(&Event{}).Where("event_id = ?", event.EventID).Update("status", EventStatusProcessing)
 
 	var triggeredTasks []string
+
+	// === FOLLOWUP 特殊处理：自动登记归属（吸收 dsh-superagent follow-up ownership 机制）===
+	if event.EventType == EventFollowup && eb.OwnershipRegistry != nil {
+		var payload map[string]interface{}
+		if err := json.Unmarshal([]byte(event.Payload), &payload); err == nil {
+			owner := fmt.Sprintf("%v", payload["agent_owner"])
+			content := fmt.Sprintf("%v", payload["content"])
+			if owner != "<nil>" && owner != "" {
+				eb.OwnershipRegistry.Register(event.EventID, content, owner)
+				log.Printf("[EventBus] 追问归属登记: followup=%s -> agent=%s", event.EventID, owner)
+			}
+		}
+	}
 
 	// 查找对应的处理器
 	handlers, exists := eb.handlers[event.EventType]
@@ -196,6 +220,15 @@ func (eb *EventBus) autoCreateTasksForEvent(event *Event) []string {
 		}
 
 		log.Printf("[EventBus] 紧急冻结了 %d 个决策", len(decisions))
+
+	case EventFollowup:
+		// 用户追问事件：不自动派工（因为 Agent 归属已在 processEvent 里登记），
+		// 由被归属的 Agent handler 自行决定在范围内回答还是 handback。
+		// 若 handler 不存在（即没有 agent 订阅 FOLLOWUP 事件），说明主编排器需要重新路由。
+		log.Printf("[EventBus] 用户追问事件: %s", event.EventID)
+		if _, hasHandler := eb.handlers[event.EventType]; !hasHandler {
+			log.Printf("[EventBus] 无 FOLLOWUP handler，需主编排器重新路由该追问")
+		}
 	}
 
 	return taskIDs

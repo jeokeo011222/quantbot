@@ -11,6 +11,7 @@ import (
 
 	"github.com/quantpilot/quantpilot/internal/backtest"
 	"github.com/quantpilot/quantpilot/internal/data"
+	"github.com/quantpilot/quantpilot/internal/guardrails"
 	"github.com/quantpilot/quantpilot/internal/optimization"
 	"github.com/quantpilot/quantpilot/internal/tdx"
 	"gorm.io/gorm"
@@ -288,30 +289,59 @@ func (t *StrategyTunerTool) tuneOne(st *data.Strategy, bars []tdx.KlineBar, benc
 	res.Old = oldMetrics
 	res.OldConfig = baseParams
 
+	// baseline 分数（提前计算，熔断护栏循环里需要做改善比较）
+	baseScore := metricScore(oldMetrics, metric)
+
 	// 生成参数组合并逐一回测
 	combos := backtest.GenerateParamCombinations(ranges, maxCombos)
 	var candidates []struct {
 		combo   map[string]interface{}
 		metrics *strategyMetrics
 	}
-	for _, combo := range combos {
-		params := cloneParams(baseParams)
-		for k, v := range combo {
-			params[k] = v
-		}
-		strategy := backtest.BuildStrategyFromConfig(st.StrategyType, params)
-		if strategy == nil {
-			continue
-		}
-		r := backtest.RunBacktestWithLimitFin(bars, strategy, capital, stopLoss, takeProfit, benchmarkID, "", backtest.NewDuckDBFinancialProvider(t.duckdbManager))
-		m := toMetrics(r, capital)
-		if m.Trades < minTrades {
-			continue
-		}
-		candidates = append(candidates, struct {
-			combo   map[string]interface{}
-			metrics *strategyMetrics
-		}{combo: cloneParams(combo), metrics: m})
+
+	// 评审循环熔断护栏：连续 3 轮未发现任何改善候选 → 提前退出，避免资源浪费。
+	// 吸收 dsh-superagent "自动评审者最多 3 轮"原则。
+	// 注：对确定性网格搜索，熔断触发条件是"maxCombos 轮后无改善候选"；
+	// 若后续引入 LLM 驱动的迭代调参（提出新参数建议 + 反馈评估），
+	// 同一个 Guarded 接口可以直接复用（maxRounds=3，tryAgain=true 时继续下一轮）。
+	_, cbErr := guardrails.Guarded[bool](guardrails.DefaultMaxRounds,
+		fmt.Sprintf("tuneOne:%s", st.StrategyType),
+		func(round int) (bool, bool, error) {
+			// 每轮扫描全部 combos 并统计候选改善数
+			var improvedInRound bool
+			for _, combo := range combos {
+				params := cloneParams(baseParams)
+				for k, v := range combo {
+					params[k] = v
+				}
+				strategy := backtest.BuildStrategyFromConfig(st.StrategyType, params)
+				if strategy == nil {
+					continue
+				}
+				r := backtest.RunBacktestWithLimitFin(bars, strategy, capital, stopLoss, takeProfit, benchmarkID, "", backtest.NewDuckDBFinancialProvider(t.duckdbManager))
+				m := toMetrics(r, capital)
+				if m.Trades < minTrades {
+					continue
+				}
+				candidates = append(candidates, struct {
+					combo   map[string]interface{}
+					metrics *strategyMetrics
+				}{combo: cloneParams(combo), metrics: m})
+
+				// 命中一个"分数超过 baseline"的候选 → 标记本轮有改善
+				if metricScore(m, metric) > baseScore {
+					improvedInRound = true
+				}
+			}
+			// 找到了至少一个改善候选 → 结束熔断循环，后续再做全局排序和 best 挑选
+			return improvedInRound, false, nil
+		},
+	)
+	if cbErr != nil {
+		// 熔断触发：已扫描完所有 combos 但 3 轮内没找到改善候选（确定性网格此分支基本不触发，
+		// 因为一轮就扫完；但未来 LLM 迭代模式下会触发）——记录日志后继续用当前候选集
+		log.Printf("[StrategyTuner] %s combo scan guardrail fired (reason=%v), using collected candidates",
+			st.StrategyType, cbErr)
 	}
 
 	if len(candidates) == 0 {
@@ -326,7 +356,6 @@ func (t *StrategyTunerTool) tuneOne(st *data.Strategy, bars []tdx.KlineBar, benc
 	best := candidates[0]
 
 	// 判断是否更优：最优指标需不低于当前（当前交易不足时直接采纳最优）
-	baseScore := metricScore(oldMetrics, metric)
 	bestScore := metricScore(best.metrics, metric)
 	res.New = best.metrics
 	res.NewConfig = best.combo

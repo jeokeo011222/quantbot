@@ -262,6 +262,10 @@ const (
 	EventUserUpdate      = "USER_UPDATE"
 	EventMandateChanged  = "MANDATE_CHANGED"
 	EventEmergencyStop   = "EMERGENCY_STOP"
+	// EventFollowup 用户追问事件：当 UI / 事件总线携带用户追问到达某个 Agent 时，
+	// 自动登记为"归属"该 Agent 的一条 followup；若 Agent 处理不了则调用 handback 返回主编排器重新路由。
+	// 吸收 dsh-superagent follow-up ownership 机制。
+	EventFollowup = "USER_FOLLOWUP"
 )
 
 // Event状态常量

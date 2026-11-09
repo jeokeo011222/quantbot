@@ -12,6 +12,7 @@ import (
 	"github.com/quantpilot/quantpilot/internal/brain/llm"
 	"github.com/quantpilot/quantpilot/internal/brain/port"
 	"github.com/quantpilot/quantpilot/internal/brain/toolkit"
+	"github.com/quantpilot/quantpilot/internal/guardrails"
 )
 
 // BaseAgent 基础 Agent 实现（升级版：多模式 + Skill + Trajectory + 子Agent）
@@ -53,6 +54,11 @@ type SessionState struct {
 	Status       string
 	TrajectoryID string
 	TokenUsage   TokenUsage
+
+	// 诚实汇报：该 session 的决策结果是 draft / verified / superseded / rejected。
+	// 借鉴 dsh-superagent "诚实汇报"原则：草稿必须标未完成。
+	VerificationStatus string     `json:"verification_status,omitempty"`
+	VerifiedAt         *time.Time `json:"verified_at,omitempty"`
 }
 
 // DecisionStep 决策步骤
@@ -296,6 +302,10 @@ func (a *BaseAgent) runPTC(ctx context.Context, input string) (*SessionState, er
 	a.history = append(a.history, llm.Message{Role: "user", Content: input})
 	tools := a.GetAvailableTools()
 
+	// 评审循环熔断：最多 3 轮 Critique（借鉴 dsh-superagent "自动评审者最多 3 轮"）
+	// 防止 AI 反复拒绝自己的结果导致无限抖动。
+	cb := guardrails.NewCircuitBreaker(3, fmt.Sprintf("%s_ptc_critique", a.Name))
+
 	for a.iteration < a.MaxIterations {
 		a.iteration++
 
@@ -324,7 +334,20 @@ func (a *BaseAgent) runPTC(ctx context.Context, input string) (*SessionState, er
 		if len(toolCalls) > 0 {
 			a.handleToolCalls(ctx, toolCalls, session)
 		} else {
-			// Phase 3: 反思/批评
+			// Phase 3: 反思/批评（带熔断护栏）
+			if !cb.Next() {
+				// 熔断触发：超过 3 轮仍未收敛，放弃自动评审，直接返回当前结果
+				log.Printf("[PTC] %s critique circuit broken after %d rounds, returning current result",
+					a.Name, cb.CurrentRound())
+				session.Steps = append(session.Steps, DecisionStep{
+					Step:      a.iteration,
+					Type:      "circuit_broken",
+					Content:   fmt.Sprintf("自动评审循环熔断（%d 轮未收敛），返回当前最佳结果", cb.CurrentRound()),
+					Timestamp: time.Now(),
+				})
+				return a.completeSession(session, assistantMsg.Content)
+			}
+
 			critiquePrompt := fmt.Sprintf("请审查以下结果是否满足计划要求：\n\n计划：%s\n\n结果：%s\n\n如果满意请回答SUCCESS，如果不满意请继续尝试。",
 				planContent, assistantMsg.Content)
 
@@ -689,6 +712,7 @@ func (a *BaseAgent) completeSession(session *SessionState, content string) (*Ses
 	session.Confidence = calculateConfidence(a.iteration, len(session.ToolCalls))
 	session.Status = "completed"
 	session.EndTime = time.Now()
+	session.VerificationStatus = "draft" // 诚实汇报：Agent 产出默认是 draft
 
 	session.Steps = append(session.Steps, DecisionStep{
 		Step:      a.iteration,

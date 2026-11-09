@@ -5,6 +5,7 @@ import (
 	"log"
 	"sync"
 
+	"github.com/quantpilot/quantpilot/internal/agentroles"
 	"github.com/quantpilot/quantpilot/internal/brain/port"
 )
 
@@ -169,8 +170,14 @@ func (r *ToolRegistry) ListByRole(role AgentRole) []*ToolMetadata {
 	return result
 }
 
-// CheckToolPermission 运行时强制校验：角色是否有权使用指定工具
-// 返回 (是否允许, 错误)。工具未注册时返回错误（视为不允许）。
+// CheckToolPermission 运行时强制校验：角色是否有权使用指定工具。
+//
+// 双重防线（吸收 dsh-superagent 的"接口裁剪 + 运行时强制校验"原则）：
+//  1. 工具元数据 meta.Roles 白名单（原有）
+//  2. agentroles.RoleCapabilities 角色能力声明（新增，从能力组推导该角色可调用方法名）
+//
+// 两者都挡才拒绝；任一放行即通过。
+// 工具未注册返回错误；工具存在但角色不具备 → 明确拒绝。
 func (r *ToolRegistry) CheckToolPermission(role AgentRole, toolName string) (bool, error) {
 	r.mu.RLock()
 	defer r.mu.RUnlock()
@@ -182,11 +189,20 @@ func (r *ToolRegistry) CheckToolPermission(role AgentRole, toolName string) (boo
 	if !meta.Enabled {
 		return false, nil
 	}
+
+	// --- 防线 1：工具元数据声明的 Roles 白名单 ---
 	for _, allowedRole := range meta.Roles {
 		if allowedRole == role {
 			return true, nil
 		}
 	}
+
+	// --- 防线 2：agentroles 包的能力组声明（权威注册表，双重校验） ---
+	// 支持精确匹配 + read_* 前缀通配（由 agentroles.HasMethod 内部处理）。
+	if agentroles.HasMethod(agentroles.AgentRole(role), toolName) {
+		return true, nil
+	}
+
 	return false, nil
 }
 

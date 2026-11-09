@@ -176,6 +176,12 @@ type CIODecision struct {
 	SixDim           interface{}   `json:"sixdim,omitempty"`
 	LLMReview        interface{}   `json:"llm_review,omitempty"`
 	Evidence         interface{}   `json:"evidence,omitempty"`
+	// ReasonCodes 结构化原因码集合（来自 reasoning.ReasonSet）。
+	// 吸收 dsh-superagent 结构化 Reason 原则：审计/风控/面板按 code 渲染，不依赖自由文本 Reason。
+	ReasonCodes interface{} `json:"reason_codes,omitempty"`
+	// Status 诚实汇报标签：draft/verified/superseded/rejected（对应 intelligence.VerificationStatus）
+	// 吸收 dsh-superagent "诚实汇报"原则：草稿必须标未完成。
+	Status string `json:"status,omitempty"`
 }
 
 // TokenUsage Token 用量统计（对齐 agents.TokenUsage）。

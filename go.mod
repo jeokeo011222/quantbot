@@ -10,6 +10,7 @@ require (
 	github.com/wailsapp/wails/v2 v2.14.0
 	golang.org/x/sys v0.46.0
 	golang.org/x/text v0.39.0
+	golang.org/x/tools v0.47.0
 	gorm.io/driver/sqlite v1.5.4
 	gorm.io/gorm v1.25.9
 )
@@ -72,7 +73,6 @@ require (
 	golang.org/x/net v0.56.0 // indirect
 	golang.org/x/sync v0.21.0 // indirect
 	golang.org/x/telemetry v0.0.0-20260625142307-59b4966ccb57 // indirect
-	golang.org/x/tools v0.47.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 )

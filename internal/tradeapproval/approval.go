@@ -5,6 +5,8 @@ import (
 	"log"
 	"sync"
 	"time"
+
+	"github.com/quantpilot/quantpilot/internal/reasoning"
 )
 
 // ApprovalResult 用户对交易的确认结果
@@ -22,6 +24,25 @@ const (
 	ResultFailed ApprovalResult = "failed"
 )
 
+// TradeStatus 审批状态的诚实标签（借鉴 dsh-superagent VerificationStatus）：
+//
+//	 - draft      已创建但未到用户面前（比如 UI 还没来得及弹窗）
+//	 - pending    等用户回答（审批已发出）
+//	 - verified   用户明确批准
+//	 - rejected   用户明确拒绝
+//	 - superseded 已被更新决策取代（新决策来了，旧的被撤下）
+//	 - failed     执行失败 / 超时 / 收盘过期
+type TradeStatus string
+
+const (
+	TradeStatusDraft      TradeStatus = "draft"
+	TradeStatusPending    TradeStatus = "pending"
+	TradeStatusVerified   TradeStatus = "verified"
+	TradeStatusRejected   TradeStatus = "rejected"
+	TradeStatusSuperseded TradeStatus = "superseded"
+	TradeStatusFailed     TradeStatus = "failed"
+)
+
 // closeHour 收盘截止时间（交易日 15:00，本地时区）
 const closeHour = 15
 
@@ -37,6 +58,14 @@ type PendingPersist struct {
 }
 
 // PendingTrade 待确认交易
+//
+// 改造说明（吸收 dsh-superagent 的"诚实汇报 + 结构化 Reason"原则）：
+//  1. ReasonCodes 结构化原因码集合（权威来源）；
+//     Reason 自由文本保留做兜底展示，但审计/风控/程序判断一律读 ReasonCodes。
+//  2. Status 诚实标签——明确区分"草稿/待答/已批/拒绝/失败"，
+//     禁止把 draft 订单伪装成 verified 状态偷偷触发执行。
+//  3. HumanActionID 关联到 humanaction 包的 HumanAction，
+//     让 UI 可以按同一 action_id 对齐审批请求和用户回答。
 type PendingTrade struct {
 	ID         string    `json:"id"`
 	Action     string    `json:"action"` // BUY / SELL
@@ -46,10 +75,18 @@ type PendingTrade struct {
 	Quantity   int       `json:"quantity"`
 	Price      float64   `json:"price"`
 	Amount     float64   `json:"amount"`
-	Reason     string    `json:"reason"`
+	Reason     string    `json:"reason"` // 自由文本（兜底展示）
 	DecisionID string    `json:"decision_id"`
 	CreatedAt  time.Time `json:"created_at"`
 	Status     string    `json:"status"` // pending / approved / rejected / executed / expired
+
+	// ---- 新增：结构化原因码 + 诚实状态标签 ----
+	ReasonCodes  reasoning.ReasonSet `json:"reason_codes,omitempty"`
+	HonestStatus TradeStatus         `json:"honest_status,omitempty"`
+	VerifiedAt   *time.Time          `json:"verified_at,omitempty"`
+	// HumanActionID 关联 humanaction.HumanAction.ActionID，
+	// 用于跨组件（CIO → UI → 审批弹窗）对齐同一审批请求。
+	HumanActionID string `json:"human_action_id,omitempty"`
 
 	resultCh chan bool
 	returned bool // RequestApproval 是否已超时返回（此后确认走补执行路径）
@@ -168,19 +205,21 @@ func (s *Service) RequestApproval(action, symbol, stockName, market string, quan
 
 	id := fmt.Sprintf("ta_%d", time.Now().UnixNano())
 	pt := &PendingTrade{
-		ID:         id,
-		Action:     action,
-		Symbol:     symbol,
-		StockName:  stockName,
-		Market:     market,
-		Quantity:   quantity,
-		Price:      price,
-		Amount:     float64(quantity) * price,
-		Reason:     reason,
-		DecisionID: decisionID,
-		CreatedAt:  time.Now(),
-		Status:     "pending",
-		resultCh:   make(chan bool, 1),
+		ID:            id,
+		Action:        action,
+		Symbol:        symbol,
+		StockName:     stockName,
+		Market:        market,
+		Quantity:      quantity,
+		Price:         price,
+		Amount:        float64(quantity) * price,
+		Reason:        reason,
+		DecisionID:    decisionID,
+		CreatedAt:     time.Now(),
+		Status:        "pending",
+		HonestStatus:  TradeStatusPending, // 诚实标签：已发出，等用户
+		HumanActionID: id,                 // 默认关联同一 ID（humanaction 对齐用，调用方可覆盖）
+		resultCh:      make(chan bool, 1),
 	}
 	s.pending[id] = pt
 	emit := s.emitFn
@@ -211,10 +250,20 @@ func (s *Service) RequestApproval(action, symbol, stockName, market string, quan
 	select {
 	case approved := <-pt.resultCh:
 		s.mu.Lock()
+		now := time.Now()
 		if approved {
 			pt.Status = "approved"
+			pt.HonestStatus = TradeStatusVerified
+			pt.VerifiedAt = &now
+			pt.ReasonCodes = append(pt.ReasonCodes, reasoning.NewReasonValues(
+				reasoning.CodeApprovedByUser,
+				map[string]interface{}{"decision_id": pt.DecisionID, "symbol": pt.Symbol}))
 		} else {
 			pt.Status = "rejected"
+			pt.HonestStatus = TradeStatusRejected
+			pt.ReasonCodes = append(pt.ReasonCodes, reasoning.NewReasonValues(
+				reasoning.CodeRejectedByUser,
+				map[string]interface{}{"decision_id": pt.DecisionID, "symbol": pt.Symbol}))
 		}
 		delete(s.pending, id)
 		s.mu.Unlock()
@@ -246,6 +295,8 @@ func (s *Service) RequestApproval(action, symbol, stockName, market string, quan
 		}
 		// 超时未决：保留记录，订单保持排队中，等待用户补确认（不判定失败）
 		pt.Status = "pending"
+		pt.HonestStatus = TradeStatusPending
+		pt.ReasonCodes = append(pt.ReasonCodes, reasoning.NewReason(reasoning.CodeApprovalTimeout))
 		s.mu.Unlock()
 		log.Printf("[TradeApproval] Trade %s 用户未及时确认(排队中)，保留待确认: %s %s %d@%.2f", id, action, symbol, quantity, price)
 		return ResultPending, pt, nil
@@ -253,6 +304,8 @@ func (s *Service) RequestApproval(action, symbol, stockName, market string, quan
 		// 15:00 收盘仍未获得用户确认：交易失败
 		s.mu.Lock()
 		pt.Status = "failed"
+		pt.HonestStatus = TradeStatusFailed
+		pt.ReasonCodes = append(pt.ReasonCodes, reasoning.NewReason(reasoning.CodeExpiredAtClose))
 		delete(s.pending, id)
 		s.mu.Unlock()
 		log.Printf("[TradeApproval] Trade %s 15:00 收盘未获确认，判定失败: %s %s %d@%.2f", id, action, symbol, quantity, price)

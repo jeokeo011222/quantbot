@@ -2,6 +2,9 @@ package intelligence
 
 import (
 	"math"
+	"time"
+
+	"github.com/quantpilot/quantpilot/internal/reasoning"
 )
 
 type DecisionEngine struct{}
@@ -10,14 +13,49 @@ func NewDecisionEngine() *DecisionEngine {
 	return &DecisionEngine{}
 }
 
+// VerificationStatus 诚实汇报的状态标签：
+//  - draft      未经验证的草稿（AI 自动生成、未过风险/审批）
+//  - verified   已验证（通过审批、风控复核确认）
+//  - superseded 被更新决策取代
+//  - rejected   被明确拒绝（人工驳回或风控二次审查否决）
+type VerificationStatus string
+
+const (
+	VStatusDraft      VerificationStatus = "draft"
+	VStatusVerified   VerificationStatus = "verified"
+	VStatusSuperseded VerificationStatus = "superseded"
+	VStatusRejected   VerificationStatus = "rejected"
+)
+
+// InvestmentDecision 决策结果。
+//
+// 改造说明（吸收 dsh-superagent 的两个原则）：
+//  1. ReasonCodes 结构化原因码集合——取代单纯 Reasoning 自由文本作为审计主输入；
+//     Reasoning 保留做人类可读兜底，但 UI/审计/风控程序判断一律读 ReasonCodes。
+//  2. Status 诚实汇报标签——禁止把未验证决策伪装成已确认的；
+//     draft 决策不能触发实盘执行路径，必须先变成 verified。
 type InvestmentDecision struct {
-	Action       string   `json:"action"`
-	Symbol       string   `json:"symbol"`
-	TargetWeight float64  `json:"target_weight"`
-	Confidence   float64  `json:"confidence"`
-	Reasoning    string   `json:"reasoning"`
-	RiskFlags    []string `json:"risk_flags"`
-	Timeframe    string   `json:"timeframe"`
+	Action       string                    `json:"action"`
+	Symbol       string                    `json:"symbol"`
+	TargetWeight float64                   `json:"target_weight"`
+	Confidence   float64                   `json:"confidence"`
+	Reasoning    string                    `json:"reasoning"`
+	RiskFlags    []string                  `json:"risk_flags"`
+	Timeframe    string                    `json:"timeframe"`
+
+	// ReasonCodes 结构化原因码（权威来源）
+	ReasonCodes reasoning.ReasonSet `json:"reason_codes,omitempty"`
+	// Status 诚实汇报标签（默认 draft；审批/风控确认后置 verified）
+	Status VerificationStatus `json:"status"`
+	// VerifiedAt 何时被标记为 verified（nil 表示未验证）
+	VerifiedAt *time.Time `json:"verified_at,omitempty"`
+	// DecisionID 唯一决策 ID（跨轮次关联审批/回测/成交回报）
+	DecisionID string `json:"decision_id,omitempty"`
+}
+
+// IsVerified 是否可以进入实盘执行路径。
+func (d InvestmentDecision) IsVerified() bool {
+	return d.Status == VStatusVerified
 }
 
 type InvestmentMandate struct {
@@ -43,41 +81,98 @@ func (de *DecisionEngine) MakeDecision(
 	decision := InvestmentDecision{
 		Symbol:    alpha.Symbol,
 		Timeframe: alpha.Timeframe,
+		Status:    VStatusDraft, // 诚实汇报：所有自动决策起步都是 draft
 	}
 
 	riskFlags := assessRiskFlags(riskReport, mandate)
 	decision.RiskFlags = riskFlags
 
+	// 把 RiskFlags 同时翻译成结构化 ReasonCodes（RiskFlags 继续保留做字符串标签）
+	for _, f := range riskFlags {
+		if rc, ok := riskFlagToReasonCode(f); ok {
+			decision.ReasonCodes = append(decision.ReasonCodes, reasoning.NewReason(rc))
+		}
+	}
+
 	allowedByMandate := checkMandateAllowance(mandate, riskReport)
 
-	if alpha.AlphaScore > 0.15 && allowedByMandate && len(riskFlags) == 0 {
+	alphaThresh := 0.15
+
+	if alpha.AlphaScore > alphaThresh && allowedByMandate && len(riskFlags) == 0 {
 		decision.Action = "BUY"
 		decision.TargetWeight = computeTargetWeight(alpha, mandate, riskReport)
 		decision.Confidence = math.Min(1.0, alpha.Confidence*0.9)
 		decision.Reasoning = buildBuyReasoning(alpha, riskReport, mandate)
-	} else if alpha.AlphaScore < -0.15 && riskReport.OverallScore > 0.4 {
+		decision.ReasonCodes = append(decision.ReasonCodes,
+			reasoning.NewReasonValues(reasoning.CodeAlphaBuy,
+				map[string]interface{}{"symbol": alpha.Symbol, "alpha_score": alpha.AlphaScore, "threshold": alphaThresh}),
+		)
+	} else if alpha.AlphaScore < -alphaThresh && riskReport.OverallScore > 0.4 {
 		decision.Action = "SELL"
 		decision.TargetWeight = 0
 		decision.Confidence = math.Min(1.0, math.Abs(alpha.AlphaScore)*3)
 		decision.Reasoning = buildSellReasoning(alpha, riskReport)
+		decision.ReasonCodes = append(decision.ReasonCodes,
+			reasoning.NewReasonValues(reasoning.CodeAlphaSell,
+				map[string]interface{}{"symbol": alpha.Symbol, "alpha_score": alpha.AlphaScore, "threshold": -alphaThresh}),
+		)
 	} else if !allowedByMandate {
 		decision.Action = "WAIT"
 		decision.Confidence = 0.3
 		decision.Reasoning = "投资指引限制: " + buildMandateRestrictionReason(riskReport, mandate)
+		// 投资指引限制的具体原因码
+		if mandate.MaxDrawdownPct > 0 && riskReport.MaxDrawdown > mandate.MaxDrawdownPct {
+			decision.ReasonCodes = append(decision.ReasonCodes,
+				reasoning.NewReasonValues(reasoning.CodeMandateDrawdown,
+					map[string]interface{}{"limit": mandate.MaxDrawdownPct, "actual": riskReport.MaxDrawdown}))
+		}
+		if mandate.RiskLevel == "CONSERVATIVE" && riskReport.OverallScore > 0.5 {
+			decision.ReasonCodes = append(decision.ReasonCodes,
+				reasoning.NewReasonValues(reasoning.CodeMandateRiskLevel,
+					map[string]interface{}{"level": mandate.RiskLevel, "score": riskReport.OverallScore}))
+		}
 	} else {
 		decision.Action = "HOLD"
 		decision.TargetWeight = 0
 		decision.Confidence = 0.5
 		decision.Reasoning = buildHoldReasoning(alpha)
+		decision.ReasonCodes = append(decision.ReasonCodes,
+			reasoning.NewReasonValues(reasoning.CodeAlphaWeak,
+				map[string]interface{}{"symbol": alpha.Symbol, "alpha_score": alpha.AlphaScore, "threshold": alphaThresh}))
 	}
 
+	// 最后一道 Gate：组合整体风险太高 → BUY 强制降级 WAIT
 	if riskReport.OverallScore > 0.7 && decision.Action == "BUY" {
 		decision.Action = "WAIT"
 		decision.Reasoning += " | 风险过高，暂缓买入"
 		decision.Confidence *= 0.6
+		decision.ReasonCodes = append(decision.ReasonCodes,
+			reasoning.NewReasonValues(reasoning.CodeOverallRiskTooHigh,
+				map[string]interface{}{"risk_score": riskReport.OverallScore, "threshold": 0.7}))
 	}
 
 	return decision
+}
+
+// riskFlagToReasonCode RiskFlags 字符串 → ReasonCode 的翻译表。
+// assessRiskFlags 产出的大写 RiskFlag → reasoning 包的稳定码。
+func riskFlagToReasonCode(flag string) (reasoning.ReasonCode, bool) {
+	switch flag {
+	case "MAX_DRAWDOWN_EXCEEDED":
+		return reasoning.CodeMaxDrawdownExceeded, true
+	case "VAR_HIGH":
+		return reasoning.CodeVaRHigh, true
+	case "HIGH_VOLATILITY":
+		return reasoning.CodeHighVolatility, true
+	case "LOW_LIQUIDITY":
+		return reasoning.CodeLowLiquidity, true
+	case "HIGH_CONCENTRATION":
+		return reasoning.CodeHighConcentration, true
+	case "CRITICAL_RISK_STATUS":
+		return reasoning.CodeRiskStatusCritical, true
+	default:
+		return reasoning.CodeUnknown, false
+	}
 }
 
 func (de *DecisionEngine) GeneratePortfolioDecisions(

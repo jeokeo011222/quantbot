@@ -1,8 +1,60 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { X, ShoppingCart, AlertTriangle, Clock } from 'lucide-react'
+import { X, ShoppingCart, AlertTriangle, Clock, ShieldCheck, ShieldAlert } from 'lucide-react'
 import { EventsOn, EventsOff } from '../../wailsjs/runtime/runtime'
 import { ConfirmTradeApproval, GetPendingTradeApprovals } from '../../wailsjs/go/main/App'
 import { formatCurrency } from '../utils/formatters'
+
+// ReasonCode → 中文标签映射，镜像后端 reasoning.CodeLabels。
+// 前端据此渲染稳定原因码为可读标签，避免依赖自由文本 reason 做展示。
+// 新增 code 必须同步更新此表（与后端 internal/reasoning/reason.go 对齐）。
+const REASON_CODE_LABELS: Record<string, string> = {
+  ALPHA_BUY: 'AlphaScore 触发买入阈值',
+  ALPHA_SELL: 'AlphaScore 触发卖出阈值',
+  ALPHA_WEAK: 'AlphaScore 未达阈值（持有观望）',
+  SIGNAL_STRONG: '信号强度加分',
+  SIGNAL_WEAK: '信号强度不足',
+  MAX_DRAWDOWN_EXCEEDED: '组合回撤超过投资指引上限',
+  VAR_HIGH: 'VaR99 偏高',
+  HIGH_VOLATILITY: '波动率过高',
+  LOW_LIQUIDITY: '流动性不足',
+  HIGH_CONCENTRATION: '集中度风险过高',
+  CRITICAL_RISK_STATUS: '风控状态 CRITICAL',
+  MANDATE_DRAWDOWN: '投资指引回撤约束',
+  MANDATE_RISK_LEVEL: '投资指引风险等级不匹配',
+  MANDATE_CASH_RATIO: '投资指引现金比例约束',
+  MANDATE_SECTOR_LIMIT: '投资指引行业集中度约束',
+  MANDATE_SINGLE_POS: '投资指引单标的仓位上限',
+  OVERALL_RISK_TOO_HIGH: '组合整体风险超阈值（买入降级）',
+  APPROVED_BY_USER: '用户审批通过',
+  REJECTED_BY_USER: '用户审批拒绝',
+  APPROVAL_TIMEOUT: '用户审批超时',
+  EXPIRED_AT_CLOSE: '15:00 收盘未获确认',
+  EXECUTION_FAILED: '交易执行失败',
+  BELOW_CONFIDENCE: '置信度偏低，建议谨慎操作',
+  ABOVE_TARGET_WEIGHT: '目标权重偏高',
+  SELL_GUARD_DEDUP: '卖出护栏：同日去重',
+  SELL_GUARD_HYSTERESIS: '卖出护栏：滞回灰区',
+  SELL_GUARD_STREAK: '卖出护栏：连续 N 次未满足',
+  DRAWDOWN_WARN: '净值回撤触及预警线',
+  DRAWDOWN_STOP: '净值回撤触及熔断线',
+  DUPLICATE: '重复事件已去重',
+  RETRY: '重试后成功',
+  MANUAL_OVERRIDE: '人工覆盖自动决策',
+}
+
+const reasonLabelOf = (code: string) => REASON_CODE_LABELS[code] || code
+
+// HonestStatus → 标签 + 颜色
+const HONEST_STATUS_STYLES: Record<string, { label: string; cls: string }> = {
+  draft: { label: '草稿', cls: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300' },
+  pending: { label: '等待确认', cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' },
+  verified: { label: '已确认', cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' },
+  rejected: { label: '已拒绝', cls: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400' },
+  superseded: { label: '已更新', cls: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300' },
+  failed: { label: '已失败', cls: 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400' },
+}
+
+const honestStatusOf = (s: string) => HONEST_STATUS_STYLES[s] || HONEST_STATUS_STYLES.pending
 
 interface PendingTrade {
   id: string
@@ -17,6 +69,12 @@ interface PendingTrade {
   decision_id: string
   created_at: string
   status: string
+  // 结构化原因码（权威来源，吸收 dsh-superagent 结构化 Reason 原则）
+  reason_codes?: { code: string; values?: Record<string, any>; text?: string }[]
+  // 诚实汇报状态标签（draft/pending/verified/rejected/failed）
+  honest_status?: string
+  // humanaction 对齐 ID
+  human_action_id?: string
 }
 
 export default function TradeApprovalModal() {
@@ -99,6 +157,14 @@ export default function TradeApprovalModal() {
 
   const isBuy = current.action === 'BUY'
 
+  // 诚实状态徽标：吸收 dsh-superagent "诚实汇报"原则
+  const hs = honestStatusOf(current.honest_status || current.status)
+
+  // 结构化原因码（权威来源）
+  const reasonCodes = current.reason_codes && current.reason_codes.length > 0
+    ? current.reason_codes
+    : null
+
   return (
     <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
@@ -108,10 +174,22 @@ export default function TradeApprovalModal() {
             <ShoppingCart className="w-5 h-5" />
             <h3 className="font-medium text-sm">智能体交易确认</h3>
           </div>
-          <span className="inline-flex items-center gap-1 text-xs text-white/90">
-            <Clock className="w-3.5 h-3.5" />
-            等待确认
-          </span>
+          <div className="flex items-center gap-2 text-white">
+            {/* 诚实状态徽标：pending/verified/rejected */}
+            {(() => {
+              const Icon = current.honest_status === 'verified'
+                ? ShieldCheck
+                : current.honest_status === 'rejected' || current.honest_status === 'failed'
+                ? ShieldAlert
+                : Clock
+              return (
+                <span className={`inline-flex items-center gap-1 text-[11px] px-1.5 py-0.5 rounded ${hs.cls} text-white/95 dark:text-white/95`}>
+                  <Icon className="w-3 h-3" />
+                  {hs.label}
+                </span>
+              )
+            })()}
+          </div>
         </div>
 
         <div className="p-5 space-y-4">
@@ -145,21 +223,49 @@ export default function TradeApprovalModal() {
             </div>
           </div>
 
-          {/* 原因 */}
+          {/* 结构化原因码（权威来源，吸收 dsh-superagent 结构化 Reason 原则） */}
+          {reasonCodes && (
+            <div className="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
+              <div className="flex items-center gap-1.5 mb-2">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <span className="text-xs font-medium text-slate-600 dark:text-slate-300">触发条件</span>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500">(结构化，权威)</span>
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {reasonCodes.map((r, idx) => (
+                  <span
+                    key={`${r.code}-${idx}`}
+                    title={r.text || reasonLabelOf(r.code)}
+                    className="inline-flex items-center gap-1 text-[11px] px-2 py-1 rounded-md bg-indigo-100 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 font-mono"
+                  >
+                    <span className="font-semibold">{reasonLabelOf(r.code)}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* 自由文本原因（兜底展示，不作为程序输入） */}
           {current.reason && (
             <div className="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
               <div className="flex items-center gap-1.5 mb-1">
                 <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
                 <span className="text-xs font-medium text-slate-600 dark:text-slate-300">交易原因</span>
+                {reasonCodes && (
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">(兜底展示)</span>
+                )}
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">{current.reason}</p>
             </div>
           )}
 
-          {/* 决策ID */}
-          {current.decision_id && (
-            <div className="text-[11px] text-slate-400 dark:text-slate-500 font-mono break-all">
-              决策ID: {current.decision_id}
+          {/* 决策ID / humanaction_id */}
+          {(current.decision_id || current.human_action_id) && (
+            <div className="text-[11px] text-slate-400 dark:text-slate-500 font-mono break-all space-y-0.5">
+              {current.decision_id && <div>决策ID: {current.decision_id}</div>}
+              {current.human_action_id && current.human_action_id !== current.decision_id && (
+                <div>HumanAction: {current.human_action_id}</div>
+              )}
             </div>
           )}
 

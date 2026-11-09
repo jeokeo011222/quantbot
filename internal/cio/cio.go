@@ -1,4 +1,4 @@
-package cio
+﻿package cio
 
 import (
 	"context"
@@ -19,6 +19,7 @@ import (
 	sixdim "github.com/quantpilot/quantpilot/internal/marketsixdim"
 	"github.com/quantpilot/quantpilot/internal/orderbook"
 	"github.com/quantpilot/quantpilot/internal/policy"
+	"github.com/quantpilot/quantpilot/internal/reasoning"
 	agents "github.com/quantpilot/quantpilot/internal/port"
 	"github.com/quantpilot/quantpilot/internal/portfolio"
 	"github.com/quantpilot/quantpilot/internal/risk"
@@ -77,8 +78,11 @@ type strategySellGuard struct {
 }
 
 // strategySellReady 判断某持仓本次是否允许按策略卖出信号执行。
-// 返回 true 表示放行（且标记当日已卖出，即幂等去重生效）；false 表示被护栏拦下。
-func (c *CIOEngine) strategySellReady(instrument, today string, price, avgCost float64) bool {
+// 返回 (放行, 被哪个护栏拦下的原因码)：
+//   - 放行=true 时 reasonCode 为空（""）
+//   - 放行=false 时 reasonCode 指明是 SELL_GUARD_DEDUP / SELL_GUARD_HYSTERESIS / SELL_GUARD_STREAK
+// 吸收 dsh-superagent 结构化 Reason 原则：护栏拦截不再只有日志，而是携带稳定 code 供审计。
+func (c *CIOEngine) strategySellReady(instrument, today string, price, avgCost float64) (bool, reasoning.ReasonCode) {
 	g := &c.sellGuard
 	g.mu.Lock()
 	defer g.mu.Unlock()
@@ -98,7 +102,7 @@ func (c *CIOEngine) strategySellReady(instrument, today string, price, avgCost f
 
 	// 1) 幂等/同日去重：当日已对该股执行过策略卖出 → 不再重复触发
 	if g.soldToday[instrument] {
-		return false
+		return false, reasoning.CodeSellGuardDedup
 	}
 
 	// 2) 滞回阈值：浮盈/浮亏落在灰区 [-hystPct, +hystPct] 内 → 抑制卖出（价格在成本附近抖动不动作）
@@ -106,19 +110,19 @@ func (c *CIOEngine) strategySellReady(instrument, today string, price, avgCost f
 		pnlPct := (price - avgCost) / avgCost * 100
 		if pnlPct >= -g.hystPct && pnlPct <= g.hystPct {
 			g.sellStreak[instrument] = 0 // 信号中断，重置连续计数
-			return false
+			return false, reasoning.CodeSellGuardHysteresis
 		}
 	}
 
 	// 3) 连续N次确认：卖出信号需连续 confirmN 个周期一致才执行
 	g.sellStreak[instrument]++
 	if g.sellStreak[instrument] < g.confirmN {
-		return false
+		return false, reasoning.CodeSellGuardStreak
 	}
 
 	// 放行：标记当日已卖出，避免后续周期重复对同股生成卖出单
 	g.soldToday[instrument] = true
-	return true
+	return true, ""
 }
 
 // drawdownStatus 计算当前组合净值相对历史峰值的回撤幅度（%）与触发级别。
@@ -1184,6 +1188,7 @@ func (c *CIOEngine) makeDecision(ctx context.Context, quantReport *ResearchRepor
 		RiskApproval: string(riskApprove),
 		PolicyStatus: "PENDING",
 		Timestamp:    time.Now(),
+		Status:       "draft", // 诚实汇报：所有自动决策起步都是 draft（需审批/风控复核才变 verified）
 	}
 
 	// 从量化报告中获取市场状态
@@ -1197,12 +1202,26 @@ func (c *CIOEngine) makeDecision(ctx context.Context, quantReport *ResearchRepor
 		decision.Decision = agents.DecisionPauseTrading
 		decision.RiskApproval = string(riskReject)
 		decision.Reason = "风控师否决了当前决策，建议暂停交易"
+		// 结构化原因码 enrich：风控否决 → CRITICAL_RISK_STATUS
+		if rc, ok := decision.ReasonCodes.(reasoning.ReasonSet); ok {
+			rc = append(rc, reasoning.NewReasonValues(reasoning.CodeRiskStatusCritical,
+				map[string]interface{}{"risk_decision": riskReport.Decision}))
+			decision.ReasonCodes = rc
+		}
 		return decision
 	}
 
 	if quantReport.Recommendation == "BLOCKED" {
 		decision.Decision = agents.DecisionNoAction
 		decision.Reason = "量化研究建议继续观察"
+		// 结构化原因码 enrich：量化 BLOCKED → SIGNAL_WEAK + BELOW_CONFIDENCE
+		if rc, ok := decision.ReasonCodes.(reasoning.ReasonSet); ok {
+			rc = append(rc,
+				reasoning.NewReasonValues(reasoning.CodeSignalWeak,
+					map[string]interface{}{"recommendation": "BLOCKED"}),
+				reasoning.NewReason(reasoning.CodeBelowConfidence))
+			decision.ReasonCodes = rc
+		}
 		return decision
 	}
 
@@ -1214,6 +1233,18 @@ func (c *CIOEngine) makeDecision(ctx context.Context, quantReport *ResearchRepor
 	ddPct, ddWarn, ddStop, ddLevel := c.drawdownStatus()
 	if ddLevel != "" {
 		c.addDrawdownAlert(ddPct, ddWarn, ddStop, ddLevel)
+		// 结构化原因码 enrich：回撤预警/止损 → DRAWDOWN_WARN / DRAWDOWN_STOP
+		if rc, ok := decision.ReasonCodes.(reasoning.ReasonSet); ok {
+			switch ddLevel {
+			case "warn":
+				rc = append(rc, reasoning.NewReasonValues(reasoning.CodeDrawdownWarn,
+					map[string]interface{}{"drawdown_pct": ddPct, "warn_line_pct": ddWarn}))
+			case "stop":
+				rc = append(rc, reasoning.NewReasonValues(reasoning.CodeDrawdownStop,
+					map[string]interface{}{"drawdown_pct": ddPct, "stop_line_pct": ddStop}))
+			}
+			decision.ReasonCodes = rc
+		}
 	}
 
 	snapshots := c.getStockPoolSnapshots()
@@ -1466,6 +1497,11 @@ func (c *CIOEngine) makeDecision(ctx context.Context, quantReport *ResearchRepor
 	if len(orders) == 0 {
 		decision.Decision = agents.DecisionNoAction
 		decision.Reason = "量化分析师和风控师都认为暂时没有必要调整"
+		// 结构化原因码 enrich：观望 → ALPHA_WEAK（默认）+ 已有的风控/回撤码也会随 decision.ReasonCodes 透出
+		if rc, ok := decision.ReasonCodes.(reasoning.ReasonSet); ok {
+			rc = append(rc, reasoning.NewReason(reasoning.CodeAlphaWeak))
+			decision.ReasonCodes = rc
+		}
 	} else {
 		decision.Orders = orders
 	}
@@ -1784,7 +1820,8 @@ func (c *CIOEngine) strategySellOrders(positions []*portfolio.PositionState, str
 		}
 		// 策略卖出信号去抖护栏：幂等同日去重 + 滞回阈值 + 连续N确认，
 		// 拦住在价格临界位反复触发的卖出信号（避免“卖出→又买回”的频繁买卖）。
-		if !c.strategySellReady(pos.InstrumentID, time.Now().Format("2006-01-02"), pos.CurrentPrice, pos.AvgCost) {
+		if ready, guardCode := c.strategySellReady(pos.InstrumentID, time.Now().Format("2006-01-02"), pos.CurrentPrice, pos.AvgCost); !ready {
+			log.Printf("[CIO] 策略卖出护栏拦截 %s(%s): reason=%s (%s)", pos.StockName, pos.InstrumentID, guardCode, reasoning.LabelOf(guardCode))
 			continue
 		}
 		qty := pos.Quantity - pos.TodayBoughtQuantity // T+1：当日买入量不可卖出
@@ -3777,6 +3814,12 @@ func (c *CIOEngine) executeDecision(ctx context.Context, decision *agents.CIODec
 			if c.approval != nil {
 				var aErr error
 				approvalResult, pendingOrder, aErr = c.approval.RequestApproval(order.Side, code, name, market, quantity, price, order.Reason, decision.DecisionID)
+				// 把决策生成时的结构化 ReasonCodes 传递到待确认订单（吸收 dsh-superagent 结构化 Reason）
+				if pendingOrder != nil {
+					if rc, ok := decision.ReasonCodes.(reasoning.ReasonSet); ok && len(rc) > 0 {
+						pendingOrder.ReasonCodes = rc
+					}
+				}
 				if aErr != nil {
 					c.addActivity("TRADER", "ORDER_FAILED",
 						fmt.Sprintf("订单确认失败: %s, 原因: %s", order.Symbol, aErr.Error()), nil)
